@@ -67,15 +67,17 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding-top: 20px;
     padding-bottom: 25px;
     box-sizing: border-box;
 }
 
-.exito-linea-corta {
-    width: 90%;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin: 0 auto 20px auto;
+.exito-footer-container::before {
+    content: "";
+    width: 86%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    align-self: center;
+    margin-bottom: 20px;
 }
 
 .exito-botones-flex {

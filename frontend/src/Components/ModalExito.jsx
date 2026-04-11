@@ -19,7 +19,6 @@ const ModalExito = ({ isOpen, onClose }) => {
                 </div>
 
                 <div className="exito-footer-container">
-                    <div className="exito-linea-corta"></div>
                     <div className="exito-botones-flex">
                         <button className="btn-exito-salir" onClick={onClose}>
                             <img src={iconSalir} alt="" className="exito-btn-icon" />

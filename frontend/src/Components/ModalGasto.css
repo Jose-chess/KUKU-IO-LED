@@ -89,9 +89,12 @@
 }
 
 .modal-gasto-footer {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     gap: 15px;
+    border-top: 1px solid #E2E8F0;
+    padding-top: 20px;
     margin-top: auto;
 }
 

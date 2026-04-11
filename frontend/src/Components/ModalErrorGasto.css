@@ -69,15 +69,10 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
     padding-bottom: 25px;
     box-sizing: border-box;
-}
-
-.error-gasto-linea-corta {
-    width: 90%;
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    margin: 0 auto 20px auto;
 }
 
 .error-gasto-botones-flex {
