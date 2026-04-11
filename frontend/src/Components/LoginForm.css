@@ -1,0 +1,125 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; 
+  height: 100%;
+}
+
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+.login-card {
+  background-color: #FFCC00; 
+  width: 500px;  
+  height: 560px; 
+  padding: 40px;
+  border-radius: 8px; 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  box-sizing: border-box; 
+}
+
+.logo-container {
+  margin-bottom: 25px;
+}
+
+.kuku-logo {
+  max-width: 110px; 
+  height: auto;
+}
+
+.login-title {
+  color: #1a1a1a;
+  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-size: 32px; 
+  font-weight: 700;
+  margin-bottom: 35px;
+  margin-top: 0;
+}
+
+/* Formulario */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%; 
+}
+
+/* Grupos de Input */
+.input-group {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-group label {
+  color: #1a1a1a;
+  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  padding: 14px 15px;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  font-size: 12px;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Konkhmer Sleokchher', sans-serif;
+}
+
+
+.login-button {
+  background-color: #2D2D2D;
+  color: #FFCC00;
+  border: none;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 25px;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #000000;
+  transform: translateY(-2px); 
+}
+
+@media (max-width: 600px) {
+  .login-card {
+    width: 90%;
+    height: auto;
+    padding: 30px 20px;
+  }
+}
+
+.no-select {  
+  -webkit-user-select: none; 
+  -ms-user-select: none;     
+  user-select: none;        
+  cursor: default;           
+}

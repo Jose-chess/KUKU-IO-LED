@@ -1,0 +1,137 @@
+.error-gasto-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 14000;
+}
+
+.error-gasto-container {
+    background: #FFCC00;
+    width: 500px;
+    height: 560px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.error-gasto-content {
+    text-align: center;
+    width: 80%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-gasto-logo {
+    width: 150px;
+    display: block;
+    margin: 0 auto 20px auto;
+    pointer-events: none;
+}
+
+.error-gasto-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0;
+}
+
+.error-gasto-message-box {
+    margin-top: 10px;
+}
+
+.error-gasto-text,
+.error-gasto-retry {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    margin: 5px 0;
+}
+
+.error-gasto-footer-container {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 25px;
+    box-sizing: border-box;
+}
+
+.error-gasto-linea-corta {
+    width: 90%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 0 auto 20px auto;
+}
+
+.error-gasto-botones-flex {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+
+.btn-error-salir {
+    background: #FF060A;
+    color: #000000;
+    border: none;
+    height: 45px;
+    padding: 0 25px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.btn-error-salir:hover {
+    background-color: #d90000;
+}
+
+.error-gasto-btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-error-salir:hover .error-gasto-btn-icon {
+    transform: scale(1.05);
+}
+
+.scale-up-center {
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+}
+
+@keyframes scale-up {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

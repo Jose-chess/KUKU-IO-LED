@@ -1,0 +1,142 @@
+.modal-gasto-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.modal-gasto-container {
+    background: #ffffff;
+    width: 700px;
+    height: 459px;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.modal-gasto-title {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    margin: 0 0 20px 0;
+    color: #0f172a;
+}
+
+.modal-gasto-body-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.modal-gasto-section-subtitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 10px 0;
+}
+
+.modal-gasto-divider-line {
+    height: 1px;
+    background: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.modal-gasto-input-group {
+    margin-bottom: 15px;
+}
+
+.modal-gasto-input-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.modal-gasto-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #f8fafc;
+    font-weight: 600;
+    color: #1e293b;
+    outline: none;
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+.modal-gasto-input:focus {
+    border-color: #94a3b8;
+}
+
+.modal-gasto-monto-input {
+    width: 100%;
+}
+
+.modal-gasto-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: auto;
+}
+
+.modal-gasto-btn-salir {
+    background: #FF060A;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-gasto-btn-guardar {
+    background: #009C00;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-gasto-btn-salir:hover {
+    background-color: #d90000;
+}
+
+.modal-gasto-btn-guardar:hover {
+    background-color: #009600;
+}
+
+.modal-gasto-btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.modal-gasto-btn-salir:hover .modal-gasto-btn-icon,
+.modal-gasto-btn-guardar:hover .modal-gasto-btn-icon {
+    transform: scale(1.05);
+}
