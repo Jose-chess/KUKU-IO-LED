@@ -1,0 +1,291 @@
+/* --- ESTRUCTURA GLOBAL --- */
+.dashboard-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    background-color: #F8FAFC;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- SIDEBAR (BARRA LATERAL) --- */
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 14px 14px 12px;
+    border-right: 1px solid #E2E8F0;
+}
+
+.sidebar-header {
+   display: flex;
+   align-items: center;
+   gap:12px;
+   padding: 10px 15px;
+}
+
+.brand-name {
+    font-size: 16px;
+    font-weight: 750;
+    color: #000000;
+    white-space: nowrap;
+    font-family: 'Konkhmer Sleokchher', sans-serif; 
+}
+
+.sidebar-logo {
+    width: 71px;
+    height: 81px;
+    object-fit: contain;
+    display: block;
+}
+
+.sidebar-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    padding-left: 10px;
+    font-family: 'Konkhmer Sleokchher' sans-serif;
+}
+
+.sidebar-nav {
+    flex-grow: 1; 
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.25;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.sidebar-item:hover {
+    background-color: #F1F5F9;
+    color: #1E293B;
+    transform: translateX(2px);
+    z-index: 2;
+}
+
+.sidebar-item.active:hover {
+    background-color: #FFCC00;
+    transform: translateX(0);
+}
+
+.sidebar-item-text {
+    display: inline-block;
+}
+
+.modulo-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.7;
+    flex-shrink: 0;
+}
+
+.sidebar-chevron {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+}
+
+.sidebar-item.active {
+    background-color: #FFCC00; 
+    color: #000000;
+    font-weight: 600;
+}
+
+.sidebar-item.active .sidebar-icon {
+    opacity: 1;
+    filter: brightness(0); 
+}
+
+.sidebar-footer {
+    border-top: 1px solid #E2E8F0;
+    padding-top: 12px;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.user-avatar-bg {
+    width: 34px;
+    height: 34px;
+    background-color: #F1F5F9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.user-icon-img {
+    width: 18px;
+    height: 18px;
+}
+
+.user-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1E293B;
+}
+
+.user-role {
+    font-size: 11px;
+    color: #64748B;
+}
+
+/* Botón de Cerrar Sesión */
+.logout-button {
+    width: 100%;
+    background-color: #2D2D2D;
+    color: #FFD300;
+    border: none;
+    padding: 9px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #000000;
+    transform: translateY(-1px);
+}
+
+.logout-icon {
+    width: 16px;
+    height: 16px;
+    filter: invert(82%) sepia(53%) saturate(2225%) hue-rotate(1deg) brightness(105%) contrast(105%);
+}
+
+/* Evitar selección de texto */
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* El cuadro blanco del primer nivel */
+.floating-menu {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 6px);
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 15px;
+    width: 210px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 8px 0;
+    z-index: 999;
+    margin-left: 0;
+}
+
+.finance-floating-menu {
+    left: 0;
+    top: calc(100% + 6px);
+    margin-left: 0;
+}
+
+/* Las opciones dentro de los cuadros blancos */
+.menu-option-item {
+    padding: 10px 15px;
+    font-size: 13px;
+    line-height: 1.25;
+    font-weight: 500;
+    color: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, transform 0.15s ease-in-out;
+}
+
+.menu-option-item:hover {
+    background-color: #F1F5F9;
+    color: #1E293B;
+    transform: translateX(2px);
+    border-radius: 10px;
+}
+
+.menu-option-item.selected-yellow:hover {
+    background-color: #FFCC00;
+    transform: translateX(0);
+    border-radius: 10px;
+}
+
+.arrow-right {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+    transform: rotate(-90deg);
+}
+
+/* El resaltado amarillo tipo pastilla */
+.selected-yellow {
+    background-color: #FFCC00;
+    border-radius: 10px;
+    margin: 4px 8px;
+    padding: 8px 12px;
+}
+
+/* La línea divisoria gris */
+.line-separator {
+    height: 1px;
+    background-color: #E2E8F0;
+    margin: 4px 15px;
+}
+
+/* El segundo cuadro que sale al lado de Gráficos */
+.sub-floating-menu {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    background: white;
+    border: 1px solid #E2E8F0;
+    border-radius: 15px;
+    width: 190px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+    margin-left: 5px;
+    z-index: 1000;
+}
+
