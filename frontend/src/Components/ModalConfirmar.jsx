@@ -3,7 +3,7 @@ import './ModalConfirmar.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconConfirmar from '../assets/circle-check.svg';
 
-const ModalConfirmar = ({ isOpen, onClose, onConfirm }) => {
+const ModalConfirmar = ({ isOpen, onClose, onConfirm, isLoading = false }) => {
     if (!isOpen) {
         return null;
     }
@@ -22,9 +22,9 @@ const ModalConfirmar = ({ isOpen, onClose, onConfirm }) => {
                         <img src={iconSalir} alt="" className="confirm-btn-icon" />
                         Salir
                     </button>
-                    <button className="btn-confirm-aceptar" onClick={onConfirm}>
+                    <button className="btn-confirm-aceptar" onClick={onConfirm} disabled={isLoading}>
                         <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
-                        Confirmar
+                        {isLoading ? 'Guardando...' : 'Confirmar'}
                     </button>
                 </div>
             </div>
