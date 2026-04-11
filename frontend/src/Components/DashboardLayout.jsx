@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import MainContent from './PanelPrincipal';
+import Clientes from './Clientes';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
-    const [userData, setUserData] = useState({
+    const [userData] = useState({
         nombre: "", 
         rol: ""     
     });
 
     const [activeSection, setActiveSection] = useState('Panel principal');
 
+    const renderSection = () => {
+        if (activeSection === 'Panel principal') {
+            return <MainContent />;
+        }
+
+        if (activeSection === 'Clientes') {
+            return <Clientes />;
+        }
+
+        return null;
+    };
+
     return (
         <div className="dashboard-container">
             <Sidebar user={userData} activeSection={activeSection} setActiveSection={setActiveSection} />
-            {activeSection === 'Panel principal' && <MainContent />}
+            {renderSection()}
         </div>
     );
 };

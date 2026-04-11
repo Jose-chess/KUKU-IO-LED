@@ -1,0 +1,279 @@
+.clientes-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: #f8fafc;
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+}
+
+.clientes-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+}
+
+.clientes-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.clientes-subtitle {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.btn-nuevo-cliente {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 10px;
+    padding: 11px 16px;
+    background: #ffcc00;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    margin-left: auto;
+}
+
+.btn-nuevo-cliente:hover {
+    background: #ffd700;
+    transform: translateY(-1px);
+}
+
+.btn-nuevo-cliente-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+    object-fit: contain;
+}
+
+.clientes-kpi-grid {
+    width: 100%;
+    margin-bottom: 0;
+    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-content: stretch;
+}
+
+.clientes-kpi-card {
+    width: 100%;
+    height: 124px;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.clientes-kpi-card h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.clientes-kpi-card p {
+    margin: 0;
+    font-size: 16px;
+    color: #64748b;
+    font-weight: 500;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.clientes-table-card {
+    width: 100%;
+    height: auto;
+    flex: 1;
+    min-height: 420px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.clientes-table-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.clientes-table-controls h3 {
+    margin: 0;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.clientes-table-controls p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.search-box {
+    flex-shrink: 0;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.search-box input {
+    height: 42px;
+    padding: 10px 14px 10px 38px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    width: auto;
+    min-width: 245px;
+    max-width: 100%;
+    background: #f8fafc;
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    user-select: text;
+    -webkit-user-select: text;
+    box-sizing: border-box;
+}
+
+.search-box input:focus {
+    border-color: #cbd5e1;
+}
+
+.clientes-table-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    max-height: 100%;
+}
+
+.clientes-table-wrapper::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.clientes-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+.clientes-table-wrapper::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.clientes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+}
+
+.clientes-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #F8F7B4;
+    text-align: left;
+    padding: 12px;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.clientes-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1e293b;
+    vertical-align: top;
+}
+
+.clientes-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.btn-edit {
+    background: none;
+    border: none;
+    color: #22c55e;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+}
+
+.clientes-empty-state {
+    text-align: center;
+    padding: 28px 12px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+@media (max-width: 1280px) {
+    .clientes-kpi-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .clientes-table-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-nuevo-cliente {
+        width: auto;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .search-input-wrapper {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .clientes-kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}

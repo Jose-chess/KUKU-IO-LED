@@ -7,9 +7,16 @@ import ModalConfirmarSalida from './ModalConfirmarSalida';
 import ModalExito from './ModalExito';
 import ModalErrorGasto from './ModalErrorGasto';
 
-const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
-    const [descripcion, setDescripcion] = useState('');
-    const [monto, setMonto] = useState('');
+const createInitialGastoFormData = () => ({
+    descripcion: '',
+    monto: '',
+    fecha: new Date().toISOString(),
+    categoria: 'Operativo',
+});
+
+const ModalGasto = ({ isOpen, onClose, onGuardar, onGastoGuardado }) => {
+    const [formData, setFormData] = useState(createInitialGastoFormData);
+    const [status, setStatus] = useState('idle');
     const [showConfirm, setShowConfirm] = useState(false);
     const [showConfirmExit, setShowConfirmExit] = useState(false);
     const [showExito, setShowExito] = useState(false);
@@ -19,24 +26,55 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
         return null;
     }
 
-    const handleGuardar = async () => {
-        const payload = {
-            descripcion: descripcion.trim(),
-            monto: monto.trim(),
-        };
+    const isLoading = status === 'loading';
+
+    const resetForm = () => {
+        setFormData(createInitialGastoFormData());
+        setStatus('idle');
+    };
+
+    const closeAllModals = () => {
+        setShowConfirm(false);
+        setShowConfirmExit(false);
+        setShowExito(false);
+        setShowError(false);
+    };
+
+    const handleCampoChange = (campo, value) => {
+        setFormData((current) => ({
+            ...current,
+            [campo]: value,
+        }));
+    };
+
+    const handleConfirmarGasto = async () => {
+        setStatus('loading');
 
         try {
-            const result = onGuardar ? await onGuardar(payload) : { success: true };
+            const payload = {
+                ...formData,
+                descripcion: formData.descripcion.trim() || 'Sin descripcion',
+                monto: formData.monto.trim() || '0',
+            };
+
+            const result = onGuardar
+                ? await onGuardar(payload)
+                : await new Promise((resolve) => {
+                    window.setTimeout(() => resolve({ success: true, data: payload }), 350);
+                });
 
             if (result === false || result?.success === false) {
                 throw new Error('No se pudo guardar el gasto');
             }
 
+            onGastoGuardado?.(result?.data ?? payload);
+            setStatus('success');
             setShowConfirm(false);
             setShowConfirmExit(false);
             setShowExito(true);
         } catch (error) {
             console.error('Error al guardar gasto:', error);
+            setStatus('error');
             setShowConfirm(false);
             setShowConfirmExit(false);
             setShowError(true);
@@ -45,23 +83,32 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
 
     const handleCloseExito = () => {
         setShowExito(false);
-        setDescripcion('');
-        setMonto('');
+        resetForm();
+        closeAllModals();
         onClose();
     };
 
     const handleCloseError = () => {
         setShowError(false);
+        setStatus('idle');
     };
 
     const handleClose = () => {
-        setDescripcion('');
-        setMonto('');
-        setShowConfirm(false);
-        setShowConfirmExit(false);
-        setShowExito(false);
-        setShowError(false);
+        resetForm();
+        closeAllModals();
         onClose();
+    };
+
+    const handleOpenConfirm = () => {
+        if (!isLoading) {
+            setShowConfirm(true);
+        }
+    };
+
+    const handleOpenExitConfirm = () => {
+        if (!isLoading) {
+            setShowConfirmExit(true);
+        }
     };
 
     if (showExito) {
@@ -87,8 +134,9 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
                             type="text"
                             placeholder="Ingrese una breve descripción del gasto"
                             className="modal-gasto-input"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
+                            value={formData.descripcion}
+                            onChange={(e) => handleCampoChange('descripcion', e.target.value)}
+                            disabled={isLoading}
                         />
                     </div>
 
@@ -98,27 +146,29 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
                             type="text"
                             placeholder="Ingrese el monto del gasto"
                             className="modal-gasto-input modal-gasto-monto-input"
-                            value={monto}
-                            onChange={(e) => setMonto(e.target.value)}
+                            value={formData.monto}
+                            onChange={(e) => handleCampoChange('monto', e.target.value)}
+                            disabled={isLoading}
                         />
                     </div>
                 </div>
 
                 <div className="modal-gasto-footer">
-                    <button className="modal-gasto-btn-salir" onClick={() => setShowConfirmExit(true)}>
+                    <button className="modal-gasto-btn-salir" onClick={handleOpenExitConfirm} disabled={isLoading}>
                         <img src={iconSalir} alt="" className="modal-gasto-btn-icon" />
                         Salir
                     </button>
-                    <button className="modal-gasto-btn-guardar" onClick={() => setShowConfirm(true)}>
+                    <button className="modal-gasto-btn-guardar" onClick={handleOpenConfirm} disabled={isLoading}>
                         <img src={iconConfirmar} alt="" className="modal-gasto-btn-icon" />
-                        Guardar gasto
+                        {isLoading ? 'Guardando...' : 'Guardar gasto'}
                     </button>
                 </div>
 
                 <ModalConfirmar
                     isOpen={showConfirm}
                     onClose={() => setShowConfirm(false)}
-                    onConfirm={handleGuardar}
+                    onConfirm={handleConfirmarGasto}
+                    isLoading={isLoading}
                 />
 
                 <ModalConfirmarSalida
