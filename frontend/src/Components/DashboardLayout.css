@@ -52,7 +52,7 @@
     letter-spacing: 1px;
     margin-bottom: 15px;
     padding-left: 10px;
-    font-family: 'Konkhmer Sleokchher' sans-serif;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .sidebar-nav {
@@ -94,6 +94,9 @@
 
 .sidebar-item-text {
     display: inline-block;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .modulo-info {
@@ -228,8 +231,9 @@
 /* Las opciones dentro de los cuadros blancos */
 .menu-option-item {
     padding: 10px 15px;
-    font-size: 13px;
-    line-height: 1.25;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 16px;
+    line-height: 1.2;
     font-weight: 500;
     color: #000;
     display: flex;
