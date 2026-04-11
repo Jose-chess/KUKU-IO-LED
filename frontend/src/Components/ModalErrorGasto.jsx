@@ -23,7 +23,6 @@ const ModalErrorGasto = ({ isOpen, onClose }) => {
                 </div>
 
                 <div className="error-gasto-footer-container">
-                    <div className="error-gasto-linea-corta"></div>
                     <div className="error-gasto-botones-flex">
                         <button className="btn-error-salir" onClick={onClose}>
                             <img src={iconSalir} alt="" className="error-gasto-btn-icon" />

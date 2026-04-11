@@ -51,11 +51,10 @@
     align-items: center; 
     padding: 0 40px;
     text-align: center;
-    /* Mantiene el texto centrado compensando el logo */
     margin-top: -40px; 
 }
 
-/* --- CUERPO (Texto): Se queda igual para no mover las letras --- */
+
 .modal-body {
     flex: 1; 
     display: flex;
@@ -70,33 +69,30 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    /* No usamos align-items center aquí para no mover los botones */
+    padding-top: 20px;
     padding-bottom: 25px;
     box-sizing: border-box;
 }
 
-/* --- LA LÍNEA: CORTA Y CENTRADA --- */
-.modal-linea-corta {
-    width: 90%;         /* Controla el largo de la línea */
-    height: 1px;
-    background-color: rgba(0, 0, 0, 0.1);
-    
-    /* El 'auto' a los lados centra la línea sola */
-    /* El '40px' abajo la separa de los botones */
-    margin: 0 auto 20px auto;
+.modal-footer-container::before {
+    content: "";
+    width: 86%;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    align-self: center;
+    margin-bottom: 20px;
 }
 
-/* --- LOS BOTONES: ABAJO A LA DERECHA --- */
+
 .modal-botones-flex {
     width: 100%;
     display: flex;
-    justify-content: flex-end; /* Alinea los botones a la derecha */
-    padding-right: 30px;       /* Margen desde el borde derecho */
+    justify-content: flex-end; 
+    padding-right: 30px;       
     gap: 12px;
     box-sizing: border-box;
 }
 
-/* --- ESTILOS DE BOTONES (Tus originales) --- */
+
 .btn-cancel, .btn-confirm {
     display: flex;
     align-items: center;

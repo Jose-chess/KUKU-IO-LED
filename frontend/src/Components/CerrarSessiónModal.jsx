@@ -19,10 +19,6 @@ const CerrarSesionModal = ({ isOpen, onClose, onConfirm }) => {
                 </div>
 
                 <div className="modal-footer-container">
-                    {/* Esta es la línea corta y centrada */}
-                    <div className="modal-linea-corta"></div>
-                    
-                    {/* Este contenedor mueve los botones */}
                     <div className="modal-botones-flex">
                         <button className="btn-cancel" onClick={onClose}>
                             <img src={iconCerrarSesion} alt="" className="btn-icon" />
