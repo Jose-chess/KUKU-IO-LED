@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Clientes.css';
 import iconNuevoCliente from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
+import ModalNuevoCliente from './ModalNuevoCliente';
 
 const Clientes = () => {
+    const [isModalNuevoClienteOpen, setIsModalNuevoClienteOpen] = useState(false);
     const totalClientes = 0;
     const clientesNuevosMes = 0;
     const clientesFrecuentes = 0;
@@ -16,7 +18,11 @@ const Clientes = () => {
                     <h1 className="clientes-title">Clientes</h1>
                 </div>
 
-                <button className="btn-nuevo-cliente" type="button">
+                <button
+                    className="btn-nuevo-cliente"
+                    type="button"
+                    onClick={() => setIsModalNuevoClienteOpen(true)}
+                >
                     <img src={iconNuevoCliente} alt="" className="btn-nuevo-cliente-icon" />
                     Nuevo Cliente
                 </button>
@@ -80,6 +86,14 @@ const Clientes = () => {
                     </table>
                 </div>
             </div>
+
+            <ModalNuevoCliente
+                isOpen={isModalNuevoClienteOpen}
+                onClose={() => setIsModalNuevoClienteOpen(false)}
+                onSave={(cliente) => {
+                    console.log('Cliente guardado:', cliente);
+                }}
+            />
         </div>
     );
 };
