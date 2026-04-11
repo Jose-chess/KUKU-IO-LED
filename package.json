@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "tauri:dev": "npm --prefix frontend run tauri:dev",
+    "tauri:build": "npm --prefix frontend run tauri:build",
+    "dev": "npm --prefix frontend run dev",
+    "build": "npm --prefix frontend run build"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.14.0"
+  }
+}

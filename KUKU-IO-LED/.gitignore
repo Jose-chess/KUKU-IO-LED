@@ -1,0 +1,18 @@
+# Node
+node_modules/
+
+# Tauri / Rust
+target/
+frontend/src-tauri/target/
+
+# Build
+dist/
+build/
+
+# Otros
+.vs/
+bin/
+obj/
+*.exe
+*.dll
+*.log
