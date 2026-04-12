@@ -15,7 +15,7 @@
     background: #ffffff;
     width: 700px;
     height: 459px;
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 30px;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -36,7 +36,7 @@
 
 .modal-gasto-body-card {
     border: 1px solid #e2e8f0;
-    border-radius: 15px;
+    border-radius: 8px;
     padding: 20px;
     margin-bottom: 16px;
     flex: 1;
@@ -71,7 +71,7 @@
     width: 100%;
     padding: 12px 15px;
     border: 1px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #f8fafc;
     font-weight: 600;
     color: #1e293b;
@@ -103,7 +103,7 @@
     color: #000000;
     border: none;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -117,7 +117,7 @@
     color: #000000;
     border: none;
     padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: 700;
     display: flex;
     align-items: center;

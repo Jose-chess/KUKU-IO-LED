@@ -79,7 +79,7 @@ html, body {
 
 .input-group input {
   padding: 14px 15px;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid #000000;
   font-size: 12px;
   background-color: #ffffff;
@@ -95,7 +95,7 @@ html, body {
   color: #FFCC00;
   border: none;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 18px;
   font-weight: 700;
   margin-top: 25px;
