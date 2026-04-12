@@ -18,6 +18,7 @@
     height: 379px;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 14px 14px 12px;
     border-right: 1px solid #E2E8F0;
 }
