@@ -1,0 +1,156 @@
+.venta-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 31000;
+}
+
+.venta-card-amarilla {
+    background: #ffcc00;
+    width: 500px;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    box-sizing: border-box;
+}
+
+.venta-logo-box {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.venta-logo-img {
+    width: 150px;
+    display: block;
+    margin: 0 auto;
+}
+
+.venta-error-content {
+    width: 100%;
+    text-align: center;
+}
+
+.venta-titulo-error {
+    margin: 0 0 15px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.venta-texto-container {
+    margin-bottom: 10px;
+}
+
+.venta-p-bold {
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.venta-footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 20px;
+}
+
+.btn-venta-salir {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    background-color: #ff0000;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    transition: background-color 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.btn-venta-salir:hover {
+    background-color: #d90000;
+}
+
+.btn-venta-salir:hover .icon-back {
+    transform: scale(1.05);
+}
+
+.icon-back {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    width: 16px;
+    height: 16px;
+}
+
+.scale-up-center {
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+}
+
+.venta-card-amarilla.shake {
+    animation: shakeX 0.28s ease;
+}
+
+@keyframes scale-up {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+@media (max-width: 640px) {
+    .venta-card-amarilla {
+        width: min(500px, calc(100vw - 20px));
+        padding: 30px 20px;
+    }
+
+    .venta-logo-img {
+        width: 130px;
+    }
+
+    .venta-titulo-error {
+        font-size: 28px;
+    }
+
+    .venta-p-bold {
+        font-size: 13px;
+    }
+
+    .btn-venta-salir {
+        padding: 9px 16px;
+        font-size: 13px;
+    }
+}

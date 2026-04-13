@@ -13,7 +13,7 @@ const MainContent = () => {
                 <h1 className="main-title no-select">Panel principal</h1>
                 <button className="btn-registrar-gasto no-select" type="button" onClick={() => setModalAbierto(true)}>
                     <img src={iconNuevoGasto} alt="" className="btn-icon" />
-                    <span>Registrar Gasto</span>
+                    <span>Nuevo gasto</span>
                 </button>
             </header>
 

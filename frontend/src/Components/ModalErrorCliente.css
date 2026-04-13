@@ -1,4 +1,4 @@
-.exito-overlay {
+.error-cliente-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,16 +8,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 35000;
+    z-index: 30000;
 }
 
-.exito-modal-card {
+.error-cliente-modal-card {
     background: #FFCC00;
     width: 500px;
     border-radius: 8px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,47 +25,36 @@
     box-sizing: border-box;
 }
 
-.exito-logo-container {
-    width: 100%;
-}
-
-.exito-logo-img {
-    width: 160px;
+.error-cliente-logo-img {
+    width: 150px;
     margin-bottom: 20px;
 }
 
-.exito-content {
-    text-align: center;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.exito-main-title {
+.error-cliente-main-title {
     font-size: 32px;
     font-weight: 700;
     color: #0f172a;
-    margin: 0 0 10px 0;
+    margin: 0 0 15px 0;
 }
 
-.exito-subtitle {
+.error-cliente-sub-text,
+.error-cliente-retry-text {
     font-size: 14px;
     font-weight: 700;
     color: #1e293b;
-    margin: 0 0 10px 0;
+    margin: 5px 0;
 }
 
-.exito-footer {
+.error-cliente-footer {
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    margin-top: 50px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     padding-top: 20px;
 }
 
-.btn-exito-salir {
+.btn-error-cliente-salir {
     background: #FF0000;
     color: #000000;
     border: none;
@@ -80,21 +69,25 @@
     transition: background-color 0.2s ease;
 }
 
-.btn-exito-salir:hover {
-    background-color: #d90000;
+.btn-error-cliente-salir:hover {
+    background: #d90000;
 }
 
-.exito-btn-icon {
+.error-cliente-btn-icon {
     width: 16px;
     height: 16px;
 }
 
-.btn-exito-salir:hover .exito-btn-icon {
+.btn-error-cliente-salir:hover .error-cliente-btn-icon {
     transform: scale(1.05);
 }
 
 .scale-up-center {
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+}
+
+.error-cliente-modal-card.shake {
+    animation: shakeX 0.28s ease;
 }
 
 @keyframes scale-up {
@@ -106,4 +99,13 @@
         transform: scale(1);
         opacity: 1;
     }
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
 }

@@ -29,3 +29,16 @@ body {
 	min-height: 100vh;
 	background-color: #f8fafc;
 }
+
+.shake {
+	animation: modal-shake-general 0.34s ease !important;
+}
+
+@keyframes modal-shake-general {
+	0% { transform: translateX(0); }
+	20% { transform: translateX(-14px); }
+	40% { transform: translateX(14px); }
+	60% { transform: translateX(-10px); }
+	80% { transform: translateX(10px); }
+	100% { transform: translateX(0); }
+}

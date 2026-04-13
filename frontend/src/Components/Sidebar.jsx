@@ -59,7 +59,6 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
 
     const handleConfirmLogout = () => {
         setShowLogoutModal(false);
-        localStorage.removeItem('currentUser');
         navigate('/');
     };
 

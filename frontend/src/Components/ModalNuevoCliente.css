@@ -1,0 +1,202 @@
+.modal-cliente-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-cliente-container {
+    background: #ffffff;
+    width: 850px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+}
+
+.modal-cliente-title {
+    margin: 0 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.modal-cliente-subtitle {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.modal-cliente-divider-line {
+    height: 1px;
+    width: 100%;
+    background: #e2e8f0;
+}
+
+.modal-cliente-grid-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-cliente-input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.modal-cliente-input-group input,
+.modal-cliente-input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #D3D6DB;
+    border-radius: 8px;
+    background-color: #F6F6F6;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1e293b;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.modal-cliente-input-group textarea {
+    resize: none;
+}
+
+.modal-cliente-input-group input:focus,
+.modal-cliente-input-group textarea:focus {
+    border-color: #D3D6DB;
+}
+
+.modal-cliente-full-width {
+    grid-column: 1 / -1;
+    margin-top: 20px;
+}
+
+.modal-cliente-footer-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #e2e8f0;
+    margin-top: 30px;
+    padding-top: 20px;
+}
+
+.btn-salir-cliente,
+.btn-guardar-cliente {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-salir-cliente {
+    background: #ff0000;
+    color: #000000;
+}
+
+.btn-guardar-cliente {
+    background: #009C00;
+    color: #000000;
+}
+
+.btn-salir-cliente:hover {
+    background-color: #d90000;
+}
+
+.btn-guardar-cliente:hover {
+    background-color: #009600;
+}
+
+.btn-guardar-modificacion {
+    background: #009C00;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-guardar-modificacion:hover {
+    background: #009600;
+}
+
+.modal-cliente-btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.btn-salir-cliente:hover .modal-cliente-btn-icon,
+.btn-guardar-cliente:hover .modal-cliente-btn-icon,
+.btn-guardar-modificacion:hover .modal-cliente-btn-icon {
+    transform: scale(1.05);
+}
+
+.modal-cliente-container.shake {
+    animation: shakeX 0.28s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+@media (max-width: 980px) {
+    .modal-cliente-grid-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .modal-cliente-container {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .modal-cliente-title {
+        font-size: 26px;
+    }
+
+    .modal-cliente-grid-form {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-cliente-footer-line {
+        flex-direction: column;
+    }
+
+    .btn-salir-cliente,
+    .btn-guardar-cliente {
+        width: 100%;
+    }
+}

@@ -12,8 +12,8 @@
 
 /* --- SIDEBAR (BARRA LATERAL) --- */
 .sidebar {
-    width: 250px;
-    min-width: 250px;
+    width: 230px;
+    min-width: 230px;
     background-color: #ffffff;
     height: 100vh;
     display: flex;
@@ -56,7 +56,8 @@
 }
 
 .sidebar-nav {
-    flex-grow: 1; 
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 
 .sidebar-nav ul {
@@ -69,12 +70,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 10px;
+    padding: 8px 12px;
     margin-bottom: 4px;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
     color: #475569;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.25;
     font-weight: 500;
     transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, transform 0.15s ease-in-out;
@@ -95,14 +96,14 @@
 .sidebar-item-text {
     display: inline-block;
     font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .modulo-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .sidebar-icon {
@@ -113,8 +114,8 @@
 }
 
 .sidebar-chevron {
-    width: 14px;
-    height: 14px;
+    width: 10px;
+    height: 10px;
     opacity: 0.5;
 }
 
@@ -132,6 +133,7 @@
 .sidebar-footer {
     border-top: 1px solid #E2E8F0;
     padding-top: 12px;
+    margin-top: auto;
 }
 
 .user-profile {
@@ -214,7 +216,7 @@
     top: calc(100% + 6px);
     background: white;
     border: 1px solid #E2E8F0;
-    border-radius: 15px;
+    border-radius: 8px;
     width: 210px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     padding: 8px 0;
@@ -232,9 +234,9 @@
 .menu-option-item {
     padding: 10px 15px;
     font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.2;
-    font-weight: 500;
+    font-weight: 600;
     color: #000;
     display: flex;
     justify-content: space-between;
@@ -248,13 +250,13 @@
     background-color: #F1F5F9;
     color: #1E293B;
     transform: translateX(2px);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .menu-option-item.selected-yellow:hover {
     background-color: #FFCC00;
     transform: translateX(0);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 .arrow-right {
@@ -267,7 +269,7 @@
 /* El resaltado amarillo tipo pastilla */
 .selected-yellow {
     background-color: #FFCC00;
-    border-radius: 10px;
+    border-radius: 8px;
     margin: 4px 8px;
     padding: 8px 12px;
 }
@@ -286,7 +288,7 @@
     top: 0;
     background: white;
     border: 1px solid #E2E8F0;
-    border-radius: 15px;
+    border-radius: 8px;
     width: 190px;
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
     margin-left: 5px;
