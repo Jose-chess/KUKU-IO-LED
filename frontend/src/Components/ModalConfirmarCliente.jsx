@@ -7,7 +7,7 @@ const ModalConfirmarCliente = ({ isOpen, onClose, onConfirm, isLoading = false }
             isOpen={isOpen}
             title="Confirmar"
             mensaje="¿Estas seguro de que desea agregar este cliente?"
-            salirLabel="Volver"
+            salirLabel="Retroceder"
             confirmLabel="Confirmar"
             onClose={onClose}
             onConfirm={onConfirm}

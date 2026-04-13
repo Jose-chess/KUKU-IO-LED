@@ -91,28 +91,18 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                 key={index}
                                 className={`sidebar-item ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} ${activeSection === modulo.nombre ? 'active' : ''}`}
                                 onClick={() => {
-                                    setActiveSection(modulo.nombre);
-
                                     if (modulo.nombre === 'Finanzas') {
                                         const openingFinanzas = !showFinanzas;
                                         setShowFinanzas(openingFinanzas);
                                         setShowConfiguracion(false);
                                         setShowGraficos(false);
-
-                                        if (openingFinanzas) {
-                                            setSelectedFinanzasOption('');
-                                            setSelectedGraficoOption('');
-                                        }
                                     } else if (modulo.nombre === 'Configuración') {
                                         const openingConfiguracion = !showConfiguracion;
                                         setShowConfiguracion(openingConfiguracion);
                                         setShowFinanzas(false);
                                         setShowGraficos(false);
-
-                                        if (openingConfiguracion) {
-                                            setSelectedConfiguracionOption('');
-                                        }
                                     } else {
+                                        setActiveSection(modulo.nombre);
                                         setShowFinanzas(false);
                                         setShowConfiguracion(false);
                                         setShowGraficos(false);
@@ -149,6 +139,8 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             setSelectedGraficoOption('Gráfico de barras');
+                                                            setShowGraficos(false);
+                                                            setShowFinanzas(false);
                                                         }}
                                                     >
                                                         Gráfico de barras
@@ -159,6 +151,8 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                                         onClick={(e) => {
                                                             e.stopPropagation();
                                                             setSelectedGraficoOption('Gráfico de pastel');
+                                                            setShowGraficos(false);
+                                                            setShowFinanzas(false);
                                                         }}
                                                     >
                                                         Gráfico de pastel
@@ -173,6 +167,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             onClick={() => {
                                                 setSelectedFinanzasOption('Reportes');
                                                 setShowGraficos(false);
+                                                setShowFinanzas(false);
                                             }}
                                         >
                                             Reportes
@@ -183,6 +178,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             onClick={() => {
                                                 setSelectedFinanzasOption('Cierre de caja');
                                                 setShowGraficos(false);
+                                                setShowFinanzas(false);
                                             }}
                                         >
                                             Cierre de caja
@@ -197,6 +193,8 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setSelectedConfiguracionOption('Información empresarial');
+                                                setActiveSection('Informacion empresarial');
+                                                setShowConfiguracion(false);
                                             }}
                                         >
                                             Información empresarial
@@ -208,6 +206,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setSelectedConfiguracionOption('Unidades de medidas');
+                                                setShowConfiguracion(false);
                                             }}
                                         >
                                             Unidades de medidas
@@ -219,6 +218,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setSelectedConfiguracionOption('Usuarios del sistema');
+                                                setShowConfiguracion(false);
                                             }}
                                         >
                                             Usuarios del sistema
