@@ -1,18 +1,19 @@
 import React from 'react';
 import ModalConfirmar from './ModalConfirmar';
 
-const ModalConfirmarSalida = ({ isOpen, onClose, onConfirm }) => {
+const ModalConfirmarCliente = ({ isOpen, onClose, onConfirm, isLoading = false }) => {
     return (
         <ModalConfirmar
             isOpen={isOpen}
             title="Confirmar"
-            mensaje="¿Estas seguro de que desea salir?"
+            mensaje="¿Estas seguro de que desea agregar este cliente?"
             salirLabel="Volver"
             confirmLabel="Confirmar"
             onClose={onClose}
             onConfirm={onConfirm}
+            isLoading={isLoading}
         />
     );
 };
 
-export default ModalConfirmarSalida;
+export default ModalConfirmarCliente;

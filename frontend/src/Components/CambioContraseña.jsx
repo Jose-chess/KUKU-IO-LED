@@ -1,33 +1,15 @@
 import React, { useState } from 'react';
 import './CambioContraseña.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
-import { useLocation, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 const CambioContraseña = () => { 
   const navigate = useNavigate();
-  const location = useLocation();
-  const usuario = location.state?.usuario || localStorage.getItem('currentUser') || '';
   const [nuevaContraseña, setNuevaContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
-  const [error, setError] = useState('');
 
   const handleLogin = (e) => {
     e.preventDefault(); 
-
-    if (!usuario) {
-      navigate('/');
-      return;
-    }
-
-    if (nuevaContraseña !== confirmarContraseña) {
-      setError('Las contraseñas no coinciden.');
-      return;
-    }
-
-    const userKey = `user:${usuario.trim().toLowerCase()}`;
-    localStorage.setItem(`${userKey}:mustChangePassword`, 'false');
-    localStorage.setItem(`${userKey}:password`, nuevaContraseña);
-    localStorage.setItem('currentUser', usuario.trim());
     navigate('/dashboard'); 
   };
 
@@ -47,9 +29,6 @@ const CambioContraseña = () => {
           es obligatorio que cambie su contraseña antes de continuar
           para garantizar la protección de su cuenta.
         </h4>
-
-        
-        {error && <div className="login-error" role="alert">{error}</div>}
 
         <form className="login-form" onSubmit={handleLogin}>
           <div className="input-group">

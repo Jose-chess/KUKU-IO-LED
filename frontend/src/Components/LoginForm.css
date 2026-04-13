@@ -45,7 +45,7 @@ html, body {
 }
 
 .login-title {
-  color: #1a1a1a;
+  color: #000000;
   font-family: 'Konkhmer Sleokchher', sans-serif;
   font-size: 32px; 
   font-weight: 700;
@@ -70,7 +70,7 @@ html, body {
 }
 
 .input-group label {
-  color: #1a1a1a;
+  color: #000000;
   font-family: 'Konkhmer Sleokchher', sans-serif;
   font-weight: 600;
   font-size: 16px;
@@ -80,9 +80,9 @@ html, body {
 .input-group input {
   padding: 14px 15px;
   border-radius: 8px;
-  border: 1px solid #000000;
+  border: 1px solid #D3D6DB;
   font-size: 12px;
-  background-color: #ffffff;
+  background-color: #F6F6F6;
   width: 100%;
   box-sizing: border-box;
   outline: none;

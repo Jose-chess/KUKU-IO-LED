@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
+import PanelVentas from './PanelVentas';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -19,6 +20,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Clientes') {
             return <Clientes />;
+        }
+
+        if (activeSection === 'Ventas') {
+            return <PanelVentas />;
         }
 
         return null;

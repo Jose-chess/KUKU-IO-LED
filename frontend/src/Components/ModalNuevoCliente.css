@@ -12,11 +12,11 @@
 
 .modal-cliente-container {
     background: #ffffff;
-    width: min(900px, 100%);
+    width: 850px;
     max-height: 90vh;
     overflow-y: auto;
     border-radius: 8px;
-    padding: 28px;
+    padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     font-family: 'Konkhmer Sleokchher', sans-serif;
 }
@@ -24,13 +24,13 @@
 .modal-cliente-title {
     margin: 0 0 20px;
     font-size: 32px;
-    font-weight: 800;
+    font-weight: 700;
     color: #0f172a;
 }
 
 .modal-cliente-subtitle {
     margin: 0 0 6px;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: #1e293b;
 }
@@ -50,7 +50,7 @@
 
 .modal-cliente-input-group label {
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     color: #475569;
     margin-bottom: 8px;
@@ -60,9 +60,9 @@
 .modal-cliente-input-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #D3D6DB;
     border-radius: 8px;
-    background-color: #f1f5f9;
+    background-color: #F6F6F6;
     font-weight: 600;
     font-size: 13px;
     color: #1e293b;
@@ -76,7 +76,7 @@
 
 .modal-cliente-input-group input:focus,
 .modal-cliente-input-group textarea:focus {
-    border-color: #cbd5e1;
+    border-color: #D3D6DB;
 }
 
 .modal-cliente-full-width {
@@ -100,26 +100,75 @@
     justify-content: center;
     gap: 8px;
     border: none;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-weight: 800;
+    font-weight: 700;
+    font-size: 14px;
     font-family: inherit;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .btn-salir-cliente {
     background: #ff0000;
-    color: #ffffff;
+    color: #000000;
 }
 
 .btn-guardar-cliente {
-    background: #00c800;
-    color: #ffffff;
+    background: #009C00;
+    color: #000000;
+}
+
+.btn-salir-cliente:hover {
+    background-color: #d90000;
+}
+
+.btn-guardar-cliente:hover {
+    background-color: #009600;
+}
+
+.btn-guardar-modificacion {
+    background: #009C00;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-guardar-modificacion:hover {
+    background: #009600;
 }
 
 .modal-cliente-btn-icon {
     width: 16px;
     height: 16px;
+}
+
+.btn-salir-cliente:hover .modal-cliente-btn-icon,
+.btn-guardar-cliente:hover .modal-cliente-btn-icon,
+.btn-guardar-modificacion:hover .modal-cliente-btn-icon {
+    transform: scale(1.05);
+}
+
+.modal-cliente-container.shake {
+    animation: shakeX 0.28s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
 }
 
 @media (max-width: 980px) {
