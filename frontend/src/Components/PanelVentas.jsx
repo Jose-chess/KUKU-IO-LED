@@ -347,7 +347,7 @@ const PanelVentas = () => {
                     setShowFacturacionModal(false);
                 }}
                 message="¿Estás seguro de que deseas salir?"
-                salirLabel="Volver"
+                salirLabel="Retroceder"
                 confirmLabel="Confirmar"
             />
 
@@ -362,7 +362,7 @@ const PanelVentas = () => {
                     setShowExitoModal(true);
                 }}
                 message="¿Estás seguro de que deseas confirmar la venta?"
-                salirLabel="Volver"
+                salirLabel="Retroceder"
                 confirmLabel="Confirmar"
             />
 

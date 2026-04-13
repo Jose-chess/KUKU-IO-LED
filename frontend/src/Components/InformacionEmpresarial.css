@@ -1,0 +1,204 @@
+.empresa-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: #f8fafc;
+    height: 100vh;
+    min-height: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.empresa-page > * {
+    animation: empresa-fade-up 0.42s ease both;
+}
+
+.empresa-page > *:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.empresa-page > *:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.empresa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.empresa-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.btn-ingresar-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 16px;
+    background: #ffcc00;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-ingresar-info:hover {
+    background: #ffd700;
+    transform: translateY(-2px);
+}
+
+.btn-ingresar-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.empresa-card {
+    width: 100%;
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 28px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    position: relative;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.empresa-card:hover {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.empresa-edit-icon-container {
+    position: absolute;
+    top: 20px;
+    right: 22px;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    cursor: pointer;
+    padding: 0;
+}
+
+.empresa-edit-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.empresa-edit-icon-container:hover {
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+}
+
+.empresa-form-group-full {
+    margin-bottom: 12px;
+}
+
+.empresa-form-group {
+    margin-bottom: 12px;
+}
+
+.empresa-form-row-dual {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.empresa-label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    color: #475569;
+    font-size: 14px;
+}
+
+.empresa-info-field-box {
+    background-color: #E9E9E9;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #dbe3ee;
+    font-weight: 600;
+    color: #0f172a;
+    font-size: 14px;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.empresa-info-alert {
+    margin-top: 14px;
+    border-radius: 8px;
+    background: #bae6fd;
+    border: 1px solid #7dd3fc;
+    color: #0c4a6e;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.empresa-info-alert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.empresa-alert-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #0369a1;
+    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+    .empresa-card {
+        max-width: 100%;
+        padding: 20px;
+    }
+
+    .empresa-form-row-dual {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+@keyframes empresa-fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

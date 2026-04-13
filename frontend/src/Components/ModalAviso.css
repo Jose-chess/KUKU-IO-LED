@@ -14,11 +14,11 @@
 }
 
 .aviso-overlay.static-view {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .aviso-overlay.vista-diseno {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .aviso-card-bg-yellow {

@@ -12,7 +12,7 @@ const ModalConfirmar = ({
     onConfirmar,
     title = 'Confirmar',
     mensaje = '¿Estás seguro de que desea realizar este gasto?',
-    salirLabel = 'Volver',
+    salirLabel = 'Retroceder',
     confirmLabel = 'Confirmar',
     isLoading = false,
 }) => {
