@@ -1,120 +1,100 @@
-.error-gasto-overlay {
+.error-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 14000;
+    z-index: 91000;
 }
 
-.error-gasto-container {
-    background: #FFCC00;
+.error-card {
+    background-color: #FFCC00;
     width: 500px;
-    height: 560px;
+    max-width: calc(100vw - 32px);
     border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
     font-family: 'Konkhmer Sleokchher', sans-serif;
     user-select: none;
     -webkit-user-select: none;
-    box-sizing: border-box;
-    overflow: hidden;
 }
 
-.error-gasto-content {
-    text-align: center;
-    width: 80%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.error-logo-box {
+    width: 100%;
 }
 
-.error-gasto-logo {
+.img-error-logo {
     width: 150px;
-    display: block;
-    margin: 0 auto 20px auto;
-    pointer-events: none;
+    margin-bottom: 20px;
 }
 
-.error-gasto-title {
-    font-size: 42px;
+.error-header {
+    font-size: 32px;
     font-weight: 700;
-    color: #000000;
-    margin: 0;
+    color: #1e293b;
+    margin: 0 0 15px 0;
 }
 
-.error-gasto-message-box {
-    margin-top: 10px;
+.error-message-box {
+    margin-bottom: 0;
 }
 
-.error-gasto-text,
-.error-gasto-retry {
+.error-text-main {
     font-size: 14px;
     font-weight: 700;
-    color: #000000;
+    color: #1e293b;
     margin: 5px 0;
 }
 
-.error-gasto-footer-container {
-    margin-top: auto;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
-    padding-bottom: 25px;
-    box-sizing: border-box;
+.error-text-sub {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 5px 0;
 }
 
-.error-gasto-botones-flex {
+.error-footer-right {
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding-right: 30px;
-    box-sizing: border-box;
+    margin-top: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 20px;
 }
 
 .btn-error-salir {
-    background: #FF060A;
+    background-color: #FF0000;
     color: #000000;
     border: none;
-    height: 45px;
-    padding: 0 25px;
+    padding: 10px 20px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 14px;
-    font-family: inherit;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 8px;
-    cursor: pointer;
     transition: background-color 0.2s ease;
-    user-select: none;
-    -webkit-user-select: none;
 }
 
 .btn-error-salir:hover {
     background-color: #d90000;
 }
 
-.error-gasto-btn-icon {
+.error-btn-icon {
     width: 16px;
     height: 16px;
 }
 
-.btn-error-salir:hover .error-gasto-btn-icon {
+.btn-error-salir:hover .error-btn-icon {
     transform: scale(1.05);
 }
 
@@ -122,7 +102,7 @@
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
 }
 
-.error-gasto-container.shake {
+.error-card.shake {
     animation: shakeX 0.28s ease;
 }
 

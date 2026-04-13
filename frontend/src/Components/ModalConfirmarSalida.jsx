@@ -6,8 +6,8 @@ const ModalConfirmarSalida = ({ isOpen, onClose, onConfirm }) => {
         <ModalConfirmar
             isOpen={isOpen}
             title="Confirmar"
-            mensaje="¿Estas seguro de que desea salir?"
-            salirLabel="Volver"
+            mensaje="¿Estás seguro de que desea salir?"
+            salirLabel="Retroceder"
             confirmLabel="Confirmar"
             onClose={onClose}
             onConfirm={onConfirm}

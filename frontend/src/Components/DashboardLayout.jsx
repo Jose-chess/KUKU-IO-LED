@@ -3,12 +3,21 @@ import Sidebar from './Sidebar';
 import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
 import PanelVentas from './PanelVentas';
+import InformacionEmpresarial from './InformacionEmpresarial';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
     const [userData] = useState({
         nombre: "", 
         rol: ""     
+    });
+    const [companyInfo, setCompanyInfo] = useState({
+        nombre: '',
+        direccion: '',
+        telefono: '',
+        celular: '',
+        rnc: '',
+        email: '',
     });
 
     const [activeSection, setActiveSection] = useState('Panel principal');
@@ -24,6 +33,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Ventas') {
             return <PanelVentas />;
+        }
+
+        if (activeSection === 'Informacion empresarial') {
+            return <InformacionEmpresarial datos={companyInfo} onUpdateDatos={setCompanyInfo} />;
         }
 
         return null;

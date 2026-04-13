@@ -5,7 +5,8 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: none;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,11 +14,11 @@
 }
 
 .aviso-overlay.static-view {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .aviso-overlay.vista-diseno {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .aviso-card-bg-yellow {
