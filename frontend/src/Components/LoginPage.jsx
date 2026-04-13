@@ -12,17 +12,6 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault(); 
-
-    const userKey = `user:${usuario.trim().toLowerCase()}`;
-    const mustChangePassword = localStorage.getItem(`${userKey}:mustChangePassword`) !== 'false';
-
-    localStorage.setItem('currentUser', usuario.trim());
-
-    if (mustChangePassword) {
-      navigate('/cambio-contrasena', { state: { usuario: usuario.trim() } });
-      return;
-    }
-
     navigate('/dashboard'); 
   };
 
