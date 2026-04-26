@@ -4,6 +4,7 @@ import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
 import PanelVentas from './PanelVentas';
 import InformacionEmpresarial from './InformacionEmpresarial';
+import Inventario from './Inventario';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -37,6 +38,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Informacion empresarial') {
             return <InformacionEmpresarial datos={companyInfo} onUpdateDatos={setCompanyInfo} />;
+        }
+
+        if (activeSection === 'Inventario') {
+            return <Inventario />;
         }
 
         return null;

@@ -214,7 +214,7 @@ const Clientes = () => {
                             {clientes.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
-                                        No hay clientes registrados todavia.
+                                        No hay clientes para mostrar.
                                     </td>
                                 </tr>
                             ) : (
