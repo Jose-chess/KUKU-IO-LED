@@ -1,3 +1,28 @@
+/* Fila para existencia baja con flecha a la derecha */
+.existencia-baja-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.icon-flecha-existencia-baja {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    object-fit: contain;
+    margin-left: 12px;
+}
+
+
+/* Icono flecha existencia baja */
+.icon-flecha-existencia-baja {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin-top: 6px;
+    object-fit: contain;
+}
 .inventario-page > * {
     animation: inventario-fade-up 0.42s ease both;
 }

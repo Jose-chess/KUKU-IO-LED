@@ -1,0 +1,55 @@
+
+.existencia-baja-modal-overlay {
+    /* El overlay cubre toda la pantalla, el modal se posiciona con inline style */
+    margin-top: 0;
+    pointer-events: auto;
+}
+
+.existencia-baja-modal-card {
+    background: #fffbe6;
+    border-radius: 10px;
+    padding: 32px 24px 24px 24px;
+    min-width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    text-align: center;
+}
+
+.existencia-baja-modal-card h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #b58900;
+    font-size: 1.4rem;
+}
+
+.existencia-baja-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+}
+
+.existencia-baja-table th, .existencia-baja-table td {
+    border: 1px solid #ffe066;
+    padding: 8px 10px;
+    font-size: 1rem;
+}
+
+.existencia-baja-table th {
+    background: #fffbe6;
+    border-radius: 10px;
+    padding: 32px 24px 24px 24px;
+    min-width: 320px;
+    max-width: 90vw;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    text-align: center;
+    /* position y z-index ahora los da el inline style */
+    padding: 8px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cerrar-existencia-baja:hover {
+    background: #ffd700;
+}

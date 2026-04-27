@@ -14,7 +14,6 @@ import iconConfiguracion from '../assets/settings.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import iconUsuario from '../assets/user (1).svg';
 import iconCerrarSesion from '../assets/login-2.svg';
-import iconFlechaDerecha from '../assets/chevron-down.svg';
 
 const Sidebar = ({ user, activeSection, setActiveSection }) => {
     const navigate = useNavigate();
