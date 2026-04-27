@@ -4,9 +4,13 @@ import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconConfirmar from '../assets/circle-check.svg';
+import iconFlecha from '../assets/chevron-down.svg';
 import ModalExito from './ModalExito';
 import ModalVentaEncontrada from './ModalVentaEncontrada';
 import ModalVentaNoEncontrada from './ModalVentaNoEncontrada';
+import ModalSeleccionCliente from './ModalSeleccionCliente';
+import ModalSeleccionTipo from './ModalSeleccionTipo';
+import ModalSeleccionDescuento from './ModalSeleccionDescuento';
 import { useModalShake } from './useModalShake';
 
 const ConfirmarVentaModal = ({ isOpen, onClose, onConfirm, message, salirLabel, confirmLabel }) => {
@@ -134,7 +138,10 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                         </div>
                         <div className="facturacion-item">
                             <label>Tipo:</label>
-                            <input value="" placeholder="Seleccione el tipo" disabled readOnly />
+                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionTipo}>
+                                <input value="" placeholder="Seleccione el tipo" disabled readOnly />
+                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            </div>
                         </div>
 
                         <div className="facturacion-item">
@@ -143,12 +150,18 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                         </div>
                         <div className="facturacion-item">
                             <label>Descuento:</label>
-                            <input value="0" disabled readOnly />
+                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionDescuento}>
+                                <input value="0" disabled readOnly />
+                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            </div>
                         </div>
 
                         <div className="facturacion-item">
                             <label>Cliente:</label>
-                            <input value="" placeholder="Seleccione un cliente" disabled readOnly />
+                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionCliente}>
+                                <input value="" placeholder="Seleccione un cliente" disabled readOnly />
+                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            </div>
                         </div>
 
                         <div className="facturacion-item">
@@ -205,6 +218,9 @@ const PanelVentas = () => {
     const [showExitoModal, setShowExitoModal] = useState(false);
     const [showBusquedaVentaModal, setShowBusquedaVentaModal] = useState(false);
     const [showVentaNoEncontradaModal, setShowVentaNoEncontradaModal] = useState(false);
+    const [showSeleccionCliente, setShowSeleccionCliente] = useState(false);
+    const [showSeleccionTipo, setShowSeleccionTipo] = useState(false);
+    const [showSeleccionDescuento, setShowSeleccionDescuento] = useState(false);
     const [busquedaVenta, setBusquedaVenta] = useState('');
 
     const manejarBusquedaVenta = (event) => {
@@ -221,6 +237,30 @@ const PanelVentas = () => {
 
         setShowBusquedaVentaModal(true);
         setBusquedaVenta('');
+    };
+
+    const handleOpenSeleccionCliente = () => {
+        setShowSeleccionCliente(true);
+    };
+
+    const handleOpenSeleccionTipo = () => {
+        setShowSeleccionTipo(true);
+    };
+
+    const handleOpenSeleccionDescuento = () => {
+        setShowSeleccionDescuento(true);
+    };
+
+    const handleCloseSeleccionCliente = () => {
+        setShowSeleccionCliente(false);
+    };
+
+    const handleCloseSeleccionTipo = () => {
+        setShowSeleccionTipo(false);
+    };
+
+    const handleCloseSeleccionDescuento = () => {
+        setShowSeleccionDescuento(false);
     };
 
     return (
@@ -321,6 +361,25 @@ const PanelVentas = () => {
                 isOpen={showVentaNoEncontradaModal}
                 onClose={() => setShowVentaNoEncontradaModal(false)}
                 buttonLabel="Salir"
+            />
+
+            <ModalSeleccionCliente
+                isOpen={showSeleccionCliente}
+                onClose={handleCloseSeleccionCliente}
+                clientes={[]}
+                onSelect={(cliente) => console.log('Cliente seleccionado:', cliente)}
+            />
+
+            <ModalSeleccionTipo
+                isOpen={showSeleccionTipo}
+                onClose={handleCloseSeleccionTipo}
+                onSelect={(tipo) => console.log('Tipo seleccionado:', tipo)}
+            />
+
+            <ModalSeleccionDescuento
+                isOpen={showSeleccionDescuento}
+                onClose={handleCloseSeleccionDescuento}
+                onSelect={(descuento) => console.log('Descuento seleccionado:', descuento)}
             />
 
             <ModalFacturacion
