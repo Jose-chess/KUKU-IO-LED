@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalConfirmar from './ModalConfirmar';
 
-const ConfirmadoArticulo = ({ isOpen, onClose, onConfirm, isLoading = false, mensaje = "¿Estas seguro de que desea agregar este artículo?" }) => {
+const ConfirmadoEliminarArticulo = ({ isOpen, onClose, onConfirm, isLoading = false, mensaje = "¿Estas seguro de que desea eliminar este artículo?" }) => {
     return (
         <ModalConfirmar
             isOpen={isOpen}
@@ -16,4 +16,4 @@ const ConfirmadoArticulo = ({ isOpen, onClose, onConfirm, isLoading = false, men
     );
 };
 
-export default ConfirmadoArticulo;
+export default ConfirmadoEliminarArticulo;

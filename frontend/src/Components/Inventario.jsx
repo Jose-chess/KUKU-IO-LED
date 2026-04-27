@@ -9,6 +9,7 @@ import ModalExistenciaBaja from './ModalExistenciaBaja';
 import ModalNuevoArticulo from './ModalNuevoArticulo';
 import ModalEditarArticulo from './ModalEditarArticulo';
 import ConfirmadoArticulo from './ConfirmadoArticulo';
+import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
 import { useRef } from 'react';
 
@@ -33,7 +34,11 @@ const Inventario = () => {
     const [modalEditarArticulo, setModalEditarArticulo] = useState(false);
     const [selectedArticulo, setSelectedArticulo] = useState(null);
     const [showConfirmadoArticulo, setShowConfirmadoArticulo] = useState(false);
+    const [showConfirmadoEditar, setShowConfirmadoEditar] = useState(false);
+    const [showConfirmadoEliminar, setShowConfirmadoEliminar] = useState(false);
+    const [articuloAEliminar, setArticuloAEliminar] = useState(null);
     const [showExitoModal, setShowExitoModal] = useState(false);
+    const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -77,6 +82,39 @@ const Inventario = () => {
     const handleCloseEditarArticulo = () => {
         setModalEditarArticulo(false);
         setSelectedArticulo(null);
+    };
+
+    const handleSaveEditarArticulo = () => {
+        setModalEditarArticulo(false);
+        setShowConfirmadoEditar(true);
+    };
+
+    const handleCloseConfirmadoEditar = () => {
+        setShowConfirmadoEditar(false);
+        setModalEditarArticulo(true);
+    };
+
+    const handleConfirmarEditar = () => {
+        setShowConfirmadoEditar(false);
+        setExitoSubtitle('Artículo modificado exitosamente!');
+        setShowExitoModal(true);
+    };
+
+    const handleEliminarArticulo = (articulo) => {
+        setArticuloAEliminar(articulo);
+        setShowConfirmadoEliminar(true);
+    };
+
+    const handleCloseConfirmadoEliminar = () => {
+        setShowConfirmadoEliminar(false);
+        setArticuloAEliminar(null);
+    };
+
+    const handleConfirmarEliminar = () => {
+        setShowConfirmadoEliminar(false);
+        setExitoSubtitle('Artículo eliminado exitosamente!');
+        setShowExitoModal(true);
+        setArticuloAEliminar(null);
     };
 
     const handleSaveNuevoArticulo = () => {
@@ -191,7 +229,7 @@ const Inventario = () => {
                                                 <button className="btn-edit" onClick={() => handleEditarArticulo(item)}>
                                                     <img src={iconEdit} alt="Editar" className="btn-edit-icon" />
                                                 </button>
-                                                <button className="btn-delete">
+                                                <button className="btn-delete" onClick={() => handleEliminarArticulo(item)}>
                                                     <img src={iconTrash} alt="Eliminar" className="btn-delete-icon" />
                                                 </button>
                                             </td>
@@ -225,7 +263,7 @@ const Inventario = () => {
             <ModalEditarArticulo
                 isOpen={modalEditarArticulo}
                 onClose={handleCloseEditarArticulo}
-                onSave={handleCloseEditarArticulo}
+                onSave={handleSaveEditarArticulo}
                 articuloData={selectedArticulo}
             />
             <ConfirmadoArticulo
@@ -233,12 +271,23 @@ const Inventario = () => {
                 onClose={handleCloseConfirmadoArticulo}
                 onConfirm={handleConfirmarArticulo}
             />
+            <ConfirmadoArticulo
+                isOpen={showConfirmadoEditar}
+                onClose={handleCloseConfirmadoEditar}
+                onConfirm={handleConfirmarEditar}
+                mensaje="¿Estas seguro de que desea modificar este artículo?"
+            />
+            <ConfirmadoEliminarArticulo
+                isOpen={showConfirmadoEliminar}
+                onClose={handleCloseConfirmadoEliminar}
+                onConfirm={handleConfirmarEliminar}
+            />
 
             <ModalExito
                 isOpen={showExitoModal}
                 onClose={handleCloseExito}
                 title="Confirmado"
-                subtitle="Artículo guardado exitosamente!"
+                subtitle={exitoSubtitle}
                 buttonLabel="Salir"
             />
         </>
