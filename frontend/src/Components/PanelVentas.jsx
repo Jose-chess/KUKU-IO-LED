@@ -115,7 +115,7 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
     );
 };
 
-const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
+const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionTipo, onOpenSeleccionCliente, onOpenSeleccionDescuento }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -138,7 +138,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                         </div>
                         <div className="facturacion-item">
                             <label>Tipo:</label>
-                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionTipo}>
+                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionTipo}>
                                 <input value="" placeholder="Seleccione el tipo" disabled readOnly />
                                 <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
                             </div>
@@ -150,7 +150,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                         </div>
                         <div className="facturacion-item">
                             <label>Descuento:</label>
-                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionDescuento}>
+                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionDescuento}>
                                 <input value="0" disabled readOnly />
                                 <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
                             </div>
@@ -158,7 +158,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
 
                         <div className="facturacion-item">
                             <label>Cliente:</label>
-                            <div className="facturacion-input-with-icon" onClick={handleOpenSeleccionCliente}>
+                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionCliente}>
                                 <input value="" placeholder="Seleccione un cliente" disabled readOnly />
                                 <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
                             </div>
@@ -392,6 +392,9 @@ const PanelVentas = () => {
                     setShowFacturacionModal(false);
                     setShowConfirmVenta(true);
                 }}
+                onOpenSeleccionTipo={handleOpenSeleccionTipo}
+                onOpenSeleccionCliente={handleOpenSeleccionCliente}
+                onOpenSeleccionDescuento={handleOpenSeleccionDescuento}
             />
 
             <ConfirmarVentaModal
