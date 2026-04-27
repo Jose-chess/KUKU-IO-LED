@@ -11,6 +11,7 @@ import ModalEditarArticulo from './ModalEditarArticulo';
 import ConfirmadoArticulo from './ConfirmadoArticulo';
 import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
+import ModalErrorArticulo from './ModalErrorArticulo';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -39,6 +40,8 @@ const Inventario = () => {
     const [articuloAEliminar, setArticuloAEliminar] = useState(null);
     const [showExitoModal, setShowExitoModal] = useState(false);
     const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -134,6 +137,11 @@ const Inventario = () => {
 
     const handleCloseExito = () => {
         setShowExitoModal(false);
+    };
+
+    const handleCloseError = () => {
+        setShowErrorModal(false);
+        setErrorMessage('');
     };
 
     return (
@@ -289,6 +297,14 @@ const Inventario = () => {
                 onClose={handleCloseExito}
                 title="Confirmado"
                 subtitle={exitoSubtitle}
+                buttonLabel="Salir"
+            />
+            <ModalErrorArticulo
+                isOpen={showErrorModal}
+                onClose={handleCloseError}
+                title="Error"
+                message={errorMessage}
+                retryMessage="Intente de nuevo"
                 buttonLabel="Salir"
             />
         </>
