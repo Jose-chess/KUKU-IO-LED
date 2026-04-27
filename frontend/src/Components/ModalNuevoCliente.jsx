@@ -41,7 +41,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
 
                     <div className="modal-cliente-grid-form">
                         <div className="modal-cliente-input-group">
-                            <label>Código Cliente:</label>
+                            <label>Código del cliente:</label>
                             <input
                                 type="text"
                                 placeholder="Autoincremental por el sistema"
