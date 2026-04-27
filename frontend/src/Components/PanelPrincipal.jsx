@@ -19,7 +19,7 @@ const MainContent = () => {
 
             <section className="kpi-grid">
                 <div className="kpi-card">
-                    <p className="kpi-label">Ingresos del día</p>
+                    <p className="kpi-label">Itebis generado</p>
                     <h2 className="kpi-value">$0</h2>
                 </div>
                 <div className="kpi-card">
