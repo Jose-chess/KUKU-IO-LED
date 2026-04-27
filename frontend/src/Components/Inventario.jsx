@@ -97,10 +97,18 @@ const Inventario = () => {
         setModalEditarArticulo(true);
     };
 
-    const handleConfirmarEditar = () => {
+    const handleConfirmarEditar = async () => {
         setShowConfirmadoEditar(false);
-        setExitoSubtitle('Artículo modificado exitosamente!');
-        setShowExitoModal(true);
+
+        try {
+            // Aquí iría la llamada al backend para modificar el artículo
+            // Por ahora simulamos éxito
+            setExitoSubtitle('Artículo modificado exitosamente!');
+            setShowExitoModal(true);
+        } catch {
+            setErrorMessage('No se pudo modificar este artículo en la base de datos');
+            setShowErrorModal(true);
+        }
     };
 
     const handleEliminarArticulo = (articulo) => {
@@ -113,11 +121,20 @@ const Inventario = () => {
         setArticuloAEliminar(null);
     };
 
-    const handleConfirmarEliminar = () => {
+    const handleConfirmarEliminar = async () => {
         setShowConfirmadoEliminar(false);
-        setExitoSubtitle('Artículo eliminado exitosamente!');
-        setShowExitoModal(true);
-        setArticuloAEliminar(null);
+
+        try {
+            // Aquí iría la llamada al backend para eliminar el artículo
+            // Por ahora simulamos éxito
+            setExitoSubtitle('Artículo eliminado exitosamente!');
+            setShowExitoModal(true);
+            setArticuloAEliminar(null);
+        } catch {
+            setErrorMessage('No se pudo eliminar este artículo de la base de datos');
+            setShowErrorModal(true);
+            setArticuloAEliminar(null);
+        }
     };
 
     const handleSaveNuevoArticulo = () => {
@@ -130,9 +147,17 @@ const Inventario = () => {
         setModalNuevoArticulo(true);
     };
 
-    const handleConfirmarArticulo = () => {
+    const handleConfirmarArticulo = async () => {
         setShowConfirmadoArticulo(false);
-        setShowExitoModal(true);
+
+        try {
+            // Aquí iría la llamada al backend para guardar el artículo
+            // Por ahora simulamos éxito
+            setShowExitoModal(true);
+        } catch {
+            setErrorMessage('No se pudo guardar este artículo en la base de datos');
+            setShowErrorModal(true);
+        }
     };
 
     const handleCloseExito = () => {
