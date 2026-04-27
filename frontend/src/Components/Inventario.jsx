@@ -12,6 +12,7 @@ import ConfirmadoArticulo from './ConfirmadoArticulo';
 import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
 import ModalErrorArticulo from './ModalErrorArticulo';
+import ModalArticuloEncontrado from './ModalArticuloEncontrado';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -42,6 +43,8 @@ const Inventario = () => {
     const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showArticuloEncontrado, setShowArticuloEncontrado] = useState(false);
+    const [articuloEncontrado, setArticuloEncontrado] = useState(null);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -169,6 +172,44 @@ const Inventario = () => {
         setErrorMessage('');
     };
 
+    const handleBusquedaChange = (e) => {
+        const valor = e.target.value;
+        setBusqueda(valor);
+
+        if (valor.trim() !== '') {
+            const encontrado = articulos.find(a =>
+                a.descripcion.toLowerCase() === valor.toLowerCase() ||
+                a.codigo.toLowerCase() === valor.toLowerCase()
+            );
+
+            if (encontrado) {
+                setArticuloEncontrado(encontrado);
+                setShowArticuloEncontrado(true);
+            } else {
+                setShowArticuloEncontrado(false);
+                setArticuloEncontrado(null);
+            }
+        } else {
+            setShowArticuloEncontrado(false);
+            setArticuloEncontrado(null);
+        }
+    };
+
+    const handleCloseArticuloEncontrado = () => {
+        setShowArticuloEncontrado(false);
+        setArticuloEncontrado(null);
+    };
+
+    const handleEditarDesdeEncontrado = (articulo) => {
+        handleCloseArticuloEncontrado();
+        handleEditarArticulo(articulo);
+    };
+
+    const handleEliminarDesdeEncontrado = (articulo) => {
+        handleCloseArticuloEncontrado();
+        handleEliminarArticulo(articulo);
+    };
+
     return (
         <>
             <div className="inventario-page">
@@ -225,7 +266,7 @@ const Inventario = () => {
                                     type="text"
                                     placeholder="Buscar por nombre del artículo"
                                     value={busqueda}
-                                    onChange={(e) => setBusqueda(e.target.value)}
+                                    onChange={handleBusquedaChange}
                                 />
                             </div>
                         </div>
@@ -331,6 +372,13 @@ const Inventario = () => {
                 message={errorMessage}
                 retryMessage="Intente de nuevo"
                 buttonLabel="Salir"
+            />
+            <ModalArticuloEncontrado
+                isOpen={showArticuloEncontrado}
+                onClose={handleCloseArticuloEncontrado}
+                articuloData={articuloEncontrado}
+                onEdit={handleEditarDesdeEncontrado}
+                onDelete={handleEliminarDesdeEncontrado}
             />
         </>
     );
