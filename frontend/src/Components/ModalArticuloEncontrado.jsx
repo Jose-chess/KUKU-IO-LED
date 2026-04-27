@@ -68,7 +68,7 @@ const ModalArticuloEncontrado = ({ isOpen, onClose, articuloData, onEdit, onDele
                 <div className="aviso-footer-right no-top-border">
                     <button className="btn-aviso-red" onClick={onClose} type="button">
                         <img src={iconSalir} alt="" className="icon-back-img" />
-                        Salir
+                        Retroceder
                     </button>
                 </div>
             </div>
