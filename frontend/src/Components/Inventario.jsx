@@ -173,25 +173,31 @@ const Inventario = () => {
     };
 
     const handleBusquedaChange = (e) => {
-        const valor = e.target.value;
-        setBusqueda(valor);
+        setBusqueda(e.target.value);
+    };
 
-        if (valor.trim() !== '') {
-            const encontrado = articulos.find(a =>
-                a.descripcion.toLowerCase() === valor.toLowerCase() ||
-                a.codigo.toLowerCase() === valor.toLowerCase()
-            );
+    const handleBusquedaKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            const valor = e.target.value;
 
-            if (encontrado) {
-                setArticuloEncontrado(encontrado);
-                setShowArticuloEncontrado(true);
+            if (valor.trim() !== '') {
+                const encontrado = articulos.find(a =>
+                    a.descripcion.toLowerCase() === valor.toLowerCase() ||
+                    a.codigo.toLowerCase() === valor.toLowerCase()
+                );
+
+                if (encontrado) {
+                    setArticuloEncontrado(encontrado);
+                    setShowArticuloEncontrado(true);
+                    setBusqueda('');
+                } else {
+                    setShowArticuloEncontrado(false);
+                    setArticuloEncontrado(null);
+                }
             } else {
                 setShowArticuloEncontrado(false);
                 setArticuloEncontrado(null);
             }
-        } else {
-            setShowArticuloEncontrado(false);
-            setArticuloEncontrado(null);
         }
     };
 
@@ -267,6 +273,7 @@ const Inventario = () => {
                                     placeholder="Buscar por nombre del artículo"
                                     value={busqueda}
                                     onChange={handleBusquedaChange}
+                                    onKeyDown={handleBusquedaKeyDown}
                                 />
                             </div>
                         </div>
