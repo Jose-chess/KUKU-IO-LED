@@ -13,6 +13,7 @@ import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
 import ModalErrorArticulo from './ModalErrorArticulo';
 import ModalArticuloEncontrado from './ModalArticuloEncontrado';
+import ModalArticuloNoEncontrado from './ModalArticuloNoEncontrado';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -45,6 +46,7 @@ const Inventario = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showArticuloEncontrado, setShowArticuloEncontrado] = useState(false);
     const [articuloEncontrado, setArticuloEncontrado] = useState(null);
+    const [showArticuloNoEncontrado, setShowArticuloNoEncontrado] = useState(false);
     const [entradoDesdeBusqueda, setEntradoDesdeBusqueda] = useState(false);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
@@ -216,6 +218,8 @@ const Inventario = () => {
                 } else {
                     setShowArticuloEncontrado(false);
                     setArticuloEncontrado(null);
+                    setShowArticuloNoEncontrado(true);
+                    setBusqueda('');
                 }
             } else {
                 setShowArticuloEncontrado(false);
@@ -227,6 +231,10 @@ const Inventario = () => {
     const handleCloseArticuloEncontrado = () => {
         setShowArticuloEncontrado(false);
         setArticuloEncontrado(null);
+    };
+
+    const handleCloseArticuloNoEncontrado = () => {
+        setShowArticuloNoEncontrado(false);
     };
 
     const handleEditarDesdeEncontrado = (articulo) => {
@@ -411,6 +419,10 @@ const Inventario = () => {
                 articuloData={articuloEncontrado}
                 onEdit={handleEditarDesdeEncontrado}
                 onDelete={handleEliminarDesdeEncontrado}
+            />
+            <ModalArticuloNoEncontrado
+                isOpen={showArticuloNoEncontrado}
+                onClose={handleCloseArticuloNoEncontrado}
             />
         </>
     );
