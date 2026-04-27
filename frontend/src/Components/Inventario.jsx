@@ -281,6 +281,9 @@ const Inventario = () => {
                 isOpen={showConfirmadoEliminar}
                 onClose={handleCloseConfirmadoEliminar}
                 onConfirm={handleConfirmarEliminar}
+                title="Confirmar"
+                subtitle="¿Estas seguro de que desea eliminar este artículo?"
+                buttonLabel="Eliminar"
             />
 
             <ModalExito
