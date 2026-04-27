@@ -395,7 +395,7 @@
     color: #64748b;
     font-size: 13px;
     font-weight: 600;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background: #ffffff;
 }
 
 @keyframes inventario-fade-up {

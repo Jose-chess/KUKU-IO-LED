@@ -7,6 +7,7 @@ import iconTrash from '../assets/trash.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalExistenciaBaja from './ModalExistenciaBaja';
 import ModalNuevoArticulo from './ModalNuevoArticulo';
+import ModalConfirmado from './ModalConfirmado';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -27,6 +28,7 @@ const Inventario = () => {
     const [modalExistenciaBaja, setModalExistenciaBaja] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0, width: 0 });
     const [modalNuevoArticulo, setModalNuevoArticulo] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -60,6 +62,15 @@ const Inventario = () => {
 
     const handleCloseNuevoArticulo = () => {
         setModalNuevoArticulo(false);
+    };
+
+    const handleSaveNuevoArticulo = () => {
+        setModalNuevoArticulo(false);
+        setShowSuccessModal(true);
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessModal(false);
     };
 
     return (
@@ -184,7 +195,14 @@ const Inventario = () => {
             <ModalNuevoArticulo
                 isOpen={modalNuevoArticulo}
                 onClose={handleCloseNuevoArticulo}
-                onSave={handleCloseNuevoArticulo}
+                onSave={handleSaveNuevoArticulo}
+            />
+            <ModalConfirmado
+                isOpen={showSuccessModal}
+                onClose={handleSuccessClose}
+                title="Confirmado"
+                subtitle="Artículo guardado exitosamente!"
+                buttonLabel="Salir"
             />
         </>
     );
