@@ -45,6 +45,7 @@ const Inventario = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showArticuloEncontrado, setShowArticuloEncontrado] = useState(false);
     const [articuloEncontrado, setArticuloEncontrado] = useState(null);
+    const [entradoDesdeBusqueda, setEntradoDesdeBusqueda] = useState(false);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -86,8 +87,15 @@ const Inventario = () => {
     };
 
     const handleCloseEditarArticulo = () => {
-        setModalEditarArticulo(false);
-        setSelectedArticulo(null);
+        if (entradoDesdeBusqueda) {
+            setModalEditarArticulo(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(selectedArticulo);
+            setShowArticuloEncontrado(true);
+        } else {
+            setModalEditarArticulo(false);
+            setSelectedArticulo(null);
+        }
     };
 
     const handleSaveEditarArticulo = () => {
@@ -96,8 +104,15 @@ const Inventario = () => {
     };
 
     const handleCloseConfirmadoEditar = () => {
-        setShowConfirmadoEditar(false);
-        setModalEditarArticulo(true);
+        if (entradoDesdeBusqueda) {
+            setShowConfirmadoEditar(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(selectedArticulo);
+            setShowArticuloEncontrado(true);
+        } else {
+            setShowConfirmadoEditar(false);
+            setModalEditarArticulo(true);
+        }
     };
 
     const handleConfirmarEditar = async () => {
@@ -120,8 +135,16 @@ const Inventario = () => {
     };
 
     const handleCloseConfirmadoEliminar = () => {
-        setShowConfirmadoEliminar(false);
-        setArticuloAEliminar(null);
+        if (entradoDesdeBusqueda) {
+            setShowConfirmadoEliminar(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(articuloAEliminar);
+            setShowArticuloEncontrado(true);
+            setArticuloAEliminar(null);
+        } else {
+            setShowConfirmadoEliminar(false);
+            setArticuloAEliminar(null);
+        }
     };
 
     const handleConfirmarEliminar = async () => {
@@ -207,11 +230,13 @@ const Inventario = () => {
     };
 
     const handleEditarDesdeEncontrado = (articulo) => {
+        setEntradoDesdeBusqueda(true);
         handleCloseArticuloEncontrado();
         handleEditarArticulo(articulo);
     };
 
     const handleEliminarDesdeEncontrado = (articulo) => {
+        setEntradoDesdeBusqueda(true);
         handleCloseArticuloEncontrado();
         handleEliminarArticulo(articulo);
     };
