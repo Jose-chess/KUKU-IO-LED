@@ -1,11 +1,11 @@
 import React from 'react';
-import './AvisoVentas.css';
+import './ModalArticuloNoEncontrado.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
 const ModalArticuloNoEncontrado = ({
-    isOpen = true,
+    isOpen = false,
     onClose = () => {},
     buttonLabel = 'Retroceder',
 }) => {
@@ -16,21 +16,21 @@ const ModalArticuloNoEncontrado = ({
     }
 
     return (
-        <div className="venta-overlay" onClick={handleOverlayClick}>
-            <div className={`venta-card-amarilla scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
-                <div className="venta-logo-box">
-                    <img src={logoKuku} alt="KUKU-IO LED" className="venta-logo-img" />
+        <div className="articulo-no-encontrado-overlay" onClick={handleOverlayClick}>
+            <div className={`articulo-no-encontrado-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
+                <div className="articulo-no-encontrado-logo-box">
+                    <img src={logoKuku} alt="KUKU-IO LED" className="articulo-no-encontrado-logo-img" />
                 </div>
 
-                <h1 className="venta-titulo-error">Artículo no encontrado</h1>
+                <h1 className="articulo-no-encontrado-titulo">Artículo no encontrado</h1>
 
-                <div className="venta-texto-container">
-                    <p className="venta-p-bold">No hay registros que coincidan con su búsqueda</p>
-                    <p className="venta-p-bold">Intente con otro artículo</p>
+                <div className="articulo-no-encontrado-texto-container">
+                    <p className="articulo-no-encontrado-texto">No hay registros que coincidan con su búsqueda</p>
+                    <p className="articulo-no-encontrado-texto">Intente con otro artículo</p>
                 </div>
 
-                <div className="venta-footer">
-                    <button className="btn-venta-salir" type="button" onClick={onClose}>
+                <div className="articulo-no-encontrado-footer">
+                    <button className="articulo-no-encontrado-btn-salir" type="button" onClick={onClose}>
                         <img src={iconSalir} alt="" className="icon-back" />
                         {buttonLabel}
                     </button>
