@@ -12,6 +12,19 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
 
     if (!isOpen) return null;
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const container = e.target.closest('.modal-cliente-container');
+            const inputs = Array.from(container.querySelectorAll('input, textarea'));
+            const currentIndex = inputs.indexOf(e.target);
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < inputs.length) {
+                inputs[nextIndex].focus();
+            }
+        }
+    };
+
     const handleUpdate = (event) => {
         event.preventDefault();
         (onUpdate ?? onGuardarModificacion)?.();
@@ -49,6 +62,8 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="codigo"
                                     defaultValue={clienteData?.codigo ?? ''}
+                                    onKeyDown={handleKeyDown}
+                                    readOnly
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -57,6 +72,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="nombre"
                                     defaultValue={clienteData?.nombre ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -65,6 +81,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="apellido"
                                     defaultValue={clienteData?.apellido ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -73,6 +90,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="rnc"
                                     defaultValue={clienteData?.rnc ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -81,6 +99,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="direccion"
                                     defaultValue={clienteData?.direccion ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -89,6 +108,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="sector"
                                     defaultValue={clienteData?.sector ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -97,6 +117,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="ciudad"
                                     defaultValue={clienteData?.ciudad ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -105,6 +126,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                     type="text"
                                     name="telefono"
                                     defaultValue={clienteData?.telefono ?? ''}
+                                    onKeyDown={handleKeyDown}
                                 />
                             </div>
                             <div className="modal-cliente-input-group">
@@ -114,6 +136,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                         type="text"
                                         name="limiteCredito"
                                         defaultValue={clienteData?.limiteCredito ?? clienteData?.limite ?? ''}
+                                        onKeyDown={handleKeyDown}
                                     />
                                 </div>
                             </div>
@@ -124,6 +147,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                         type="text"
                                         name="balanceActual"
                                         defaultValue={clienteData?.balanceActual ?? clienteData?.balance ?? ''}
+                                        onKeyDown={handleKeyDown}
                                     />
                                 </div>
                             </div>
@@ -135,6 +159,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                                 name="observacion"
                                 defaultValue={clienteData?.observacion ?? ''}
                                 rows="3"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                     </div>

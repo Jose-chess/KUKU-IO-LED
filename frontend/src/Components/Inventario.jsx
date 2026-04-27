@@ -7,6 +7,12 @@ import iconTrash from '../assets/trash.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalExistenciaBaja from './ModalExistenciaBaja';
 import ModalNuevoArticulo from './ModalNuevoArticulo';
+import ModalEditarArticulo from './ModalEditarArticulo';
+import ConfirmadoArticulo from './ConfirmadoArticulo';
+import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
+import ModalExito from './ModalExito';
+import ModalErrorArticulo from './ModalErrorArticulo';
+import ModalArticuloEncontrado from './ModalArticuloEncontrado';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -27,6 +33,19 @@ const Inventario = () => {
     const [modalExistenciaBaja, setModalExistenciaBaja] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0, width: 0 });
     const [modalNuevoArticulo, setModalNuevoArticulo] = useState(false);
+    const [modalEditarArticulo, setModalEditarArticulo] = useState(false);
+    const [selectedArticulo, setSelectedArticulo] = useState(null);
+    const [showConfirmadoArticulo, setShowConfirmadoArticulo] = useState(false);
+    const [showConfirmadoEditar, setShowConfirmadoEditar] = useState(false);
+    const [showConfirmadoEliminar, setShowConfirmadoEliminar] = useState(false);
+    const [articuloAEliminar, setArticuloAEliminar] = useState(null);
+    const [showExitoModal, setShowExitoModal] = useState(false);
+    const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
+    const [showErrorModal, setShowErrorModal] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [showArticuloEncontrado, setShowArticuloEncontrado] = useState(false);
+    const [articuloEncontrado, setArticuloEncontrado] = useState(null);
+    const [entradoDesdeBusqueda, setEntradoDesdeBusqueda] = useState(false);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -60,6 +79,166 @@ const Inventario = () => {
 
     const handleCloseNuevoArticulo = () => {
         setModalNuevoArticulo(false);
+    };
+
+    const handleEditarArticulo = (articulo) => {
+        setSelectedArticulo(articulo);
+        setModalEditarArticulo(true);
+    };
+
+    const handleCloseEditarArticulo = () => {
+        if (entradoDesdeBusqueda) {
+            setModalEditarArticulo(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(selectedArticulo);
+            setShowArticuloEncontrado(true);
+        } else {
+            setModalEditarArticulo(false);
+            setSelectedArticulo(null);
+        }
+    };
+
+    const handleSaveEditarArticulo = () => {
+        setModalEditarArticulo(false);
+        setShowConfirmadoEditar(true);
+    };
+
+    const handleCloseConfirmadoEditar = () => {
+        if (entradoDesdeBusqueda) {
+            setShowConfirmadoEditar(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(selectedArticulo);
+            setShowArticuloEncontrado(true);
+        } else {
+            setShowConfirmadoEditar(false);
+            setModalEditarArticulo(true);
+        }
+    };
+
+    const handleConfirmarEditar = async () => {
+        setShowConfirmadoEditar(false);
+
+        try {
+            // Aquí iría la llamada al backend para modificar el artículo
+            // Por ahora simulamos éxito
+            setExitoSubtitle('Artículo modificado exitosamente!');
+            setShowExitoModal(true);
+        } catch {
+            setErrorMessage('No se pudo modificar este artículo en la base de datos');
+            setShowErrorModal(true);
+        }
+    };
+
+    const handleEliminarArticulo = (articulo) => {
+        setArticuloAEliminar(articulo);
+        setShowConfirmadoEliminar(true);
+    };
+
+    const handleCloseConfirmadoEliminar = () => {
+        if (entradoDesdeBusqueda) {
+            setShowConfirmadoEliminar(false);
+            setEntradoDesdeBusqueda(false);
+            setArticuloEncontrado(articuloAEliminar);
+            setShowArticuloEncontrado(true);
+            setArticuloAEliminar(null);
+        } else {
+            setShowConfirmadoEliminar(false);
+            setArticuloAEliminar(null);
+        }
+    };
+
+    const handleConfirmarEliminar = async () => {
+        setShowConfirmadoEliminar(false);
+
+        try {
+            // Aquí iría la llamada al backend para eliminar el artículo
+            // Por ahora simulamos éxito
+            setExitoSubtitle('Artículo eliminado exitosamente!');
+            setShowExitoModal(true);
+            setArticuloAEliminar(null);
+        } catch {
+            setErrorMessage('No se pudo eliminar este artículo de la base de datos');
+            setShowErrorModal(true);
+            setArticuloAEliminar(null);
+        }
+    };
+
+    const handleSaveNuevoArticulo = () => {
+        setModalNuevoArticulo(false);
+        setShowConfirmadoArticulo(true);
+    };
+
+    const handleCloseConfirmadoArticulo = () => {
+        setShowConfirmadoArticulo(false);
+        setModalNuevoArticulo(true);
+    };
+
+    const handleConfirmarArticulo = async () => {
+        setShowConfirmadoArticulo(false);
+
+        try {
+            // Aquí iría la llamada al backend para guardar el artículo
+            // Por ahora simulamos éxito
+            setShowExitoModal(true);
+        } catch {
+            setErrorMessage('No se pudo guardar este artículo en la base de datos');
+            setShowErrorModal(true);
+        }
+    };
+
+    const handleCloseExito = () => {
+        setShowExitoModal(false);
+    };
+
+    const handleCloseError = () => {
+        setShowErrorModal(false);
+        setErrorMessage('');
+    };
+
+    const handleBusquedaChange = (e) => {
+        setBusqueda(e.target.value);
+    };
+
+    const handleBusquedaKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            const valor = e.target.value;
+
+            if (valor.trim() !== '') {
+                const encontrado = articulos.find(a =>
+                    a.descripcion.toLowerCase() === valor.toLowerCase() ||
+                    a.codigo.toLowerCase() === valor.toLowerCase()
+                );
+
+                if (encontrado) {
+                    setArticuloEncontrado(encontrado);
+                    setShowArticuloEncontrado(true);
+                    setBusqueda('');
+                } else {
+                    setShowArticuloEncontrado(false);
+                    setArticuloEncontrado(null);
+                }
+            } else {
+                setShowArticuloEncontrado(false);
+                setArticuloEncontrado(null);
+            }
+        }
+    };
+
+    const handleCloseArticuloEncontrado = () => {
+        setShowArticuloEncontrado(false);
+        setArticuloEncontrado(null);
+    };
+
+    const handleEditarDesdeEncontrado = (articulo) => {
+        setEntradoDesdeBusqueda(true);
+        handleCloseArticuloEncontrado();
+        handleEditarArticulo(articulo);
+    };
+
+    const handleEliminarDesdeEncontrado = (articulo) => {
+        setEntradoDesdeBusqueda(true);
+        handleCloseArticuloEncontrado();
+        handleEliminarArticulo(articulo);
     };
 
     return (
@@ -118,7 +297,8 @@ const Inventario = () => {
                                     type="text"
                                     placeholder="Buscar por nombre del artículo"
                                     value={busqueda}
-                                    onChange={(e) => setBusqueda(e.target.value)}
+                                    onChange={handleBusquedaChange}
+                                    onKeyDown={handleBusquedaKeyDown}
                                 />
                             </div>
                         </div>
@@ -152,10 +332,10 @@ const Inventario = () => {
                                             <td>{formatMoney(item.costo)}</td>
                                             <td>{formatMoney(item.precio)}</td>
                                             <td className="accion-cell">
-                                                <button className="btn-edit">
+                                                <button className="btn-edit" onClick={() => handleEditarArticulo(item)}>
                                                     <img src={iconEdit} alt="Editar" className="btn-edit-icon" />
                                                 </button>
-                                                <button className="btn-delete">
+                                                <button className="btn-delete" onClick={() => handleEliminarArticulo(item)}>
                                                     <img src={iconTrash} alt="Eliminar" className="btn-delete-icon" />
                                                 </button>
                                             </td>
@@ -184,7 +364,53 @@ const Inventario = () => {
             <ModalNuevoArticulo
                 isOpen={modalNuevoArticulo}
                 onClose={handleCloseNuevoArticulo}
-                onSave={handleCloseNuevoArticulo}
+                onSave={handleSaveNuevoArticulo}
+            />
+            <ModalEditarArticulo
+                isOpen={modalEditarArticulo}
+                onClose={handleCloseEditarArticulo}
+                onSave={handleSaveEditarArticulo}
+                articuloData={selectedArticulo}
+            />
+            <ConfirmadoArticulo
+                isOpen={showConfirmadoArticulo}
+                onClose={handleCloseConfirmadoArticulo}
+                onConfirm={handleConfirmarArticulo}
+            />
+            <ConfirmadoArticulo
+                isOpen={showConfirmadoEditar}
+                onClose={handleCloseConfirmadoEditar}
+                onConfirm={handleConfirmarEditar}
+                mensaje="¿Estas seguro de que desea modificar este artículo?"
+            />
+            <ConfirmadoEliminarArticulo
+                isOpen={showConfirmadoEliminar}
+                onClose={handleCloseConfirmadoEliminar}
+                onConfirm={handleConfirmarEliminar}
+                mensaje="¿Estas seguro de que desea eliminar este artículo?"
+            />
+
+            <ModalExito
+                isOpen={showExitoModal}
+                onClose={handleCloseExito}
+                title="Confirmado"
+                subtitle={exitoSubtitle}
+                buttonLabel="Salir"
+            />
+            <ModalErrorArticulo
+                isOpen={showErrorModal}
+                onClose={handleCloseError}
+                title="Error"
+                message={errorMessage}
+                retryMessage="Intente de nuevo"
+                buttonLabel="Salir"
+            />
+            <ModalArticuloEncontrado
+                isOpen={showArticuloEncontrado}
+                onClose={handleCloseArticuloEncontrado}
+                articuloData={articuloEncontrado}
+                onEdit={handleEditarDesdeEncontrado}
+                onDelete={handleEliminarDesdeEncontrado}
             />
         </>
     );

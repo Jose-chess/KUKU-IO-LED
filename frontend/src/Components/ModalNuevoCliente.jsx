@@ -11,6 +11,19 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
 
     if (!isOpen) return null;
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const container = e.target.closest('.modal-cliente-container');
+            const inputs = Array.from(container.querySelectorAll('input, textarea'));
+            const currentIndex = inputs.indexOf(e.target);
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < inputs.length) {
+                inputs[nextIndex].focus();
+            }
+        }
+    };
+
     const handleSave = () => {
         onSave?.();
     };
@@ -45,6 +58,8 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Autoincremental por el sistema"
+                                onKeyDown={handleKeyDown}
+                                readOnly
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -52,6 +67,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el nombre"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -59,6 +75,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el apellido"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -66,6 +83,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el RNC o Cédula"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -73,6 +91,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese la dirección"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -80,6 +99,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el sector"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -87,6 +107,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese la ciudad"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -94,6 +115,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el teléfono"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -101,6 +123,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el límite de crédito"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                         <div className="modal-cliente-input-group">
@@ -108,6 +131,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                             <input
                                 type="text"
                                 placeholder="Ingrese el balance actual"
+                                onKeyDown={handleKeyDown}
                             />
                         </div>
                     </div>
@@ -117,6 +141,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
                         <textarea
                             placeholder="Ingrese una observación"
                             rows="4"
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
                 </div>

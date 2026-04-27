@@ -21,6 +21,18 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
         return null;
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const inputs = Array.from(document.querySelectorAll('.modal-gasto-input'));
+            const currentIndex = inputs.indexOf(e.target);
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < inputs.length) {
+                inputs[nextIndex].focus();
+            }
+        }
+    };
+
     const closeAllModals = () => {
         setShowConfirm(false);
         setShowConfirmExit(false);
@@ -122,6 +134,7 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
                             className="modal-gasto-input"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
 
@@ -133,6 +146,7 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
                             className="modal-gasto-input modal-gasto-monto-input"
                             value={monto}
                             onChange={(e) => setMonto(e.target.value)}
+                            onKeyDown={handleKeyDown}
                         />
                     </div>
                 </div>
