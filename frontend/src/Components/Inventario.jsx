@@ -3,16 +3,32 @@ import './Inventario.css';
 import iconNew from '../assets/new-section.svg';
 import iconSearch from '../assets/search.svg';
 import iconEdit from '../assets/edit.svg';
+import iconTrash from '../assets/trash.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalExistenciaBaja from './ModalExistenciaBaja';
+import ModalNuevoArticulo from './ModalNuevoArticulo';
 import { useRef } from 'react';
 
 const Inventario = () => {
-    const [articulos] = useState([]);
+    const [articulos] = useState([
+        {
+            id: 1,
+            codigo: 'ART001',
+            descripcion: 'Producto de prueba',
+            color: 'Rojo',
+            unidad: 'Unidad',
+            minima: 10,
+            actual: 5,
+            costo: 100,
+            precio: 150
+        }
+    ]);
     const [busqueda, setBusqueda] = useState('');
     const [modalExistenciaBaja, setModalExistenciaBaja] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0, width: 0 });
+    const [modalNuevoArticulo, setModalNuevoArticulo] = useState(false);
     const cardExistenciaRef = useRef(null);
+    const tableCardRef = useRef(null);
 
     const totalArticulos = articulos.length;
     const articuloMasVendido = 0;
@@ -29,16 +45,21 @@ const Inventario = () => {
     };
 
 
-    const handleOpenModal = () => {
-        if (cardExistenciaRef.current) {
+    const handleToggleModal = () => {
+        if (modalExistenciaBaja) setModalExistenciaBaja(false);
+        else {
             const rect = cardExistenciaRef.current.getBoundingClientRect();
-            setModalPosition({
-                top: rect.bottom + window.scrollY,
-                left: rect.left + window.scrollX,
-                width: rect.width
-            });
+            setModalPosition({ top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX, width: rect.width });
+            setModalExistenciaBaja(true);
         }
-        setModalExistenciaBaja(true);
+    };
+
+    const handleOpenNuevoArticulo = () => {
+        setModalNuevoArticulo(true);
+    };
+
+    const handleCloseNuevoArticulo = () => {
+        setModalNuevoArticulo(false);
     };
 
     return (
@@ -46,7 +67,7 @@ const Inventario = () => {
             <div className="inventario-page">
                 <div className="inventario-header">
                     <h1 className="inventario-title">Inventario</h1>
-                    <button className="btn-nuevo-articulo" type="button">
+                    <button className="btn-nuevo-articulo" type="button" onClick={handleOpenNuevoArticulo}>
                         <img src={iconNew} alt="" className="btn-nuevo-articulo-icon" />
                         Nuevo Artículo
                     </button>
@@ -69,7 +90,7 @@ const Inventario = () => {
                         className="kpi-card inventario-kpi-card"
                         ref={cardExistenciaRef}
                         style={{ cursor: 'pointer' }}
-                        onClick={handleOpenModal}
+                        onClick={handleToggleModal}
                     >
                         <div className="existencia-baja-row">
                             <div>
@@ -79,21 +100,13 @@ const Inventario = () => {
                             <img
                                 src={iconFlecha}
                                 alt="Flecha"
-                                className="icon-flecha-existencia-baja"
+                                className={`icon-flecha-existencia-baja ${modalExistenciaBaja ? 'flecha-volteada' : ''}`}
                             />
                         </div>
                     </div>
-                    {modalExistenciaBaja && (
-                        <ModalExistenciaBaja
-                            isOpen={modalExistenciaBaja}
-                            onClose={() => setModalExistenciaBaja(false)}
-                            articulos={articulosBajos}
-                            position={modalPosition}
-                        />
-                    )}
                 </div>
 
-                <div className="inventario-table-card">
+                <div className="inventario-table-card" ref={tableCardRef}>
                     <div className="inventario-table-controls">
                         <div>
                             <h3>Lista de artículos</h3>
@@ -142,6 +155,9 @@ const Inventario = () => {
                                                 <button className="btn-edit">
                                                     <img src={iconEdit} alt="Editar" className="btn-edit-icon" />
                                                 </button>
+                                                <button className="btn-delete">
+                                                    <img src={iconTrash} alt="Eliminar" className="btn-delete-icon" />
+                                                </button>
                                             </td>
                                         </tr>
                                     ))
@@ -157,6 +173,19 @@ const Inventario = () => {
                     </div>
                 </div>
             </div>
+            {modalExistenciaBaja && (
+                <ModalExistenciaBaja
+                    isOpen={modalExistenciaBaja}
+                    onClose={() => setModalExistenciaBaja(false)}
+                    articulos={articulosBajos}
+                    position={modalPosition}
+                />
+            )}
+            <ModalNuevoArticulo
+                isOpen={modalNuevoArticulo}
+                onClose={handleCloseNuevoArticulo}
+                onSave={handleCloseNuevoArticulo}
+            />
         </>
     );
 };

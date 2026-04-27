@@ -22,6 +22,11 @@
     display: inline-block;
     margin-top: 6px;
     object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.icon-flecha-existencia-baja.flecha-volteada {
+    transform: rotate(180deg);
 }
 .inventario-page > * {
     animation: inventario-fade-up 0.42s ease both;
@@ -133,6 +138,10 @@
     font-size: 22px;
     font-weight: 700;
     color: #0f172a;
+}
+
+.inventario-kpi-card .kpi-value-existencia-baja {
+    color: #ff0000;
 }
 
 .inventario-kpi-card p {
@@ -271,7 +280,7 @@
     top: 0;
     z-index: 1;
     background: #F8F7B4;
-    text-align: left;
+    text-align: center;
     padding: 8px 10px;
     font-family: 'Konkhmer Sleokchher', sans-serif;
     font-size: 11px;
@@ -287,6 +296,7 @@
     font-weight: 600;
     color: #1e293b;
     vertical-align: top;
+    text-align: center;
 }
 
 .inventario-table tbody tr:hover {
@@ -341,6 +351,35 @@
     width: 16px;
     height: 16px;
     color: #009C00;
+}
+
+.btn-delete {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn-delete:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.btn-delete:active {
+    transform: scale(0.96);
+}
+
+.btn-delete-icon {
+    width: 16px;
+    height: 16px;
+    color: #ff0000;
 }
 
 .clientes-empty-state {
