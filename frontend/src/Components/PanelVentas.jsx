@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './PanelVentas.css';
 import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
@@ -115,7 +115,7 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
     );
 };
 
-const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionTipo, onOpenSeleccionCliente, onOpenSeleccionDescuento }) => {
+const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionTipo, onOpenSeleccionCliente, inputClienteRef, inputTipoRef, showSeleccionCliente, showSeleccionTipo, selectedTipo, selectedCliente, selectedDescuento, isDescuentoManual, setSelectedDescuento }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -138,9 +138,9 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionT
                         </div>
                         <div className="facturacion-item">
                             <label>Tipo:</label>
-                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionTipo}>
-                                <input value="" placeholder="Seleccione el tipo" disabled readOnly />
-                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            <div className="facturacion-input-with-icon" ref={inputTipoRef} onClick={onOpenSeleccionTipo}>
+                                <input value={selectedTipo} placeholder="Seleccione el tipo" disabled readOnly style={{ pointerEvents: 'none' }} />
+                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" style={{ transform: showSeleccionTipo ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)' }} />
                             </div>
                         </div>
 
@@ -150,17 +150,22 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionT
                         </div>
                         <div className="facturacion-item">
                             <label>Descuento:</label>
-                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionDescuento}>
-                                <input value="0" disabled readOnly />
-                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            <div className="facturacion-input-with-icon">
+                                <input 
+                                    value={selectedDescuento} 
+                                    onChange={(e) => isDescuentoManual && setSelectedDescuento(e.target.value)}
+                                    placeholder={isDescuentoManual ? "Ingrese descuento" : "-"}
+                                    readOnly={!isDescuentoManual}
+                                    style={{ backgroundColor: isDescuentoManual ? '#f3f4f6' : '#e5e7eb' }}
+                                />
                             </div>
                         </div>
 
                         <div className="facturacion-item">
                             <label>Cliente:</label>
-                            <div className="facturacion-input-with-icon" onClick={onOpenSeleccionCliente}>
-                                <input value="" placeholder="Seleccione un cliente" disabled readOnly />
-                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" />
+                            <div className="facturacion-input-with-icon" ref={inputClienteRef} onClick={onOpenSeleccionCliente}>
+                                <input value={selectedCliente} placeholder="Seleccione un cliente" disabled readOnly style={{ pointerEvents: 'none' }} />
+                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" style={{ transform: showSeleccionCliente ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)' }} />
                             </div>
                         </div>
 
@@ -197,7 +202,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionT
                     <div className="facturacion-actions">
                         <button className="btn-confirm-salir btn-confirm-red" type="button" onClick={onVolver}>
                             <img src={iconSalir} alt="" className="confirm-btn-icon" />
-                            Volver
+                            Retroceder
                         </button>
                         <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={onConfirmarVenta}>
                             <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
@@ -221,7 +226,18 @@ const PanelVentas = () => {
     const [showSeleccionCliente, setShowSeleccionCliente] = useState(false);
     const [showSeleccionTipo, setShowSeleccionTipo] = useState(false);
     const [showSeleccionDescuento, setShowSeleccionDescuento] = useState(false);
+    const [modalPositionCliente, setModalPositionCliente] = useState({ top: 0, left: 0, width: 0 });
+    const [modalPositionTipo, setModalPositionTipo] = useState({ top: 0, left: 0, width: 0 });
+    const [modalPositionDescuento, setModalPositionDescuento] = useState({ top: 0, left: 0, width: 0 });
+    const [selectedTipo, setSelectedTipo] = useState('');
+    const [selectedCliente, setSelectedCliente] = useState('');
+    const [selectedDescuento, setSelectedDescuento] = useState('');
+    const [cantidadArticulos, setCantidadArticulos] = useState(0);
+    const [isDescuentoManual, setIsDescuentoManual] = useState(false);
     const [busquedaVenta, setBusquedaVenta] = useState('');
+    const inputClienteRef = useRef(null);
+    const inputTipoRef = useRef(null);
+    const inputDescuentoRef = useRef(null);
 
     const manejarBusquedaVenta = (event) => {
         if (event.key !== 'Enter') {
@@ -240,15 +256,33 @@ const PanelVentas = () => {
     };
 
     const handleOpenSeleccionCliente = () => {
-        setShowSeleccionCliente(true);
+        if (showSeleccionCliente) {
+            setShowSeleccionCliente(false);
+        } else {
+            const rect = inputClienteRef.current.getBoundingClientRect();
+            setModalPositionCliente({ top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX, width: rect.width });
+            setShowSeleccionCliente(true);
+        }
     };
 
     const handleOpenSeleccionTipo = () => {
-        setShowSeleccionTipo(true);
+        if (showSeleccionTipo) {
+            setShowSeleccionTipo(false);
+        } else {
+            const rect = inputTipoRef.current.getBoundingClientRect();
+            setModalPositionTipo({ top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX, width: rect.width });
+            setShowSeleccionTipo(true);
+        }
     };
 
     const handleOpenSeleccionDescuento = () => {
-        setShowSeleccionDescuento(true);
+        if (showSeleccionDescuento) {
+            setShowSeleccionDescuento(false);
+        } else {
+            const rect = inputDescuentoRef.current.getBoundingClientRect();
+            setModalPositionDescuento({ top: rect.bottom + window.scrollY + 8, left: rect.left + window.scrollX, width: rect.width });
+            setShowSeleccionDescuento(true);
+        }
     };
 
     const handleCloseSeleccionCliente = () => {
@@ -261,6 +295,15 @@ const PanelVentas = () => {
 
     const handleCloseSeleccionDescuento = () => {
         setShowSeleccionDescuento(false);
+    };
+
+    const calcularDescuentoAutomatico = (cantidad) => {
+        if (cantidad >= 10) {
+            return '30%';
+        } else if (cantidad >= 5) {
+            return '20%';
+        }
+        return '0';
     };
 
     return (
@@ -367,19 +410,39 @@ const PanelVentas = () => {
                 isOpen={showSeleccionCliente}
                 onClose={handleCloseSeleccionCliente}
                 clientes={[]}
-                onSelect={(cliente) => console.log('Cliente seleccionado:', cliente)}
+                onSelect={(cliente) => {
+                    setSelectedCliente(cliente.nombre || '');
+                    console.log('Cliente seleccionado:', cliente);
+                }}
+                position={modalPositionCliente}
             />
 
             <ModalSeleccionTipo
                 isOpen={showSeleccionTipo}
                 onClose={handleCloseSeleccionTipo}
-                onSelect={(tipo) => console.log('Tipo seleccionado:', tipo)}
+                onSelect={(tipo) => {
+                    setSelectedTipo(tipo.nombre || '');
+                    if (tipo.id === 'por_mayor') {
+                        setIsDescuentoManual(false);
+                        const descuentoAuto = calcularDescuentoAutomatico(cantidadArticulos);
+                        setSelectedDescuento(descuentoAuto);
+                    } else if (tipo.id === 'consumidor_final') {
+                        setIsDescuentoManual(true);
+                        setSelectedDescuento('');
+                    }
+                    console.log('Tipo seleccionado:', tipo);
+                }}
+                position={modalPositionTipo}
             />
 
             <ModalSeleccionDescuento
                 isOpen={showSeleccionDescuento}
                 onClose={handleCloseSeleccionDescuento}
-                onSelect={(descuento) => console.log('Descuento seleccionado:', descuento)}
+                onSelect={(descuento) => {
+                    setSelectedDescuento(descuento.porcentaje || '0');
+                    console.log('Descuento seleccionado:', descuento);
+                }}
+                position={modalPositionDescuento}
             />
 
             <ModalFacturacion
@@ -394,7 +457,15 @@ const PanelVentas = () => {
                 }}
                 onOpenSeleccionTipo={handleOpenSeleccionTipo}
                 onOpenSeleccionCliente={handleOpenSeleccionCliente}
-                onOpenSeleccionDescuento={handleOpenSeleccionDescuento}
+                inputClienteRef={inputClienteRef}
+                inputTipoRef={inputTipoRef}
+                showSeleccionCliente={showSeleccionCliente}
+                showSeleccionTipo={showSeleccionTipo}
+                selectedTipo={selectedTipo}
+                selectedCliente={selectedCliente}
+                selectedDescuento={selectedDescuento}
+                isDescuentoManual={isDescuentoManual}
+                setSelectedDescuento={setSelectedDescuento}
             />
 
             <ConfirmarVentaModal

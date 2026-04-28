@@ -3,7 +3,7 @@ import './ModalSeleccion.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect }) => {
+const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect = () => {}, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -20,9 +20,17 @@ const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect }) => {
         { id: '10_mas', cantidad: '10+', porcentaje: '30%' }
     ];
 
+    const modalPositionStyle = position
+        ? {
+            top: position.top,
+            left: position.left,
+            width: position.width,
+        }
+        : {};
+
     return (
-        <div className="modal-seleccion-overlay" onClick={handleOverlayClick}>
-            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-seleccion-overlay" onClick={onClose}>
+            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
                 <div className="modal-seleccion-header">
                     <h2 className="modal-seleccion-title">Seleccionar Descuento</h2>
                 </div>
@@ -40,13 +48,6 @@ const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect }) => {
                             </div>
                         ))}
                     </div>
-                </div>
-
-                <div className="modal-seleccion-footer">
-                    <button className="modal-seleccion-btn-salir" onClick={onClose}>
-                        <img src={iconSalir} alt="" className="modal-seleccion-btn-icon" />
-                        Retroceder
-                    </button>
                 </div>
             </div>
         </div>
