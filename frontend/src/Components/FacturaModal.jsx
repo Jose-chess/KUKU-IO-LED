@@ -2,6 +2,7 @@ import React from 'react';
 import './FacturaModal.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconPDF from '../assets/file-type-pdf.svg';
+import logoKIO from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 
 const FacturaModal = ({ data, onClose }) => {
   if (!data) return null;
@@ -13,9 +14,7 @@ const FacturaModal = ({ data, onClose }) => {
         {/* Encabezado */}
         <header className="factura-header">
           <div className="empresa-info">
-            <div className="logo-placeholder">
-               <span className="logo-text">K-IO</span>
-            </div>
+            <img src={logoKIO} alt="Kuku-Io Led Logo" className="logo-image" />
             <div className="empresa-detalles">
               <h1>KUKU IO LED, SRL</h1>
               <p>Aut. Duarte, La Sabanita No. 1, Burende</p>

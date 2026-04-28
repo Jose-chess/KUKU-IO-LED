@@ -41,16 +41,10 @@
   gap: 20px;
 }
 
-.logo-placeholder {
-  width: 60px;
-  height: 60px;
-  background: var(--accent-color);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 900;
-  font-style: italic;
+.logo-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
 .empresa-detalles h1 {
