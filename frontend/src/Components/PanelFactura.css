@@ -1,5 +1,16 @@
 /* PanelFactura.css - Estilos para el panel de facturas */
 
+@keyframes facturas-fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .facturas-page {
     flex: 1;
     display: flex;
