@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import './PanelFactura.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
+import FacturaModal from './FacturaModal';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
+    const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
+    const [mostrarModal, setMostrarModal] = useState(false);
 
     // Datos de ejemplo para la tabla
     const facturas = [
@@ -103,7 +106,14 @@ const PanelFactura = () => {
                                         <td>{factura.descuento}</td>
                                         <td>{formatMoney(factura.monto)}</td>
                                         <td>
-                                            <button className="btn-ver-factura" type="button">
+                                            <button 
+                                                className="btn-ver-factura" 
+                                                type="button"
+                                                onClick={() => {
+                                                    setFacturaSeleccionada(factura);
+                                                    setMostrarModal(true);
+                                                }}
+                                            >
                                                 <img src={iconOjo} alt="Ver factura" className="btn-ver-icon" />
                                             </button>
                                         </td>
@@ -120,6 +130,28 @@ const PanelFactura = () => {
                     </table>
                 </div>
             </div>
+
+            {mostrarModal && (
+                <FacturaModal 
+                    data={facturaSeleccionada ? {
+                        cliente: {
+                            nombre: facturaSeleccionada.cliente,
+                            rnc: '',
+                            direccion: '',
+                            ciudad: ''
+                        },
+                        items: [{
+                            cant: 1,
+                            desc: 'Producto/Servicio',
+                            precio: facturaSeleccionada.monto
+                        }],
+                        subtotal: facturaSeleccionada.monto,
+                        itbis: facturaSeleccionada.monto * 0.18,
+                        total: facturaSeleccionada.monto * 1.18
+                    } : null}
+                    onClose={() => setMostrarModal(false)}
+                />
+            )}
         </div>
     );
 };
