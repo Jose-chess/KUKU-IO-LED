@@ -5,16 +5,17 @@ import iconBuscar from '../assets/search.svg';
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
 
+    // Datos de ejemplo para la tabla
     const facturas = [
         {
             id: 1,
             numero: 'F-001',
+            fecha: '2026-04-28',
             cliente: 'Cliente Ejemplo',
-            metodo: 'Efectivo',
-            tipo: 'Contado',
-            cantidadProductos: 5,
-            total: 15000.00,
-            fecha: '2026-04-28'
+            condicion: 'Contado',
+            estado: 'Pagada',
+            descuento: '0%',
+            monto: 15000.00
         }
     ];
 
@@ -22,10 +23,15 @@ const PanelFactura = () => {
         return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
     };
 
-    const handleBusquedaKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            console.log('Buscando factura:', busquedaFactura);
+    const manejarBusquedaFactura = (event) => {
+        if (event.key !== 'Enter') {
+            return;
         }
+
+        event.preventDefault();
+
+        console.log('Buscando factura:', busquedaFactura);
+        setBusquedaFactura('');
     };
 
     return (
@@ -36,7 +42,7 @@ const PanelFactura = () => {
 
             <div className="kpi-grid facturas-kpi-grid">
                 <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Facturación mensual</p>
+                    <p className="kpi-label">Facturació mensual</p>
                     <h2 className="kpi-value">$0</h2>
                 </div>
                 <div className="kpi-card facturas-kpi-card">
@@ -44,11 +50,11 @@ const PanelFactura = () => {
                     <h2 className="kpi-value">$0</h2>
                 </div>
                 <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Facturas pendientes</p>
-                    <h2 className="kpi-value">0</h2>
+                    <p className="kpi-label">Factura más alta</p>
+                    <h2 className="kpi-value">$0</h2>
                 </div>
                 <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Total facturas</p>
+                    <p className="kpi-label">Facturas totales</p>
                     <h2 className="kpi-value">0</h2>
                 </div>
             </div>
@@ -62,10 +68,10 @@ const PanelFactura = () => {
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Buscar factura por número o cliente"
+                                placeholder="Buscar factura por nombre del cliente"
                                 value={busquedaFactura}
-                                onChange={(e) => setBusquedaFactura(e.target.value)}
-                                onKeyDown={handleBusquedaKeyDown}
+                                onChange={(event) => setBusquedaFactura(event.target.value)}
+                                onKeyDown={manejarBusquedaFactura}
                             />
                         </div>
                     </div>
@@ -75,13 +81,13 @@ const PanelFactura = () => {
                     <table className="facturas-table">
                         <thead>
                             <tr>
-                                <th>Número</th>
+                                <th>Número de la factura</th>
+                                <th>Fecha de la factura</th>
                                 <th>Cliente</th>
-                                <th>Método</th>
-                                <th>Tipo</th>
-                                <th>Productos</th>
-                                <th>Total</th>
-                                <th>Fecha</th>
+                                <th>Condición</th>
+                                <th>Estado</th>
+                                <th>Descuento</th>
+                                <th>Monto de la factura</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,12 +95,12 @@ const PanelFactura = () => {
                                 facturas.map((factura) => (
                                     <tr key={factura.id}>
                                         <td>{factura.numero}</td>
-                                        <td>{factura.cliente}</td>
-                                        <td>{factura.metodo}</td>
-                                        <td>{factura.tipo}</td>
-                                        <td>{factura.cantidadProductos}</td>
-                                        <td>{formatMoney(factura.total)}</td>
                                         <td>{factura.fecha}</td>
+                                        <td>{factura.cliente}</td>
+                                        <td>{factura.condicion}</td>
+                                        <td>{factura.estado}</td>
+                                        <td>{factura.descuento}</td>
+                                        <td>{formatMoney(factura.monto)}</td>
                                     </tr>
                                 ))
                             ) : (
