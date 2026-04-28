@@ -25,7 +25,6 @@ const PanelFactura = () => {
 
     const handleBusquedaKeyDown = (e) => {
         if (e.key === 'Enter') {
-            // Lógica de búsqueda
             console.log('Buscando factura:', busquedaFactura);
         }
     };
@@ -38,20 +37,20 @@ const PanelFactura = () => {
 
             <div className="kpi-grid facturas-kpi-grid">
                 <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Facturas del día</p>
+                    <p className="kpi-label">Facturación mensual</p>
+                    <h2 className="kpi-value">$0</h2>
+                </div>
+                <div className="kpi-card facturas-kpi-card">
+                    <p className="kpi-label">Promedio por factura</p>
+                    <h2 className="kpi-value">$0</h2>
+                </div>
+                <div className="kpi-card facturas-kpi-card">
+                    <p className="kpi-label">Facturas pendientes</p>
                     <h2 className="kpi-value">0</h2>
                 </div>
                 <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Facturas de la semana</p>
+                    <p className="kpi-label">Total facturas</p>
                     <h2 className="kpi-value">0</h2>
-                </div>
-                <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Facturas del mes</p>
-                    <h2 className="kpi-value">0</h2>
-                </div>
-                <div className="kpi-card facturas-kpi-card">
-                    <p className="kpi-label">Total facturado</p>
-                    <h2 className="kpi-value">$ 0</h2>
                 </div>
             </div>
 
