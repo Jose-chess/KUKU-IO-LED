@@ -2,8 +2,6 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,8 +13,6 @@
 .modal-articulo-container {
     background: #ffffff;
     width: 850px;
-    max-height: 90vh;
-    overflow-y: auto;
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);

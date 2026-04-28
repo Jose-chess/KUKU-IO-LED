@@ -99,7 +99,7 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
                 <div className="modal-articulo-footer-line">
                     <button className="btn-salir-articulo" onClick={() => setShowConfirmExit(true)}>
                         <img src={iconSalir} alt="" className="modal-articulo-btn-icon" />
-                        Retroceder
+                        Salir
                     </button>
                     <button className="btn-guardar-articulo" onClick={handleSave}>
                         <img src={iconGuardar} alt="" className="modal-articulo-btn-icon" />
