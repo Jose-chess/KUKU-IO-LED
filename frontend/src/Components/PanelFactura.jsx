@@ -5,7 +5,6 @@ import iconBuscar from '../assets/search.svg';
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
 
-    // Datos de ejemplo para la tabla
     const facturas = [
         {
             id: 1,
