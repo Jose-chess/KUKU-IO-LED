@@ -303,7 +303,7 @@ const Inventario = () => {
                                 <img src={iconSearch} alt="Buscar" className="search-icon" />
                                 <input
                                     type="text"
-                                    placeholder="Buscar por nombre del artículo"
+                                    placeholder="Buscar por nombre o código del artículo"
                                     value={busqueda}
                                     onChange={handleBusquedaChange}
                                     onKeyDown={handleBusquedaKeyDown}
