@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './PanelFactura.css';
-import iconBuscar from '../assets/search.svg';
+import iconOjo from '../assets/eye.svg';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
@@ -8,10 +8,9 @@ const PanelFactura = () => {
     // Datos de ejemplo para la tabla
     const facturas = [
         {
-            id: 1,
             numero: 'F-001',
             fecha: '2026-04-28',
-            cliente: 'Cliente Ejemplo',
+            cliente: 'José',
             condicion: 'Contado',
             estado: 'Pagada',
             descuento: '0%',
@@ -65,7 +64,7 @@ const PanelFactura = () => {
 
                     <div className="search-box">
                         <div className="search-input-wrapper">
-                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
+                            <img src={iconOjo} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Buscar factura por nombre del cliente"
