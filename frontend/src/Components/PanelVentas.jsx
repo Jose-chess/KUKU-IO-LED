@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PanelVentas.css';
 import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
@@ -111,16 +111,66 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
     );
 };
 
-const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
-    const { isShaking, handleOverlayClick } = useModalShake();
+import iconChevron from '../assets/chevron-down.svg';
 
-    if (!isOpen) {
-        return null;
-    }
+const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
+    const { isShaking, handleOverlayClick, shake } = useModalShake();
+    const [condicion, setCondicion] = useState('');
+    const [metodoPago, setMetodoPago] = useState('');
+    const [tipoVenta, setTipoVenta] = useState('Consumidor final');
+    const [cliente, setCliente] = useState('José Manuel Guerrero');
+    const [descuento, setDescuento] = useState(0);
+
+    const [openCondicion, setOpenCondicion] = useState(false);
+    const [openTipoVenta, setOpenTipoVenta] = useState(false);
+    const [openMetodo, setOpenMetodo] = useState(false);
+    const [openCliente, setOpenCliente] = useState(false);
+
+    const [articulos] = useState([
+        { cant: 6, precio: 1000 }
+    ]);
+
+    useEffect(() => {
+        if (tipoVenta === 'Venta al por mayor') {
+            const totalCant = articulos.reduce((sum, item) => sum + item.cant, 0);
+            if (totalCant >= 10) setDescuento(30);
+            else if (totalCant >= 5) setDescuento(20);
+            else setDescuento(0);
+        } else {
+            setDescuento(0);
+        }
+    }, [tipoVenta, articulos]);
+
+    if (!isOpen) return null;
+
+    const subtotal = articulos.reduce((sum, item) => sum + (item.cant * item.precio), 0);
+    const montoDescuento = subtotal * (descuento / 100);
+    const subtotalConDescuento = subtotal - montoDescuento;
+    const itbis = subtotalConDescuento * 0.18;
+    const totalFinal = subtotalConDescuento + itbis;
+
+    const manejarConfirmar = () => {
+        if (!condicion) { shake(); return; }
+        if (condicion === 'Contado' && !metodoPago) { shake(); return; }
+        onConfirmarVenta();
+    };
+
+    const closeAllDropdowns = () => {
+        setOpenCondicion(false);
+        setOpenTipoVenta(false);
+        setOpenMetodo(false);
+        setOpenCliente(false);
+    };
 
     return (
         <div className="facturacion-overlay" onClick={handleOverlayClick}>
-            <div className={`facturacion-modal scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
+            <div
+                className={`facturacion-modal scale-up-center ${isShaking ? 'shake' : ''}`}
+                onClick={(event) => {
+                    event.stopPropagation();
+                    closeAllDropdowns();
+                }}
+            >
                 <h2 className="facturacion-title">Facturación</h2>
 
                 <section className="facturacion-bloque">
@@ -128,36 +178,124 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                     <div className="facturacion-line" />
 
                     <div className="facturacion-grid">
-                        <div className="facturacion-item">
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
                             <label>Número de Factura:</label>
-                            <input value="" placeholder="-" disabled readOnly />
-                        </div>
-                        <div className="facturacion-item">
-                            <label>Tipo:</label>
-                            <input value="" placeholder="Seleccione el tipo" disabled readOnly />
+                            <input value="B02000000XXX" disabled readOnly />
                         </div>
 
-                        <div className="facturacion-item">
+                        {/* Dropdown Condición */}
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
+                            <label>Condición:</label>
+                            <div className="facturacion-dropdown-wrap">
+                                <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenCondicion(!openCondicion); }}>
+                                    {condicion || 'Seleccione condición'}
+                                    <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openCondicion ? 'open' : ''}`} />
+                                </div>
+                                {openCondicion && (
+                                    <div className="facturacion-dropdown-menu">
+                                        <div className={`facturacion-dropdown-option ${condicion === 'Contado' ? 'selected' : ''}`}
+                                            onClick={() => { setCondicion('Contado'); closeAllDropdowns(); }}>
+                                            Contado
+                                        </div>
+                                        <div className={`facturacion-dropdown-option ${condicion === 'Crédito' ? 'selected' : ''}`}
+                                            onClick={() => { setCondicion('Crédito'); setMetodoPago(''); closeAllDropdowns(); }}>
+                                            Crédito
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Dropdown Tipo de Venta */}
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
+                            <label>Tipo de venta:</label>
+                            <div className="facturacion-dropdown-wrap">
+                                <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenTipoVenta(!openTipoVenta); }}>
+                                    {tipoVenta}
+                                    <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openTipoVenta ? 'open' : ''}`} />
+                                </div>
+                                {openTipoVenta && (
+                                    <div className="facturacion-dropdown-menu">
+                                        <div className={`facturacion-dropdown-option ${tipoVenta === 'Consumidor final' ? 'selected' : ''}`}
+                                            onClick={() => { setTipoVenta('Consumidor final'); closeAllDropdowns(); }}>
+                                            Consumidor final
+                                        </div>
+                                        <div className={`facturacion-dropdown-option ${tipoVenta === 'Venta al por mayor' ? 'selected' : ''}`}
+                                            onClick={() => { setTipoVenta('Venta al por mayor'); closeAllDropdowns(); }}>
+                                            Venta al por mayor
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
+                            <label>Descuento (%):</label>
+                            <input
+                                type="number"
+                                value={descuento}
+                                onChange={(e) => setDescuento(Number(e.target.value))}
+                                disabled={tipoVenta === 'Venta al por mayor'}
+                                className={tipoVenta === 'Venta al por mayor' ? 'input-disabled' : ''}
+                            />
+                        </div>
+
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
                             <label>Fecha de Factura:</label>
-                            <input value="" placeholder="-" disabled readOnly />
-                        </div>
-                        <div className="facturacion-item">
-                            <label>Descuento:</label>
-                            <input value="0" disabled readOnly />
+                            <input value={new Date().toLocaleDateString()} disabled readOnly />
                         </div>
 
-                        <div className="facturacion-item">
+                        {/* Dropdown Cliente */}
+                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
                             <label>Cliente:</label>
-                            <input value="" placeholder="Seleccione un cliente" disabled readOnly />
+                            <div className="facturacion-dropdown-wrap">
+                                <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenCliente(!openCliente); }}>
+                                    {cliente}
+                                    <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openCliente ? 'open' : ''}`} />
+                                </div>
+                                {openCliente && (
+                                    <div className="facturacion-dropdown-menu">
+                                        <div className={`facturacion-dropdown-option ${cliente === 'José Manuel Guerrero' ? 'selected' : ''}`}
+                                            onClick={() => { setCliente('José Manuel Guerrero'); closeAllDropdowns(); }}>
+                                            José Manuel Guerrero
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
-                        <div className="facturacion-item">
-                            <label>Método:</label>
-                            <input value="" placeholder="Seleccione el método" disabled readOnly />
-                        </div>
+                        {/* Dropdown Método de Pago (Condicional) */}
+                        {condicion === 'Contado' && (
+                            <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
+                                <label>Método de pago:</label>
+                                <div className="facturacion-dropdown-wrap">
+                                    <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenMetodo(!openMetodo); }}>
+                                        {metodoPago || 'Seleccione método'}
+                                        <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openMetodo ? 'open' : ''}`} />
+                                    </div>
+                                    {openMetodo && (
+                                        <div className="facturacion-dropdown-menu">
+                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Efectivo' ? 'selected' : ''}`}
+                                                onClick={() => { setMetodoPago('Efectivo'); closeAllDropdowns(); }}>
+                                                Efectivo
+                                            </div>
+                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Tarjeta' ? 'selected' : ''}`}
+                                                onClick={() => { setMetodoPago('Tarjeta'); closeAllDropdowns(); }}>
+                                                Tarjeta
+                                            </div>
+                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Transferencia' ? 'selected' : ''}`}
+                                                onClick={() => { setMetodoPago('Transferencia'); closeAllDropdowns(); }}>
+                                                Transferencia
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="facturacion-item">
                             <label>Itbis %:</label>
-                            <input value="0" disabled readOnly />
+                            <input value="18%" disabled readOnly />
                         </div>
                     </div>
                 </section>
@@ -165,28 +303,31 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta }) => {
                 <section className="facturacion-bloque sin-borde-superior">
                     <div className="monto-venta-row">
                         <span>Monto de Venta:</span>
-                        <strong>$ 0</strong>
+                        <strong className="subtotal-verde">$ {subtotal.toLocaleString()}</strong>
                     </div>
                     <div className="facturacion-line" />
 
                     <h3 className="facturacion-subtitle resumen-title">Resumen de la Factura</h3>
                     <div className="resumen-box">
-                        <p><span>Sub-total:</span><strong>$ 0</strong></p>
-                        <p className="descuento"><span>Descuento:</span><strong>0%</strong></p>
-                        <p><span>Itbis:</span><strong>0%</strong></p>
-                        <p className="total"><span>Total a pagar:</span><strong>$ 0</strong></p>
+                        <p><span>Sub-total:</span><strong>$ {subtotal.toLocaleString()}</strong></p>
+                        <p className="descuento">
+                            <span>Descuento ({descuento}%):</span>
+                            <strong>- $ {montoDescuento.toLocaleString()}</strong>
+                        </p>
+                        <p><span>Itbis (18%):</span><strong>$ {itbis.toLocaleString()}</strong></p>
+                        <p className="total"><span>Total a pagar:</span><strong>$ {totalFinal.toLocaleString()}</strong></p>
                     </div>
                 </section>
 
                 <div className="facturacion-footer">
-                    <div className="facturacion-meta">Artículos totales: <strong>0</strong></div>
-                    <div className="facturacion-meta">N.º de factura: <strong>-</strong></div>
+                    <div className="facturacion-meta">Artículos totales: <strong>{articulos.reduce((s, i) => s + i.cant, 0)}</strong></div>
+                    <div className="facturacion-meta">N.º de factura: <strong>B02000000XXX</strong></div>
                     <div className="facturacion-actions">
                         <button className="btn-confirm-salir btn-confirm-red" type="button" onClick={onVolver}>
                             <img src={iconSalir} alt="" className="confirm-btn-icon" />
                             Volver
                         </button>
-                        <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={onConfirmarVenta}>
+                        <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={manejarConfirmar}>
                             <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
                             Confirmar
                         </button>
@@ -277,8 +418,10 @@ const PanelVentas = () => {
                             <tr>
                                 <th>Código</th>
                                 <th>Cliente</th>
+                                <th>Condición</th>
                                 <th>Método</th>
                                 <th>Tipo</th>
+                                <th>Descuento</th>
                                 <th>Cantidad de productos</th>
                                 <th>Total</th>
                                 <th>Fecha</th>
@@ -286,7 +429,7 @@ const PanelVentas = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="table-row-empty-cell" colSpan={7}>
+                                <td className="table-row-empty-cell" colSpan={9}>
                                     No hay ventas para mostrar.
                                 </td>
                             </tr>

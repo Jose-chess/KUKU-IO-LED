@@ -25,12 +25,12 @@ const FacturaModal = ({ data, onClose }) => {
     try {
       // Simulamos la generación del PDF
       console.log("Generando PDF...");
-      setShowConfirmPDF(false); 
-      
+      setShowConfirmPDF(false);
+
       // Aquí irá la llamada al backend. 
       // Por ahora simulamos éxito:
       setShowSuccessPDF(true);
-      
+
     } catch (error) {
       console.error("Error al generar PDF:", error);
       setShowConfirmPDF(false);
@@ -88,146 +88,177 @@ const FacturaModal = ({ data, onClose }) => {
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
-      <div className={`factura-card ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`factura-modal-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
 
-        {/* Header Principal */}
-        <header className="factura-header-principal">
-          <div className="empresa-header">
-            <img src={logoKIO} alt="Kuku-Io Led Logo" className="logo-img" />
-            <div className="empresa-info-text">
-              <h1 className="empresa-nombre">KUKU IO LED, SRL</h1>
-              <p className="empresa-direccion">Dirección: Aut. Duarte, La Sabanita No. 1, Burende</p>
-              <p className="empresa-rnc">RNC: 133-07517-2</p>
-              <p className="empresa-contacto">Tel: 809-277-2918, Cel: 849-279-2200</p>
+        <div className="factura-card-body">
+          {/* Header Principal */}
+          <header className="factura-header-principal">
+            <div className="empresa-header">
+              <img src={logoKIO} alt="Kuku-Io Led Logo" className="logo-img" />
+              <div className="empresa-info-text">
+                <h1 className="empresa-nombre">KUKU-IO LED, SRL</h1>
+                <p className="empresa-direccion">Dirección: Aut. Duarte, La Sabanita No. 1, Burende</p>
+                <p className="empresa-rnc">RNC: 133-07517-2</p>
+                <p className="empresa-contacto">Tel: 809-277-2918, Cel: 849-279-2200</p>
+              </div>
             </div>
-          </div>
 
-          <div className="factura-info-box">
-            <h2 className="factura-titulo">FACTURA</h2>
-            <div className="factura-valor-fiscal">VALOR FISCAL</div>
-            <p className="factura-ncf">NCF: B02000000134</p>
-          </div>
-        </header>
+            <div className="factura-info-box">
+              <h2 className="factura-titulo">FACTURA</h2>
+              <div className="factura-valor-fiscal">VALOR FISCAL</div>
+              <p className="factura-ncf">NCF: {data.ncf || 'B02000000134'}</p>
+            </div>
+          </header>
 
-        {/* Sección Info (Cliente + Factura Datos) */}
-        <section className="info-seccion">
-          {/* Cliente Box (Izquierda) */}
-          <div className="cliente-box">
-            <div className="cliente-label">CLIENTE</div>
-            <table className="cliente-table">
-              <tbody>
-                <tr>
-                  <td className="label-cell">Nombre</td>
-                  <td className="value-cell">{data.cliente.nombre}</td>
-                </tr>
-                <tr>
-                  <td className="label-cell">RNC</td>
-                  <td className="value-cell">{data.cliente.rnc}</td>
-                </tr>
-                <tr>
-                  <td className="label-cell">Dirección</td>
-                  <td className="value-cell">{data.cliente.direccion}</td>
-                </tr>
-                <tr>
-                  <td className="label-cell">Ciudad</td>
-                  <td className="value-cell">{data.cliente.ciudad}</td>
-                </tr>
-                <tr>
-                  <td className="label-cell">Teléfono</td>
-                  <td className="value-cell">{data.cliente.telefono}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Info Factura - Derecha */}
-          <div className="factura-datos-box">
-            <div className="factura-datos-header">INFORMACIÓN DE LA FACTURA</div>
-            <div className="factura-datos-content">
-              <table className="factura-datos-table">
+          {/* Sección Info (Cliente + Factura Datos) */}
+          <section className="info-seccion">
+            {/* Cliente Box (Izquierda) */}
+            <div className="cliente-box">
+              <div className="cliente-label">CLIENTE</div>
+              <table className="cliente-table">
                 <tbody>
                   <tr>
-                    <td className="label-cell">Válido hasta</td>
-                    <td className="value-cell text-right">31/12/2026</td>
+                    <td className="label-cell">Nombre</td>
+                    <td className="value-cell">{data.cliente.nombre}</td>
                   </tr>
                   <tr>
-                    <td className="label-cell">Fecha de emisión</td>
-                    <td className="value-cell text-right">{data.fecha || '30/3/2026'}</td>
+                    <td className="label-cell">RNC</td>
+                    <td className="value-cell">{data.cliente.rnc || '---'}</td>
                   </tr>
                   <tr>
-                    <td className="label-cell">Condición</td>
-                    <td className="value-cell text-right condicion">{data.condicion || 'Contado'}</td>
+                    <td className="label-cell">Cédula</td>
+                    <td className="value-cell">{data.cliente.cedula || '---'}</td>
                   </tr>
                   <tr>
-                    <td className="label-cell">Nro.</td>
-                    <td className="value-cell text-right">{data.nro || '2222'}</td>
+                    <td className="label-cell">Dirección</td>
+                    <td className="value-cell">{data.cliente.direccion}</td>
                   </tr>
                   <tr>
-                    <td className="label-cell">Vendedor</td>
-                    <td className="value-cell text-right">Carlos castillo</td>
+                    <td className="label-cell">Ciudad</td>
+                    <td className="value-cell">{data.cliente.ciudad}</td>
                   </tr>
                   <tr>
-                    <td className="label-cell">Tipo</td>
-                    <td className="value-cell text-right">Consumidor final</td>
+                    <td className="label-cell">Teléfono</td>
+                    <td className="value-cell">{data.cliente.telefono}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-          </div>
-        </section>
 
-        {/* Tabla de Productos */}
-        <main className="productos-seccion">
-          <table className="productos-tabla">
-            <thead>
-              <tr>
-                <th className="col-cant">CANT.</th>
-                <th className="col-desc">DESCRIPCIÓN</th>
-                <th className="col-precio text-center">PRECIO UNITARIO</th>
-                <th className="col-total text-right">TOTAL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.items.map((item, index) => (
-                <tr key={index}>
-                  <td className="col-cant">{item.cant}</td>
-                  <td className="col-desc">{item.desc}</td>
-                  <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
-                  <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+            {/* Info Factura - Derecha */}
+            <div className="factura-datos-box">
+              <div className="factura-datos-header">INFORMACIÓN DE LA FACTURA</div>
+              <div className="factura-datos-content">
+                <table className="factura-datos-table">
+                  <tbody>
+                    <tr>
+                      <td className="label-cell">Válido hasta</td>
+                      <td className="value-cell text-right">31/12/2026</td>
+                    </tr>
+                    <tr>
+                      <td className="label-cell">Fecha de emisión</td>
+                      <td className="value-cell text-right">{data.fecha || '30/3/2026'}</td>
+                    </tr>
+                    {data.condicion === 'Crédito' && (
+                      <tr>
+                        <td className="label-cell">Fecha vencimiento</td>
+                        <td className="value-cell text-right">{data.vencimiento || '---'}</td>
+                      </tr>
+                    )}
+                    <tr>
+                      <td className="label-cell">Condición</td>
+                      <td className="value-cell text-right condicion">{data.condicion || 'Contado'}</td>
+                    </tr>
+                    {data.condicion === 'Contado' && (
+                      <tr>
+                        <td className="label-cell">Método de pago</td>
+                        <td className="value-cell text-right">{data.metodoPago || 'Efectivo'}</td>
+                      </tr>
+                    )}
+                    <tr>
+                      <td className="label-cell">No. interno</td>
+                      <td className="value-cell text-right">{data.nroInterno || data.nro || '2222'}</td>
+                    </tr>
+                    <tr>
+                      <td className="label-cell">Vendedor</td>
+                      <td className="value-cell text-right">{data.vendedor || 'Carlos castillo'}</td>
+                    </tr>
+                    <tr>
+                      <td className="label-cell">Tipo</td>
+                      <td className="value-cell text-right">Consumidor final</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          {/* Tabla de Productos */}
+          <main className="productos-seccion">
+            <table className="productos-tabla">
+              <thead>
+                <tr>
+                  <th className="col-cant">CANT.</th>
+                  <th className="col-um">U/M</th>
+                  <th className="col-desc">DESCRIPCIÓN</th>
+                  <th className="col-precio text-center">PRECIO UNITARIO</th>
+                  <th className="col-total text-right">TOTAL</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </main>
-
-        {/* Totales */}
-        <footer className="totales-seccion">
-          <div className="totales-box">
-            <table className="totales-tabla">
+              </thead>
               <tbody>
-                <tr>
-                  <td className="total-label">SUB-TOTAL</td>
-                  <td className="total-value text-right">{data.subtotal.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
-                </tr>
-                <tr>
-                  <td className="total-label">Descuento</td>
-                  <td className="total-value text-right">0.00</td>
-                </tr>
-                <tr>
-                  <td className="total-label">Itbis</td>
-                  <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
-                </tr>
-                <tr className="total-final">
-                  <td className="total-label">TOTAL</td>
-                  <td className="total-value text-right">{data.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
-                </tr>
+                {data.items.map((item, index) => (
+                  <tr key={index}>
+                    <td className="col-cant">{item.cant}</td>
+                    <td className="col-um">{item.um || 'Und'}</td>
+                    <td className="col-desc">{item.desc}</td>
+                    <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
-          </div>
-        </footer>
+          </main>
 
-        {/* Acciones */}
-        <div className="acciones-bar">
+          {/* Totales y Firma */}
+          <footer className="footer-factura-container">
+            <div className="left-footer-section">
+              <div className="observaciones-box">
+                <span className="label-obs">OBSERVACIONES:</span>
+                <p className="obs-text">{data.observaciones || 'Sin observaciones adicionales.'}</p>
+              </div>
+              <div className="firma-seccion">
+                <div className="firma-linea"></div>
+                <span className="firma-label">RECIBIDO POR / FIRMA</span>
+              </div>
+            </div>
+
+            <div className="totales-box">
+              <table className="totales-tabla">
+                <tbody>
+                  <tr>
+                    <td className="total-label">SUB-TOTAL</td>
+                    <td className="total-value text-right">{data.subtotal.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr>
+                    <td className="total-label">Descuento</td>
+                    <td className="total-value text-right">{(data.descuentoMonto || 0).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr>
+                    <td className="total-label">Itbis (18%)</td>
+                    <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                  <tr className="total-final">
+                    <td className="total-label">TOTAL</td>
+                    <td className="total-value text-right">{data.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </footer>
+        </div>
+
+        {/* Acciones Separadas */}
+        <div className="acciones-bar-separated">
           <button className="btn-salir" onClick={() => setShowConfirmarSalir(true)}>
             <img src={iconSalir} alt="Salir" className="btn-icon" />
             Salir

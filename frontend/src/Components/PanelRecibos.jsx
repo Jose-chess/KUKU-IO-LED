@@ -3,7 +3,8 @@ import './PanelRecibos.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import ModalReciboNoEncontrado from './ModalReciboNoEncontrado';
-import ReciboModal from './ReciboModal';
+import ReciboPagoModal from './ReciboPagoModal';
+import ReciboAbonoModal from './ReciboAbonoModal';
 
 const PanelRecibos = () => {
     const [busquedaRecibo, setBusquedaRecibo] = useState('');
@@ -155,36 +156,40 @@ const PanelRecibos = () => {
                 onClose={() => setMostrarErrorBusqueda(false)}
             />
 
-            {mostrarModal && (
-                <ReciboModal 
-                    data={reciboSeleccionado ? (reciboSeleccionado.tipo === 'Abono' ? {
-                        ...reciboSeleccionado,
-                        cliente: {
-                            nombre: reciboSeleccionado.cliente,
-                            rnc: '044-685-898-0'
-                        },
-                        concepto: 'Abono a cuenta pendiente - Factura #5555',
-                        saldoAnterior: 20000.00,
-                        nuevoSaldo: 15000.00,
-                        total: reciboSeleccionado.monto
-                    } : {
-                        ...reciboSeleccionado,
-                        cliente: {
-                            nombre: reciboSeleccionado.cliente,
-                            rnc: '044-685-898-0'
-                        },
-                        items: [
-                            { cant: 3, desc: 'KUKU-IO MINI' },
-                            { cant: 1, desc: 'RAMAL ALÁMBRICO' },
-                            { cant: 4, desc: 'SWITCH DE CARRO' }
-                        ],
-                        subtotal: 20000.00,
-                        itbis: 3600.00,
-                        descuento: 0,
-                        total: 23600.00
-                    }) : null}
-                    onClose={() => setMostrarModal(false)}
-                />
+            {mostrarModal && reciboSeleccionado && (
+                reciboSeleccionado.tipo === 'Abono' ? (
+                    <ReciboAbonoModal 
+                        data={{
+                            ...reciboSeleccionado,
+                            cliente: {
+                                nombre: reciboSeleccionado.cliente,
+                                cedula: '047-0012345-6',
+                                rnc: ''
+                            },
+                            facturaNCF: 'B0200000555',
+                            metodoPago: 'Transferencia Bancaria',
+                            saldoAnterior: 20000.00,
+                            nuevoSaldo: 15000.00,
+                            total: reciboSeleccionado.monto
+                        }}
+                        onClose={() => setMostrarModal(false)}
+                    />
+                ) : (
+                    <ReciboPagoModal 
+                        data={{
+                            ...reciboSeleccionado,
+                            cliente: {
+                                nombre: reciboSeleccionado.cliente,
+                                cedula: '',
+                                rnc: '131-07517-2'
+                            },
+                            facturaNCF: 'B02000000134',
+                            metodoPago: 'Efectivo',
+                            total: reciboSeleccionado.monto
+                        }}
+                        onClose={() => setMostrarModal(false)}
+                    />
+                )
             )}
         </div>
     );

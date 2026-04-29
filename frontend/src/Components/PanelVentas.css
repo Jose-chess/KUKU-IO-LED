@@ -222,65 +222,19 @@
     vertical-align: top;
 }
 
-/* Distribucion uniforme de columnas */
-.ventas-table thead th:nth-child(1) {
-    width: 12%;
-}
-
-.ventas-table thead th:nth-child(2) {
-    width: 18%;
-}
-
-.ventas-table thead th:nth-child(3) {
-    width: 12%;
-}
-
-.ventas-table thead th:nth-child(4) {
-    width: 12%;
-}
-
-.ventas-table thead th:nth-child(5) {
-    width: 18%;
-}
-
-.ventas-table thead th:nth-child(6) {
-    width: 14%;
-}
-
-.ventas-table thead th:nth-child(7) {
-    width: 14%;
-}
+/* Distribucion proporcional de columnas */
+.ventas-table thead th:nth-child(1), .ventas-table tbody td:nth-child(1) { width: 7%; }
+.ventas-table thead th:nth-child(2), .ventas-table tbody td:nth-child(2) { width: 18%; }
+.ventas-table thead th:nth-child(3), .ventas-table tbody td:nth-child(3) { width: 10%; }
+.ventas-table thead th:nth-child(4), .ventas-table tbody td:nth-child(4) { width: 10%; }
+.ventas-table thead th:nth-child(5), .ventas-table tbody td:nth-child(5) { width: 12%; }
+.ventas-table thead th:nth-child(6), .ventas-table tbody td:nth-child(6) { width: 8%; }
+.ventas-table thead th:nth-child(7), .ventas-table tbody td:nth-child(7) { width: 12%; }
+.ventas-table thead th:nth-child(8), .ventas-table tbody td:nth-child(8) { width: 11%; }
+.ventas-table thead th:nth-child(9), .ventas-table tbody td:nth-child(9) { width: 12%; }
 
 .ventas-table tbody tr:hover {
     background: #f8fafc;
-}
-
-.ventas-table tbody td:nth-child(1) {
-    width: 12%;
-}
-
-.ventas-table tbody td:nth-child(2) {
-    width: 18%;
-}
-
-.ventas-table tbody td:nth-child(3) {
-    width: 12%;
-}
-
-.ventas-table tbody td:nth-child(4) {
-    width: 12%;
-}
-
-.ventas-table tbody td:nth-child(5) {
-    width: 18%;
-}
-
-.ventas-table tbody td:nth-child(6) {
-    width: 14%;
-}
-
-.ventas-table tbody td:nth-child(7) {
-    width: 14%;
 }
 
 .table-row-empty-cell {
@@ -431,7 +385,7 @@
 .facturacion-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.45);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     display: flex;
@@ -440,7 +394,7 @@
     z-index: 31000;
 }
 
-.facturacion-modal {
+.nueva-venta-modal, .facturacion-modal {
     width: min(980px, 94vw);
     max-height: 92vh;
     overflow: auto;
@@ -449,6 +403,8 @@
     border: 1px solid #d9dee7;
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
     padding: 14px;
+    user-select: none; /* Evita que se seleccione texto y se ponga azul */
+    -webkit-user-select: none;
 }
 
 .facturacion-title {
@@ -484,41 +440,6 @@
     margin: 8px 0 14px;
 }
 
-.facturacion-articulos-wrapper {
-    border: 1px solid #d7deea;
-    border-radius: 8px;
-    overflow: auto;
-    max-height: 210px;
-    margin-top: 12px;
-}
-
-.facturacion-articulos-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #ffffff;
-}
-
-.facturacion-articulos-table th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: #f8f7b4;
-    text-align: left;
-    padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 11px;
-    color: #000000;
-    font-weight: 500;
-}
-
-.facturacion-articulos-table td {
-    padding: 8px 10px;
-    border-bottom: 1px solid #e2e8f0;
-    font-size: 12px;
-    font-weight: 600;
-    color: #1e293b;
-}
-
 .facturacion-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -539,6 +460,7 @@
     white-space: nowrap;
 }
 
+.factura-item input,
 .facturacion-item input,
 .facturacion-item select {
     width: 100%;
@@ -554,31 +476,38 @@
     box-sizing: border-box;
 }
 
+.facturacion-item input.input-disabled {
+    background: #e2e8f0;
+    color: #64748b;
+    cursor: not-allowed;
+}
+
 .facturacion-dropdown-wrap {
     position: relative;
+    width: 100%;
 }
 
 .facturacion-dropdown-trigger {
     width: 100%;
-    height: 30px;
+    height: 32px;
+    background: #f3f4f6;
     border: 1px solid #cfd6e2;
     border-radius: 8px;
-    background: #f3f4f6;
-    color: #1f2937;
-    font-size: 14px;
-    font-weight: 600;
     padding: 0 10px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
     cursor: pointer;
 }
 
 .facturacion-dropdown-icon {
-    width: 14px;
-    height: 14px;
-    opacity: 0.7;
-    transition: transform 0.15s ease;
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+    filter: brightness(0); /* Hace que el icono sea negro puro */
 }
 
 .facturacion-dropdown-icon.open {
@@ -587,40 +516,51 @@
 
 .facturacion-dropdown-menu {
     position: absolute;
+    top: calc(100% + 4px);
     left: 0;
-    top: calc(100% + 6px);
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
     width: 100%;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    padding: 8px 0;
-    z-index: 80;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 4px 0;
+    z-index: 100;
+    overflow: hidden;
 }
 
 .facturacion-dropdown-option {
-    width: calc(100% - 16px);
-    margin: 0 8px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 8px;
-    background: transparent;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 14px;
-    line-height: 1.2;
-    font-weight: 500;
-    color: #000000;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    margin: 2px 8px;
+    padding: 6px 14px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
     cursor: pointer;
-    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out, transform 0.15s ease-in-out;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.facturacion-dropdown-option:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    bottom: -2.5px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #f1f5f9;
 }
 
 .facturacion-dropdown-option:hover {
-    background-color: #f1f5f9;
-    color: #1e293b;
-    transform: translateX(2px);
+    background: #f8fafc;
+}
+
+.facturacion-dropdown-option.selected {
+    background: #ffcc00;
+    color: #000000;
+}
+
+.facturacion-dropdown-option.selected::after {
+    display: none;
 }
 
 .monto-venta-row {
@@ -725,7 +665,7 @@
 .confirm-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.45);
+    background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     display: flex;
