@@ -1,11 +1,14 @@
+/* FacturaModal.css - Diseño basado en referencia */
+
 :root {
   --primary-color: #1a1a1a;
   --accent-color: #facc15;
   --text-muted: #64748b;
-  --border-color: #e2e8f0;
-  --bg-light: #f8fafc;
+  --border-color: #1a1a1a;
+  --bg-light: #f3f4f6;
 }
 
+/* Overlay */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -18,175 +21,312 @@
   z-index: 1000;
 }
 
+/* Card Principal */
 .factura-card {
   background: white;
   width: 100%;
-  max-width: 750px;
-  border-radius: 16px;
+  max-width: 800px;
+  height: 90vh;
+  min-height: 600px;
+  border-radius: 8px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Header */
-.factura-header {
-  padding: 40px;
+/* Header Principal */
+.factura-header-principal {
+  padding: 30px 40px 20px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
+  align-items: flex-start;
+  border-bottom: 2px solid var(--border-color);
+  flex-shrink: 0;
 }
 
-.empresa-info {
+.empresa-header {
   display: flex;
-  gap: 20px;
+  gap: 15px;
+  align-items: flex-start;
 }
 
-.logo-image {
-  width: 80px;
-  height: 80px;
+.logo-img {
+  width: 70px;
+  height: 70px;
   object-fit: contain;
 }
 
-.empresa-detalles h1 {
-  margin: 0;
+.empresa-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.empresa-nombre {
+  margin: 0 0 5px 0;
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.5px;
+  color: #1a1a1a;
 }
 
-.empresa-detalles p {
-  margin: 2px 0;
+.empresa-direccion,
+.empresa-rnc,
+.empresa-contacto {
+  margin: 1px 0;
   font-size: 12px;
-  color: var(--text-muted);
+  color: #4b5563;
 }
 
-.factura-meta {
+/* Factura Info Box (Derecha) */
+.factura-info-box {
   text-align: right;
 }
 
-.titulo-factura {
+.factura-titulo {
   margin: 0;
-  font-size: 32px;
-  font-weight: 900;
+  font-size: 28px;
+  font-weight: 800;
   letter-spacing: -1px;
 }
 
-.tag-fiscal {
-  background: #eff6ff;
-  color: #000000;
+.factura-valor-fiscal {
+  background: #000;
+  color: #fff;
   font-size: 10px;
-  font-weight: 800;
-  padding: 4px 8px;
-  border-radius: 4px;
+  font-weight: 700;
+  padding: 3px 8px;
   display: inline-block;
   margin: 5px 0;
 }
 
-.ncf-texto {
+.factura-ncf {
+  margin: 3px 0 0 0;
   font-family: monospace;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
 }
 
-/* Sección Cliente */
-.cliente-seccion {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  padding: 30px 40px;
-  background: var(--bg-light);
-  gap: 40px;
-}
-
-.cliente-datos label, .dato-grupo label {
-  font-size: 10px;
-  font-weight: 800;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.cliente-datos h3 {
-  margin: 0 0 5px 0;
-  font-size: 18px;
-}
-
-.cliente-datos p {
-  margin: 0;
-  font-size: 13px;
-  color: #475569;
-}
-
-.venta-datos {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  border-left: 1px solid #cbd5e1;
-  padding-left: 30px;
-}
-
-.venta-datos p {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.status-pago {
-  color: #16a34a;
-}
-
-/* Tabla */
-.tabla-contenedor {
+/* Sección Info (Cliente + Factura Datos) */
+.info-seccion {
+  display: flex;
   padding: 20px 40px;
+  gap: 40px;
+  flex-shrink: 0;
 }
 
-.factura-tabla {
+/* Cliente Box (Izquierda) */
+.cliente-box {
+  flex: 1;
+}
+
+.cliente-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.cliente-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.factura-tabla th {
-  text-align: left;
+.cliente-table td {
+  padding: 4px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cliente-table .label-cell {
+  color: #6b7280;
+  width: 80px;
+}
+
+.cliente-table .value-cell {
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Factura Datos Box (Derecha) */
+.factura-datos-box {
+  flex: 1;
+  border: 1px solid var(--border-color);
+}
+
+.factura-datos-header {
+  background: #fff;
+  padding: 6px 10px;
   font-size: 11px;
-  font-weight: 800;
-  color: #94a3b8;
-  border-bottom: 2px solid var(--primary-color);
-  padding: 15px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
 }
 
-.factura-tabla td {
-  padding: 15px 0;
-  border-bottom: 1px solid #f1f5f9;
-  font-size: 14px;
+.factura-datos-content {
+  padding: 10px 15px;
 }
 
-/* Footer Totales */
-.factura-footer {
-  padding: 20px 40px;
+.factura-datos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.factura-datos-table td {
+  padding: 4px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.factura-datos-table .label-cell {
+  color: #6b7280;
+}
+
+.factura-datos-table .value-cell {
+  color: #111827;
+  font-weight: 500;
+}
+
+.factura-datos-table .condicion {
+  color: #059669;
+  font-weight: 600;
+}
+
+.factura-datos-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Productos Sección */
+.productos-seccion {
+  padding: 15px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.productos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.productos-tabla thead {
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.productos-tabla tbody {
+  flex: 1;
+}
+
+.productos-tabla th {
+  padding: 12px 15px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  text-align: center;
+  background: #f9fafb;
+}
+
+.productos-tabla th:last-child {
+  border-right: none;
+}
+
+.productos-tabla td {
+  padding: 12px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
+}
+
+.productos-tabla .col-cant,
+.productos-tabla .col-desc {
+  text-align: center;
+}
+
+.productos-tabla .col-precio,
+.productos-tabla .col-total {
+  text-align: right;
+}
+
+.productos-tabla td:last-child {
+  border-right: none;
+}
+
+.productos-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Anchos de columnas */
+.col-cant {
+  width: 70px;
+}
+
+.col-desc {
+  width: auto;
+  flex: 1;
+}
+
+.col-precio {
+  width: 130px;
+}
+
+.col-total {
+  width: 110px;
+}
+
+/* Totales Sección */
+.totales-seccion {
+  padding: 15px 40px;
   display: flex;
   justify-content: flex-end;
+  flex-shrink: 0;
 }
 
-.totales-contenedor {
-  width: 250px;
+.totales-box {
+  width: 320px;
+  border: 1px solid var(--border-color);
 }
 
-.total-fila {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 0;
+.totales-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.totales-tabla td {
+  padding: 8px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.totales-tabla .total-label {
+  color: #374151;
+  font-weight: 500;
+}
+
+.totales-tabla .total-value {
+  color: #111827;
+  font-weight: 600;
+}
+
+.totales-tabla .total-final {
+  background: #f9fafb;
+}
+
+.totales-tabla .total-final .total-label,
+.totales-tabla .total-final .total-value {
+  font-weight: 700;
   font-size: 14px;
-  color: var(--text-muted);
-}
-
-.total-fila.final {
-  border-top: 2px solid var(--primary-color);
-  margin-top: 10px;
-  padding-top: 10px;
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--primary-color);
 }
 
 /* Acciones */
@@ -195,38 +335,39 @@
   background: var(--bg-light);
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .btn-salir, .btn-pdf {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 25px;
-  border-radius: 8px;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 6px;
   font-weight: 700;
   cursor: pointer;
   border: none;
   transition: 0.2s;
+  font-size: 13px;
 }
 
 .btn-salir {
-  background: #ef4444;
-  color: white;
+  background: #FF060A;
+  color: #000;
 }
 
 .btn-pdf {
-  background: #16a34a;
-  color: white;
+  background: #009C00;
+  color: #000;
 }
 
-.btn-salir:hover { background: #dc2626; }
-.btn-pdf:hover { background: #15803d; }
+.btn-salir:hover { background: #d90000; }
+.btn-pdf:hover { background: #009600; }
 
 .btn-icon {
-  width: 18px;
-  height: 18px;
-  filter: brightness(0) invert(1);
+  width: 16px;
+  height: 16px;
 }
 
 .text-right { text-align: right; }
