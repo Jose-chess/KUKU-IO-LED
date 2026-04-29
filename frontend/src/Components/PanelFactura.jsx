@@ -12,9 +12,14 @@ const PanelFactura = () => {
     // Datos de ejemplo para la tabla
     const facturas = [
         {
-            numero: 'F-001',
+            id: 1,
+            numero: 'B02000000134',
             fecha: '2026-04-28',
             cliente: 'José',
+            rnc: '44-665-898',
+            direccion: 'Oficina #5',
+            ciudad: 'Santo Domingo',
+            telefono: '+1 (829) 551-1725',
             condicion: 'Contado',
             estado: 'Pagada',
             descuento: '0%',
@@ -33,8 +38,23 @@ const PanelFactura = () => {
 
         event.preventDefault();
 
-        console.log('Buscando factura:', busquedaFactura);
-        setBusquedaFactura('');
+        const query = busquedaFactura.toLowerCase().trim();
+        if (!query) return;
+
+        // Buscar en el array de facturas
+        const facturaEncontrada = facturas.find(f => 
+            f.numero.toLowerCase().includes(query) || 
+            f.cliente.toLowerCase().includes(query)
+        );
+
+        if (facturaEncontrada) {
+            setFacturaSeleccionada(facturaEncontrada);
+            setMostrarModal(true);
+            setBusquedaFactura('');
+        } else {
+            console.log('Factura no encontrada:', busquedaFactura);
+            // Aquí se podría disparar un modal de "No encontrado" si se desea
+        }
     };
 
     return (
@@ -136,9 +156,10 @@ const PanelFactura = () => {
                     data={facturaSeleccionada ? {
                         cliente: {
                             nombre: facturaSeleccionada.cliente,
-                            rnc: '',
-                            direccion: '',
-                            ciudad: ''
+                            rnc: facturaSeleccionada.rnc,
+                            direccion: facturaSeleccionada.direccion,
+                            ciudad: facturaSeleccionada.ciudad,
+                            telefono: facturaSeleccionada.telefono
                         },
                         items: [{
                             cant: 1,
