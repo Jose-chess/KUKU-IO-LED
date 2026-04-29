@@ -5,7 +5,7 @@
   --accent-color: #facc15;
   --text-muted: #64748b;
   --border-color: #1a1a1a;
-  --bg-light: #f3f4f6;
+  --bg-light: white;
 }
 
 /* Overlay */
@@ -26,8 +26,8 @@
   background: white;
   width: 100%;
   max-width: 800px;
-  height: 90vh;
-  min-height: 600px;
+  height: auto;
+  max-height: 90vh;
   border-radius: 8px;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   overflow: hidden;
@@ -43,7 +43,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 2px solid var(--border-color);
   flex-shrink: 0;
 }
 
@@ -67,7 +66,8 @@
 .empresa-nombre {
   margin: 0 0 5px 0;
   font-size: 22px;
-  font-weight: 800;
+  font-weight: 700;
+  font-style: italic;
   letter-spacing: -0.5px;
   color: #1a1a1a;
 }
@@ -88,23 +88,23 @@
 .factura-titulo {
   margin: 0;
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: -1px;
 }
 
 .factura-valor-fiscal {
-  background: #000;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
-  padding: 3px 8px;
-  display: inline-block;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 11px;
+  font-weight: 800;
+  display: block;
+  text-align: right;
   margin: 5px 0;
 }
 
 .factura-ncf {
   margin: 3px 0 0 0;
-  font-family: monospace;
+  font-family: inherit;
   font-size: 13px;
   font-weight: bold;
 }
@@ -127,7 +127,7 @@
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 8px;
-  color: #374151;
+  color: #334155;
 }
 
 .cliente-table {
@@ -136,24 +136,24 @@
 }
 
 .cliente-table td {
-  padding: 4px 0;
+  padding: 8px 0;
   font-size: 13px;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .cliente-table .label-cell {
   color: #6b7280;
-  width: 80px;
+  width: 120px;
 }
 
 .cliente-table .value-cell {
   color: #111827;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 /* Factura Datos Box (Derecha) */
 .factura-datos-box {
-  flex: 1;
+  width: 320px;
   border: 1px solid var(--border-color);
 }
 
@@ -192,8 +192,8 @@
 }
 
 .factura-datos-table .condicion {
-  color: #059669;
-  font-weight: 600;
+  color: #111827;
+  font-weight: 700;
 }
 
 .factura-datos-table tr:last-child td {
@@ -202,33 +202,21 @@
 
 /* Productos Sección */
 .productos-seccion {
-  padding: 15px 40px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  padding: 1px 40px;
 }
 
 .productos-tabla {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 }
 
 .productos-tabla thead {
   background: #fff;
-  flex-shrink: 0;
-}
-
-.productos-tabla tbody {
-  flex: 1;
 }
 
 .productos-tabla th {
-  padding: 12px 15px;
+  padding: 3px 15px;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -243,10 +231,10 @@
 }
 
 .productos-tabla td {
-  padding: 12px 15px;
+  padding: 3px 15px;
   font-size: 13px;
-  border-bottom: 1px solid #e5e7eb;
-  border-right: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
 }
 
 .productos-tabla .col-cant,
@@ -274,11 +262,10 @@
 
 .col-desc {
   width: auto;
-  flex: 1;
 }
 
 .col-precio {
-  width: 130px;
+  width: 150px;
 }
 
 .col-total {
@@ -337,9 +324,11 @@
   justify-content: flex-end;
   gap: 12px;
   flex-shrink: 0;
+  border-top: 1px solid #e5e7eb;
 }
 
-.btn-salir, .btn-pdf {
+.btn-salir,
+.btn-pdf {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -362,13 +351,37 @@
   color: #000;
 }
 
-.btn-salir:hover { background: #d90000; }
-.btn-pdf:hover { background: #009600; }
+.btn-salir:hover {
+  background: #d90000;
+}
+
+.btn-pdf:hover {
+  background: #009600;
+}
 
 .btn-icon {
   width: 16px;
   height: 16px;
 }
 
-.text-right { text-align: right; }
-.font-bold { font-weight: bold; }
+.text-right {
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+/* Animación Shake */
+.factura-card.shake {
+  animation: shakeX 0.28s ease;
+}
+
+@keyframes shakeX {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}

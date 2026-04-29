@@ -3,14 +3,17 @@ import './FacturaModal.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconPDF from '../assets/file-type-pdf.svg';
 import logoKIO from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
+import { useModalShake } from './useModalShake';
 
 const FacturaModal = ({ data, onClose }) => {
+  const { isShaking, handleOverlayClick } = useModalShake();
+
   if (!data) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="factura-card" onClick={(e) => e.stopPropagation()}>
-        
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className={`factura-card ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+
         {/* Header Principal */}
         <header className="factura-header-principal">
           <div className="empresa-header">
@@ -22,7 +25,7 @@ const FacturaModal = ({ data, onClose }) => {
               <p className="empresa-contacto">Tel: 809-277-2918, Cel: 849-279-2200</p>
             </div>
           </div>
-          
+
           <div className="factura-info-box">
             <h2 className="factura-titulo">FACTURA</h2>
             <div className="factura-valor-fiscal">VALOR FISCAL</div>
@@ -39,31 +42,31 @@ const FacturaModal = ({ data, onClose }) => {
               <tbody>
                 <tr>
                   <td className="label-cell">Nombre</td>
-                  <td className="value-cell">{data.cliente.nombre}</td>
+                  <td className="value-cell">José</td>
                 </tr>
                 <tr>
                   <td className="label-cell">RNC</td>
-                  <td className="value-cell">{data.cliente.rnc}</td>
+                  <td className="value-cell">44-665-898</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Dirección</td>
-                  <td className="value-cell">{data.cliente.direccion}</td>
+                  <td className="value-cell">Oficina #5</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Ciudad</td>
-                  <td className="value-cell">{data.cliente.ciudad}</td>
+                  <td className="value-cell">Santo Domingo</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Teléfono</td>
-                  <td className="value-cell">{data.cliente.telefono}</td>
+                  <td className="value-cell">+1 (829) 551-1725</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          
+
           {/* Info Factura - Derecha */}
           <div className="factura-datos-box">
-            <div className="factura-datos-header">VÁLIDO HASTA</div>
+            <div className="factura-datos-header">INFORMACIÓN DE LA FACTURA</div>
             <div className="factura-datos-content">
               <table className="factura-datos-table">
                 <tbody>
@@ -104,19 +107,17 @@ const FacturaModal = ({ data, onClose }) => {
               <tr>
                 <th className="col-cant">CANT.</th>
                 <th className="col-desc">DESCRIPCIÓN</th>
-                <th className="col-precio text-right">PRECIO UNITARIO</th>
+                <th className="col-precio text-center">PRECIO UNITARIO</th>
                 <th className="col-total text-right">TOTAL</th>
               </tr>
             </thead>
             <tbody>
-              {data.items.map((item, index) => (
-                <tr key={index}>
-                  <td className="col-cant">{item.cant}</td>
-                  <td className="col-desc">{item.desc}</td>
-                  <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', {minimumFractionDigits: 2})}</td>
-                  <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', {minimumFractionDigits: 2})}</td>
-                </tr>
-              ))}
+              <tr>
+                <td className="col-cant">1</td>
+                <td className="col-desc">Producto/Servicio</td>
+                <td className="col-precio text-right">15,000.00</td>
+                <td className="col-total text-right">15,000.00</td>
+              </tr>
             </tbody>
           </table>
         </main>
@@ -128,7 +129,7 @@ const FacturaModal = ({ data, onClose }) => {
               <tbody>
                 <tr>
                   <td className="total-label">SUB-TOTAL</td>
-                  <td className="total-value text-right"><span className="moneda">$</span> {data.subtotal.toLocaleString('es-DO', {minimumFractionDigits: 2})}</td>
+                  <td className="total-value text-right">15,000.00</td>
                 </tr>
                 <tr>
                   <td className="total-label">Descuento</td>
@@ -136,11 +137,11 @@ const FacturaModal = ({ data, onClose }) => {
                 </tr>
                 <tr>
                   <td className="total-label">Itbis</td>
-                  <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', {minimumFractionDigits: 2})}</td>
+                  <td className="total-value text-right">2,700.00</td>
                 </tr>
                 <tr className="total-final">
                   <td className="total-label">TOTAL</td>
-                  <td className="total-value text-right"><span className="moneda">$</span> {data.total.toLocaleString('es-DO', {minimumFractionDigits: 2})}</td>
+                  <td className="total-value text-right">17,700.00</td>
                 </tr>
               </tbody>
             </table>
