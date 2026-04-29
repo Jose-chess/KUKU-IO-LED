@@ -3,11 +3,13 @@ import './PanelFactura.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
+import ModalFacturaNoEncontrada from './ModalFacturaNoEncontrada';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
 
     // Datos de ejemplo para la tabla
     const facturas = [
@@ -21,7 +23,7 @@ const PanelFactura = () => {
             ciudad: 'Santo Domingo',
             telefono: '+1 (829) 551-1725',
             condicion: 'Contado',
-            estado: 'Pagada',
+            estado: 'Pago',
             descuento: '0%',
             monto: 15000.00
         }
@@ -42,8 +44,8 @@ const PanelFactura = () => {
         if (!query) return;
 
         // Buscar en el array de facturas
-        const facturaEncontrada = facturas.find(f => 
-            f.numero.toLowerCase().includes(query) || 
+        const facturaEncontrada = facturas.find(f =>
+            f.numero.toLowerCase().includes(query) ||
             f.cliente.toLowerCase().includes(query)
         );
 
@@ -53,7 +55,7 @@ const PanelFactura = () => {
             setBusquedaFactura('');
         } else {
             console.log('Factura no encontrada:', busquedaFactura);
-            // Aquí se podría disparar un modal de "No encontrado" si se desea
+            setMostrarErrorBusqueda(true);
         }
     };
 
@@ -126,8 +128,8 @@ const PanelFactura = () => {
                                         <td>{factura.descuento}</td>
                                         <td>{formatMoney(factura.monto)}</td>
                                         <td>
-                                            <button 
-                                                className="btn-ver-factura" 
+                                            <button
+                                                className="btn-ver-factura"
                                                 type="button"
                                                 onClick={() => {
                                                     setFacturaSeleccionada(factura);
@@ -152,7 +154,7 @@ const PanelFactura = () => {
             </div>
 
             {mostrarModal && (
-                <FacturaModal 
+                <FacturaModal
                     data={facturaSeleccionada ? {
                         cliente: {
                             nombre: facturaSeleccionada.cliente,
@@ -173,6 +175,11 @@ const PanelFactura = () => {
                     onClose={() => setMostrarModal(false)}
                 />
             )}
+
+            <ModalFacturaNoEncontrada
+                isOpen={mostrarErrorBusqueda}
+                onClose={() => setMostrarErrorBusqueda(false)}
+            />
         </div>
     );
 };

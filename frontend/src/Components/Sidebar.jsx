@@ -14,6 +14,7 @@ import iconConfiguracion from '../assets/settings.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import iconUsuario from '../assets/user (1).svg';
 import iconCerrarSesion from '../assets/login-2.svg';
+import iconRecibo from '../assets/receipt.svg';
 
 const Sidebar = ({ user, activeSection, setActiveSection }) => {
     const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
         { nombre: 'Ventas', icon: iconVenta },  
         { nombre: 'Inventario', icon: iconInventario },
         { nombre: 'Facturas', icon: iconFactura },
+        { nombre: 'Recibos', icon: iconRecibo },
         { nombre: 'Cuentas por cobrar', icon: iconCuentaCobrar },
         { nombre: 'Finanzas', icon: iconFinanzas, tieneFlecha: true },
         { nombre: 'Configuración', icon: iconConfiguracion, tieneFlecha: true },
