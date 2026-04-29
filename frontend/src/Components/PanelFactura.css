@@ -1,4 +1,4 @@
-/* PanelFactura.css - Estilos para el panel de facturas */
+
 
 @keyframes facturas-fade-up {
     0% {
@@ -54,33 +54,6 @@
     font-size: 28px;
     font-weight: 700;
     color: #1e293b;
-}
-
-.btn-nueva-factura {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    border: none;
-    border-radius: 8px;
-    padding: 11px 16px;
-    background: #ffcc00;
-    color: #000000;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-    margin-left: auto;
-}
-
-.btn-nueva-factura:hover {
-    background: #ffd700;
-    transform: translateY(-2px);
-}
-
-.btn-nueva-factura-icon {
-    width: 18px;
-    height: 18px;
-    display: block;
 }
 
 /* KPI Grid */
@@ -168,7 +141,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    width: 340px;
+    width: 390px !important;
     max-width: 100%;
 }
 
@@ -222,30 +195,107 @@
     width: 100%;
     border-collapse: collapse;
     background: #ffffff;
+    table-layout: fixed;
 }
 
 .facturas-table thead th {
     position: sticky;
     top: 0;
     z-index: 1;
-    background: #f8f7b4;
+    background: #F8F7B4;
     text-align: left;
     padding: 8px 10px;
     font-family: 'Konkhmer Sleokchher', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: #0f172a;
+    font-size: 11px;
+    color: #000000;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Distribucion uniforme de columnas */
+.facturas-table th:nth-child(1),
+.facturas-table td:nth-child(1) {
+    width: 12%;
+}
+
+.facturas-table th:nth-child(2),
+.facturas-table td:nth-child(2) {
+    width: 12%;
+}
+
+.facturas-table th:nth-child(3),
+.facturas-table td:nth-child(3) {
+    width: 18%;
+}
+
+.facturas-table th:nth-child(4),
+.facturas-table td:nth-child(4) {
+    width: 12%;
+}
+
+.facturas-table th:nth-child(5),
+.facturas-table td:nth-child(5) {
+    width: 12%;
+}
+
+.facturas-table th:nth-child(6),
+.facturas-table td:nth-child(6) {
+    width: 10%;
+}
+
+.facturas-table th:nth-child(7),
+.facturas-table td:nth-child(7) {
+    width: 14%;
+}
+
+.facturas-table th:nth-child(8),
+.facturas-table td:nth-child(8) {
+    width: 10%;
+    text-align: center;
 }
 
 .facturas-table tbody td {
-    padding: 8px 10px;
-    font-size: 13px;
-    color: #334155;
+    padding: 6px 10px;
     border-bottom: 1px solid #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1e293b;
+    vertical-align: top;
 }
 
 .facturas-table tbody tr:hover {
     background: #f8fafc;
+}
+
+.btn-ver-factura {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn-ver-factura:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.btn-ver-factura:active {
+    transform: scale(0.96);
+}
+
+.btn-ver-icon {
+    width: 16px;
+    height: 16px;
+    filter: invert(42%) sepia(95%) saturate(1539%) hue-rotate(85deg) brightness(97%) contrast(101%);
 }
 
 .table-row-empty-cell {

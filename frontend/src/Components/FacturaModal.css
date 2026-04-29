@@ -1,0 +1,387 @@
+/* FacturaModal.css - Diseño basado en referencia */
+
+:root {
+  --primary-color: #1a1a1a;
+  --accent-color: #facc15;
+  --text-muted: #64748b;
+  --border-color: #1a1a1a;
+  --bg-light: white;
+}
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+/* Card Principal */
+.factura-card {
+  background: white;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Principal */
+.factura-header-principal {
+  padding: 30px 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.empresa-header {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.logo-img {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+.empresa-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.empresa-nombre {
+  margin: 0 0 5px 0;
+  font-size: 22px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.5px;
+  color: #1a1a1a;
+}
+
+.empresa-direccion,
+.empresa-rnc,
+.empresa-contacto {
+  margin: 1px 0;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+/* Factura Info Box (Derecha) */
+.factura-info-box {
+  text-align: right;
+}
+
+.factura-titulo {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -1px;
+}
+
+.factura-valor-fiscal {
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 11px;
+  font-weight: 800;
+  display: block;
+  text-align: right;
+  margin: 5px 0;
+}
+
+.factura-ncf {
+  margin: 3px 0 0 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Sección Info (Cliente + Factura Datos) */
+.info-seccion {
+  display: flex;
+  padding: 20px 40px;
+  gap: 40px;
+  flex-shrink: 0;
+}
+
+/* Cliente Box (Izquierda) */
+.cliente-box {
+  flex: 1;
+}
+
+.cliente-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.cliente-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cliente-table td {
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.cliente-table .label-cell {
+  color: #6b7280;
+  width: 120px;
+}
+
+.cliente-table .value-cell {
+  color: #111827;
+  font-weight: 700;
+}
+
+/* Factura Datos Box (Derecha) */
+.factura-datos-box {
+  width: 320px;
+  border: 1px solid var(--border-color);
+}
+
+.factura-datos-header {
+  background: #fff;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.factura-datos-content {
+  padding: 10px 15px;
+}
+
+.factura-datos-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.factura-datos-table td {
+  padding: 4px 0;
+  font-size: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.factura-datos-table .label-cell {
+  color: #6b7280;
+}
+
+.factura-datos-table .value-cell {
+  color: #111827;
+  font-weight: 500;
+}
+
+.factura-datos-table .condicion {
+  color: #111827;
+  font-weight: 700;
+}
+
+.factura-datos-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Productos Sección */
+.productos-seccion {
+  padding: 1px 40px;
+}
+
+.productos-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
+}
+
+.productos-tabla thead {
+  background: #fff;
+}
+
+.productos-tabla th {
+  padding: 3px 15px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  text-align: center;
+  background: #f9fafb;
+}
+
+.productos-tabla th:last-child {
+  border-right: none;
+}
+
+.productos-tabla td {
+  padding: 3px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.productos-tabla .col-cant,
+.productos-tabla .col-desc {
+  text-align: center;
+}
+
+.productos-tabla .col-precio,
+.productos-tabla .col-total {
+  text-align: right;
+}
+
+.productos-tabla td:last-child {
+  border-right: none;
+}
+
+.productos-tabla tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Anchos de columnas */
+.col-cant {
+  width: 70px;
+}
+
+.col-desc {
+  width: auto;
+}
+
+.col-precio {
+  width: 150px;
+}
+
+.col-total {
+  width: 110px;
+}
+
+/* Totales Sección */
+.totales-seccion {
+  padding: 15px 40px;
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.totales-box {
+  width: 320px;
+  border: 1px solid var(--border-color);
+}
+
+.totales-tabla {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.totales-tabla td {
+  padding: 8px 15px;
+  font-size: 13px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.totales-tabla .total-label {
+  color: #374151;
+  font-weight: 500;
+}
+
+.totales-tabla .total-value {
+  color: #111827;
+  font-weight: 600;
+}
+
+.totales-tabla .total-final {
+  background: #f9fafb;
+}
+
+.totales-tabla .total-final .total-label,
+.totales-tabla .total-final .total-value {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Acciones */
+.acciones-bar {
+  padding: 20px 40px;
+  background: var(--bg-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+  border-top: 1px solid #e5e7eb;
+}
+
+.btn-salir,
+.btn-pdf {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s;
+  font-size: 13px;
+}
+
+.btn-salir {
+  background: #FF060A;
+  color: #000;
+}
+
+.btn-pdf {
+  background: #009C00;
+  color: #000;
+}
+
+.btn-salir:hover {
+  background: #d90000;
+}
+
+.btn-pdf:hover {
+  background: #009600;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+/* Animación Shake */
+.factura-card.shake {
+  animation: shakeX 0.28s ease;
+}
+
+@keyframes shakeX {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}

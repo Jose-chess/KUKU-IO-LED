@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './PanelFactura.css';
+import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
+import FacturaModal from './FacturaModal';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
+    const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
+    const [mostrarModal, setMostrarModal] = useState(false);
 
     // Datos de ejemplo para la tabla
     const facturas = [
@@ -64,10 +68,10 @@ const PanelFactura = () => {
 
                     <div className="search-box">
                         <div className="search-input-wrapper">
-                            <img src={iconOjo} alt="Buscar" className="search-icon" />
+                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Buscar factura por nombre del cliente"
+                                placeholder="Ingrese el número de la factura o nombre del cliente"
                                 value={busquedaFactura}
                                 onChange={(event) => setBusquedaFactura(event.target.value)}
                                 onKeyDown={manejarBusquedaFactura}
@@ -87,6 +91,7 @@ const PanelFactura = () => {
                                 <th>Estado</th>
                                 <th>Descuento</th>
                                 <th>Monto de la factura</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -100,6 +105,18 @@ const PanelFactura = () => {
                                         <td>{factura.estado}</td>
                                         <td>{factura.descuento}</td>
                                         <td>{formatMoney(factura.monto)}</td>
+                                        <td>
+                                            <button 
+                                                className="btn-ver-factura" 
+                                                type="button"
+                                                onClick={() => {
+                                                    setFacturaSeleccionada(factura);
+                                                    setMostrarModal(true);
+                                                }}
+                                            >
+                                                <img src={iconOjo} alt="Ver factura" className="btn-ver-icon" />
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))
                             ) : (
@@ -113,6 +130,28 @@ const PanelFactura = () => {
                     </table>
                 </div>
             </div>
+
+            {mostrarModal && (
+                <FacturaModal 
+                    data={facturaSeleccionada ? {
+                        cliente: {
+                            nombre: facturaSeleccionada.cliente,
+                            rnc: '',
+                            direccion: '',
+                            ciudad: ''
+                        },
+                        items: [{
+                            cant: 1,
+                            desc: 'Producto/Servicio',
+                            precio: facturaSeleccionada.monto
+                        }],
+                        subtotal: facturaSeleccionada.monto,
+                        itbis: facturaSeleccionada.monto * 0.18,
+                        total: facturaSeleccionada.monto * 1.18
+                    } : null}
+                    onClose={() => setMostrarModal(false)}
+                />
+            )}
         </div>
     );
 };
