@@ -1,14 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './FacturaModal.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconPDF from '../assets/file-type-pdf.svg';
 import logoKIO from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import { useModalShake } from './useModalShake';
+import ModalConfirmar from './ModalConfirmar';
+import ModalConfirmado from './ModalConfirmado';
+import ModalErrorFactura from './ModalErrorFactura';
 
 const FacturaModal = ({ data, onClose }) => {
   const { isShaking, handleOverlayClick } = useModalShake();
+  const [showConfirmPDF, setShowConfirmPDF] = useState(false);
+  const [showConfirmarSalir, setShowConfirmarSalir] = useState(false);
+  const [showSuccessPDF, setShowSuccessPDF] = useState(false);
+  const [showErrorPDF, setShowErrorPDF] = useState(false);
 
   if (!data) return null;
+
+  const handlePDFClick = () => {
+    setShowConfirmPDF(true);
+  };
+
+  const handleConfirmPDF = async () => {
+    try {
+      // Simulamos la generación del PDF
+      console.log("Generando PDF...");
+      setShowConfirmPDF(false); 
+      
+      // Aquí irá la llamada al backend. 
+      // Por ahora simulamos éxito:
+      setShowSuccessPDF(true);
+      
+    } catch (error) {
+      console.error("Error al generar PDF:", error);
+      setShowConfirmPDF(false);
+      setShowErrorPDF(true);
+    }
+  };
+
+  if (showSuccessPDF) {
+    return (
+      <ModalConfirmado
+        isOpen={showSuccessPDF}
+        onClose={onClose}
+        title="Confirmado"
+        subtitle="PDF generado exitosamente!"
+      />
+    );
+  }
+
+  if (showErrorPDF) {
+    return (
+      <ModalErrorFactura
+        isOpen={showErrorPDF}
+        onClose={() => setShowErrorPDF(false)}
+        mensaje="No se pudo generar el PDF"
+        submensaje="Intente de nuevo!"
+      />
+    );
+  }
+
+  if (showConfirmPDF) {
+    return (
+      <ModalConfirmar
+        isOpen={showConfirmPDF}
+        onClose={() => setShowConfirmPDF(false)}
+        onConfirm={handleConfirmPDF}
+        mensaje="Estas seguro de que desea convertir a PDF ?"
+        salirLabel="Retroceder"
+        confirmLabel="Confirmar"
+      />
+    );
+  }
+
+  if (showConfirmarSalir) {
+    return (
+      <ModalConfirmar
+        isOpen={showConfirmarSalir}
+        onClose={() => setShowConfirmarSalir(false)}
+        onConfirm={onClose}
+        mensaje="Estas seguro de que desea salir?"
+        salirLabel="Retroceder"
+        confirmLabel="Confirmar"
+      />
+    );
+  }
 
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
@@ -42,23 +118,23 @@ const FacturaModal = ({ data, onClose }) => {
               <tbody>
                 <tr>
                   <td className="label-cell">Nombre</td>
-                  <td className="value-cell">José</td>
+                  <td className="value-cell">{data.cliente.nombre}</td>
                 </tr>
                 <tr>
                   <td className="label-cell">RNC</td>
-                  <td className="value-cell">44-665-898</td>
+                  <td className="value-cell">{data.cliente.rnc}</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Dirección</td>
-                  <td className="value-cell">Oficina #5</td>
+                  <td className="value-cell">{data.cliente.direccion}</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Ciudad</td>
-                  <td className="value-cell">Santo Domingo</td>
+                  <td className="value-cell">{data.cliente.ciudad}</td>
                 </tr>
                 <tr>
                   <td className="label-cell">Teléfono</td>
-                  <td className="value-cell">+1 (829) 551-1725</td>
+                  <td className="value-cell">{data.cliente.telefono}</td>
                 </tr>
               </tbody>
             </table>
@@ -76,15 +152,15 @@ const FacturaModal = ({ data, onClose }) => {
                   </tr>
                   <tr>
                     <td className="label-cell">Fecha de emisión</td>
-                    <td className="value-cell text-right">30/3/2026</td>
+                    <td className="value-cell text-right">{data.fecha || '30/3/2026'}</td>
                   </tr>
                   <tr>
                     <td className="label-cell">Condición</td>
-                    <td className="value-cell text-right condicion">Contado</td>
+                    <td className="value-cell text-right condicion">{data.condicion || 'Contado'}</td>
                   </tr>
                   <tr>
                     <td className="label-cell">Nro.</td>
-                    <td className="value-cell text-right">2222</td>
+                    <td className="value-cell text-right">{data.nro || '2222'}</td>
                   </tr>
                   <tr>
                     <td className="label-cell">Vendedor</td>
@@ -112,12 +188,14 @@ const FacturaModal = ({ data, onClose }) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="col-cant">1</td>
-                <td className="col-desc">Producto/Servicio</td>
-                <td className="col-precio text-right">15,000.00</td>
-                <td className="col-total text-right">15,000.00</td>
-              </tr>
+              {data.items.map((item, index) => (
+                <tr key={index}>
+                  <td className="col-cant">{item.cant}</td>
+                  <td className="col-desc">{item.desc}</td>
+                  <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                  <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </main>
@@ -129,7 +207,7 @@ const FacturaModal = ({ data, onClose }) => {
               <tbody>
                 <tr>
                   <td className="total-label">SUB-TOTAL</td>
-                  <td className="total-value text-right">15,000.00</td>
+                  <td className="total-value text-right">{data.subtotal.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
                 </tr>
                 <tr>
                   <td className="total-label">Descuento</td>
@@ -137,11 +215,11 @@ const FacturaModal = ({ data, onClose }) => {
                 </tr>
                 <tr>
                   <td className="total-label">Itbis</td>
-                  <td className="total-value text-right">2,700.00</td>
+                  <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
                 </tr>
                 <tr className="total-final">
                   <td className="total-label">TOTAL</td>
-                  <td className="total-value text-right">17,700.00</td>
+                  <td className="total-value text-right">{data.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
                 </tr>
               </tbody>
             </table>
@@ -150,11 +228,11 @@ const FacturaModal = ({ data, onClose }) => {
 
         {/* Acciones */}
         <div className="acciones-bar">
-          <button className="btn-salir" onClick={onClose}>
+          <button className="btn-salir" onClick={() => setShowConfirmarSalir(true)}>
             <img src={iconSalir} alt="Salir" className="btn-icon" />
             Salir
           </button>
-          <button className="btn-pdf">
+          <button className="btn-pdf" onClick={handlePDFClick}>
             <img src={iconPDF} alt="PDF" className="btn-icon" />
             PDF
           </button>

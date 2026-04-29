@@ -3,20 +3,27 @@ import './PanelFactura.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
+import ModalFacturaNoEncontrada from './ModalFacturaNoEncontrada';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
 
     // Datos de ejemplo para la tabla
     const facturas = [
         {
-            numero: 'F-001',
+            id: 1,
+            numero: 'B02000000134',
             fecha: '2026-04-28',
             cliente: 'José',
+            rnc: '44-665-898',
+            direccion: 'Oficina #5',
+            ciudad: 'Santo Domingo',
+            telefono: '+1 (829) 551-1725',
             condicion: 'Contado',
-            estado: 'Pagada',
+            estado: 'Pago',
             descuento: '0%',
             monto: 15000.00
         }
@@ -33,8 +40,23 @@ const PanelFactura = () => {
 
         event.preventDefault();
 
-        console.log('Buscando factura:', busquedaFactura);
-        setBusquedaFactura('');
+        const query = busquedaFactura.toLowerCase().trim();
+        if (!query) return;
+
+        // Buscar en el array de facturas
+        const facturaEncontrada = facturas.find(f =>
+            f.numero.toLowerCase().includes(query) ||
+            f.cliente.toLowerCase().includes(query)
+        );
+
+        if (facturaEncontrada) {
+            setFacturaSeleccionada(facturaEncontrada);
+            setMostrarModal(true);
+            setBusquedaFactura('');
+        } else {
+            console.log('Factura no encontrada:', busquedaFactura);
+            setMostrarErrorBusqueda(true);
+        }
     };
 
     return (
@@ -106,8 +128,8 @@ const PanelFactura = () => {
                                         <td>{factura.descuento}</td>
                                         <td>{formatMoney(factura.monto)}</td>
                                         <td>
-                                            <button 
-                                                className="btn-ver-factura" 
+                                            <button
+                                                className="btn-ver-factura"
                                                 type="button"
                                                 onClick={() => {
                                                     setFacturaSeleccionada(factura);
@@ -132,13 +154,14 @@ const PanelFactura = () => {
             </div>
 
             {mostrarModal && (
-                <FacturaModal 
+                <FacturaModal
                     data={facturaSeleccionada ? {
                         cliente: {
                             nombre: facturaSeleccionada.cliente,
-                            rnc: '',
-                            direccion: '',
-                            ciudad: ''
+                            rnc: facturaSeleccionada.rnc,
+                            direccion: facturaSeleccionada.direccion,
+                            ciudad: facturaSeleccionada.ciudad,
+                            telefono: facturaSeleccionada.telefono
                         },
                         items: [{
                             cant: 1,
@@ -152,6 +175,11 @@ const PanelFactura = () => {
                     onClose={() => setMostrarModal(false)}
                 />
             )}
+
+            <ModalFacturaNoEncontrada
+                isOpen={mostrarErrorBusqueda}
+                onClose={() => setMostrarErrorBusqueda(false)}
+            />
         </div>
     );
 };
