@@ -56,6 +56,7 @@ const PanelFactura = () => {
         } else {
             console.log('Factura no encontrada:', busquedaFactura);
             setMostrarErrorBusqueda(true);
+            setBusquedaFactura('');
         }
     };
 

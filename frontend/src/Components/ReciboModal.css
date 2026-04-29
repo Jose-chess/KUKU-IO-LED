@@ -1,0 +1,234 @@
+
+.recibo-card {
+    background: #ffffff;
+    width: 480px;
+    border-radius: 12px;
+    padding: 30px 30px 0 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: 'Inter', sans-serif;
+    color: #1e293b;
+    position: relative;
+    user-select: none;
+}
+
+.recibo-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.recibo-logo-box {
+    flex-shrink: 0;
+}
+
+.recibo-logo-img {
+    width: 100px;
+    height: auto;
+}
+
+.recibo-empresa-info {
+    flex: 1;
+    text-align: center;
+}
+
+.recibo-empresa-name {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: #000;
+}
+
+.recibo-empresa-detail {
+    font-size: 11px;
+    font-weight: 600;
+    margin: 1px 0;
+    color: #000;
+}
+
+.recibo-tipo-titulo {
+    font-size: 14px;
+    font-weight: 800;
+    margin: 8px 0 2px 0;
+    color: #000;
+}
+
+.recibo-numero-fecha {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    margin: 0;
+}
+
+.recibo-divider {
+    border: none;
+    border-top: 1.5px solid #64748b;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.recibo-cliente-seccion {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.recibo-field {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.recibo-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.recibo-value-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+}
+
+.recibo-value {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+}
+
+.recibo-seccion-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    margin: 0 0 10px 0;
+}
+
+.recibo-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recibo-item, .recibo-concepto-texto {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.recibo-concepto-texto {
+    margin: 5px 0;
+}
+
+.recibo-detalle-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.recibo-total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recibo-total-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.recibo-total-value {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+}
+
+.recibo-total-label-final {
+    font-size: 14px;
+    font-weight: 800;
+    color: #64748b;
+}
+
+.recibo-total-value-final {
+    font-size: 16px;
+    font-weight: 800;
+    color: #000;
+}
+
+.acciones-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 30px;
+    background: #ffffff;
+    border-top: 1px solid #e5e7eb;
+    margin: 0 -30px 0 -30px;
+}
+
+.btn-salir, .btn-pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 30px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    color: #000;
+}
+
+.btn-salir {
+    background: #FF060A;
+}
+
+.btn-pdf {
+    background: #009C00;
+}
+
+.btn-salir:hover {
+    background: #d90000;
+}
+
+.btn-pdf:hover {
+    background: #009600;
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Animaciones */
+.recibo-card.shake {
+    animation: shakeX 0.3s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+.scale-up-center {
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+}
+
+@keyframes scale-up {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

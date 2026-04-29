@@ -3,6 +3,7 @@ import './PanelRecibos.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import ModalReciboNoEncontrado from './ModalReciboNoEncontrado';
+import ReciboModal from './ReciboModal';
 
 const PanelRecibos = () => {
     const [busquedaRecibo, setBusquedaRecibo] = useState('');
@@ -16,6 +17,14 @@ const PanelRecibos = () => {
             cliente: 'José',
             tipo: 'Pago',
             monto: 15000.00
+        },
+        {
+            id: 2,
+            numero: 'R-000000002',
+            fecha: '2026-04-30',
+            cliente: 'Carlos Castillo',
+            tipo: 'Abono',
+            monto: 5000.00
         }
     ];
 
@@ -23,6 +32,8 @@ const PanelRecibos = () => {
         return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
     };
 
+    const [reciboSeleccionado, setReciboSeleccionado] = useState(null);
+    const [mostrarModal, setMostrarModal] = useState(false);
     const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
 
     const manejarBusquedaRecibo = (event) => {
@@ -39,11 +50,13 @@ const PanelRecibos = () => {
 
         if (reciboEncontrado) {
             console.log('Recibo encontrado:', reciboEncontrado);
-            // Aquí se abriría el modal de recibo cuando se cree
+            setReciboSeleccionado(reciboEncontrado);
+            setMostrarModal(true);
             setBusquedaRecibo('');
         } else {
             console.log('Recibo no encontrado:', busquedaRecibo);
             setMostrarErrorBusqueda(true);
+            setBusquedaRecibo('');
         }
     };
 
@@ -56,11 +69,11 @@ const PanelRecibos = () => {
             <div className="kpi-grid recibos-kpi-grid">
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Recaudación mensual</p>
-                    <h2 className="kpi-value">$15,000.00</h2>
+                    <h2 className="kpi-value">$20,000.00</h2>
                 </div>
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Promedio por recibo</p>
-                    <h2 className="kpi-value">$15,000.00</h2>
+                    <h2 className="kpi-value">$10,000.00</h2>
                 </div>
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Recibo más alto</p>
@@ -68,7 +81,7 @@ const PanelRecibos = () => {
                 </div>
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Recibos totales</p>
-                    <h2 className="kpi-value">1</h2>
+                    <h2 className="kpi-value">2</h2>
                 </div>
             </div>
 
@@ -112,7 +125,14 @@ const PanelRecibos = () => {
                                         <td>{recibo.tipo}</td>
                                         <td>{formatMoney(recibo.monto)}</td>
                                         <td>
-                                            <button className="btn-ver-recibo" type="button">
+                                            <button 
+                                                className="btn-ver-recibo" 
+                                                type="button"
+                                                onClick={() => {
+                                                    setReciboSeleccionado(recibo);
+                                                    setMostrarModal(true);
+                                                }}
+                                            >
                                                 <img src={iconOjo} alt="Ver recibo" className="btn-ver-icon" />
                                             </button>
                                         </td>
@@ -134,6 +154,38 @@ const PanelRecibos = () => {
                 isOpen={mostrarErrorBusqueda}
                 onClose={() => setMostrarErrorBusqueda(false)}
             />
+
+            {mostrarModal && (
+                <ReciboModal 
+                    data={reciboSeleccionado ? (reciboSeleccionado.tipo === 'Abono' ? {
+                        ...reciboSeleccionado,
+                        cliente: {
+                            nombre: reciboSeleccionado.cliente,
+                            rnc: '044-685-898-0'
+                        },
+                        concepto: 'Abono a cuenta pendiente - Factura #5555',
+                        saldoAnterior: 20000.00,
+                        nuevoSaldo: 15000.00,
+                        total: reciboSeleccionado.monto
+                    } : {
+                        ...reciboSeleccionado,
+                        cliente: {
+                            nombre: reciboSeleccionado.cliente,
+                            rnc: '044-685-898-0'
+                        },
+                        items: [
+                            { cant: 3, desc: 'KUKU-IO MINI' },
+                            { cant: 1, desc: 'RAMAL ALÁMBRICO' },
+                            { cant: 4, desc: 'SWITCH DE CARRO' }
+                        ],
+                        subtotal: 20000.00,
+                        itbis: 3600.00,
+                        descuento: 0,
+                        total: 23600.00
+                    }) : null}
+                    onClose={() => setMostrarModal(false)}
+                />
+            )}
         </div>
     );
 };
