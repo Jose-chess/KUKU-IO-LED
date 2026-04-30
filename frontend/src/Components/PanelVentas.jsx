@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './PanelVentas.css';
 import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';

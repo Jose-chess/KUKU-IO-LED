@@ -2,17 +2,33 @@ import React, { useState } from 'react';
 import './Factura.css';
 import iconNuevaFactura from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
-import iconEdit from '../assets/edit.svg';
+import iconVer from '../assets/eye.svg';
+import FacturaModal from './FacturaModal';
 
 const Factura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
-    const [facturas] = useState([]);
+    const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
+    const [facturas] = useState([
+        {
+            id: 1,
+            numero: 'FAC-001',
+            cliente: 'Electrónica Gómez',
+            tipo: 'Al por mayor',
+            fecha: '29/04/2026',
+            subtotal: 15000,
+            descuento: 5,
+            itbis: 18,
+            total: 16815,
+            metodo: 'Transferencia',
+            estado: 'Pagada'
+        }
+    ]);
 
     const totalFacturas = facturas.length;
-    const facturacionMensual = 0;
-    const facturasHoy = facturas.length;
-    const facturasPendientes = facturas.length;
-    const ingresoTotal = 0;
+    const ingresoTotal = facturas.reduce((acc, curr) => acc + curr.total, 0);
+    const facturasHoy = facturas.filter(f => f.fecha === '29/04/2026').length;
+    const facturasPendientes = facturas.filter(f => f.estado !== 'Pagada').length;
+    const ticketPromedio = totalFacturas > 0 ? ingresoTotal / totalFacturas : 0;
 
     const formatMoney = (value) => {
         const numericValue = Number(String(value ?? '').replace(/[^\d.]/g, ''));
@@ -22,12 +38,14 @@ const Factura = () => {
         return `$ ${numericValue.toLocaleString('es-DO')}`;
     };
 
-    const handleBuscarFactura = () => {
+    const facturasFiltradas = facturas.filter((factura) => {
         const termino = busquedaFactura.trim().toLowerCase();
-        if (!termino) {
-            return;
-        }
-    };
+        if (!termino) return true;
+        return (
+            factura.numero.toLowerCase().includes(termino) ||
+            factura.cliente.toLowerCase().includes(termino)
+        );
+    });
 
     return (
         <div className="factura-page">
@@ -47,8 +65,8 @@ const Factura = () => {
 
             <div className="kpi-grid factura-kpi-grid">
                 <div className="kpi-card factura-kpi-card">
-                    <p className="kpi-label">Facturación mensual</p>
-                    <h2 className="kpi-value">${facturacionMensual}</h2>
+                    <p className="kpi-label">Ticket promedio</p>
+                    <h2 className="kpi-value">{formatMoney(ticketPromedio)}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Facturas emitidas hoy</p>
@@ -75,14 +93,9 @@ const Factura = () => {
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Buscar por número de factura"
+                                placeholder="Buscar por número de factura o cliente..."
                                 value={busquedaFactura}
                                 onChange={(e) => setBusquedaFactura(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        handleBuscarFactura();
-                                    }
-                                }}
                             />
                         </div>
                     </div>
@@ -92,7 +105,7 @@ const Factura = () => {
                     <table className="factura-table">
                         <thead>
                             <tr>
-                                <th>N.º Factura</th>
+                                <th>Número de Factura</th>
                                 <th>Cliente</th>
                                 <th>Tipo</th>
                                 <th>Fecha</th>
@@ -106,14 +119,14 @@ const Factura = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {facturas.length === 0 ? (
+                            {facturasFiltradas.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
                                         No hay facturas para mostrar.
                                     </td>
                                 </tr>
                             ) : (
-                                facturas.map((factura) => (
+                                facturasFiltradas.map((factura) => (
                                     <tr key={factura.id}>
                                         <td>{factura.numero}</td>
                                         <td>{factura.cliente}</td>
@@ -127,12 +140,13 @@ const Factura = () => {
                                         <td>{factura.estado}</td>
                                         <td className="accion-cell">
                                             <button
-                                                className="btn-edit"
+                                                className="btn-ver"
                                                 type="button"
-                                                aria-label="Editar factura"
-                                                title="Editar factura"
+                                                aria-label="Ver factura"
+                                                title="Ver factura"
+                                                onClick={() => setFacturaSeleccionada(factura)}
                                             >
-                                                <img src={iconEdit} alt="" className="btn-edit-icon" />
+                                                <img src={iconVer} alt="" className="btn-ver-icon" />
                                             </button>
                                         </td>
                                     </tr>
@@ -142,6 +156,40 @@ const Factura = () => {
                     </table>
                 </div>
             </div>
+
+            {facturaSeleccionada && (
+                <FacturaModal
+                    data={{
+                        ncf: facturaSeleccionada.numero,
+                        fecha: facturaSeleccionada.fecha,
+                        condicion: 'Contado',
+                        metodoPago: facturaSeleccionada.metodo,
+                        nroInterno: facturaSeleccionada.id,
+                        vendedor: 'Sistema',
+                        cliente: {
+                            nombre: facturaSeleccionada.cliente,
+                            rnc: 'N/A',
+                            cedula: 'N/A',
+                            direccion: 'Ciudad',
+                            ciudad: 'Local',
+                            telefono: '000-000-0000'
+                        },
+                        items: [
+                            {
+                                cant: 1,
+                                um: 'Und',
+                                desc: 'Servicios/Productos Generales',
+                                precio: facturaSeleccionada.subtotal
+                            }
+                        ],
+                        subtotal: facturaSeleccionada.subtotal,
+                        descuentoMonto: (facturaSeleccionada.subtotal * facturaSeleccionada.descuento) / 100,
+                        itbis: ((facturaSeleccionada.subtotal - (facturaSeleccionada.subtotal * facturaSeleccionada.descuento) / 100) * facturaSeleccionada.itbis) / 100,
+                        total: facturaSeleccionada.total
+                    }}
+                    onClose={() => setFacturaSeleccionada(null)}
+                />
+            )}
         </div>
     );
 };

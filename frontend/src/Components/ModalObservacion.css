@@ -16,9 +16,18 @@
     width: 500px;
     max-width: 90%;
     border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.2s ease-out;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+@keyframes scale-up {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 .obs-header {
@@ -90,16 +99,6 @@
     animation: shakeX 0.28s ease;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 @keyframes shakeX {
     0% { transform: translateX(0); }
