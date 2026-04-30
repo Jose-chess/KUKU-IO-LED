@@ -266,7 +266,6 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                             cursor: tipoVenta === 'Venta al por mayor' ? 'not-allowed' : 'text'
                                         }}
                                     />
-                                    {/* Controles de Flechas y Símbolo alineados */}
                                     <div style={{ position: 'absolute', right: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
                                         <div className="custom-spinners" style={{ display: 'flex', flexDirection: 'column', opacity: tipoVenta === 'Venta al por mayor' ? 0.3 : 1 }}>
                                             <div
@@ -293,7 +292,6 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                 <input value="18%" disabled readOnly />
                             </div>
 
-                            {/* CAMPO DINÁMICO: Método de Pago */}
                             {condicion === 'Contado' && (
                                 <div className="item-campo">
                                     <label>Método de Pago:</label>
@@ -376,7 +374,6 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 </div>
             </div>
 
-            {/* Modales de Selección Estandarizados */}
             <ModalSeleccionCliente
                 isOpen={showModalCliente}
                 onClose={() => setShowModalCliente(false)}
@@ -386,6 +383,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                     setShowModalCliente(false);
                 }}
                 clientes={clientes}
+                selectedCliente={clienteSeleccionado}
             />
 
             <ModalSeleccionSimple
@@ -394,6 +392,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 position={modalPosition}
                 options={['Contado', 'Crédito']}
                 onSelect={(val) => setCondicion(val)}
+                selectedValue={condicion}
             />
 
             <ModalSeleccionSimple
@@ -402,6 +401,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 position={modalPosition}
                 options={['Consumidor final', 'Venta al por mayor']}
                 onSelect={(val) => setTipoVenta(val)}
+                selectedValue={tipoVenta}
             />
 
             <ModalSeleccionSimple
@@ -410,9 +410,9 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 position={modalPosition}
                 options={['Efectivo', 'Tarjeta', 'Transferencia']}
                 onSelect={(val) => setMetodoPago(val)}
+                selectedValue={metodoPago}
             />
 
-            {/* Modales de Confirmación Internos para máxima compatibilidad */}
             <ModalConfirmar
                 isOpen={showConfirmarRetroceder}
                 onClose={() => setShowConfirmarRetroceder(false)}
@@ -431,94 +431,6 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 confirmLabel="Confirmar"
             />
         </div>
-    );
-};
-
-export default ModalFacturacion;
-                                        )}
-                                    </div >
-                                </div >
-                            )}
-                        </div >
-                    </div >
-                </div >
-
-                <div className="monto-venta-fila">
-                    Monto de Venta: <span className="monto-vibrante-verde">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(subtotal)}</span>
-                </div>
-
-                <div className="seccion-resumen-container">
-                    <h3 className="subtitulo-seccion">Resumen de la Factura</h3>
-                    <div className="seccion-resumen-box">
-                        <div className="fila-resumen">
-                            <span>Sub-total:</span>
-                            <span className="valor-resumen-negro">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(subtotal)}</span>
-                        </div>
-                        <div className="fila-resumen">
-                            <span>Descuento:</span>
-                            <span className="valor-resumen-rojo">{descuentoFinal}%</span>
-                        </div>
-                        <div className="fila-resumen">
-                            <span>Itbis:</span>
-                            <span className="valor-resumen-negro">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(itbis)}</span>
-                        </div>
-                        <div className="fila-resumen">
-                            <span>Total a pagar:</span>
-                            <span className="valor-resumen-verde">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalFinal)}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="pie-modal">
-                    <div className="pie-meta-izquierda">
-                        Artículos totales: {totalArticulos}
-                    </div>
-                    <div className="pie-meta-centro">
-                        No. de Factura: #2222
-                    </div>
-                    <div className="pie-botones-derecha">
-                        <button
-                            className="btn-pie-volver"
-                            type="button"
-                            onClick={() => setShowConfirmarRetroceder(true)}
-                        >
-                            <img src={iconSalir} alt="" className="icono-pie" />
-                            Retroceder
-                        </button>
-                        <button
-                            className="btn-pie-confirmar"
-                            type="button"
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleConfirmarAction();
-                            }}
-                        >
-                            <img src={iconConfirmar} alt="" className="icono-pie" />
-                            Confirmar Venta
-                        </button>
-                    </div>
-                </div>
-            </div >
-
-    {/* Modales de Confirmación Internos para máxima compatibilidad */ }
-    < ModalConfirmar
-isOpen = { showConfirmarRetroceder }
-onClose = {() => setShowConfirmarRetroceder(false)}
-onConfirm = { onVolver }
-mensaje = "Estas seguro que desea salir?"
-salirLabel = "Retroceder"
-confirmLabel = "Confirmar"
-    />
-
-    <ModalConfirmar
-        isOpen={showConfirmarFinalizar}
-        onClose={() => setShowConfirmarFinalizar(false)}
-        onConfirm={handleConfirmarFinal}
-        mensaje="Estas seguro de que desea confirmarla venta?"
-        salirLabel="Retroceder"
-        confirmLabel="Confirmar"
-    />
-        </div >
     );
 };
 

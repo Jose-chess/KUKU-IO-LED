@@ -30,7 +30,7 @@ const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => { }, position })
 
     return (
         <div className="modal-seleccion-overlay" onClick={onClose}>
-            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-seleccion-content" style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
                 <div className="modal-seleccion-header">
                     <h2 className="modal-seleccion-title">Seleccionar Tipo</h2>
                 </div>
