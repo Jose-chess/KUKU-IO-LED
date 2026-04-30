@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './Factura.css';
-import iconNuevaFactura from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
 import iconVer from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
+import ModalFacturaEncontrada from './ModalFacturaEncontrada';
+import ModalFacturaNoEncontrada from './ModalFacturaNoEncontrada';
 
 const Factura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
+    const [showModalEncontrada, setShowModalEncontrada] = useState(false);
+    const [showModalNoEncontrada, setShowModalNoEncontrada] = useState(false);
+    const [facturaBusquedaResultado, setFacturaBusquedaResultado] = useState(null);
     const [facturas] = useState([
         {
             id: 1,
@@ -38,14 +42,8 @@ const Factura = () => {
         return `$ ${numericValue.toLocaleString('es-DO')}`;
     };
 
-    const facturasFiltradas = facturas.filter((factura) => {
-        const termino = busquedaFactura.trim().toLowerCase();
-        if (!termino) return true;
-        return (
-            factura.numero.toLowerCase().includes(termino) ||
-            factura.cliente.toLowerCase().includes(termino)
-        );
-    });
+    // Mostrar todas las facturas sin filtrado automático
+    const facturasMostradas = facturas;
 
     return (
         <div className="factura-page">
@@ -54,13 +52,6 @@ const Factura = () => {
                     <h1 className="factura-title">Facturas</h1>
                 </div>
 
-                <button
-                    className="btn-nueva-factura"
-                    type="button"
-                >
-                    <img src={iconNuevaFactura} alt="" className="btn-nueva-factura-icon" />
-                    Nueva Factura
-                </button>
             </div>
 
             <div className="kpi-grid factura-kpi-grid">
@@ -96,6 +87,28 @@ const Factura = () => {
                                 placeholder="Buscar por número de factura o cliente..."
                                 value={busquedaFactura}
                                 onChange={(e) => setBusquedaFactura(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        const termino = busquedaFactura.trim().toLowerCase();
+                                        if (!termino) return;
+                                        
+                                        const facturaEncontrada = facturas.find(f => 
+                                            f.numero.toLowerCase().includes(termino) ||
+                                            f.cliente.toLowerCase().includes(termino)
+                                        );
+                                        
+                                        if (facturaEncontrada) {
+                                            setFacturaBusquedaResultado(facturaEncontrada);
+                                            setShowModalEncontrada(true);
+                                        } else {
+                                            setShowModalNoEncontrada(true);
+                                        }
+                                        
+                                        // Limpiar el input después de buscar
+                                        setBusquedaFactura('');
+                                    }
+                                }}
                             />
                         </div>
                     </div>
@@ -119,14 +132,14 @@ const Factura = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {facturasFiltradas.length === 0 ? (
+                            {facturasMostradas.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
                                         No hay facturas para mostrar.
                                     </td>
                                 </tr>
                             ) : (
-                                facturasFiltradas.map((factura) => (
+                                facturasMostradas.map((factura) => (
                                     <tr key={factura.id}>
                                         <td>{factura.numero}</td>
                                         <td>{factura.cliente}</td>
@@ -190,6 +203,23 @@ const Factura = () => {
                     onClose={() => setFacturaSeleccionada(null)}
                 />
             )}
+
+            {/* Modal de Factura Encontrada */}
+            <ModalFacturaEncontrada
+                isOpen={showModalEncontrada}
+                onClose={() => setShowModalEncontrada(false)}
+                data={facturaBusquedaResultado}
+                onVerFactura={(factura) => {
+                    setFacturaSeleccionada(factura);
+                    setShowModalEncontrada(false);
+                }}
+            />
+
+            {/* Modal de Factura No Encontrada */}
+            <ModalFacturaNoEncontrada
+                isOpen={showModalNoEncontrada}
+                onClose={() => setShowModalNoEncontrada(false)}
+            />
         </div>
     );
 };

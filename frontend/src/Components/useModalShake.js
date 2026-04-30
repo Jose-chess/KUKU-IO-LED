@@ -5,7 +5,7 @@ export const useModalShake = () => {
     const timeoutRef = useRef(null);
     const rafRef = useRef(null);
 
-    const handleOverlayClick = useCallback(() => {
+    const triggerShake = useCallback(() => {
         if (timeoutRef.current) {
             window.clearTimeout(timeoutRef.current);
         }
@@ -25,6 +25,10 @@ export const useModalShake = () => {
         });
     }, []);
 
+    const handleOverlayClick = useCallback(() => {
+        triggerShake();
+    }, [triggerShake]);
+
     useEffect(() => {
         return () => {
             if (timeoutRef.current) {
@@ -36,5 +40,5 @@ export const useModalShake = () => {
         };
     }, []);
 
-    return { isShaking, handleOverlayClick };
+    return { isShaking, handleOverlayClick, triggerShake };
 };

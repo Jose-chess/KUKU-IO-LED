@@ -8,21 +8,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 30000;
+    z-index: 100000;
 }
 
 .error-cliente-modal-card {
-    background: #FFCC00;
+    background: #ffffff;
     width: 500px;
     border-radius: 8px;
     padding: 40px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: 'Konkhmer Sleokchher', sans-serif;
     box-sizing: border-box;
+    border: 1px solid #d9dee7;
 }
 
 .error-cliente-logo-img {

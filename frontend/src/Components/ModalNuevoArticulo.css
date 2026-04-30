@@ -37,7 +37,7 @@
 .modal-articulo-divider-line {
     height: 1px;
     width: 100%;
-    background: #e2e8f0;
+    background: #E5E5E5;
 }
 
 .modal-articulo-grid-form {
@@ -87,7 +87,7 @@
     display: flex;
     justify-content: flex-end;
     gap: 12px;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #E5E5E5;
     margin-top: 30px;
     padding-top: 20px;
 }

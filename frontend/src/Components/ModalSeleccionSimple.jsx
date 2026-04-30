@@ -1,17 +1,16 @@
 import React from 'react';
 import './ModalSeleccion.css';
-import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () => {}, position }) => {
+const ModalSeleccionSimple = ({ isOpen, onClose, options = [], onSelect = () => {}, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
         return null;
     }
 
-    const handleSelectCliente = (cliente) => {
-        onSelect?.(cliente);
+    const handleSelect = (option) => {
+        onSelect?.(option);
         onClose?.();
     };
 
@@ -25,22 +24,26 @@ const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () =
 
     return (
         <div className="modal-seleccion-overlay" onClick={onClose}>
-            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
+            <div 
+                className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} 
+                style={modalPositionStyle} 
+                onClick={(e) => e.stopPropagation()}
+            >
                 <div className="modal-seleccion-body">
                     <div className="modal-seleccion-list">
-                        {clientes && clientes.length > 0 ? (
-                            clientes.map((cliente) => (
+                        {options && options.length > 0 ? (
+                            options.map((option, index) => (
                                 <div
-                                    key={cliente.id}
+                                    key={index}
                                     className="modal-seleccion-item"
-                                    onClick={() => handleSelectCliente(cliente)}
+                                    onClick={() => handleSelect(option)}
                                 >
-                                    <span>{cliente.nombre}</span>
+                                    <span>{option}</span>
                                 </div>
                             ))
                         ) : (
                             <div className="modal-seleccion-empty">
-                                No hay clientes disponibles
+                                No hay opciones disponibles
                             </div>
                         )}
                     </div>
@@ -50,4 +53,4 @@ const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () =
     );
 };
 
-export default ModalSeleccionCliente;
+export default ModalSeleccionSimple;

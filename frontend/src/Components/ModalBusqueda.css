@@ -27,7 +27,7 @@
 }
 
 .table-wrapper-busqueda {
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
     overflow: hidden;
     margin-bottom: 25px;
@@ -53,7 +53,7 @@
     font-size: 14px;
     font-weight: 600;
     color: #1e293b;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid #E5E5E5;
     text-align: center;
     white-space: nowrap;
 }
@@ -153,6 +153,7 @@
 .busqueda-btn-icon {
     width: 16px;
     height: 16px;
+    filter: brightness(0); /* Make icons black */
 }
 
 .btn-salir-rojo:hover .busqueda-btn-icon,
