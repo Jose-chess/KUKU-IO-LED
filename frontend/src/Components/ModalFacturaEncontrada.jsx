@@ -51,7 +51,6 @@ const ModalFacturaEncontrada = ({ isOpen, onClose, data, onVerFactura }) => {
                                     <button
                                         type="button"
                                         aria-label="Ver factura"
-                                        title="Ver factura"
                                         onClick={() => onVerFactura(data)}
                                         style={{
                                             width: '30px',

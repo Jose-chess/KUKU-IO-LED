@@ -241,7 +241,6 @@ const Clientes = () => {
                                                 type="button"
                                                 onClick={() => handleOpenModificar(cliente)}
                                                 aria-label="Editar cliente"
-                                                title="Editar cliente"
                                             >
                                                 <img src={iconEdit} alt="" className="btn-edit-icon" />
                                             </button>

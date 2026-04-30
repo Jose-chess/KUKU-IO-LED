@@ -156,7 +156,6 @@ const Factura = () => {
                                                 className="btn-ver"
                                                 type="button"
                                                 aria-label="Ver registro"
-                                                title="Ver registro"
                                                 onClick={() => setFacturaSeleccionada(factura)}
                                             >
                                                 <img src={iconVer} alt="" className="btn-ver-icon" />
