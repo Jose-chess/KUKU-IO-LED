@@ -250,6 +250,10 @@
     white-space: nowrap;
 }
 
+.factura-table thead th:last-child {
+    text-align: center;
+}
+
 .factura-table td {
     padding: 6px 10px;
     border-bottom: 1px solid #e2e8f0;
@@ -271,7 +275,7 @@
     text-align: center;
 }
 
-.factura-table-card .btn-edit {
+.factura-table-card .btn-ver {
     width: 30px;
     height: 30px;
     border: none;
@@ -285,19 +289,19 @@
     transition: transform 0.15s ease, opacity 0.2s ease;
 }
 
-.factura-table-card .btn-edit:hover {
+.factura-table-card .btn-ver:hover {
     opacity: 0.8;
     transform: translateY(-1px);
 }
 
-.factura-table-card .btn-edit:active {
+.factura-table-card .btn-ver:active {
     transform: scale(0.96);
 }
 
-.factura-table-card .btn-edit-icon {
-    width: 16px;
-    height: 16px;
-    color: #009C00;
+.factura-table-card .btn-ver-icon {
+    width: 18px;
+    height: 18px;
+    color: #1e293b;
 }
 
 .factura-table-card .table-row-empty-cell {
