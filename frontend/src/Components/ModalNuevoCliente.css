@@ -16,7 +16,7 @@
     border-radius: 8px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
 }
 
 .modal-cliente-title {

@@ -167,20 +167,20 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 className={`facturacion-modal anim-scale-up ${isShaking ? 'shake' : ''} ${(showConfirmarRetroceder || showConfirmarFinalizar) ? 'is-hidden-by-confirm' : ''}`}
                 onClick={(event) => event.stopPropagation()}
             >
-                <h2 className="facturacion-title">Facturación</h2>
+                <h2 className="facturacion-title">Registro de Venta</h2>
 
                 <div className="seccion-articulos">
-                    <h3 className="subtitulo-seccion">Facturar Artículos</h3>
+                    <h3 className="subtitulo-seccion">Registrar Venta</h3>
                     <div className="separador-linea" />
 
                     <div className="grid-formulario">
                         <div className="columna-formulario">
                             <div className="item-campo">
-                                <label>Número de Factura:</label>
+                                <label>ID Interno:</label>
                                 <input value="2222" disabled readOnly />
                             </div>
                             <div className="item-campo">
-                                <label>Fecha de Factura:</label>
+                                <label>Fecha de Registro:</label>
                                 <input
                                     value={new Date().toLocaleDateString('es-ES')}
                                     disabled
@@ -318,15 +318,15 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 </div>
 
                 <div className="monto-venta-fila">
-                    Monto de Venta: <span className="monto-vibrante-verde">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(subtotal)}</span>
+                    Monto de Venta: <span className="monto-vibrante-verde">{new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP', minimumFractionDigits: 0 }).format(subtotal)}</span>
                 </div>
 
                 <div className="seccion-resumen-container">
-                    <h3 className="subtitulo-seccion">Resumen de la Factura</h3>
+                    <h3 className="subtitulo-seccion">Resumen del Registro</h3>
                     <div className="seccion-resumen-box">
                         <div className="fila-resumen">
                             <span>Sub-total:</span>
-                            <span className="valor-resumen-negro">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(subtotal)}</span>
+                            <span className="valor-resumen-negro">{new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP', minimumFractionDigits: 0 }).format(subtotal)}</span>
                         </div>
                         <div className="fila-resumen">
                             <span>Descuento:</span>
@@ -334,11 +334,11 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                         </div>
                         <div className="fila-resumen">
                             <span>Itbis:</span>
-                            <span className="valor-resumen-negro">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(itbis)}</span>
+                            <span className="valor-resumen-negro">{new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP', minimumFractionDigits: 0 }).format(itbis)}</span>
                         </div>
                         <div className="fila-resumen">
                             <span>Total a pagar:</span>
-                            <span className="valor-resumen-verde">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalFinal)}</span>
+                            <span className="valor-resumen-verde">{new Intl.NumberFormat('es-DO', { style: 'currency', currency: 'DOP', minimumFractionDigits: 0 }).format(totalFinal)}</span>
                         </div>
                     </div>
                 </div>
@@ -348,7 +348,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                         Artículos totales: {totalArticulos}
                     </div>
                     <div className="pie-meta-centro">
-                        No. de Factura: #2222
+                        Número de Registro: #2222
                     </div>
                     <div className="pie-botones-derecha">
                         <button

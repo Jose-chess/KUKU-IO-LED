@@ -113,7 +113,7 @@
 
 .recibos-table-controls h3 {
     margin: 0;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
@@ -139,7 +139,7 @@
     background: #F8F7B4;
     text-align: left;
     padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 11px;
     color: #000000;
     font-weight: 500;
@@ -196,4 +196,10 @@
 
 .btn-ver-recibo:active {
     transform: scale(0.96);
+}
+
+.btn-ver-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(39%) sepia(87%) saturate(1371%) hue-rotate(96deg) brightness(95%) contrast(106%);
 }

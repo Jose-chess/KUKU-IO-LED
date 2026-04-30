@@ -129,7 +129,16 @@ const ReciboPagoModal = ({ data, onClose }) => {
           <section className="recibo-pago-main-info">
             <div className="recibo-field-large">
               <span className="recibo-label">CONCEPTO:</span>
-              <span className="recibo-value-text">Pago de factura NCF: {data.facturaNCF || 'B02000000134'}</span>
+              <div className="recibo-value-text">
+                <div style={{ color: '#111827', fontWeight: '600', fontSize: '14px' }}>
+                  Pago correspondiente al registro de venta #{data.nroInterno || '---'}
+                </div>
+                {data.facturaNCF && (
+                  <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px', fontWeight: '400' }}>
+                    Referencia externa (NCF): {data.facturaNCF}
+                  </div>
+                )}
+              </div>
             </div>
             
             <div className="recibo-pago-row">
@@ -150,17 +159,16 @@ const ReciboPagoModal = ({ data, onClose }) => {
           <section className="recibo-total-final-seccion">
             <div className="recibo-total-line highlight">
               <span className="recibo-total-label-final">TOTAL PAGADO</span>
-              <span className="recibo-total-value-final">$RD {data.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</span>
+              <span className="recibo-total-value-final">$RD {data.total.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</span>
             </div>
           </section>
 
           {/* Firma */}
-          <footer className="recibo-footer-firma">
-            <div className="firma-box-recibo">
-              <div className="firma-linea-recibo"></div>
-              <span className="firma-label-recibo">RECIBIDO POR / FIRMA</span>
-            </div>
-          </footer>
+
+          
+          <div style={{ padding: '10px 40px', fontSize: '10px', color: '#6b7280', textAlign: 'center', borderTop: '1px solid #f5f5f5', marginTop: 'auto', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }}>
+            Este documento es para uso interno y no sustituye un comprobante fiscal emitido por la DGII.
+          </div>
         </div>
 
         {/* Acciones Separadas */}

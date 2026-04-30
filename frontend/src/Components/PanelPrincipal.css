@@ -40,7 +40,8 @@
 .main-title {
     font-size: 28px;
     font-weight: 700;
-    color: #1E293B;
+    color: #1e293b;
+    font-family: inherit;
     margin: 0;
 }
 
@@ -55,8 +56,9 @@
     cursor: pointer;
     font-size: 14px;
     font-weight: 600;
-    color: #000000;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    margin-left: auto;
+    font-family: inherit;
 }
 
 .btn-registrar-gasto:hover {
@@ -106,7 +108,7 @@
     font-size: 12px;
     color: #64748B;
     font-weight: 500;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     line-height: 1.2;
 }
 

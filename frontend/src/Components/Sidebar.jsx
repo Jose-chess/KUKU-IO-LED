@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CerrarSesionModal from './CerrarSessiónModal';
+import CerrarSesionModal from './CerrarSesionModal';
 
 import logokuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import iconCasa from '../assets/home.svg';
@@ -67,7 +67,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
         { nombre: 'Clientes', icon: iconCliente },
         { nombre: 'Ventas', icon: iconVenta },  
         { nombre: 'Inventario', icon: iconInventario },
-        { nombre: 'Facturas', icon: iconFactura },
+        { nombre: 'Historial de Ventas', icon: iconFactura },
         { nombre: 'Recibos', icon: iconRecibo },
         { nombre: 'Cuentas por cobrar', icon: iconCuentaCobrar },
         { nombre: 'Finanzas', icon: iconFinanzas, tieneFlecha: true },
@@ -90,7 +90,13 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                             !(modulo.nombre === 'Configuración' && showFinanzas) && (
                             <li
                                 key={index}
-                                className={`sidebar-item ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} ${activeSection === modulo.nombre ? 'active' : ''}`}
+                                className={`sidebar-item 
+                                    ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} 
+                                    ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} 
+                                    ${activeSection === modulo.nombre || 
+                                      (modulo.nombre === 'Finanzas' && activeSection === 'Gastos') || 
+                                      (modulo.nombre === 'Configuración' && activeSection === 'Informacion empresarial') 
+                                      ? 'active' : ''}`}
                                 onClick={() => {
                                     if (modulo.nombre === 'Finanzas') {
                                         const openingFinanzas = !showFinanzas;
@@ -200,10 +206,9 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                 {modulo.nombre === 'Configuración' && showConfiguracion && (
                                     <div className="floating-menu" onClick={(e) => e.stopPropagation()}>
                                         <div
-                                            className={`menu-option-item ${selectedConfiguracionOption === 'Información empresarial' ? 'selected-yellow' : ''}`}
+                                            className={`menu-option-item ${activeSection === 'Informacion empresarial' ? 'selected-yellow' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setSelectedConfiguracionOption('Información empresarial');
                                                 setActiveSection('Informacion empresarial');
                                                 setShowConfiguracion(false);
                                             }}

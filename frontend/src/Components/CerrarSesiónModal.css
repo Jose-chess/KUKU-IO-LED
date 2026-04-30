@@ -18,7 +18,7 @@
     height: 560px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -68,7 +68,7 @@
     font-size: 15px;
     font-weight: 600;
     color: #1e293b;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
 }
 
 .modal-footer-container {

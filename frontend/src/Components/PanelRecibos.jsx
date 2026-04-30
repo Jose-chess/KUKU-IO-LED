@@ -31,7 +31,7 @@ const PanelRecibos = () => {
     ];
 
     const formatMoney = (value) => {
-        return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
+        return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;
     };
 
     // Calcular KPIs
@@ -103,7 +103,7 @@ const PanelRecibos = () => {
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Ingrese el número del recibo o nombre del cliente"
+                                placeholder="Ingrese el número de recibo o nombre del cliente"
                                 value={busquedaRecibo}
                                 onChange={(event) => setBusquedaRecibo(event.target.value)}
                                 onKeyDown={manejarBusquedaRecibo}
@@ -116,7 +116,7 @@ const PanelRecibos = () => {
                     <table className="recibos-table">
                         <thead>
                             <tr>
-                                <th>Número del recibo</th>
+                                <th>Número de Recibo</th>
                                 <th>Fecha del recibo</th>
                                 <th>Cliente</th>
                                 <th>Tipo de recibo</th>
@@ -185,6 +185,7 @@ const PanelRecibos = () => {
                                 cedula: '047-0012345-6',
                                 rnc: ''
                             },
+                            nroInterno: 'FAC-000555',
                             facturaNCF: 'B0200000555',
                             metodoPago: 'Transferencia Bancaria',
                             saldoAnterior: 20000.00,
@@ -202,6 +203,7 @@ const PanelRecibos = () => {
                                 cedula: '',
                                 rnc: '131-07517-2'
                             },
+                            nroInterno: 'FAC-000134',
                             facturaNCF: 'B02000000134',
                             metodoPago: 'Efectivo',
                             total: reciboSeleccionado.monto

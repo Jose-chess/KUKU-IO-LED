@@ -247,7 +247,7 @@ const PanelVentas = () => {
                 isOpen={showBusquedaVentaModal}
                 onClose={() => setShowBusquedaVentaModal(false)}
                 data={null}
-                onVerFactura={() => {
+                onVerRegistro={() => {
                     setShowBusquedaVentaModal(false);
                     setShowFacturacionModal(true);
                 }}
@@ -339,7 +339,7 @@ const PanelVentas = () => {
                     setShowNuevaVentaModal(false);
                     setShowFacturacionModal(true);
                 }}
-                mensaje="Estas seguro de que deseas facturar?"
+                mensaje="¿Estás seguro de que deseas procesar este registro?"
                 salirLabel="Retroceder"
                 confirmLabel="Confirmar"
             />

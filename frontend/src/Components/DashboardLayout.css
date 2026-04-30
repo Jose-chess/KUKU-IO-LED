@@ -34,7 +34,7 @@
     font-weight: 750;
     color: #000000;
     white-space: nowrap;
-    font-family: 'Konkhmer Sleokchher', sans-serif; 
+    font-family: inherit; 
 }
 
 .sidebar-logo {
@@ -52,7 +52,7 @@
     letter-spacing: 1px;
     margin-bottom: 15px;
     padding-left: 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
 }
 
 .sidebar-nav {
@@ -95,7 +95,7 @@
 
 .sidebar-item-text {
     display: inline-block;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 13px;
     font-weight: 600;
 }
@@ -233,7 +233,7 @@
 /* Las opciones dentro de los cuadros blancos */
 .menu-option-item {
     padding: 10px 15px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 13px;
     line-height: 1.2;
     font-weight: 600;

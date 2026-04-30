@@ -16,13 +16,13 @@ const ModalFacturaEncontrada = ({ isOpen, onClose, data, onVerFactura }) => {
                 onClick={(e) => e.stopPropagation()}
                 style={{ width: 'min(1350px, calc(100vw - 32px))', maxWidth: 'none' }}
             >
-                <h2 className="busqueda-title">Factura Encontrada</h2>
+                <h2 className="busqueda-title">Registro de Venta Encontrado</h2>
 
                 <div className="table-wrapper-busqueda" style={{ overflowX: 'auto' }}>
                     <table className="tabla-resultado" style={{ width: '100%', minWidth: '1100px', tableLayout: 'auto' }}>
                         <thead>
                             <tr className="header-amarillo">
-                                <th>Número de Factura</th>
+                                <th>Número de Registro</th>
                                 <th>Cliente</th>
                                 <th>Tipo</th>
                                 <th>Fecha</th>

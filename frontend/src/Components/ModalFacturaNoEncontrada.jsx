@@ -17,7 +17,7 @@ const ModalFacturaNoEncontrada = ({ isOpen, onClose }) => {
                 </div>
 
                 <div className="error-cliente-content">
-                    <h1 className="error-cliente-main-title" style={{ fontSize: '42px', margin: '30px 0' }}>Factura no encontrada</h1>
+                    <h1 className="error-cliente-main-title" style={{ fontSize: '42px', margin: '30px 0' }}>Registro no encontrado</h1>
                 </div>
 
                 <div className="error-cliente-footer">

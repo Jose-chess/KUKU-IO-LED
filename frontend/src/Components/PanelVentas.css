@@ -41,6 +41,7 @@
     font-size: 28px;
     font-weight: 700;
     color: #1e293b;
+    font-family: inherit;
 }
 
 .btn-nueva-venta {
@@ -126,7 +127,7 @@
 
 .ventas-table-controls h3 {
     margin: 0;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
@@ -204,7 +205,7 @@
     background: #f8f7b4;
     text-align: left;
     padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 11px;
     color: #000000;
     font-weight: 500;
@@ -369,7 +370,7 @@
     background: #f8f7b4;
     text-align: left;
     padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 11px;
     color: #000000;
     font-weight: 500;
@@ -712,6 +713,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: inherit;
 }
 
 .venta-delete-btn:hover {

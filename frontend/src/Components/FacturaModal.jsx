@@ -104,9 +104,9 @@ const FacturaModal = ({ data, onClose }) => {
             </div>
 
             <div className="factura-info-box">
-              <h2 className="factura-titulo">FACTURA</h2>
-              <div className="factura-valor-fiscal">VALOR FISCAL</div>
-              <p className="factura-ncf">NCF: {data.ncf || 'B02000000134'}</p>
+              <h2 className="factura-titulo">REGISTRO DE VENTA</h2>
+              <div className="factura-valor-fiscal" style={{ visibility: 'hidden' }}>VALOR FISCAL</div>
+              <p className="factura-ncf">NCF Ref. Externa: {data.ncf || '---'}</p>
             </div>
           </header>
 
@@ -147,7 +147,7 @@ const FacturaModal = ({ data, onClose }) => {
 
             {/* Info Factura - Derecha */}
             <div className="factura-datos-box">
-              <div className="factura-datos-header">INFORMACIÓN DE LA FACTURA</div>
+              <div className="factura-datos-header">INFORMACIÓN DEL REGISTRO</div>
               <div className="factura-datos-content">
                 <table className="factura-datos-table">
                   <tbody>
@@ -176,7 +176,7 @@ const FacturaModal = ({ data, onClose }) => {
                       </tr>
                     )}
                     <tr>
-                      <td className="label-cell">No. interno</td>
+                      <td className="label-cell">ID Interno</td>
                       <td className="value-cell text-right">{data.nroInterno || data.nro || '2222'}</td>
                     </tr>
                     <tr>
@@ -211,8 +211,8 @@ const FacturaModal = ({ data, onClose }) => {
                     <td className="col-cant">{item.cant}</td>
                     <td className="col-um">{item.um || 'Und'}</td>
                     <td className="col-desc">{item.desc}</td>
-                    <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
-                    <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="col-precio text-right">{item.precio.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
+                    <td className="col-total text-right">{(item.cant * item.precio).toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                   </tr>
                 ))}
               </tbody>
@@ -226,10 +226,7 @@ const FacturaModal = ({ data, onClose }) => {
                 <span className="label-obs">OBSERVACIONES:</span>
                 <p className="obs-text">{data.observaciones || 'Sin observaciones adicionales.'}</p>
               </div>
-              <div className="firma-seccion">
-                <div className="firma-linea"></div>
-                <span className="firma-label">RECIBIDO POR / FIRMA</span>
-              </div>
+
             </div>
 
             <div className="totales-box">
@@ -237,24 +234,28 @@ const FacturaModal = ({ data, onClose }) => {
                 <tbody>
                   <tr>
                     <td className="total-label">SUB-TOTAL</td>
-                    <td className="total-value text-right">{data.subtotal.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="total-value text-right">{data.subtotal.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                   </tr>
                   <tr>
                     <td className="total-label">Descuento</td>
-                    <td className="total-value text-right">{(data.descuentoMonto || 0).toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="total-value text-right">{(data.descuentoMonto || 0).toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                   </tr>
                   <tr>
                     <td className="total-label">Itbis (18%)</td>
-                    <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="total-value text-right">{data.itbis.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                   </tr>
                   <tr className="total-final">
                     <td className="total-label">TOTAL</td>
-                    <td className="total-value text-right">{data.total.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                    <td className="total-value text-right">{data.total.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </footer>
+          
+          <div style={{ padding: '10px 40px', fontSize: '10px', color: '#6b7280', textAlign: 'center', borderTop: '1px solid #f5f5f5', marginTop: 'auto', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }}>
+            Este documento es para uso interno y no sustituye un comprobante fiscal emitido por la DGII.
+          </div>
         </div>
 
         {/* Acciones Separadas */}

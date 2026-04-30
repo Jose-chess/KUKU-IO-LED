@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     user-select: none;
     -webkit-user-select: none;
 }
