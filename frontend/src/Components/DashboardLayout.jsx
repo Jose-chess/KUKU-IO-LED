@@ -5,6 +5,7 @@ import Clientes from './Clientes';
 import PanelVentas from './PanelVentas';
 import PanelFactura from './PanelFactura';
 import PanelRecibos from './PanelRecibos';
+import PanelGastos from './PanelGastos';
 import InformacionEmpresarial from './InformacionEmpresarial';
 import Inventario from './Inventario';
 import './DashboardLayout.css';
@@ -52,6 +53,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Inventario') {
             return <Inventario />;
+        }
+
+        if (activeSection === 'Gastos') {
+            return <PanelGastos />;
         }
 
         return null;

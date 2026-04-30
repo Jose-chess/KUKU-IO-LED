@@ -27,7 +27,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .obs-title {
@@ -37,26 +37,13 @@
     margin: 0;
 }
 
-.obs-close-btn {
-    background: none;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: #64748B;
-    transition: color 0.2s;
-    line-height: 1;
-}
-
-.obs-close-btn:hover {
-    color: #1E293B;
-}
-
 .obs-content {
     background: #F8FAFC;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #E2E8F0;
     min-height: 150px;
+    margin-bottom: 20px;
 }
 
 .obs-text {
@@ -65,6 +52,40 @@
     color: #1E293B;
     line-height: 1.5;
     margin: 0;
+}
+
+.obs-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.obs-btn-salir {
+    background: #FF060A;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.obs-btn-salir:hover {
+    background: #d90000;
+    transform: translateY(-1px);
+}
+
+.obs-btn-salir:active {
+    transform: scale(0.98);
+}
+
+.obs-btn-icon {
+    width: 18px;
+    height: 18px;
 }
 
 .obs-container.shake {

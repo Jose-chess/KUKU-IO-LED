@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
 import './PanelPrincipal.css';
-import ModalGasto from './ModalGasto';
 
-import iconNuevoGasto from '../assets/new-section.svg';
 
 const MainContent = () => {
-    const [modalAbierto, setModalAbierto] = useState(false);
 
     return (
         <main className="main-content">
             <header className="main-header">
                 <h1 className="main-title no-select">Panel principal</h1>
-                <button className="btn-registrar-gasto no-select" type="button" onClick={() => setModalAbierto(true)}>
-                    <img src={iconNuevoGasto} alt="" className="btn-icon" />
-                    <span>Nuevo gasto</span>
-                </button>
             </header>
 
             <section className="kpi-grid">
@@ -61,14 +54,6 @@ const MainContent = () => {
                 </div>
             </div>
 
-            <ModalGasto
-                isOpen={modalAbierto}
-                onClose={() => setModalAbierto(false)}
-                onGuardar={(payload) => {
-                    console.log('Gasto guardado:', payload);
-                    return { success: true, data: payload };
-                }}
-            />
         </main>
     );
 };
