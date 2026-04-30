@@ -1,0 +1,347 @@
+
+.recibo-modal-container {
+    width: 480px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: transparent;
+    user-select: none;
+    position: relative;
+    overflow: hidden; /* No scroll here */
+    animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.recibo-card-body {
+    background: white;
+    width: 100%;
+    flex: 1; /* Key for fixed buttons */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Scroll ONLY here */
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+}
+
+.acciones-bar-separated {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Principal */
+.recibo-header {
+    padding: 30px 40px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background: white;
+    z-index: 20;
+    border-bottom: 1px solid #f1f5f9;
+    border-radius: 12px 12px 0 0;
+}
+
+.recibo-logo-box {
+    flex-shrink: 0;
+}
+
+.recibo-logo-img {
+    width: 100px;
+    height: auto;
+}
+
+.recibo-empresa-info {
+    flex: 1;
+    text-align: center;
+}
+
+.recibo-empresa-name {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 4px 0;
+    color: #111827;
+}
+
+.recibo-empresa-detail {
+    font-size: 11px;
+    font-weight: 600;
+    margin: 1px 0;
+    color: #000;
+}
+
+.recibo-tipo-titulo {
+    font-size: 14px;
+    font-weight: 800;
+    margin: 8px 0 2px 0;
+    color: #000;
+}
+
+.recibo-numero-fecha {
+    font-size: 11px;
+    color: #4b5563;
+    margin-top: 5px;
+}
+
+.recibo-top-meta {
+    margin-top: 10px;
+}
+
+.recibo-numero {
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.recibo-fecha-destacada {
+    font-size: 13px;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 2px 0 0 0;
+}
+
+/* Sección Cliente */
+.recibo-cliente-seccion {
+    padding: 15px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.recibo-double-field {
+    display: flex;
+    gap: 40px;
+}
+
+.recibo-field {
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+}
+
+.recibo-field-large {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.recibo-pago-row {
+    display: flex;
+    gap: 40px;
+    margin-top: 15px;
+}
+
+.recibo-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
+.recibo-value-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+}
+
+.recibo-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+}
+
+.recibo-value-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    font-style: italic;
+}
+
+.recibo-divider {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 0;
+}
+
+/* Sección Concepto e Info Pago */
+.recibo-pago-main-info {
+    padding: 20px 40px;
+}
+
+.recibo-concepto-seccion {
+    padding: 15px 40px;
+}
+
+.recibo-seccion-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.recibo-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.recibo-item {
+    font-size: 13px;
+    color: #111827;
+    padding: 2px 0;
+}
+
+.recibo-concepto-texto {
+    font-size: 13px;
+    color: #111827;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Detalle de Pago */
+.recibo-detalle-pago {
+    padding: 15px 40px;
+}
+
+.recibo-total-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 13px;
+}
+
+.highlight-sub {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #e5e7eb;
+    font-weight: 700;
+    color: #FF060A;
+}
+
+.recibo-total-label {
+    color: #6b7280;
+}
+
+.recibo-total-value {
+    font-weight: 600;
+    color: #111827;
+}
+
+/* Total Final */
+.recibo-total-final-seccion {
+    padding: 15px 40px;
+    background: #FFFFFF;
+}
+
+.recibo-total-line.highlight {
+    padding: 10px 0;
+}
+
+.recibo-total-label-final {
+    font-size: 15px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.recibo-total-value-final {
+    font-size: 18px;
+    font-weight: 500;
+    color: #111827;
+}
+
+/* Firma */
+.recibo-footer-firma {
+    padding: 40px 40px 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.firma-box-recibo {
+    width: 250px;
+    text-align: center;
+}
+
+.firma-linea-recibo {
+    border-top: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.firma-label-recibo {
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.btn-salir, .btn-pdf {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 30px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 13px;
+    color: #000000;
+}
+
+.btn-salir {
+    background: #FF060A;
+}
+
+.btn-pdf {
+    background: #009C00;
+}
+
+.btn-salir:hover {
+    background: #d90000;
+}
+
+.btn-pdf:hover {
+    background: #009600;
+}
+
+.btn-icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Animaciones */
+.recibo-modal-container.shake {
+    animation: shakeX 0.3s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+.scale-up-center {
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+}
+
+@keyframes scale-up {
+    0% { transform: scale(0.9); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}

@@ -56,6 +56,7 @@ const PanelFactura = () => {
         } else {
             console.log('Factura no encontrada:', busquedaFactura);
             setMostrarErrorBusqueda(true);
+            setBusquedaFactura('');
         }
     };
 
@@ -156,21 +157,27 @@ const PanelFactura = () => {
             {mostrarModal && (
                 <FacturaModal
                     data={facturaSeleccionada ? {
+                        ncf: facturaSeleccionada.numero,
+                        fecha: facturaSeleccionada.fecha,
+                        condicion: facturaSeleccionada.condicion,
+                        metodoPago: facturaSeleccionada.metodoPago,
                         cliente: {
                             nombre: facturaSeleccionada.cliente,
                             rnc: facturaSeleccionada.rnc,
+                            cedula: facturaSeleccionada.cedula,
                             direccion: facturaSeleccionada.direccion,
                             ciudad: facturaSeleccionada.ciudad,
                             telefono: facturaSeleccionada.telefono
                         },
-                        items: [{
-                            cant: 1,
-                            desc: 'Producto/Servicio',
-                            precio: facturaSeleccionada.monto
-                        }],
-                        subtotal: facturaSeleccionada.monto,
-                        itbis: facturaSeleccionada.monto * 0.18,
-                        total: facturaSeleccionada.monto * 1.18
+                        items: [
+                            { cant: 2, um: 'Und', desc: 'Panel LED P10 Exterior High Brightness', precio: 10000.00 },
+                            { cant: 1, um: 'Und', desc: 'Controladora NovaStar DH408', precio: 5000.00 }
+                        ],
+                        subtotal: 25000.00,
+                        descuentoMonto: 0.00,
+                        itbis: 4500.00,
+                        total: 29500.00,
+                        observaciones: 'Instalación incluida en el precio.'
                     } : null}
                     onClose={() => setMostrarModal(false)}
                 />

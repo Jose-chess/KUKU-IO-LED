@@ -131,7 +131,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             }}
                                         >
                                             <span>Gráficos</span>
-                                            <img src={iconFlechaDerecha} alt="" className="arrow-right" />
+                                            <img src={iconFlecha} alt="" className="arrow-right" />
 
                                             {showGraficos && (
                                                 <div className="sub-floating-menu" onClick={(e) => e.stopPropagation()}>
