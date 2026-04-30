@@ -226,10 +226,7 @@ const FacturaModal = ({ data, onClose }) => {
                 <span className="label-obs">OBSERVACIONES:</span>
                 <p className="obs-text">{data.observaciones || 'Sin observaciones adicionales.'}</p>
               </div>
-              <div className="firma-seccion">
-                <div className="firma-linea"></div>
-                <span className="firma-label">RECIBIDO POR / FIRMA</span>
-              </div>
+
             </div>
 
             <div className="totales-box">

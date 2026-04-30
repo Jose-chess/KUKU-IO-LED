@@ -177,12 +177,7 @@ const ReciboAbonoModal = ({ data, onClose }) => {
           </section>
 
           {/* Firma */}
-          <footer className="recibo-footer-firma">
-            <div className="firma-box-recibo">
-              <div className="firma-linea-recibo"></div>
-              <span className="firma-label-recibo">RECIBIDO POR</span>
-            </div>
-          </footer>
+
           
           <div style={{ padding: '10px 40px', fontSize: '10px', color: '#6b7280', textAlign: 'center', borderTop: '1px solid #f5f5f5', marginTop: 'auto', borderBottomLeftRadius: '12px', borderBottomRightRadius: '12px' }}>
             Este documento es para uso interno y no sustituye un comprobante fiscal emitido por la DGII.
