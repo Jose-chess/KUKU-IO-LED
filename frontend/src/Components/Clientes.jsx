@@ -8,9 +8,7 @@ import ModalModificarCliente from './ModalModificarCliente';
 import ModalConfirmarCliente from './ModalConfirmarCliente';
 import ModalConfirmarModificacion from './ModalConfirmarModificacion';
 import ModalExito from './ModalExito';
-import ModalErrorCliente from './ModalErrorCliente';
 import ModalObservacion from './ModalObservacion';
-import ModalClienteEncontrado from './ModalClienteEncontrado';
 
 const Clientes = () => {
     const [isModalNuevoClienteOpen, setIsModalNuevoClienteOpen] = useState(false);
@@ -19,12 +17,9 @@ const Clientes = () => {
     const [showConfirmarMod, setShowConfirmarMod] = useState(false);
     const [showExitoModal, setShowExitoModal] = useState(false);
     const [exitoSubtitle, setExitoSubtitle] = useState('');
-    const [showErrorModal, setShowErrorModal] = useState(false);
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
     const [busquedaCliente, setBusquedaCliente] = useState('');
-    const [showClienteEncontradoModal, setShowClienteEncontradoModal] = useState(false);
-    const [clienteEncontradoData, setClienteEncontradoData] = useState(null);
     const [selectedCliente, setSelectedCliente] = useState(null);
     const [clientes] = useState([]);
 
@@ -76,10 +71,6 @@ const Clientes = () => {
         setSelectedCliente(null);
     };
 
-    const handleCloseError = () => {
-        setShowErrorModal(false);
-    };
-
     const handleAbrirObs = (contenido) => {
         setObservacionActual(contenido || 'Sin observaciones registradas.');
         setShowObservacionModal(true);
@@ -90,48 +81,13 @@ const Clientes = () => {
         setObservacionActual('');
     };
 
-    const handleBuscarCliente = () => {
-        const termino = busquedaCliente.trim().toLowerCase();
-        if (!termino) {
-            setShowErrorModal(true);
-            return;
-        }
-
-        const fuenteBusqueda = clientes.length > 0 ? clientes : clientesBusquedaDemo;
-        const clienteEncontrado = fuenteBusqueda.find((cliente) =>
-            [cliente.codigo, cliente.nombre, cliente.apellido]
-                .filter(Boolean)
-                .some((valor) => String(valor).toLowerCase().includes(termino)),
-        );
-
-        if (clienteEncontrado) {
-            setClienteEncontradoData(clienteEncontrado);
-            setShowClienteEncontradoModal(true);
-            setShowErrorModal(false);
-        } else {
-            setShowErrorModal(true);
-        }
-    };
-
-    const handleCerrarClienteEncontrado = () => {
-        setShowClienteEncontradoModal(false);
-        setClienteEncontradoData(null);
-    };
-
-    const handleEditarDesdeClienteEncontrado = (cliente) => {
-        if (!cliente) {
-            return;
-        }
-
-        setSelectedCliente({
-            ...cliente,
-            limiteCredito: cliente.limiteCredito ?? cliente.limite ?? '',
-            balanceActual: cliente.balanceActual ?? cliente.balance ?? '',
-            observacion: cliente.observacion ?? cliente.observaciones ?? '',
-        });
-        setShowClienteEncontradoModal(false);
-        setShowModificarModal(true);
-    };
+    const clientesFiltrados = clientes.filter(cliente => {
+        if (!busquedaCliente) return true;
+        const termino = busquedaCliente.toLowerCase();
+        return [cliente.codigo, cliente.nombre, cliente.apellido]
+            .filter(Boolean)
+            .some(valor => String(valor).toLowerCase().includes(termino));
+    });
 
     return (
         <div className="clientes-page">
@@ -176,18 +132,13 @@ const Clientes = () => {
                     </div>
 
                     <div className="search-box">
-                        <div className="search-input-wrapper">
+                        <div className="search-input-wrapper" style={{ width: '260px' }}>
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Buscar por nombre del cliente"
                                 value={busquedaCliente}
                                 onChange={(e) => setBusquedaCliente(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        handleBuscarCliente();
-                                    }
-                                }}
                             />
                         </div>
                     </div>
@@ -211,14 +162,14 @@ const Clientes = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {clientes.length === 0 ? (
+                            {clientesFiltrados.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
-                                        No hay clientes para mostrar.
+                                        {busquedaCliente ? 'No se encontraron clientes que coincidan con la búsqueda.' : 'No hay clientes para mostrar.'}
                                     </td>
                                 </tr>
                             ) : (
-                                clientes.map((cliente) => (
+                                clientesFiltrados.map((cliente) => (
                                     <tr key={cliente.id}>
                                         <td>{cliente.codigo}</td>
                                         <td>{cliente.nombre}</td>
@@ -286,25 +237,10 @@ const Clientes = () => {
                 buttonLabel="Salir"
             />
 
-            <ModalErrorCliente
-                isOpen={showErrorModal}
-                onClose={handleCloseError}
-                title="Cliente no encontrado"
-                message=""
-                retryMessage=""
-            />
-
             <ModalObservacion
                 isOpen={showObservacionModal}
                 onClose={handleCerrarObs}
                 contenido={observacionActual}
-            />
-
-            <ModalClienteEncontrado
-                isOpen={showClienteEncontradoModal}
-                onClose={handleCerrarClienteEncontrado}
-                clienteData={clienteEncontradoData}
-                onEdit={handleEditarDesdeClienteEncontrado}
             />
         </div>
     );

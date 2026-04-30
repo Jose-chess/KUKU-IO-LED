@@ -12,8 +12,6 @@ import ConfirmadoArticulo from './ConfirmadoArticulo';
 import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
 import ModalErrorArticulo from './ModalErrorArticulo';
-import ModalArticuloEncontrado from './ModalArticuloEncontrado';
-import ModalArticuloNoEncontrado from './ModalArticuloNoEncontrado';
 import { useRef } from 'react';
 
 const Inventario = () => {
@@ -44,10 +42,6 @@ const Inventario = () => {
     const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [showArticuloEncontrado, setShowArticuloEncontrado] = useState(false);
-    const [articuloEncontrado, setArticuloEncontrado] = useState(null);
-    const [showArticuloNoEncontrado, setShowArticuloNoEncontrado] = useState(false);
-    const [entradoDesdeBusqueda, setEntradoDesdeBusqueda] = useState(false);
     const cardExistenciaRef = useRef(null);
     const tableCardRef = useRef(null);
 
@@ -89,15 +83,8 @@ const Inventario = () => {
     };
 
     const handleCloseEditarArticulo = () => {
-        if (entradoDesdeBusqueda) {
-            setModalEditarArticulo(false);
-            setEntradoDesdeBusqueda(false);
-            setArticuloEncontrado(selectedArticulo);
-            setShowArticuloEncontrado(true);
-        } else {
-            setModalEditarArticulo(false);
-            setSelectedArticulo(null);
-        }
+        setModalEditarArticulo(false);
+        setSelectedArticulo(null);
     };
 
     const handleSaveEditarArticulo = () => {
@@ -106,15 +93,8 @@ const Inventario = () => {
     };
 
     const handleCloseConfirmadoEditar = () => {
-        if (entradoDesdeBusqueda) {
-            setShowConfirmadoEditar(false);
-            setEntradoDesdeBusqueda(false);
-            setArticuloEncontrado(selectedArticulo);
-            setShowArticuloEncontrado(true);
-        } else {
-            setShowConfirmadoEditar(false);
-            setModalEditarArticulo(true);
-        }
+        setShowConfirmadoEditar(false);
+        setModalEditarArticulo(true);
     };
 
     const handleConfirmarEditar = async () => {
@@ -201,53 +181,11 @@ const Inventario = () => {
         setBusqueda(e.target.value);
     };
 
-    const handleBusquedaKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            const valor = e.target.value;
-
-            if (valor.trim() !== '') {
-                const encontrado = articulos.find(a =>
-                    a.descripcion.toLowerCase() === valor.toLowerCase() ||
-                    a.codigo.toLowerCase() === valor.toLowerCase()
-                );
-
-                if (encontrado) {
-                    setArticuloEncontrado(encontrado);
-                    setShowArticuloEncontrado(true);
-                    setBusqueda('');
-                } else {
-                    setShowArticuloEncontrado(false);
-                    setArticuloEncontrado(null);
-                    setShowArticuloNoEncontrado(true);
-                    setBusqueda('');
-                }
-            } else {
-                setShowArticuloEncontrado(false);
-                setArticuloEncontrado(null);
-            }
-        }
-    };
-
-    const handleCloseArticuloEncontrado = () => {
-        setShowArticuloEncontrado(false);
-        setArticuloEncontrado(null);
-    };
-
-    const handleCloseArticuloNoEncontrado = () => {
-        setShowArticuloNoEncontrado(false);
-    };
-
-    const handleEditarDesdeEncontrado = (articulo) => {
-        setEntradoDesdeBusqueda(true);
-        handleCloseArticuloEncontrado();
-        handleEditarArticulo(articulo);
-    };
-
-    const handleEliminarDesdeEncontrado = (articulo) => {
-        setEntradoDesdeBusqueda(true);
-        handleCloseArticuloEncontrado();
-        handleEliminarArticulo(articulo);
-    };
+    const articulosFiltrados = articulos.filter(a => {
+        if (!busqueda) return true;
+        const termino = busqueda.toLowerCase();
+        return a.descripcion.toLowerCase().includes(termino) || a.codigo.toLowerCase().includes(termino);
+    });
 
     return (
         <>
@@ -299,14 +237,13 @@ const Inventario = () => {
                             <h3>Lista de artículos</h3>
                         </div>
                         <div className="search-box">
-                            <div className="search-input-wrapper">
+                            <div className="search-input-wrapper" style={{ width: '330px' }}>
                                 <img src={iconSearch} alt="Buscar" className="search-icon" />
                                 <input
                                     type="text"
                                     placeholder="Buscar por nombre o código del artículo"
                                     value={busqueda}
                                     onChange={handleBusquedaChange}
-                                    onKeyDown={handleBusquedaKeyDown}
                                 />
                             </div>
                         </div>

@@ -50,26 +50,11 @@ const PanelCuentasCobrar = () => {
     const cuentasVencidas = cuentas.filter(c => c.estado === 'Vencida').length;
     const totalCuentas = cuentas.length;
 
-    const handleBusqueda = (event) => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
-
-        const query = busqueda.toLowerCase().trim();
-        if (!query) return;
-
-        const cuentaEncontrada = cuentas.find(c =>
-            c.numero.toLowerCase().includes(query) ||
-            c.cliente.toLowerCase().includes(query)
-        );
-
-        if (cuentaEncontrada) {
-            console.log('Cuenta encontrada:', cuentaEncontrada);
-            setBusqueda('');
-        } else {
-            console.log('Cuenta no encontrada:', busqueda);
-            setBusqueda('');
-        }
-    };
+    const cuentasFiltradas = cuentas.filter(c => {
+        if (!busqueda) return true;
+        const query = busqueda.toLowerCase();
+        return c.numero.toLowerCase().includes(query) || c.cliente.toLowerCase().includes(query);
+    });
 
     const getEstadoClass = (estado) => {
         switch (estado) {
@@ -110,14 +95,13 @@ const PanelCuentasCobrar = () => {
                     <h3>Lista de facturas por cobrar</h3>
 
                     <div className="search-box">
-                        <div className="search-input-wrapper">
+                        <div className="search-input-wrapper" style={{ width: '400px' }}>
                             <img src={iconBuscar} alt="" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Buscar por número de factura o nombre del cliente"
                                 value={busqueda}
                                 onChange={(event) => setBusqueda(event.target.value)}
-                                onKeyDown={handleBusqueda}
                             />
                         </div>
                     </div>
@@ -137,8 +121,8 @@ const PanelCuentasCobrar = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {cuentas.length > 0 ? (
-                                cuentas.map((cuenta) => (
+                            {cuentasFiltradas.length > 0 ? (
+                                cuentasFiltradas.map((cuenta) => (
                                     <tr key={cuenta.id}>
                                         <td>{cuenta.numero}</td>
                                         <td>{cuenta.cliente}</td>
@@ -164,7 +148,7 @@ const PanelCuentasCobrar = () => {
                             ) : (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={7}>
-                                        No hay facturas por cobrar para mostrar.
+                                        {busqueda ? 'No se encontraron facturas por cobrar que coincidan con la búsqueda.' : 'No hay facturas por cobrar para mostrar.'}
                                     </td>
                                 </tr>
                             )}

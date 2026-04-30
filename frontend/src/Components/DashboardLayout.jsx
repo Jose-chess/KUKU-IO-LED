@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from './Sidebar';
 import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
@@ -27,6 +27,41 @@ const DashboardLayout = () => {
     });
 
     const [activeSection, setActiveSection] = useState('Panel principal');
+
+    // Globalmente eliminar tooltips nativos (atributos title) para toda la aplicación
+    useEffect(() => {
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1) { // Element node
+                            if (node.hasAttribute && node.hasAttribute('title')) {
+                                node.removeAttribute('title');
+                            }
+                            if (node.querySelectorAll) {
+                                node.querySelectorAll('[title]').forEach(el => el.removeAttribute('title'));
+                            }
+                        }
+                    });
+                } else if (mutation.type === 'attributes' && mutation.attributeName === 'title') {
+                    if (mutation.target.hasAttribute('title')) {
+                        mutation.target.removeAttribute('title');
+                    }
+                }
+            });
+        });
+
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['title']
+        });
+
+        document.querySelectorAll('[title]').forEach(el => el.removeAttribute('title'));
+
+        return () => observer.disconnect();
+    }, []);
 
     const renderSection = () => {
         if (activeSection === 'Panel principal') {

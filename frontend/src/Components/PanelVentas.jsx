@@ -5,8 +5,6 @@ import iconBuscar from '../assets/search.svg';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconConfirmar from '../assets/circle-check.svg';
 import ModalExito from './ModalExito';
-import ModalVentaEncontrada from './ModalVentaEncontrada';
-import ModalVentaNoEncontrada from './ModalVentaNoEncontrada';
 import ModalSeleccionCliente from './ModalSeleccionCliente';
 import ModalSeleccionTipo from './ModalSeleccionTipo';
 import ModalSeleccionDescuento from './ModalSeleccionDescuento';
@@ -101,8 +99,6 @@ const PanelVentas = () => {
     const [showConfirmarFacturar, setShowConfirmarFacturar] = useState(false);
     const [showExitoModal, setShowExitoModal] = useState(false);
     const [showErrorVentaVacia, setShowErrorVentaVacia] = useState(false);
-    const [showBusquedaVentaModal, setShowBusquedaVentaModal] = useState(false);
-    const [showVentaNoEncontradaModal, setShowVentaNoEncontradaModal] = useState(false);
     const [showSeleccionCliente, setShowSeleccionCliente] = useState(false);
     const [showSeleccionTipo, setShowSeleccionTipo] = useState(false);
     const [showSeleccionDescuento, setShowSeleccionDescuento] = useState(false);
@@ -119,16 +115,13 @@ const PanelVentas = () => {
     const inputTipoRef = useRef(null);
     const inputDescuentoRef = useRef(null);
 
-    const manejarBusquedaVenta = (event) => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
-        if (busquedaVenta.trim() === '') {
-            setShowVentaNoEncontradaModal(true);
-            return;
-        }
-        setShowBusquedaVentaModal(true);
-        setBusquedaVenta('');
-    };
+    const ventasFiltradas = ventas.filter(v => {
+        if (!busquedaVenta) return true;
+        const termino = busquedaVenta.toLowerCase();
+        return v.cliente && v.cliente.toLowerCase().includes(termino);
+    });
+
+
 
     const handleOpenSeleccionCliente = () => {
         if (showSeleccionCliente) {
@@ -191,14 +184,13 @@ const PanelVentas = () => {
                 <div className="ventas-table-controls">
                     <h3>Lista de ventas</h3>
                     <div className="search-box">
-                        <div className="search-input-wrapper">
+                        <div className="search-input-wrapper" style={{ width: '320px' }}>
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Buscar venta por nombre del cliente"
                                 value={busquedaVenta}
                                 onChange={(event) => setBusquedaVenta(event.target.value)}
-                                onKeyDown={manejarBusquedaVenta}
                             />
                         </div>
                     </div>
@@ -220,9 +212,27 @@ const PanelVentas = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="table-row-empty-cell" colSpan={9}>No hay ventas para mostrar.</td>
-                            </tr>
+                            {ventasFiltradas.length === 0 ? (
+                                <tr>
+                                    <td className="table-row-empty-cell" colSpan={9}>
+                                        {busquedaVenta ? 'No se encontraron ventas que coincidan con la búsqueda.' : 'No hay ventas para mostrar.'}
+                                    </td>
+                                </tr>
+                            ) : (
+                                ventasFiltradas.map((venta, index) => (
+                                    <tr key={index}>
+                                        <td>{venta.id || `V-${index}`}</td>
+                                        <td>{venta.cliente}</td>
+                                        <td>{venta.condicion}</td>
+                                        <td>{venta.metodoPago}</td>
+                                        <td>{venta.tipoVenta}</td>
+                                        <td>{venta.descuento}%</td>
+                                        <td>{venta.articulos?.length || 0}</td>
+                                        <td>{venta.total}</td>
+                                        <td>{venta.fecha}</td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -241,22 +251,6 @@ const PanelVentas = () => {
                         setShowConfirmarFacturar(true);
                     }
                 }}
-            />
-
-            <ModalVentaEncontrada
-                isOpen={showBusquedaVentaModal}
-                onClose={() => setShowBusquedaVentaModal(false)}
-                data={null}
-                onVerRegistro={() => {
-                    setShowBusquedaVentaModal(false);
-                    setShowFacturacionModal(true);
-                }}
-            />
-
-            <ModalVentaNoEncontrada
-                isOpen={showVentaNoEncontradaModal}
-                onClose={() => setShowVentaNoEncontradaModal(false)}
-                buttonLabel="Salir"
             />
 
             <ModalSeleccionCliente

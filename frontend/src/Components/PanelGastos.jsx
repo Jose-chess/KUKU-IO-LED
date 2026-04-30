@@ -5,8 +5,6 @@ import iconSearch from '../assets/search.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalGasto from './ModalGasto';
 import ModalObservacion from './ModalObservacion';
-import ModalGastoEncontrado from './ModalGastoEncontrado';
-import ModalGastoNoEncontrado from './ModalGastoNoEncontrado';
 
 const PanelGastos = () => {
     const [mesSeleccionado, setMesSeleccionado] = useState('Todos');
