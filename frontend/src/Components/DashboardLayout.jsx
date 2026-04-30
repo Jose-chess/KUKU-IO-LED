@@ -7,6 +7,7 @@ import PanelFactura from './PanelFactura';
 import PanelRecibos from './PanelRecibos';
 import InformacionEmpresarial from './InformacionEmpresarial';
 import Inventario from './Inventario';
+import Factura from './Factura';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -52,6 +53,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Inventario') {
             return <Inventario />;
+        }
+
+        if (activeSection === 'Facturas') {
+            return <Factura />;
         }
 
         return null;
