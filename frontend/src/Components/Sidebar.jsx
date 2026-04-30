@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CerrarSesionModal from './CerrarSessiónModal';
+import CerrarSesionModal from './CerrarSesionModal';
 
 import logokuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import iconCasa from '../assets/home.svg';

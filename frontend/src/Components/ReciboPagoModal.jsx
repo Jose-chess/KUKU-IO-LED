@@ -130,7 +130,9 @@ const ReciboPagoModal = ({ data, onClose }) => {
             <div className="recibo-field-large">
               <span className="recibo-label">CONCEPTO:</span>
               <div className="recibo-value-text">
-                <div style={{ color: '#111827', fontWeight: '600' }}>Pago correspondiente a la venta {data.nroInterno || '---'}</div>
+                <div style={{ color: '#111827', fontWeight: '600', fontSize: '14px' }}>
+                  Pago correspondiente al registro de venta #{data.nroInterno || '---'}
+                </div>
                 {data.facturaNCF && (
                   <div style={{ fontSize: '11px', color: '#6b7280', marginTop: '2px', fontWeight: '400' }}>
                     Referencia externa (NCF): {data.facturaNCF}

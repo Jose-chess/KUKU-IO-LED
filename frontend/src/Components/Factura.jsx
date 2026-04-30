@@ -69,7 +69,7 @@ const Factura = () => {
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Ingreso total</p>
-                    <h2 className="kpi-value">${ingresoTotal.toLocaleString()}</h2>
+                    <h2 className="kpi-value">{formatMoney(ingresoTotal)}</h2>
                 </div>
             </div>
 
@@ -135,7 +135,7 @@ const Factura = () => {
                             {facturasMostradas.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
-                                        No hay facturas para mostrar.
+                                        No hay registros para mostrar.
                                     </td>
                                 </tr>
                             ) : (
@@ -155,8 +155,8 @@ const Factura = () => {
                                             <button
                                                 className="btn-ver"
                                                 type="button"
-                                                aria-label="Ver factura"
-                                                title="Ver factura"
+                                                aria-label="Ver registro"
+                                                title="Ver registro"
                                                 onClick={() => setFacturaSeleccionada(factura)}
                                             >
                                                 <img src={iconVer} alt="" className="btn-ver-icon" />
