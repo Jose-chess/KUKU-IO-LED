@@ -3,7 +3,7 @@ import Sidebar from './Sidebar';
 import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
 import PanelVentas from './PanelVentas';
-import PanelFactura from './PanelFactura';
+
 import PanelRecibos from './PanelRecibos';
 import PanelGastos from './PanelGastos';
 import InformacionEmpresarial from './InformacionEmpresarial';
@@ -40,7 +40,7 @@ const DashboardLayout = () => {
             return <PanelVentas />;
         }
 
-        if (activeSection === 'Facturas') {
+        if (activeSection === 'Historial de Ventas') {
             return <Factura />;
         }
 

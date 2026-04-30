@@ -26,7 +26,6 @@
     overflow-y: auto; /* Scroll ONLY here */
     scrollbar-width: thin;
     scrollbar-color: #D4D4D4 transparent;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
     display: flex;
     flex-direction: column;
@@ -166,9 +165,8 @@
 
 .recibo-value-text {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: #111827;
-    font-style: italic;
 }
 
 .recibo-divider {

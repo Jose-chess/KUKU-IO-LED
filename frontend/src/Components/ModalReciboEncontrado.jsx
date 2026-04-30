@@ -42,10 +42,10 @@ const ModalReciboEncontrado = ({ isOpen, onClose, data, onVerRecibo }) => {
                                 <td style={{ whiteSpace: 'nowrap' }}>{data?.cliente}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>{data?.tipo}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>{data?.fecha}</td>
-                                <td style={{ whiteSpace: 'nowrap' }}>$ {data?.monto?.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                                <td style={{ whiteSpace: 'nowrap' }}>$ {data?.monto?.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>0%</td>
                                 <td style={{ whiteSpace: 'nowrap', textAlign: 'left' }}>18%</td>
-                                <td className="font-bold" style={{ whiteSpace: 'nowrap', paddingRight: '24px' }}>$ {data?.monto?.toLocaleString('es-DO', { minimumFractionDigits: 2 })}</td>
+                                <td className="font-bold" style={{ whiteSpace: 'nowrap', paddingRight: '24px' }}>$ {data?.monto?.toLocaleString('es-DO', { minimumFractionDigits: 0 })}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>{data?.metodo || 'Efectivo'}</td>
                                 <td style={{ whiteSpace: 'nowrap' }}>{data?.estado || 'Pagado'}</td>
                                 <td style={{ textAlign: 'right', paddingRight: '24px' }}>

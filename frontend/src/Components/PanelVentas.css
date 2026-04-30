@@ -41,6 +41,7 @@
     font-size: 28px;
     font-weight: 700;
     color: #1e293b;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .btn-nueva-venta {
@@ -712,6 +713,7 @@
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .venta-delete-btn:hover {

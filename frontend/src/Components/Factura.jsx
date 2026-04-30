@@ -31,7 +31,7 @@ const Factura = () => {
     const totalFacturas = facturas.length;
     const ingresoTotal = facturas.reduce((acc, curr) => acc + curr.total, 0);
     const facturasHoy = facturas.filter(f => f.fecha === '29/04/2026').length;
-    const facturasPendientes = facturas.filter(f => f.estado !== 'Pagada').length;
+    const balancePendiente = facturas.filter(f => f.estado !== 'Pagada').reduce((acc, curr) => acc + curr.total, 0);
     const ticketPromedio = totalFacturas > 0 ? ingresoTotal / totalFacturas : 0;
 
     const formatMoney = (value) => {
@@ -39,7 +39,7 @@ const Factura = () => {
         if (Number.isNaN(numericValue)) {
             return '$ 0';
         }
-        return `$ ${numericValue.toLocaleString('es-DO')}`;
+        return `$ ${numericValue.toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;
     };
 
     // Mostrar todas las facturas sin filtrado automático
@@ -49,23 +49,23 @@ const Factura = () => {
         <div className="factura-page">
             <div className="factura-header">
                 <div>
-                    <h1 className="factura-title">Facturas</h1>
+                    <h1 className="factura-title">Historial de Ventas</h1>
                 </div>
 
             </div>
 
             <div className="kpi-grid factura-kpi-grid">
                 <div className="kpi-card factura-kpi-card">
-                    <p className="kpi-label">Ticket promedio</p>
+                    <p className="kpi-label">Promedio de Venta</p>
                     <h2 className="kpi-value">{formatMoney(ticketPromedio)}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
-                    <p className="kpi-label">Facturas emitidas hoy</p>
+                    <p className="kpi-label">Registros hoy</p>
                     <h2 className="kpi-value">{facturasHoy}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
-                    <p className="kpi-label">Facturas pendientes</p>
-                    <h2 className="kpi-value">{facturasPendientes}</h2>
+                    <p className="kpi-label">Total Registros</p>
+                    <h2 className="kpi-value">{totalFacturas}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Ingreso total</p>
@@ -76,7 +76,7 @@ const Factura = () => {
             <div className="factura-table-card">
                 <div className="factura-table-controls">
                     <div>
-                        <h3>Lista de facturas</h3>
+                        <h3>Lista de registros de venta</h3>
                     </div>
 
                     <div className="search-box">
@@ -84,7 +84,7 @@ const Factura = () => {
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Buscar por número de factura o cliente..."
+                                placeholder="Buscar por número de registro o cliente..."
                                 value={busquedaFactura}
                                 onChange={(e) => setBusquedaFactura(e.target.value)}
                                 onKeyDown={(e) => {
@@ -118,7 +118,7 @@ const Factura = () => {
                     <table className="factura-table">
                         <thead>
                             <tr>
-                                <th>Número de Factura</th>
+                                <th>Número de Registro</th>
                                 <th>Cliente</th>
                                 <th>Tipo</th>
                                 <th>Fecha</th>

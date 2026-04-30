@@ -67,7 +67,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
         { nombre: 'Clientes', icon: iconCliente },
         { nombre: 'Ventas', icon: iconVenta },  
         { nombre: 'Inventario', icon: iconInventario },
-        { nombre: 'Facturas', icon: iconFactura },
+        { nombre: 'Historial de Ventas', icon: iconFactura },
         { nombre: 'Recibos', icon: iconRecibo },
         { nombre: 'Cuentas por cobrar', icon: iconCuentaCobrar },
         { nombre: 'Finanzas', icon: iconFinanzas, tieneFlecha: true },
