@@ -18,14 +18,14 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
     }, [isOpen, venta]);
 
     const { isShaking, handleOverlayClick, triggerShake } = useModalShake();
-    
+
     // Estados locales para campos editables
     const [condicion, setCondicion] = useState(venta?.condicion || 'Contado');
     const [metodoPago, setMetodoPago] = useState(venta?.metodoPago || 'Efectivo');
     const [tipoVenta, setTipoVenta] = useState(venta?.tipoVenta || 'Consumidor final');
     const [descuentoManual, setDescuentoManual] = useState(venta?.descuento || 0);
     const [errores, setErrores] = useState({});
-    
+
     // Estados para Modales de Selección
     const [showModalCliente, setShowModalCliente] = useState(false);
     const [showModalCondicion, setShowModalCondicion] = useState(false);
@@ -42,14 +42,14 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
     const [modalPosition, setModalPosition] = useState(null);
     const [clienteSeleccionado, setClienteSeleccionado] = useState(venta?.cliente || '');
-    
+
     // Datos de ejemplo para clientes
     const clientes = [
         { id: 1, nombre: 'José Manuel Guerrero', rnc: '131-07517-2', telefono: '809-555-1234', direccion: 'Calle Principal #123' },
         { id: 2, nombre: 'Electrónica Gómez', rnc: '131-12345-6', telefono: '809-555-5678', direccion: 'Av. Duarte #456' },
         { id: 3, nombre: 'Carlos Castillo', rnc: '047-0012345-6', telefono: '829-555-9012', direccion: 'Calle 27 de Febrero #789' }
     ];
-    
+
     // Sincronizar con props cuando cambian
     useEffect(() => {
         if (venta) {
@@ -59,7 +59,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
             setDescuentoManual(venta.descuento || 0);
         }
     }, [venta]);
-    
+
     // Limpiar método de pago al cambiar a Crédito
     useEffect(() => {
         if (condicion === 'Crédito') {
@@ -68,31 +68,31 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
             setMetodoPago('Efectivo');
         }
     }, [condicion]);
-    
+
     // Resetear descuento manual al cambiar tipo de venta
     useEffect(() => {
         if (tipoVenta === 'Venta al por mayor') {
             setDescuentoManual(0);
         }
     }, [tipoVenta]);
-    
+
     if (!isOpen) return null;
-    
+
     // Datos de la venta con seguridad extrema
     const articulos = useMemo(() => venta?.articulos || [], [venta]);
-    
+
     // Calcular cantidad total de artículos
-    const totalArticulos = useMemo(() => 
+    const totalArticulos = useMemo(() =>
         articulos.reduce((sum, item) => sum + (Number(item?.cant) || 0), 0)
-    , [articulos]);
-    
+        , [articulos]);
+
     // Calcular descuento automático para mayorista
     const calcularDescuentoAutomatico = (cantidad) => {
         if (cantidad >= 10) return 30;
         if (cantidad >= 5) return 20;
         return 0;
     };
-    
+
     // Determinar descuento final
     const descuentoFinal = useMemo(() => {
         if (tipoVenta === 'Venta al por mayor') {
@@ -100,20 +100,20 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
         }
         return Number(descuentoManual) || 0;
     }, [tipoVenta, totalArticulos, descuentoManual]);
-    
+
     // Indicar si el descuento es automático
     const esDescuentoAutomatico = tipoVenta === 'Venta al por mayor';
-    
+
     // Cálculos de la factura con protección contra NaN
-    const subtotal = useMemo(() => 
+    const subtotal = useMemo(() =>
         articulos.reduce((sum, item) => sum + ((Number(item?.cant) || 0) * (Number(item?.precio) || 0)), 0)
-    , [articulos]);
+        , [articulos]);
 
     const montoDescuento = subtotal * (descuentoFinal / 100);
     const subtotalConDescuento = subtotal - montoDescuento;
     const itbis = subtotalConDescuento * 0.18;
     const totalFinal = subtotalConDescuento + itbis;
-    
+
     // Validar antes de confirmar
     const validar = () => {
         const nuevosErrores = {};
@@ -126,7 +126,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
         setErrores(nuevosErrores);
         return Object.keys(nuevosErrores).length === 0;
     };
-    
+
     // Handler para confirmar con validación
     const handleConfirmarAction = () => {
         setShowConfirmarFinalizar(true);
@@ -144,7 +144,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
             total: totalFinal
         });
     };
-    
+
     // Función para manejar clics en el overlay principal
     const handleMainOverlayClick = (e) => {
         // Si hay algún submodal abierto, simplemente cerrarlos todos y no hacer "meneo"
@@ -160,7 +160,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
         // Si no hay submodales, ejecutar el comportamiento normal de shake
         handleOverlayClick(e);
     };
-    
+
     return (
         <div className="facturacion-overlay" onClick={handleMainOverlayClick}>
             <div
@@ -168,7 +168,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 onClick={(event) => event.stopPropagation()}
             >
                 <h2 className="facturacion-title">Facturación</h2>
-                
+
                 <div className="seccion-articulos">
                     <h3 className="subtitulo-seccion">Facturar Artículos</h3>
                     <div className="separador-linea" />
@@ -181,17 +181,17 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                             </div>
                             <div className="item-campo">
                                 <label>Fecha de Factura:</label>
-                                <input 
-                                    value={new Date().toLocaleDateString('es-ES')} 
-                                    disabled 
-                                    readOnly 
+                                <input
+                                    value={new Date().toLocaleDateString('es-ES')}
+                                    disabled
+                                    readOnly
                                 />
                             </div>
                             <div className="item-campo">
                                 <label>Cliente:</label>
-                                <div 
+                                <div
                                     ref={clienteRef}
-                                    className="desplegable-cliente" 
+                                    className="desplegable-cliente"
                                     onClick={() => {
                                         const rect = clienteRef.current.getBoundingClientRect();
                                         setModalPosition({
@@ -203,18 +203,18 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                     }}
                                 >
                                     <span>{clienteSeleccionado || "Seleccione un cliente"}</span>
-                                    <img 
-                                        src={iconFlecha} 
-                                        alt="" 
-                                        className={`icono-flecha-inline ${showModalCliente ? 'open' : ''}`} 
+                                    <img
+                                        src={iconFlecha}
+                                        alt=""
+                                        className={`icono-flecha-inline ${showModalCliente ? 'open' : ''}`}
                                     />
                                 </div>
                             </div>
                             <div className="item-campo">
                                 <label>Condición:</label>
-                                <div 
+                                <div
                                     ref={condicionRef}
-                                    className="desplegable-cliente" 
+                                    className="desplegable-cliente"
                                     onClick={() => {
                                         const rect = condicionRef.current.getBoundingClientRect();
                                         setModalPosition({ top: rect.bottom + window.scrollY + 5, left: rect.left + window.scrollX, width: rect.width * 0.85 });
@@ -222,10 +222,10 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                     }}
                                 >
                                     <span>{condicion || "Seleccione la condición"}</span>
-                                    <img 
-                                        src={iconFlecha} 
-                                        alt="" 
-                                        className={`icono-flecha-inline ${showModalCondicion ? 'open' : ''}`} 
+                                    <img
+                                        src={iconFlecha}
+                                        alt=""
+                                        className={`icono-flecha-inline ${showModalCondicion ? 'open' : ''}`}
                                     />
                                 </div>
                             </div>
@@ -234,9 +234,9 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                         <div className="columna-formulario">
                             <div className="item-campo">
                                 <label>Tipo:</label>
-                                <div 
+                                <div
                                     ref={tipoRef}
-                                    className="desplegable-cliente" 
+                                    className="desplegable-cliente"
                                     onClick={() => {
                                         const rect = tipoRef.current.getBoundingClientRect();
                                         setModalPosition({ top: rect.bottom + window.scrollY + 5, left: rect.left + window.scrollX, width: rect.width * 0.85 });
@@ -244,21 +244,21 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                     }}
                                 >
                                     <span>{tipoVenta || "Seleccione el tipo"}</span>
-                                    <img 
-                                        src={iconFlecha} 
-                                        alt="" 
-                                        className={`icono-flecha-inline ${showModalTipo ? 'open' : ''}`} 
+                                    <img
+                                        src={iconFlecha}
+                                        alt=""
+                                        className={`icono-flecha-inline ${showModalTipo ? 'open' : ''}`}
                                     />
                                 </div>
                             </div>
                             <div className="item-campo">
                                 <label>Descuento:</label>
                                 <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center' }}>
-                                    <input 
+                                    <input
                                         type="number"
-                                        value={descuentoFinal} 
+                                        value={descuentoFinal}
                                         onChange={(e) => setDescuentoManual(Number(e.target.value))}
-                                        disabled={tipoVenta === 'Venta al por mayor'} 
+                                        disabled={tipoVenta === 'Venta al por mayor'}
                                         style={{
                                             width: '100%',
                                             paddingRight: '45px',
@@ -266,22 +266,21 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                             cursor: tipoVenta === 'Venta al por mayor' ? 'not-allowed' : 'text'
                                         }}
                                     />
-                                    {/* Controles de Flechas y Símbolo alineados */}
                                     <div style={{ position: 'absolute', right: '10px', display: 'flex', alignItems: 'center', gap: '5px' }}>
                                         <div className="custom-spinners" style={{ display: 'flex', flexDirection: 'column', opacity: tipoVenta === 'Venta al por mayor' ? 0.3 : 1 }}>
-                                            <div 
-                                                className="spinner-up" 
+                                            <div
+                                                className="spinner-up"
                                                 onClick={() => tipoVenta !== 'Venta al por mayor' && setDescuentoManual(prev => Math.min(prev + 1, 100))}
                                                 style={{ cursor: 'pointer', height: '10px', display: 'flex', alignItems: 'center' }}
                                             >
-                                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+                                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m18 15-6-6-6 6" /></svg>
                                             </div>
-                                            <div 
-                                                className="spinner-down" 
+                                            <div
+                                                className="spinner-down"
                                                 onClick={() => tipoVenta !== 'Venta al por mayor' && setDescuentoManual(prev => Math.max(prev - 1, 0))}
                                                 style={{ cursor: 'pointer', height: '10px', display: 'flex', alignItems: 'center' }}
                                             >
-                                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                                                <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
                                             </div>
                                         </div>
                                         <span style={{ fontWeight: '700', fontSize: '13px', color: '#6b7280', pointerEvents: 'none' }}>%</span>
@@ -292,14 +291,13 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                 <label>Itbis %:</label>
                                 <input value="18%" disabled readOnly />
                             </div>
-                            
-                            {/* CAMPO DINÁMICO: Método de Pago */}
+
                             {condicion === 'Contado' && (
                                 <div className="item-campo">
                                     <label>Método de Pago:</label>
-                                    <div 
+                                    <div
                                         ref={metodoRef}
-                                        className="desplegable-cliente" 
+                                        className="desplegable-cliente"
                                         onClick={() => {
                                             const rect = metodoRef.current.getBoundingClientRect();
                                             setModalPosition({ top: rect.bottom + window.scrollY + 5, left: rect.left + window.scrollX, width: rect.width * 0.85 });
@@ -307,10 +305,10 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                         }}
                                     >
                                         <span>{metodoPago || "Seleccione el metodo de pago"}</span>
-                                        <img 
-                                            src={iconFlecha} 
-                                            alt="" 
-                                            className={`icono-flecha-inline ${showModalMetodo ? 'open' : ''}`} 
+                                        <img
+                                            src={iconFlecha}
+                                            alt=""
+                                            className={`icono-flecha-inline ${showModalMetodo ? 'open' : ''}`}
                                         />
                                     </div>
                                 </div>
@@ -353,17 +351,17 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                         No. de Factura: #2222
                     </div>
                     <div className="pie-botones-derecha">
-                        <button 
-                            className="btn-pie-volver" 
-                            type="button" 
+                        <button
+                            className="btn-pie-volver"
+                            type="button"
                             onClick={() => setShowConfirmarRetroceder(true)}
                         >
                             <img src={iconSalir} alt="" className="icono-pie" />
                             Retroceder
                         </button>
-                        <button 
-                            className="btn-pie-confirmar" 
-                            type="button" 
+                        <button
+                            className="btn-pie-confirmar"
+                            type="button"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 handleConfirmarAction();
@@ -376,8 +374,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                 </div>
             </div>
 
-            {/* Modales de Selección Estandarizados */}
-            <ModalSeleccionCliente 
+            <ModalSeleccionCliente
                 isOpen={showModalCliente}
                 onClose={() => setShowModalCliente(false)}
                 position={modalPosition}
@@ -386,33 +383,36 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                     setShowModalCliente(false);
                 }}
                 clientes={clientes}
+                selectedCliente={clienteSeleccionado}
             />
 
-            <ModalSeleccionSimple 
+            <ModalSeleccionSimple
                 isOpen={showModalCondicion}
                 onClose={() => setShowModalCondicion(false)}
                 position={modalPosition}
                 options={['Contado', 'Crédito']}
                 onSelect={(val) => setCondicion(val)}
+                selectedValue={condicion}
             />
 
-            <ModalSeleccionSimple 
+            <ModalSeleccionSimple
                 isOpen={showModalTipo}
                 onClose={() => setShowModalTipo(false)}
                 position={modalPosition}
                 options={['Consumidor final', 'Venta al por mayor']}
                 onSelect={(val) => setTipoVenta(val)}
+                selectedValue={tipoVenta}
             />
 
-            <ModalSeleccionSimple 
+            <ModalSeleccionSimple
                 isOpen={showModalMetodo}
                 onClose={() => setShowModalMetodo(false)}
                 position={modalPosition}
                 options={['Efectivo', 'Tarjeta', 'Transferencia']}
                 onSelect={(val) => setMetodoPago(val)}
+                selectedValue={metodoPago}
             />
 
-            {/* Modales de Confirmación Internos para máxima compatibilidad */}
             <ModalConfirmar
                 isOpen={showConfirmarRetroceder}
                 onClose={() => setShowConfirmarRetroceder(false)}

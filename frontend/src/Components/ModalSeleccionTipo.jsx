@@ -3,7 +3,7 @@ import './ModalSeleccion.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => {}, position }) => {
+const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => { }, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -30,7 +30,7 @@ const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => {}, position }) 
 
     return (
         <div className="modal-seleccion-overlay" onClick={onClose}>
-            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
+            <div className="modal-seleccion-content" style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
                 <div className="modal-seleccion-header">
                     <h2 className="modal-seleccion-title">Seleccionar Tipo</h2>
                 </div>
