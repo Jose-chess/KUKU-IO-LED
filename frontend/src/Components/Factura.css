@@ -303,7 +303,7 @@
 .factura-table-card .btn-ver-icon {
     width: 18px;
     height: 18px;
-    color: #1e293b;
+    filter: invert(39%) sepia(87%) saturate(1371%) hue-rotate(96deg) brightness(95%) contrast(106%);
 }
 
 .factura-table-card .table-row-empty-cell {

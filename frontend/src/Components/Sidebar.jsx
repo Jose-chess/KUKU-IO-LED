@@ -90,7 +90,13 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                             !(modulo.nombre === 'Configuración' && showFinanzas) && (
                             <li
                                 key={index}
-                                className={`sidebar-item ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} ${activeSection === modulo.nombre ? 'active' : ''}`}
+                                className={`sidebar-item 
+                                    ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} 
+                                    ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} 
+                                    ${activeSection === modulo.nombre || 
+                                      (modulo.nombre === 'Finanzas' && activeSection === 'Gastos') || 
+                                      (modulo.nombre === 'Configuración' && activeSection === 'Informacion empresarial') 
+                                      ? 'active' : ''}`}
                                 onClick={() => {
                                     if (modulo.nombre === 'Finanzas') {
                                         const openingFinanzas = !showFinanzas;
@@ -200,10 +206,9 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                 {modulo.nombre === 'Configuración' && showConfiguracion && (
                                     <div className="floating-menu" onClick={(e) => e.stopPropagation()}>
                                         <div
-                                            className={`menu-option-item ${selectedConfiguracionOption === 'Información empresarial' ? 'selected-yellow' : ''}`}
+                                            className={`menu-option-item ${activeSection === 'Informacion empresarial' ? 'selected-yellow' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setSelectedConfiguracionOption('Información empresarial');
                                                 setActiveSection('Informacion empresarial');
                                                 setShowConfiguracion(false);
                                             }}

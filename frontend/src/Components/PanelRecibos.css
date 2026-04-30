@@ -197,3 +197,9 @@
 .btn-ver-recibo:active {
     transform: scale(0.96);
 }
+
+.btn-ver-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(39%) sepia(87%) saturate(1371%) hue-rotate(96deg) brightness(95%) contrast(106%);
+}
