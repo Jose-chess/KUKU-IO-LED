@@ -3,11 +3,13 @@ import './PanelFactura.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
+import ModalFacturaNoEncontrada from './ModalFacturaNoEncontrada';
 
 const PanelFactura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
     const [mostrarModal, setMostrarModal] = useState(false);
+    const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
 
     // Datos de ejemplo para la tabla
     const facturas = [
@@ -21,7 +23,7 @@ const PanelFactura = () => {
             ciudad: 'Santo Domingo',
             telefono: '+1 (829) 551-1725',
             condicion: 'Contado',
-            estado: 'Pagada',
+            estado: 'Pago',
             descuento: '0%',
             monto: 15000.00
         }
@@ -42,8 +44,8 @@ const PanelFactura = () => {
         if (!query) return;
 
         // Buscar en el array de facturas
-        const facturaEncontrada = facturas.find(f => 
-            f.numero.toLowerCase().includes(query) || 
+        const facturaEncontrada = facturas.find(f =>
+            f.numero.toLowerCase().includes(query) ||
             f.cliente.toLowerCase().includes(query)
         );
 
@@ -53,7 +55,8 @@ const PanelFactura = () => {
             setBusquedaFactura('');
         } else {
             console.log('Factura no encontrada:', busquedaFactura);
-            // Aquí se podría disparar un modal de "No encontrado" si se desea
+            setMostrarErrorBusqueda(true);
+            setBusquedaFactura('');
         }
     };
 
@@ -126,8 +129,8 @@ const PanelFactura = () => {
                                         <td>{factura.descuento}</td>
                                         <td>{formatMoney(factura.monto)}</td>
                                         <td>
-                                            <button 
-                                                className="btn-ver-factura" 
+                                            <button
+                                                className="btn-ver-factura"
                                                 type="button"
                                                 onClick={() => {
                                                     setFacturaSeleccionada(factura);
@@ -152,27 +155,38 @@ const PanelFactura = () => {
             </div>
 
             {mostrarModal && (
-                <FacturaModal 
+                <FacturaModal
                     data={facturaSeleccionada ? {
+                        ncf: facturaSeleccionada.numero,
+                        fecha: facturaSeleccionada.fecha,
+                        condicion: facturaSeleccionada.condicion,
+                        metodoPago: facturaSeleccionada.metodoPago,
                         cliente: {
                             nombre: facturaSeleccionada.cliente,
                             rnc: facturaSeleccionada.rnc,
+                            cedula: facturaSeleccionada.cedula,
                             direccion: facturaSeleccionada.direccion,
                             ciudad: facturaSeleccionada.ciudad,
                             telefono: facturaSeleccionada.telefono
                         },
-                        items: [{
-                            cant: 1,
-                            desc: 'Producto/Servicio',
-                            precio: facturaSeleccionada.monto
-                        }],
-                        subtotal: facturaSeleccionada.monto,
-                        itbis: facturaSeleccionada.monto * 0.18,
-                        total: facturaSeleccionada.monto * 1.18
+                        items: [
+                            { cant: 2, um: 'Und', desc: 'Panel LED P10 Exterior High Brightness', precio: 10000.00 },
+                            { cant: 1, um: 'Und', desc: 'Controladora NovaStar DH408', precio: 5000.00 }
+                        ],
+                        subtotal: 25000.00,
+                        descuentoMonto: 0.00,
+                        itbis: 4500.00,
+                        total: 29500.00,
+                        observaciones: 'Instalación incluida en el precio.'
                     } : null}
                     onClose={() => setMostrarModal(false)}
                 />
             )}
+
+            <ModalFacturaNoEncontrada
+                isOpen={mostrarErrorBusqueda}
+                onClose={() => setMostrarErrorBusqueda(false)}
+            />
         </div>
     );
 };

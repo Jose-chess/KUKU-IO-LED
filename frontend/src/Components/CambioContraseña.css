@@ -12,8 +12,6 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
 }
 

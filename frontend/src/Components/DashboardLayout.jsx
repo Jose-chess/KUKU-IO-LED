@@ -4,8 +4,11 @@ import MainContent from './PanelPrincipal';
 import Clientes from './Clientes';
 import PanelVentas from './PanelVentas';
 import PanelFactura from './PanelFactura';
+import PanelRecibos from './PanelRecibos';
+import PanelGastos from './PanelGastos';
 import InformacionEmpresarial from './InformacionEmpresarial';
 import Inventario from './Inventario';
+import Factura from './Factura';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -38,7 +41,11 @@ const DashboardLayout = () => {
         }
 
         if (activeSection === 'Facturas') {
-            return <PanelFactura />;
+            return <Factura />;
+        }
+
+        if (activeSection === 'Recibos') {
+            return <PanelRecibos />;
         }
 
         if (activeSection === 'Informacion empresarial') {
@@ -47,6 +54,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Inventario') {
             return <Inventario />;
+        }
+
+        if (activeSection === 'Gastos') {
+            return <PanelGastos />;
         }
 
         return null;

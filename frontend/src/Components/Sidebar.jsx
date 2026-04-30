@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CerrarSesionModal from './CerrarSessiónModal';
 
@@ -14,6 +14,7 @@ import iconConfiguracion from '../assets/settings.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import iconUsuario from '../assets/user (1).svg';
 import iconCerrarSesion from '../assets/login-2.svg';
+import iconRecibo from '../assets/receipt.svg';
 
 const Sidebar = ({ user, activeSection, setActiveSection }) => {
     const navigate = useNavigate();
@@ -67,6 +68,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
         { nombre: 'Ventas', icon: iconVenta },  
         { nombre: 'Inventario', icon: iconInventario },
         { nombre: 'Facturas', icon: iconFactura },
+        { nombre: 'Recibos', icon: iconRecibo },
         { nombre: 'Cuentas por cobrar', icon: iconCuentaCobrar },
         { nombre: 'Finanzas', icon: iconFinanzas, tieneFlecha: true },
         { nombre: 'Configuración', icon: iconConfiguracion, tieneFlecha: true },
@@ -129,7 +131,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             }}
                                         >
                                             <span>Gráficos</span>
-                                            <img src={iconFlechaDerecha} alt="" className="arrow-right" />
+                                            <img src={iconFlecha} alt="" className="arrow-right" />
 
                                             {showGraficos && (
                                                 <div className="sub-floating-menu" onClick={(e) => e.stopPropagation()}>
@@ -181,6 +183,16 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             }}
                                         >
                                             Cierre de caja
+                                        </div>
+                                        <div className="line-separator"></div>
+                                        <div
+                                            className={`menu-option-item ${activeSection === 'Gastos' ? 'selected-yellow' : ''}`}
+                                            onClick={() => {
+                                                setActiveSection('Gastos');
+                                                setShowFinanzas(false);
+                                            }}
+                                        >
+                                            Gastos
                                         </div>
                                     </div>
                                 )}

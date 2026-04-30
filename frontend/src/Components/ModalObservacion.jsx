@@ -1,8 +1,9 @@
 import React from 'react';
 import './ModalObservacion.css';
 import { useModalShake } from './useModalShake';
+import iconSalir from '../assets/arrow-back-up.svg';
 
-const ModalObservacion = ({ isOpen, onClose, contenido }) => {
+const ModalObservacion = ({ isOpen, onClose, contenido, titulo = 'Observacion:' }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -13,11 +14,16 @@ const ModalObservacion = ({ isOpen, onClose, contenido }) => {
         <div className="obs-overlay" onClick={handleOverlayClick}>
             <div className={`obs-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div className="obs-header">
-                    <h2 className="obs-title">Observacion:</h2>
-                    <button className="obs-close-btn" onClick={onClose} type="button">&times;</button>
+                    <h2 className="obs-title">{titulo}</h2>
                 </div>
                 <div className="obs-content">
                     <p className="obs-text">{contenido || 'Sin observaciones registradas.'}</p>
+                </div>
+                <div className="obs-footer">
+                    <button className="obs-btn-salir" onClick={onClose} type="button">
+                        <img src={iconSalir} alt="" className="obs-btn-icon" />
+                        Salir
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,0 +1,199 @@
+
+@keyframes recibos-fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.recibos-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    background: #f8fafc;
+    height: 100vh;
+    min-height: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    box-sizing: border-box;
+}
+
+.recibos-page > * {
+    animation: recibos-fade-up 0.42s ease both;
+}
+
+.recibos-page > *:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.recibos-page > *:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.recibos-page > *:nth-child(3) {
+    animation-delay: 0.16s;
+}
+
+.recibos-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.recibos-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* KPI Grid */
+.recibos-kpi-grid {
+    width: 100%;
+    margin-bottom: 0;
+    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    justify-content: stretch;
+}
+
+.recibos-kpi-card {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.recibos-kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Table Card */
+.recibos-table-card {
+    width: 100%;
+    height: auto;
+    flex: 1;
+    min-height: 420px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.recibos-table-card:hover {
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.recibos-table-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 14px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.recibos-table-controls h3 {
+    margin: 0;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.recibos-table-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+}
+
+.recibos-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    table-layout: fixed;
+}
+
+.recibos-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #F8F7B4;
+    text-align: left;
+    padding: 8px 10px;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-size: 11px;
+    color: #000000;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Distribucion proporcional de columnas (6 columnas) */
+.recibos-table th:nth-child(1),
+.recibos-table td:nth-child(1) { width: 22%; }
+.recibos-table th:nth-child(2),
+.recibos-table td:nth-child(2) { width: 16%; }
+.recibos-table th:nth-child(3),
+.recibos-table td:nth-child(3) { width: 24%; }
+.recibos-table th:nth-child(4),
+.recibos-table td:nth-child(4) { width: 12%; }
+.recibos-table th:nth-child(5),
+.recibos-table td:nth-child(5) { width: 18%; }
+.recibos-table th:nth-child(6),
+.recibos-table td:nth-child(6) { width: 8%; text-align: center; }
+
+.recibos-table tbody td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1e293b;
+    vertical-align: top;
+}
+
+.recibos-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+.btn-ver-recibo {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.btn-ver-recibo:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.btn-ver-recibo:active {
+    transform: scale(0.96);
+}
