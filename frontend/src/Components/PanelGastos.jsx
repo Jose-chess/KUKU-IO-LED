@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 import './PanelGastos.css';
 import iconNew from '../assets/new-section.svg';
 import iconSearch from '../assets/search.svg';
+import iconFlecha from '../assets/chevron-down.svg';
 import ModalGasto from './ModalGasto';
 import ModalObservacion from './ModalObservacion';
+import ModalGastoEncontrado from './ModalGastoEncontrado';
+import ModalGastoNoEncontrado from './ModalGastoNoEncontrado';
 
 const PanelGastos = () => {
-    const [busqueda, setBusqueda] = useState('');
+    const [mesSeleccionado, setMesSeleccionado] = useState('Todos');
+    const [anioSeleccionado, setAnioSeleccionado] = useState('Todos');
+    const [showMesDropdown, setShowMesDropdown] = useState(false);
+    const [showAnioDropdown, setShowAnioDropdown] = useState(false);
     const [modalGastoAbierto, setModalGastoAbierto] = useState(false);
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
@@ -54,6 +60,30 @@ const PanelGastos = () => {
         setObservacionActual('');
     };
 
+    const handleDocumentClick = () => {
+        setShowMesDropdown(false);
+        setShowAnioDropdown(false);
+    };
+
+    React.useEffect(() => {
+        document.addEventListener('click', handleDocumentClick);
+        return () => document.removeEventListener('click', handleDocumentClick);
+    }, []);
+
+    const meses = ["Todos", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const anios = ["Todos", 2024, 2025, 2026];
+
+    const gastosFiltrados = gastos.filter(g => {
+        const [d, m, a] = g.fecha.split('/');
+        const mesGasto = meses[parseInt(m)];
+        const anioGasto = a; // String comparison
+        
+        const cumpleMes = mesSeleccionado === "Todos" || mesSeleccionado === mesGasto;
+        const cumpleAnio = anioSeleccionado === "Todos" || anioSeleccionado === anioGasto.toString();
+        
+        return cumpleMes && cumpleAnio;
+    });
+
     return (
         <div className="gastos-page">
             <div className="gastos-header">
@@ -86,16 +116,61 @@ const PanelGastos = () => {
             <div className="gastos-table-card">
                 <div className="gastos-table-controls">
                     <h3>Lista de gastos</h3>
-                    <div className="search-box">
-                        <div className="search-input-wrapper">
-                            <img src={iconSearch} alt="Buscar" className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Buscar por descripción..."
-                                value={busqueda}
-                                onChange={(e) => setBusqueda(e.target.value)}
-                            />
+                    <div className="gastos-filters">
+                        <div className="filter-group">
+                            <label>Mes:</label>
+                            <div className="premium-dropdown" onClick={(e) => { e.stopPropagation(); setShowMesDropdown(!showMesDropdown); setShowAnioDropdown(false); }}>
+                                <div className="dropdown-trigger">
+                                    <span>{mesSeleccionado}</span>
+                                    <img src={iconFlecha} alt="" className={`dropdown-arrow ${showMesDropdown ? 'open' : ''}`} />
+                                </div>
+                                {showMesDropdown && (
+                                    <div className="dropdown-menu">
+                                        {meses.map(m => (
+                                            <div 
+                                                key={m} 
+                                                className={`dropdown-option ${mesSeleccionado === m ? 'selected' : ''}`}
+                                                onClick={() => { setMesSeleccionado(m); setShowMesDropdown(false); }}
+                                            >
+                                                {m}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </div>
+
+                        <div className="filter-group">
+                            <label>Año:</label>
+                            <div className="premium-dropdown" onClick={(e) => { e.stopPropagation(); setShowAnioDropdown(!showAnioDropdown); setShowMesDropdown(false); }}>
+                                <div className="dropdown-trigger">
+                                    <span>{anioSeleccionado}</span>
+                                    <img src={iconFlecha} alt="" className={`dropdown-arrow ${showAnioDropdown ? 'open' : ''}`} />
+                                </div>
+                                {showAnioDropdown && (
+                                    <div className="dropdown-menu">
+                                        {anios.map(a => (
+                                            <div 
+                                                key={a} 
+                                                className={`dropdown-option ${anioSeleccionado === a.toString() ? 'selected' : ''}`}
+                                                onClick={() => { setAnioSeleccionado(a.toString()); setShowAnioDropdown(false); }}
+                                            >
+                                                {a}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {(mesSeleccionado !== 'Todos' || anioSeleccionado !== 'Todos') && (
+                            <button 
+                                className="btn-clear-filters" 
+                                onClick={() => { setMesSeleccionado('Todos'); setAnioSeleccionado('Todos'); }}
+                            >
+                                Limpiar
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -110,14 +185,14 @@ const PanelGastos = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {gastos.length === 0 ? (
+                            {gastosFiltrados.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan="4">
-                                        No hay gastos para mostrar.
+                                        No hay gastos para el periodo seleccionado.
                                     </td>
                                 </tr>
                             ) : (
-                                gastos.filter(g => g.descripcion.toLowerCase().includes(busqueda.toLowerCase())).map(gasto => (
+                                gastosFiltrados.map(gasto => (
                                     <tr key={gasto.id}>
                                         <td>#{gasto.id}</td>
                                         <td 

@@ -44,6 +44,7 @@
     font-size: 28px;
     font-weight: 700;
     color: #1e293b;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .btn-nuevo-gasto {
@@ -59,6 +60,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .btn-nuevo-gasto:hover {
@@ -76,6 +78,7 @@
     width: 100%;
     margin-bottom: 0;
     gap: 16px;
+    display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
@@ -102,6 +105,7 @@
     color: #64748b;
     font-weight: 500;
     margin: 0 0 4px;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .kpi-value {
@@ -109,6 +113,7 @@
     font-weight: 700;
     color: #0f172a;
     margin: 0;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
 }
 
 .gastos-table-card {
@@ -159,8 +164,9 @@
     padding: 8px 10px;
     font-family: 'Konkhmer Sleokchher', sans-serif;
     font-size: 11px;
-    color: #000;
+    color: #000000;
     font-weight: 500;
+    white-space: nowrap;
 }
 
 .gastos-table td {
@@ -205,30 +211,119 @@
     font-weight: 600;
 }
 
-.search-input-wrapper {
-    position: relative;
-    display: inline-flex;
+.gastos-filters {
+    display: flex;
     align-items: center;
-    width: 340px;
+    gap: 16px;
 }
 
-.search-icon {
-    position: absolute;
-    left: 14px;
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.search-input-wrapper input {
-    height: 40px;
-    width: 100%;
-    padding: 8px 14px 8px 40px;
+.filter-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748b;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+}
+
+.premium-dropdown {
+    position: relative;
+    width: 140px;
+    user-select: none;
+}
+
+.dropdown-trigger {
+    height: 36px;
+    padding: 0 12px;
     border: 1px solid #d3d6db;
     border-radius: 8px;
     background: #f6f6f6;
     color: #1e293b;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+
+.dropdown-trigger:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+}
+
+.dropdown-arrow {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s ease;
+    filter: brightness(0);
+    opacity: 0.6;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    padding: 4px;
+    z-index: 100;
+    max-height: 250px;
+    overflow-y: auto;
+    animation: dropdown-fade-in 0.2s ease-out;
+}
+
+@keyframes dropdown-fade-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-option {
+    padding: 8px 12px;
+    font-size: 13px;
     font-weight: 600;
-    outline: none;
+    color: #1e293b;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-option:hover {
+    background: #f1f5f9;
+}
+
+.dropdown-option.selected {
+    background: #ffcc00;
+    color: #000000;
+}
+
+.btn-clear-filters {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+}
+
+.btn-clear-filters:hover {
+    background: #e2e8f0;
+    color: #0f172a;
 }
