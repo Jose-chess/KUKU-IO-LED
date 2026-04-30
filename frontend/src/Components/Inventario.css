@@ -149,7 +149,7 @@
     font-size: 12px;
     color: #64748b;
     font-weight: 500;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     margin-bottom: 8px;
     line-height: 1.2;
 }
@@ -184,7 +184,7 @@
 
 .inventario-table-controls h3 {
     margin: 0;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
@@ -282,7 +282,7 @@
     background: #F8F7B4;
     text-align: center;
     padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 11px;
     color: #000000;
     font-weight: 500;

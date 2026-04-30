@@ -18,7 +18,7 @@
     border-radius: 12px;
     padding: 35px 45px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -41,7 +41,7 @@
 }
 
 .facturacion-title {
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 32px;
     font-weight: 700;
     color: #0f172a;

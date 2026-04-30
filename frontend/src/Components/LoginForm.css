@@ -46,7 +46,7 @@ html, body {
 
 .login-title {
   color: #000000;
-  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-family: inherit;
   font-size: 32px; 
   font-weight: 700;
   margin-bottom: 35px;
@@ -71,7 +71,7 @@ html, body {
 
 .input-group label {
   color: #000000;
-  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-family: inherit;
   font-weight: 600;
   font-size: 16px;
   margin-bottom: 8px;
@@ -86,7 +86,7 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   outline: none;
-  font-family: 'Konkhmer Sleokchher', sans-serif;
+  font-family: inherit;
 }
 
 

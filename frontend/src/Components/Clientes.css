@@ -42,7 +42,7 @@
     font-size: 28px;
     font-weight: 700;
     color: #1e293b;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
 }
 
 .clientes-subtitle {
@@ -65,7 +65,7 @@
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
     margin-left: auto;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
 }
 
 .btn-nuevo-cliente:hover {
@@ -118,7 +118,7 @@
     font-size: 12px;
     color: #64748b;
     font-weight: 500;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     margin-bottom: 8px;
     line-height: 1.2;
 }
@@ -153,7 +153,7 @@
 
 .clientes-table-controls h3 {
     margin: 0;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 16px;
     font-weight: 700;
     color: #0f172a;
@@ -251,7 +251,7 @@
     background: #F8F7B4;
     text-align: left;
     padding: 8px 10px;
-    font-family: 'Konkhmer Sleokchher', sans-serif;
+    font-family: inherit;
     font-size: 11px;
     color: #000000;
     font-weight: 500;

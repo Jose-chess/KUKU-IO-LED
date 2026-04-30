@@ -1,5 +1,5 @@
 import React from 'react';
-import './AvisoVentas.css';
+import './ModalErrorCliente.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
