@@ -4,7 +4,6 @@ import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconConfirmar from '../assets/circle-check.svg';
-import iconFlecha from '../assets/chevron-down.svg';
 import ModalExito from './ModalExito';
 import ModalVentaEncontrada from './ModalVentaEncontrada';
 import ModalVentaNoEncontrada from './ModalVentaNoEncontrada';
@@ -12,41 +11,9 @@ import ModalSeleccionCliente from './ModalSeleccionCliente';
 import ModalSeleccionTipo from './ModalSeleccionTipo';
 import ModalSeleccionDescuento from './ModalSeleccionDescuento';
 import { useModalShake } from './useModalShake';
-
-const ConfirmarVentaModal = ({ isOpen, onClose, onConfirm, message, salirLabel, confirmLabel }) => {
-    const { isShaking, handleOverlayClick } = useModalShake();
-
-    if (!isOpen) {
-        return null;
-    }
-
-    return (
-        <div className="confirm-overlay" onClick={handleOverlayClick}>
-            <div
-                className={`confirm-container confirm-modal scale-up-center ${isShaking ? 'shake' : ''}`}
-                onClick={(event) => event.stopPropagation()}
-            >
-                <h1 className="confirm-title confirm-header">Confirmar</h1>
-
-                <div className="confirm-body-card confirm-message-container">
-                    <p className="confirm-text confirm-message-text">{message}</p>
-                    <div className="confirm-line confirm-decorative-line" />
-                </div>
-
-                <div className="confirm-footer confirm-actions">
-                    <button className="btn-confirm-salir btn-confirm-red" type="button" onClick={onClose}>
-                        <img src={iconSalir} alt="" className="confirm-btn-icon" />
-                        {salirLabel}
-                    </button>
-                    <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={onConfirm}>
-                        <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
-                        {confirmLabel}
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-};
+import ModalFacturacion from './ModalFacturacion';
+import ModalErrorVentaVacia from './ModalErrorVentaVacia';
+import ModalConfirmar from './ModalConfirmar';
 
 const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
@@ -115,200 +82,25 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
     );
 };
 
-const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, onOpenSeleccionTipo, onOpenSeleccionCliente, inputClienteRef, inputTipoRef, showSeleccionCliente, showSeleccionTipo, selectedTipo, selectedCliente, selectedDescuento, isDescuentoManual, setSelectedDescuento }) => {
-    const { isShaking, handleOverlayClick } = useModalShake();
-
-    if (!isOpen) return null;
-
-    const subtotal = articulos.reduce((sum, item) => sum + (item.cant * item.precio), 0);
-    const montoDescuento = subtotal * (descuento / 100);
-    const subtotalConDescuento = subtotal - montoDescuento;
-    const itbis = subtotalConDescuento * 0.18;
-    const totalFinal = subtotalConDescuento + itbis;
-
-    const manejarConfirmar = () => {
-        if (!condicion) { shake(); return; }
-        if (condicion === 'Contado' && !metodoPago) { shake(); return; }
-        onConfirmarVenta();
-    };
-
-    const closeAllDropdowns = () => {
-        setOpenCondicion(false);
-        setOpenTipoVenta(false);
-        setOpenMetodo(false);
-        setOpenCliente(false);
-    };
-
-    return (
-        <div className="facturacion-overlay" onClick={handleOverlayClick}>
-            <div
-                className={`facturacion-modal scale-up-center ${isShaking ? 'shake' : ''}`}
-                onClick={(event) => {
-                    event.stopPropagation();
-                    closeAllDropdowns();
-                }}
-            >
-                <h2 className="facturacion-title">Facturación</h2>
-
-                <section className="facturacion-bloque">
-                    <h3 className="facturacion-subtitle">Facturar Artículos</h3>
-                    <div className="facturacion-line" />
-
-                    <div className="facturacion-grid">
-                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
-                            <label>Número de Factura:</label>
-                            <input value="B02000000XXX" disabled readOnly />
-                        </div>
-                        <div className="facturacion-item">
-                            <label>Tipo:</label>
-                            <div className="facturacion-input-with-icon" ref={inputTipoRef} onClick={onOpenSeleccionTipo}>
-                                <input value={selectedTipo} placeholder="Seleccione el tipo" disabled readOnly style={{ pointerEvents: 'none' }} />
-                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" style={{ transform: showSeleccionTipo ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)' }} />
-                            </div>
-                        </div>
-
-                        {/* Dropdown Tipo de Venta */}
-                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
-                            <label>Tipo de venta:</label>
-                            <div className="facturacion-dropdown-wrap">
-                                <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenTipoVenta(!openTipoVenta); }}>
-                                    {tipoVenta}
-                                    <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openTipoVenta ? 'open' : ''}`} />
-                                </div>
-                                {openTipoVenta && (
-                                    <div className="facturacion-dropdown-menu">
-                                        <div className={`facturacion-dropdown-option ${tipoVenta === 'Consumidor final' ? 'selected' : ''}`}
-                                            onClick={() => { setTipoVenta('Consumidor final'); closeAllDropdowns(); }}>
-                                            Consumidor final
-                                        </div>
-                                        <div className={`facturacion-dropdown-option ${tipoVenta === 'Venta al por mayor' ? 'selected' : ''}`}
-                                            onClick={() => { setTipoVenta('Venta al por mayor'); closeAllDropdowns(); }}>
-                                            Venta al por mayor
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                        <div className="facturacion-item">
-                            <label>Descuento:</label>
-                            <div className="facturacion-input-with-icon">
-                                <input 
-                                    value={selectedDescuento} 
-                                    onChange={(e) => isDescuentoManual && setSelectedDescuento(e.target.value)}
-                                    placeholder={isDescuentoManual ? "Ingrese descuento" : "-"}
-                                    readOnly={!isDescuentoManual}
-                                    style={{ backgroundColor: isDescuentoManual ? '#f3f4f6' : '#e5e7eb' }}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="facturacion-item">
-                            <label>Cliente:</label>
-                            <div className="facturacion-input-with-icon" ref={inputClienteRef} onClick={onOpenSeleccionCliente}>
-                                <input value={selectedCliente} placeholder="Seleccione un cliente" disabled readOnly style={{ pointerEvents: 'none' }} />
-                                <img src={iconFlecha} alt="" className="facturacion-arrow-icon" style={{ transform: showSeleccionCliente ? 'translateY(-50%) rotate(180deg)' : 'translateY(-50%)' }} />
-                            </div>
-                        </div>
-
-                        {/* Dropdown Cliente */}
-                        <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
-                            <label>Cliente:</label>
-                            <div className="facturacion-dropdown-wrap">
-                                <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenCliente(!openCliente); }}>
-                                    {cliente}
-                                    <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openCliente ? 'open' : ''}`} />
-                                </div>
-                                {openCliente && (
-                                    <div className="facturacion-dropdown-menu">
-                                        <div className={`facturacion-dropdown-option ${cliente === 'José Manuel Guerrero' ? 'selected' : ''}`}
-                                            onClick={() => { setCliente('José Manuel Guerrero'); closeAllDropdowns(); }}>
-                                            José Manuel Guerrero
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Dropdown Método de Pago (Condicional) */}
-                        {condicion === 'Contado' && (
-                            <div className="facturacion-item" onClick={(e) => e.stopPropagation()}>
-                                <label>Método de pago:</label>
-                                <div className="facturacion-dropdown-wrap">
-                                    <div className="facturacion-dropdown-trigger" onClick={(e) => { e.stopPropagation(); closeAllDropdowns(); setOpenMetodo(!openMetodo); }}>
-                                        {metodoPago || 'Seleccione método'}
-                                        <img src={iconChevron} alt="" className={`facturacion-dropdown-icon ${openMetodo ? 'open' : ''}`} />
-                                    </div>
-                                    {openMetodo && (
-                                        <div className="facturacion-dropdown-menu">
-                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Efectivo' ? 'selected' : ''}`}
-                                                onClick={() => { setMetodoPago('Efectivo'); closeAllDropdowns(); }}>
-                                                Efectivo
-                                            </div>
-                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Tarjeta' ? 'selected' : ''}`}
-                                                onClick={() => { setMetodoPago('Tarjeta'); closeAllDropdowns(); }}>
-                                                Tarjeta
-                                            </div>
-                                            <div className={`facturacion-dropdown-option ${metodoPago === 'Transferencia' ? 'selected' : ''}`}
-                                                onClick={() => { setMetodoPago('Transferencia'); closeAllDropdowns(); }}>
-                                                Transferencia
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        )}
-
-                        <div className="facturacion-item">
-                            <label>Itbis %:</label>
-                            <input value="18%" disabled readOnly />
-                        </div>
-                    </div>
-                </section>
-
-                <section className="facturacion-bloque sin-borde-superior">
-                    <div className="monto-venta-row">
-                        <span>Monto de Venta:</span>
-                        <strong className="subtotal-verde">$ {subtotal.toLocaleString()}</strong>
-                    </div>
-                    <div className="facturacion-line" />
-
-                    <h3 className="facturacion-subtitle resumen-title">Resumen de la Factura</h3>
-                    <div className="resumen-box">
-                        <p><span>Sub-total:</span><strong>$ {subtotal.toLocaleString()}</strong></p>
-                        <p className="descuento">
-                            <span>Descuento ({descuento}%):</span>
-                            <strong>- $ {montoDescuento.toLocaleString()}</strong>
-                        </p>
-                        <p><span>Itbis (18%):</span><strong>$ {itbis.toLocaleString()}</strong></p>
-                        <p className="total"><span>Total a pagar:</span><strong>$ {totalFinal.toLocaleString()}</strong></p>
-                    </div>
-                </section>
-
-                <div className="facturacion-footer">
-                    <div className="facturacion-meta">Artículos totales: <strong>{articulos.reduce((s, i) => s + i.cant, 0)}</strong></div>
-                    <div className="facturacion-meta">N.º de factura: <strong>B02000000XXX</strong></div>
-                    <div className="facturacion-actions">
-                        <button className="btn-confirm-salir btn-confirm-red" type="button" onClick={onVolver}>
-                            <img src={iconSalir} alt="" className="confirm-btn-icon" />
-                            Retroceder
-                        </button>
-                        <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={manejarConfirmar}>
-                            <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
-                            Confirmar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const PanelVentas = () => {
+    const [ventas, setVentas] = useState([]);
+    const [ventaActual, setVentaActual] = useState({
+        articulos: [
+            { codigo: 'A001', nombre: 'Panel LED', precio: 1000, cant: 2 }
+        ],
+        descuento: 0,
+        condicion: '',
+        metodoPago: '',
+        cliente: '',
+        tipoVenta: '',
+        fecha: new Date().toLocaleDateString(),
+    });
     const [showNuevaVentaModal, setShowNuevaVentaModal] = useState(false);
     const [showFacturacionModal, setShowFacturacionModal] = useState(false);
     const [showConfirmSalir, setShowConfirmSalir] = useState(false);
-    const [showConfirmVenta, setShowConfirmVenta] = useState(false);
+    const [showConfirmarFacturar, setShowConfirmarFacturar] = useState(false);
     const [showExitoModal, setShowExitoModal] = useState(false);
+    const [showErrorVentaVacia, setShowErrorVentaVacia] = useState(false);
     const [showBusquedaVentaModal, setShowBusquedaVentaModal] = useState(false);
     const [showVentaNoEncontradaModal, setShowVentaNoEncontradaModal] = useState(false);
     const [showSeleccionCliente, setShowSeleccionCliente] = useState(false);
@@ -328,17 +120,12 @@ const PanelVentas = () => {
     const inputDescuentoRef = useRef(null);
 
     const manejarBusquedaVenta = (event) => {
-        if (event.key !== 'Enter') {
-            return;
-        }
-
+        if (event.key !== 'Enter') return;
         event.preventDefault();
-
         if (busquedaVenta.trim() === '') {
             setShowVentaNoEncontradaModal(true);
             return;
         }
-
         setShowBusquedaVentaModal(true);
         setBusquedaVenta('');
     };
@@ -373,24 +160,13 @@ const PanelVentas = () => {
         }
     };
 
-    const handleCloseSeleccionCliente = () => {
-        setShowSeleccionCliente(false);
-    };
-
-    const handleCloseSeleccionTipo = () => {
-        setShowSeleccionTipo(false);
-    };
-
-    const handleCloseSeleccionDescuento = () => {
-        setShowSeleccionDescuento(false);
-    };
+    const handleCloseSeleccionCliente = () => setShowSeleccionCliente(false);
+    const handleCloseSeleccionTipo = () => setShowSeleccionTipo(false);
+    const handleCloseSeleccionDescuento = () => setShowSeleccionDescuento(false);
 
     const calcularDescuentoAutomatico = (cantidad) => {
-        if (cantidad >= 10) {
-            return '30%';
-        } else if (cantidad >= 5) {
-            return '20%';
-        }
+        if (cantidad >= 10) return '30%';
+        else if (cantidad >= 5) return '20%';
         return '0';
     };
 
@@ -398,7 +174,6 @@ const PanelVentas = () => {
         <div className="ventas-page">
             <div className="ventas-header">
                 <h1 className="ventas-title">Ventas</h1>
-
                 <button className="btn-nueva-venta" type="button" onClick={() => setShowNuevaVentaModal(true)}>
                     <img src={iconNuevaVenta} alt="" className="btn-nueva-venta-icon" />
                     Nueva Venta
@@ -406,28 +181,15 @@ const PanelVentas = () => {
             </div>
 
             <div className="kpi-grid ventas-kpi-grid">
-                <div className="kpi-card ventas-kpi-card">
-                    <p className="kpi-label">Ventas del día</p>
-                    <h2 className="kpi-value">0</h2>
-                </div>
-                <div className="kpi-card ventas-kpi-card">
-                    <p className="kpi-label">Ventas de la semana</p>
-                    <h2 className="kpi-value">0</h2>
-                </div>
-                <div className="kpi-card ventas-kpi-card">
-                    <p className="kpi-label">Ventas del mes</p>
-                    <h2 className="kpi-value">0</h2>
-                </div>
-                <div className="kpi-card ventas-kpi-card">
-                    <p className="kpi-label">Cantidad de ventas</p>
-                    <h2 className="kpi-value">0</h2>
-                </div>
+                <div className="kpi-card ventas-kpi-card"><p className="kpi-label">Ventas del día</p><h2 className="kpi-value">0</h2></div>
+                <div className="kpi-card ventas-kpi-card"><p className="kpi-label">Ventas de la semana</p><h2 className="kpi-value">0</h2></div>
+                <div className="kpi-card ventas-kpi-card"><p className="kpi-label">Ventas del mes</p><h2 className="kpi-value">0</h2></div>
+                <div className="kpi-card ventas-kpi-card"><p className="kpi-label">Cantidad de ventas</p><h2 className="kpi-value">0</h2></div>
             </div>
 
             <div className="ventas-table-card">
                 <div className="ventas-table-controls">
                     <h3>Lista de ventas</h3>
-
                     <div className="search-box">
                         <div className="search-input-wrapper">
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
@@ -459,9 +221,7 @@ const PanelVentas = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="table-row-empty-cell" colSpan={9}>
-                                    No hay ventas para mostrar.
-                                </td>
+                                <td className="table-row-empty-cell" colSpan={9}>No hay ventas para mostrar.</td>
                             </tr>
                         </tbody>
                     </table>
@@ -469,14 +229,17 @@ const PanelVentas = () => {
             </div>
 
             <ModalNuevaVenta
-                isOpen={showNuevaVentaModal}
+                isOpen={showNuevaVentaModal && !showConfirmSalir && !showConfirmarFacturar}
                 onSalir={() => {
                     setShowNuevaVentaModal(false);
                     setShowConfirmSalir(true);
                 }}
                 onFacturar={() => {
-                    setShowNuevaVentaModal(false);
-                    setShowFacturacionModal(true);
+                    if (ventaActual.articulos.length === 0) {
+                        setShowErrorVentaVacia(true);
+                    } else {
+                        setShowConfirmarFacturar(true);
+                    }
                 }}
             />
 
@@ -500,10 +263,7 @@ const PanelVentas = () => {
                 isOpen={showSeleccionCliente}
                 onClose={handleCloseSeleccionCliente}
                 clientes={[]}
-                onSelect={(cliente) => {
-                    setSelectedCliente(cliente.nombre || '');
-                    console.log('Cliente seleccionado:', cliente);
-                }}
+                onSelect={(cliente) => setSelectedCliente(cliente.nombre || '')}
                 position={modalPositionCliente}
             />
 
@@ -513,14 +273,9 @@ const PanelVentas = () => {
                 onSelect={(tipo) => {
                     setSelectedTipo(tipo.nombre || '');
                     if (tipo.id === 'por_mayor') {
-                        setIsDescuentoManual(false);
                         const descuentoAuto = calcularDescuentoAutomatico(cantidadArticulos);
                         setSelectedDescuento(descuentoAuto);
-                    } else if (tipo.id === 'consumidor_final') {
-                        setIsDescuentoManual(true);
-                        setSelectedDescuento('');
                     }
-                    console.log('Tipo seleccionado:', tipo);
                 }}
                 position={modalPositionTipo}
             />
@@ -528,37 +283,39 @@ const PanelVentas = () => {
             <ModalSeleccionDescuento
                 isOpen={showSeleccionDescuento}
                 onClose={handleCloseSeleccionDescuento}
-                onSelect={(descuento) => {
-                    setSelectedDescuento(descuento.porcentaje || '0');
-                    console.log('Descuento seleccionado:', descuento);
-                }}
+                onSelect={(descuento) => setSelectedDescuento(descuento.porcentaje || '0')}
                 position={modalPositionDescuento}
             />
 
             <ModalFacturacion
+                key={showFacturacionModal}
                 isOpen={showFacturacionModal}
+                venta={ventaActual}
                 onVolver={() => {
                     setShowFacturacionModal(false);
                     setShowNuevaVentaModal(true);
                 }}
-                onConfirmarVenta={() => {
+                onConfirmarVenta={(datosFinales) => {
+                    setVentas([...ventas, datosFinales]);
                     setShowFacturacionModal(false);
-                    setShowConfirmVenta(true);
+                    setShowExitoModal(true);
                 }}
-                onOpenSeleccionTipo={handleOpenSeleccionTipo}
-                onOpenSeleccionCliente={handleOpenSeleccionCliente}
-                inputClienteRef={inputClienteRef}
-                inputTipoRef={inputTipoRef}
-                showSeleccionCliente={showSeleccionCliente}
-                showSeleccionTipo={showSeleccionTipo}
-                selectedTipo={selectedTipo}
-                selectedCliente={selectedCliente}
-                selectedDescuento={selectedDescuento}
-                isDescuentoManual={isDescuentoManual}
-                setSelectedDescuento={setSelectedDescuento}
             />
 
-            <ConfirmarVentaModal
+            <ModalExito
+                isOpen={showExitoModal}
+                onClose={() => setShowExitoModal(false)}
+                title="Confirmado"
+                subtitle="Venta facturada exitosamente!"
+                buttonLabel="Salir"
+            />
+
+            <ModalErrorVentaVacia 
+                isOpen={showErrorVentaVacia}
+                onClose={() => setShowErrorVentaVacia(false)}
+            />
+
+            <ModalConfirmar
                 isOpen={showConfirmSalir}
                 onClose={() => {
                     setShowConfirmSalir(false);
@@ -569,32 +326,22 @@ const PanelVentas = () => {
                     setShowNuevaVentaModal(false);
                     setShowFacturacionModal(false);
                 }}
-                message="¿Estás seguro de que deseas salir?"
+                mensaje="Estás seguro que desea salir?"
                 salirLabel="Retroceder"
                 confirmLabel="Confirmar"
             />
 
-            <ConfirmarVentaModal
-                isOpen={showConfirmVenta}
-                onClose={() => {
-                    setShowConfirmVenta(false);
+            <ModalConfirmar
+                isOpen={showConfirmarFacturar}
+                onClose={() => setShowConfirmarFacturar(false)}
+                onConfirm={() => {
+                    setShowConfirmarFacturar(false);
+                    setShowNuevaVentaModal(false);
                     setShowFacturacionModal(true);
                 }}
-                onConfirm={() => {
-                    setShowConfirmVenta(false);
-                    setShowExitoModal(true);
-                }}
-                message="¿Estás seguro de que deseas confirmar la venta?"
+                mensaje="Estas seguro de que deseas facturar?"
                 salirLabel="Retroceder"
                 confirmLabel="Confirmar"
-            />
-
-            <ModalExito
-                isOpen={showExitoModal}
-                onClose={() => setShowExitoModal(false)}
-                title="Confirmado"
-                subtitle="Venta facturada exitosamente!"
-                buttonLabel="Salir"
             />
         </div>
     );

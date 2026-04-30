@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './PanelRecibos.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
+import ModalReciboEncontrado from './ModalReciboEncontrado';
 import ModalReciboNoEncontrado from './ModalReciboNoEncontrado';
 import ReciboPagoModal from './ReciboPagoModal';
 import ReciboAbonoModal from './ReciboAbonoModal';
@@ -33,9 +34,17 @@ const PanelRecibos = () => {
         return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 2 })}`;
     };
 
+    // Calcular KPIs
+    const recaudacionMensual = recibos.reduce((acc, curr) => acc + curr.monto, 0);
+    const recibosPagos = recibos.filter(r => r.tipo === 'Pago').length;
+    const recibosAbonos = recibos.filter(r => r.tipo === 'Abono').length;
+    const recibosTotales = recibos.length;
+
     const [reciboSeleccionado, setReciboSeleccionado] = useState(null);
     const [mostrarModal, setMostrarModal] = useState(false);
     const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
+    const [showModalEncontrada, setShowModalEncontrada] = useState(false);
+    const [reciboBusquedaResultado, setReciboBusquedaResultado] = useState(null);
 
     const manejarBusquedaRecibo = (event) => {
         if (event.key !== 'Enter') return;
@@ -50,9 +59,8 @@ const PanelRecibos = () => {
         );
 
         if (reciboEncontrado) {
-            console.log('Recibo encontrado:', reciboEncontrado);
-            setReciboSeleccionado(reciboEncontrado);
-            setMostrarModal(true);
+            setReciboBusquedaResultado(reciboEncontrado);
+            setShowModalEncontrada(true);
             setBusquedaRecibo('');
         } else {
             console.log('Recibo no encontrado:', busquedaRecibo);
@@ -70,19 +78,19 @@ const PanelRecibos = () => {
             <div className="kpi-grid recibos-kpi-grid">
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Recaudación mensual</p>
-                    <h2 className="kpi-value">$20,000.00</h2>
+                    <h2 className="kpi-value">{formatMoney(recaudacionMensual)}</h2>
                 </div>
                 <div className="kpi-card recibos-kpi-card">
-                    <p className="kpi-label">Promedio por recibo</p>
-                    <h2 className="kpi-value">$10,000.00</h2>
+                    <p className="kpi-label">Recibos de pagos</p>
+                    <h2 className="kpi-value">{recibosPagos}</h2>
                 </div>
                 <div className="kpi-card recibos-kpi-card">
-                    <p className="kpi-label">Recibo más alto</p>
-                    <h2 className="kpi-value">$15,000.00</h2>
+                    <p className="kpi-label">Recibos de abonos</p>
+                    <h2 className="kpi-value">{recibosAbonos}</h2>
                 </div>
                 <div className="kpi-card recibos-kpi-card">
                     <p className="kpi-label">Recibos totales</p>
-                    <h2 className="kpi-value">2</h2>
+                    <h2 className="kpi-value">{recibosTotales}</h2>
                 </div>
             </div>
 
@@ -150,6 +158,17 @@ const PanelRecibos = () => {
                     </table>
                 </div>
             </div>
+
+            <ModalReciboEncontrado
+                isOpen={showModalEncontrada}
+                onClose={() => setShowModalEncontrada(false)}
+                data={reciboBusquedaResultado}
+                onVerRecibo={(recibo) => {
+                    setReciboSeleccionado(recibo);
+                    setShowModalEncontrada(false);
+                    setMostrarModal(true);
+                }}
+            />
 
             <ModalReciboNoEncontrado
                 isOpen={mostrarErrorBusqueda}

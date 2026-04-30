@@ -1,7 +1,7 @@
 .modal-empresa-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -90,13 +90,13 @@
 
 .modal-empresa-divider {
     border: 0;
-    border-top: 1px solid #E2E8F0;
+    border-top: 1px solid #E5E5E5;
     margin: 20px 0;
 }
 
 .modal-empresa-divider-edit {
     border: 0;
-    border-top: 2px solid #F1F5F9;
+    border-top: 2px solid #F5F5F5;
     margin: 25px 0;
 }
 

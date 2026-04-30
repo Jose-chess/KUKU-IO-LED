@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 16px;
     padding: 24px;
-    background: #f8fafc;
+    background: #FAFAFA;
     height: 100vh;
     min-height: 0;
     overflow: hidden;
@@ -85,7 +85,7 @@
 .gastos-kpi-card {
     width: 100%;
     min-height: 100px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
     background: #ffffff;
     padding: 15px;
@@ -97,7 +97,7 @@
 
 .gastos-kpi-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .kpi-label {
@@ -120,9 +120,9 @@
     width: 100%;
     flex: 1;
     background: #ffffff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -133,7 +133,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 14px 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E5E5E5;
 }
 
 .gastos-table-controls h3 {
@@ -171,7 +171,7 @@
 
 .gastos-table td {
     padding: 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E5E5E5;
     font-size: 13px;
     font-weight: 600;
     color: #1e293b;
@@ -200,7 +200,7 @@
 }
 
 .gastos-table tbody tr:hover {
-    background: #f8fafc;
+    background: #FAFAFA;
 }
 
 .table-row-empty-cell {
@@ -250,12 +250,12 @@
     justify-content: space-between;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .dropdown-trigger:hover {
     background: #ffffff;
-    border-color: #cbd5e1;
+    border-color: #D4D4D4;
 }
 
 .dropdown-arrow {
@@ -276,9 +276,9 @@
     left: 0;
     width: 100%;
     background: #ffffff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
     padding: 4px;
     z-index: 100;
     max-height: 250px;
@@ -302,7 +302,7 @@
 }
 
 .dropdown-option:hover {
-    background: #f1f5f9;
+    background: #F5F5F5;
 }
 
 .dropdown-option.selected {
@@ -311,9 +311,9 @@
 }
 
 .btn-clear-filters {
-    background: #f1f5f9;
+    background: #F5F5F5;
     color: #64748b;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     padding: 6px 12px;
     border-radius: 6px;
     font-size: 12px;
@@ -324,6 +324,6 @@
 }
 
 .btn-clear-filters:hover {
-    background: #e2e8f0;
+    background: #E5E5E5;
     color: #0f172a;
 }

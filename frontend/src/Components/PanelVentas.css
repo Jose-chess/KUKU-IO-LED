@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 16px;
     padding: 24px;
-    background: #f8fafc;
+    background: #FAFAFA;
     height: 100vh;
     min-height: 0;
     overflow: hidden;
@@ -81,7 +81,7 @@
 .ventas-kpi-card {
     width: 100%;
     min-height: 100px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
     background: #ffffff;
     padding: 15px;
@@ -93,7 +93,7 @@
 
 .ventas-kpi-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .ventas-table-card {
@@ -102,9 +102,9 @@
     flex: 1;
     min-height: 420px;
     background: #ffffff;
-    border: 1px solid #e2e8f0;
+    border: 1px solid #E5E5E5;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -112,7 +112,7 @@
 }
 
 .ventas-table-card:hover {
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .ventas-table-controls {
@@ -121,7 +121,7 @@
     justify-content: space-between;
     gap: 16px;
     padding: 12px 14px 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E5E5E5;
 }
 
 .ventas-table-controls h3 {
@@ -169,7 +169,7 @@
     user-select: text;
     -webkit-user-select: text;
     box-sizing: border-box;
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
@@ -215,7 +215,7 @@
 
 .ventas-table td {
     padding: 6px 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E5E5E5;
     font-size: 12px;
     font-weight: 600;
     color: #1e293b;
@@ -234,7 +234,7 @@
 .ventas-table thead th:nth-child(9), .ventas-table tbody td:nth-child(9) { width: 12%; }
 
 .ventas-table tbody tr:hover {
-    background: #f8fafc;
+    background: #FAFAFA;
 }
 
 .table-row-empty-cell {
@@ -253,7 +253,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 30900;
+    z-index: 80000;
 }
 
 .nueva-venta-modal {
@@ -263,7 +263,7 @@
     background: #ffffff;
     border-radius: 12px;
     border: 1px solid #d9dee7;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
     padding: 14px;
 }
 
@@ -342,7 +342,7 @@
 
 .nueva-venta-table td {
     padding: 8px 10px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #E5E5E5;
     font-size: 12px;
     font-weight: 600;
     color: #1e293b;
@@ -384,12 +384,10 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 31000;
+    z-index: 90000;
 }
 
 .nueva-venta-modal, .facturacion-modal {
@@ -399,7 +397,7 @@
     background: #ffffff;
     border-radius: 12px;
     border: 1px solid #d9dee7;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
     padding: 14px;
     user-select: none; /* Evita que se seleccione texto y se ponga azul */
     -webkit-user-select: none;
@@ -504,7 +502,7 @@
 }
 
 .facturacion-item input.input-disabled {
-    background: #e2e8f0;
+    background: #E5E5E5;
     color: #64748b;
     cursor: not-allowed;
 }
@@ -547,7 +545,7 @@
     left: 0;
     width: 100%;
     background: #ffffff;
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid #E5E5E5;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     padding: 4px 0;
@@ -574,11 +572,11 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: #f1f5f9;
+    background: #F5F5F5;
 }
 
 .facturacion-dropdown-option:hover {
-    background: #f8fafc;
+    background: #FAFAFA;
 }
 
 .facturacion-dropdown-option.selected {
@@ -679,7 +677,7 @@
 }
 
 .venta-delete-btn:hover {
-    background: #f1f5f9;
+    background: #F5F5F5;
     transform: translateY(-1px);
 }
 
@@ -693,12 +691,10 @@
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 32000;
+    z-index: 200000;
 }
 
 .confirm-modal,
@@ -707,7 +703,7 @@
     width: min(620px, 92vw);
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.24);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
 }
 
 .confirm-header,
@@ -793,6 +789,7 @@
 .confirm-btn-icon {
     width: 16px;
     height: 16px;
+    filter: brightness(0); /* Make icons black */
 }
 
 .scale-up-center {

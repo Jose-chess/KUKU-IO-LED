@@ -25,7 +25,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     overflow-y: auto; /* Scroll ONLY here */
     scrollbar-width: thin;
-    scrollbar-color: #cbd5e1 transparent;
+    scrollbar-color: #D4D4D4 transparent;
     font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
     display: flex;
@@ -52,7 +52,7 @@
     flex-shrink: 0;
     background: white;
     z-index: 20;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #F5F5F5;
     border-radius: 12px 12px 0 0;
 }
 
