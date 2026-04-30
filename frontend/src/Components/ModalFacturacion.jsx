@@ -8,6 +8,11 @@ import ModalSeleccionCliente from './ModalSeleccionCliente';
 import ModalSeleccionSimple from './ModalSeleccionSimple';
 import ModalConfirmar from './ModalConfirmar';
 import { useModalShake } from './useModalShake';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { es } from 'date-fns/locale/es';
+
+registerLocale('es', es);
 
 const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
     // Debug log para rastrear el montaje del componente
@@ -24,6 +29,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
     const [metodoPago, setMetodoPago] = useState(venta?.metodoPago || 'Efectivo');
     const [tipoVenta, setTipoVenta] = useState(venta?.tipoVenta || 'Consumidor final');
     const [descuentoManual, setDescuentoManual] = useState(venta?.descuento || 0);
+    const [fechaPago, setFechaPago] = useState(null);
     const [errores, setErrores] = useState({});
 
     // Estados para Modales de Selección
@@ -60,12 +66,13 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
         }
     }, [venta]);
 
-    // Limpiar método de pago al cambiar a Crédito
+    // Limpiar método de pago y fecha de pago al cambiar a Crédito o Contado
     useEffect(() => {
         if (condicion === 'Crédito') {
             setMetodoPago('');
         } else if (condicion === 'Contado' && !metodoPago) {
             setMetodoPago('Efectivo');
+            setFechaPago(null);
         }
     }, [condicion]);
 
@@ -123,13 +130,18 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
         if (condicion === 'Contado' && !metodoPago) {
             nuevosErrores.metodoPago = 'Seleccione un método de pago';
         }
+        if (condicion === 'Crédito' && !fechaPago) {
+            nuevosErrores.fechaPago = 'Seleccione una fecha de pago';
+        }
         setErrores(nuevosErrores);
         return Object.keys(nuevosErrores).length === 0;
     };
 
     // Handler para confirmar con validación
     const handleConfirmarAction = () => {
-        setShowConfirmarFinalizar(true);
+        if (validar()) {
+            setShowConfirmarFinalizar(true);
+        }
     };
 
     const handleConfirmarFinal = () => {
@@ -138,6 +150,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
             ...venta,
             condicion,
             metodoPago: condicion === 'Contado' ? metodoPago : null,
+            fechaPago: condicion === 'Crédito' && fechaPago ? fechaPago.toISOString().split('T')[0] : null,
             tipoVenta,
             descuento: descuentoFinal,
             subtotal,
@@ -311,6 +324,26 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
                                             className={`icono-flecha-inline ${showModalMetodo ? 'open' : ''}`}
                                         />
                                     </div>
+                                </div>
+                            )}
+
+                            {condicion === 'Crédito' && (
+                                <div className="item-campo custom-datepicker-container">
+                                    <label>Fecha de Pago:</label>
+                                    <DatePicker
+                                        selected={fechaPago}
+                                        onChange={(date) => {
+                                            setFechaPago(date);
+                                            if (errores.fechaPago) {
+                                                setErrores({ ...errores, fechaPago: null });
+                                            }
+                                        }}
+                                        dateFormat="dd/MM/yyyy"
+                                        locale="es"
+                                        placeholderText="dd/mm/aaaa"
+                                        className={`datepicker-input ${errores.fechaPago ? 'error-border' : ''}`}
+                                    />
+                                    {errores.fechaPago && <span style={{ color: '#ff0000', fontSize: '11px', marginTop: '2px', display: 'block' }}>{errores.fechaPago}</span>}
                                 </div>
                             )}
                         </div>

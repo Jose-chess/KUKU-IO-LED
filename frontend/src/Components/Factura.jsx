@@ -3,15 +3,10 @@ import './Factura.css';
 import iconBuscar from '../assets/search.svg';
 import iconVer from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
-import ModalFacturaEncontrada from './ModalFacturaEncontrada';
-import ModalFacturaNoEncontrada from './ModalFacturaNoEncontrada';
 
 const Factura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
-    const [showModalEncontrada, setShowModalEncontrada] = useState(false);
-    const [showModalNoEncontrada, setShowModalNoEncontrada] = useState(false);
-    const [facturaBusquedaResultado, setFacturaBusquedaResultado] = useState(null);
     const [facturas] = useState([
         {
             id: 1,
@@ -42,8 +37,12 @@ const Factura = () => {
         return `$ ${numericValue.toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;
     };
 
-    // Mostrar todas las facturas sin filtrado automático
-    const facturasMostradas = facturas;
+    // Filtrado automático inline
+    const facturasMostradas = facturas.filter(f => {
+        if (!busquedaFactura) return true;
+        const termino = busquedaFactura.toLowerCase();
+        return f.numero.toLowerCase().includes(termino) || f.cliente.toLowerCase().includes(termino);
+    });
 
     return (
         <div className="factura-page">
@@ -80,35 +79,13 @@ const Factura = () => {
                     </div>
 
                     <div className="search-box">
-                        <div className="search-input-wrapper">
+                        <div className="search-input-wrapper" style={{ width: '350px' }}>
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Buscar por número de registro o cliente..."
                                 value={busquedaFactura}
                                 onChange={(e) => setBusquedaFactura(e.target.value)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        const termino = busquedaFactura.trim().toLowerCase();
-                                        if (!termino) return;
-                                        
-                                        const facturaEncontrada = facturas.find(f => 
-                                            f.numero.toLowerCase().includes(termino) ||
-                                            f.cliente.toLowerCase().includes(termino)
-                                        );
-                                        
-                                        if (facturaEncontrada) {
-                                            setFacturaBusquedaResultado(facturaEncontrada);
-                                            setShowModalEncontrada(true);
-                                        } else {
-                                            setShowModalNoEncontrada(true);
-                                        }
-                                        
-                                        // Limpiar el input después de buscar
-                                        setBusquedaFactura('');
-                                    }
-                                }}
                             />
                         </div>
                     </div>
@@ -135,7 +112,7 @@ const Factura = () => {
                             {facturasMostradas.length === 0 ? (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={11}>
-                                        No hay registros para mostrar.
+                                        {busquedaFactura ? 'No se encontraron registros que coincidan con la búsqueda.' : 'No hay registros para mostrar.'}
                                     </td>
                                 </tr>
                             ) : (
@@ -156,7 +133,6 @@ const Factura = () => {
                                                 className="btn-ver"
                                                 type="button"
                                                 aria-label="Ver registro"
-                                                title="Ver registro"
                                                 onClick={() => setFacturaSeleccionada(factura)}
                                             >
                                                 <img src={iconVer} alt="" className="btn-ver-icon" />
@@ -204,22 +180,7 @@ const Factura = () => {
                 />
             )}
 
-            {/* Modal de Factura Encontrada */}
-            <ModalFacturaEncontrada
-                isOpen={showModalEncontrada}
-                onClose={() => setShowModalEncontrada(false)}
-                data={facturaBusquedaResultado}
-                onVerFactura={(factura) => {
-                    setFacturaSeleccionada(factura);
-                    setShowModalEncontrada(false);
-                }}
-            />
-
-            {/* Modal de Factura No Encontrada */}
-            <ModalFacturaNoEncontrada
-                isOpen={showModalNoEncontrada}
-                onClose={() => setShowModalNoEncontrada(false)}
-            />
+            )}
         </div>
     );
 };

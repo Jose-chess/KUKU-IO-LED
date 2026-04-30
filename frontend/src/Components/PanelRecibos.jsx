@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './PanelRecibos.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
-import ModalReciboEncontrado from './ModalReciboEncontrado';
-import ModalReciboNoEncontrado from './ModalReciboNoEncontrado';
+
 import ReciboPagoModal from './ReciboPagoModal';
 import ReciboAbonoModal from './ReciboAbonoModal';
 
@@ -42,32 +41,12 @@ const PanelRecibos = () => {
 
     const [reciboSeleccionado, setReciboSeleccionado] = useState(null);
     const [mostrarModal, setMostrarModal] = useState(false);
-    const [mostrarErrorBusqueda, setMostrarErrorBusqueda] = useState(false);
-    const [showModalEncontrada, setShowModalEncontrada] = useState(false);
-    const [reciboBusquedaResultado, setReciboBusquedaResultado] = useState(null);
 
-    const manejarBusquedaRecibo = (event) => {
-        if (event.key !== 'Enter') return;
-        event.preventDefault();
-
-        const query = busquedaRecibo.toLowerCase().trim();
-        if (!query) return;
-
-        const reciboEncontrado = recibos.find(r =>
-            r.numero.toLowerCase().includes(query) ||
-            r.cliente.toLowerCase().includes(query)
-        );
-
-        if (reciboEncontrado) {
-            setReciboBusquedaResultado(reciboEncontrado);
-            setShowModalEncontrada(true);
-            setBusquedaRecibo('');
-        } else {
-            console.log('Recibo no encontrado:', busquedaRecibo);
-            setMostrarErrorBusqueda(true);
-            setBusquedaRecibo('');
-        }
-    };
+    const recibosFiltrados = recibos.filter(r => {
+        if (!busquedaRecibo) return true;
+        const query = busquedaRecibo.toLowerCase();
+        return r.numero.toLowerCase().includes(query) || r.cliente.toLowerCase().includes(query);
+    });
 
     return (
         <div className="recibos-page">
@@ -99,14 +78,13 @@ const PanelRecibos = () => {
                     <h3>Lista de recibos</h3>
 
                     <div className="search-box">
-                        <div className="search-input-wrapper">
+                        <div className="search-input-wrapper" style={{ width: '410px' }}>
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
                                 placeholder="Ingrese el número de recibo o nombre del cliente"
                                 value={busquedaRecibo}
                                 onChange={(event) => setBusquedaRecibo(event.target.value)}
-                                onKeyDown={manejarBusquedaRecibo}
                             />
                         </div>
                     </div>
@@ -125,8 +103,8 @@ const PanelRecibos = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {recibos.length > 0 ? (
-                                recibos.map((recibo) => (
+                            {recibosFiltrados.length > 0 ? (
+                                recibosFiltrados.map((recibo) => (
                                     <tr key={recibo.id}>
                                         <td>{recibo.numero}</td>
                                         <td>{recibo.fecha}</td>
@@ -150,7 +128,7 @@ const PanelRecibos = () => {
                             ) : (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={6}>
-                                        No hay recibos para mostrar.
+                                        {busquedaRecibo ? 'No se encontraron recibos que coincidan con la búsqueda.' : 'No hay recibos para mostrar.'}
                                     </td>
                                 </tr>
                             )}
@@ -159,21 +137,7 @@ const PanelRecibos = () => {
                 </div>
             </div>
 
-            <ModalReciboEncontrado
-                isOpen={showModalEncontrada}
-                onClose={() => setShowModalEncontrada(false)}
-                data={reciboBusquedaResultado}
-                onVerRecibo={(recibo) => {
-                    setReciboSeleccionado(recibo);
-                    setShowModalEncontrada(false);
-                    setMostrarModal(true);
-                }}
-            />
 
-            <ModalReciboNoEncontrado
-                isOpen={mostrarErrorBusqueda}
-                onClose={() => setMostrarErrorBusqueda(false)}
-            />
 
             {mostrarModal && reciboSeleccionado && (
                 reciboSeleccionado.tipo === 'Abono' ? (
