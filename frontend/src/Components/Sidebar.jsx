@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CerrarSesionModal from './CerrarSessiónModal';
 
@@ -183,6 +183,16 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             }}
                                         >
                                             Cierre de caja
+                                        </div>
+                                        <div className="line-separator"></div>
+                                        <div
+                                            className={`menu-option-item ${activeSection === 'Gastos' ? 'selected-yellow' : ''}`}
+                                            onClick={() => {
+                                                setActiveSection('Gastos');
+                                                setShowFinanzas(false);
+                                            }}
+                                        >
+                                            Gastos
                                         </div>
                                     </div>
                                 )}
