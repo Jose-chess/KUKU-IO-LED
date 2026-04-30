@@ -9,6 +9,7 @@ import PanelGastos from './PanelGastos';
 import InformacionEmpresarial from './InformacionEmpresarial';
 import Inventario from './Inventario';
 import Factura from './Factura';
+import PanelCuentasCobrar from './PanelCuentasCobrar';
 import './DashboardLayout.css';
 
 const DashboardLayout = () => {
@@ -58,6 +59,10 @@ const DashboardLayout = () => {
 
         if (activeSection === 'Gastos') {
             return <PanelGastos />;
+        }
+
+        if (activeSection === 'Facturas por cobrar') {
+            return <PanelCuentasCobrar />;
         }
 
         return null;
