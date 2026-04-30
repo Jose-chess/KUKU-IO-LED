@@ -1,9 +1,10 @@
 /* ModalFacturacion.css - ALINEACIÓN DE ICONOS Y SELECTORES */
 
+/* Overlay del modal Facturación: sin fondo oscuro */
 .facturacion-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,8 +29,15 @@
 }
 
 @keyframes modalFadeInSystem {
-    from { opacity: 0; transform: translateY(20px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .facturacion-title {
@@ -44,7 +52,8 @@
 /* Secciones */
 .seccion-articulos {
     background: #ffffff;
-    border: 1.2px solid #334155; /* Aumentada la visibilidad solicitada */
+    border: 1.2px solid #334155;
+    /* Aumentada la visibilidad solicitada */
     border-radius: 12px;
     padding: 25px 30px;
 }
@@ -67,9 +76,12 @@
 .grid-formulario {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 30px; /* Reducido para mayor proximidad solicitado */
-    max-width: 750px; /* Ancho máximo para centrar solicitado */
-    margin: 0 auto; /* Centrado horizontal */
+    gap: 30px;
+    /* Reducido para mayor proximidad solicitado */
+    max-width: 750px;
+    /* Ancho máximo para centrar solicitado */
+    margin: 0 auto;
+    /* Centrado horizontal */
 }
 
 .columna-formulario {
@@ -93,7 +105,9 @@
 }
 
 /* SELECTORES Y DESPLEGABLES CON FLECHA */
-.item-campo input, .item-campo select, .desplegable-cliente {
+.item-campo input,
+.item-campo select,
+.desplegable-cliente {
     flex: 1;
     background: #f9fafb;
     border: 1px solid #e5e7eb;
@@ -111,7 +125,8 @@
     transition: border-color 0.2s;
 }
 
-.item-campo select, .desplegable-cliente {
+.item-campo select,
+.desplegable-cliente {
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
@@ -129,15 +144,17 @@
 .item-campo input:disabled {
     background: #f3f4f6;
     color: #111827;
-    text-align: left; /* Alineación a la izquierda solicitada */
+    text-align: left;
+    /* Alineación a la izquierda solicitada */
 }
 
 /* OCULTAR SPINNERS NATIVOS */
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
+
 input[type=number] {
     -moz-appearance: textfield;
 }
@@ -177,7 +194,8 @@ input[type=number] {
 
 /* Resumen Box */
 .seccion-resumen-box {
-    border: 1px solid #111827; /* Restaurado a su grosor original */
+    border: 1px solid #111827;
+    /* Restaurado a su grosor original */
     border-radius: 12px;
     padding: 20px 30px;
     display: flex;
@@ -199,9 +217,18 @@ input[type=number] {
     text-transform: uppercase;
 }
 
-.valor-resumen-negro { color: #111827; }
-.valor-resumen-rojo { color: #FF060A; }
-.valor-resumen-verde { color: #009C00; font-size: 15px; }
+.valor-resumen-negro {
+    color: #111827;
+}
+
+.valor-resumen-rojo {
+    color: #FF060A;
+}
+
+.valor-resumen-verde {
+    color: #009C00;
+    font-size: 15px;
+}
 
 /* Pie de Página */
 .pie-modal {
@@ -213,7 +240,8 @@ input[type=number] {
     position: relative;
 }
 
-.pie-meta-izquierda, .pie-meta-centro {
+.pie-meta-izquierda,
+.pie-meta-centro {
     font-size: 11px;
     font-weight: 700;
     color: #6b7280;
@@ -229,7 +257,8 @@ input[type=number] {
     gap: 12px;
 }
 
-.btn-pie-volver, .btn-pie-confirmar {
+.btn-pie-volver,
+.btn-pie-confirmar {
     height: 38px;
     padding: 0 24px;
     border-radius: 8px;
@@ -243,10 +272,16 @@ input[type=number] {
     color: #000000 !important;
 }
 
-.btn-pie-volver { background: #ff0000; }
-.btn-pie-confirmar { background: #00a300; }
+.btn-pie-volver {
+    background: #ff0000;
+}
 
-.btn-pie-volver:hover, .btn-pie-confirmar:hover {
+.btn-pie-confirmar {
+    background: #00a300;
+}
+
+.btn-pie-volver:hover,
+.btn-pie-confirmar:hover {
     opacity: 0.9;
     transform: translateY(-1px);
 }
@@ -259,7 +294,7 @@ input[type=number] {
 
 /* Animaciones */
 .shake {
-    animation: systemShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    animation: systemShake 0.4s cubic-bezier(.36, .07, .19, .97) both;
 }
 
 .is-hidden-by-confirm {
@@ -267,8 +302,25 @@ input[type=number] {
 }
 
 @keyframes systemShake {
-    10%, 90% { transform: translate3d(-1px, 0, 0); }
-    20%, 80% { transform: translate3d(2px, 0, 0); }
-    30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-    40%, 60% { transform: translate3d(4px, 0, 0); }
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }

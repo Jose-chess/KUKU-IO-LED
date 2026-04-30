@@ -13,19 +13,19 @@
     box-sizing: border-box;
 }
 
-.ventas-page > * {
+.ventas-page>* {
     animation: ventas-fade-up 0.42s ease both;
 }
 
-.ventas-page > *:nth-child(1) {
+.ventas-page>*:nth-child(1) {
     animation-delay: 0.04s;
 }
 
-.ventas-page > *:nth-child(2) {
+.ventas-page>*:nth-child(2) {
     animation-delay: 0.1s;
 }
 
-.ventas-page > *:nth-child(3) {
+.ventas-page>*:nth-child(3) {
     animation-delay: 0.16s;
 }
 
@@ -223,15 +223,50 @@
 }
 
 /* Distribucion proporcional de columnas */
-.ventas-table thead th:nth-child(1), .ventas-table tbody td:nth-child(1) { width: 7%; }
-.ventas-table thead th:nth-child(2), .ventas-table tbody td:nth-child(2) { width: 18%; }
-.ventas-table thead th:nth-child(3), .ventas-table tbody td:nth-child(3) { width: 10%; }
-.ventas-table thead th:nth-child(4), .ventas-table tbody td:nth-child(4) { width: 10%; }
-.ventas-table thead th:nth-child(5), .ventas-table tbody td:nth-child(5) { width: 12%; }
-.ventas-table thead th:nth-child(6), .ventas-table tbody td:nth-child(6) { width: 8%; }
-.ventas-table thead th:nth-child(7), .ventas-table tbody td:nth-child(7) { width: 12%; }
-.ventas-table thead th:nth-child(8), .ventas-table tbody td:nth-child(8) { width: 11%; }
-.ventas-table thead th:nth-child(9), .ventas-table tbody td:nth-child(9) { width: 12%; }
+.ventas-table thead th:nth-child(1),
+.ventas-table tbody td:nth-child(1) {
+    width: 7%;
+}
+
+.ventas-table thead th:nth-child(2),
+.ventas-table tbody td:nth-child(2) {
+    width: 18%;
+}
+
+.ventas-table thead th:nth-child(3),
+.ventas-table tbody td:nth-child(3) {
+    width: 10%;
+}
+
+.ventas-table thead th:nth-child(4),
+.ventas-table tbody td:nth-child(4) {
+    width: 10%;
+}
+
+.ventas-table thead th:nth-child(5),
+.ventas-table tbody td:nth-child(5) {
+    width: 12%;
+}
+
+.ventas-table thead th:nth-child(6),
+.ventas-table tbody td:nth-child(6) {
+    width: 8%;
+}
+
+.ventas-table thead th:nth-child(7),
+.ventas-table tbody td:nth-child(7) {
+    width: 12%;
+}
+
+.ventas-table thead th:nth-child(8),
+.ventas-table tbody td:nth-child(8) {
+    width: 11%;
+}
+
+.ventas-table thead th:nth-child(9),
+.ventas-table tbody td:nth-child(9) {
+    width: 12%;
+}
 
 .ventas-table tbody tr:hover {
     background: #FAFAFA;
@@ -390,7 +425,8 @@
     z-index: 90000;
 }
 
-.nueva-venta-modal, .facturacion-modal {
+.nueva-venta-modal,
+.facturacion-modal {
     width: min(980px, 94vw);
     max-height: 92vh;
     overflow: auto;
@@ -399,7 +435,8 @@
     border: 1px solid #d9dee7;
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
     padding: 14px;
-    user-select: none; /* Evita que se seleccione texto y se ponga azul */
+    user-select: none;
+    /* Evita que se seleccione texto y se ponga azul */
     -webkit-user-select: none;
 }
 
@@ -532,7 +569,8 @@
     width: 12px;
     height: 12px;
     transition: transform 0.3s ease;
-    filter: brightness(0); /* Hace que el icono sea negro puro */
+    filter: brightness(0);
+    /* Hace que el icono sea negro puro */
 }
 
 .facturacion-dropdown-icon.open {
@@ -789,7 +827,8 @@
 .confirm-btn-icon {
     width: 16px;
     height: 16px;
-    filter: brightness(0); /* Make icons black */
+    filter: brightness(0);
+    /* Make icons black */
 }
 
 .scale-up-center {
@@ -815,12 +854,29 @@
 }
 
 @keyframes shakeX {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-6px); }
-    80% { transform: translateX(6px); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 @keyframes ventas-fade-up {
@@ -863,6 +919,7 @@
 }
 
 @media (max-width: 768px) {
+
     .ventas-kpi-grid,
     .facturacion-grid {
         grid-template-columns: 1fr;
@@ -890,7 +947,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ventas-page > *,
+
+    .ventas-page>*,
     .scale-up-center,
     .nueva-venta-modal.shake,
     .facturacion-modal.shake,

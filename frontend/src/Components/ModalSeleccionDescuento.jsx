@@ -3,7 +3,7 @@ import './ModalSeleccion.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect = () => {}, position }) => {
+const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect = () => { }, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {

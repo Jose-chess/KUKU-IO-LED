@@ -1,10 +1,9 @@
 import React from 'react';
 import './ModalSeleccion.css';
-import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () => {}, position }) => {
-    const { isShaking, handleOverlayClick } = useModalShake();
+const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () => { }, position }) => {
+    const { isShaking } = useModalShake();
 
     if (!isOpen) {
         return null;
@@ -17,33 +16,36 @@ const ModalSeleccionCliente = ({ isOpen, onClose, clientes = [], onSelect = () =
 
     const modalPositionStyle = position
         ? {
+            position: 'fixed',
             top: position.top,
             left: position.left,
             width: position.width,
+            zIndex: 99999,
         }
-        : {};
+        : { position: 'fixed', zIndex: 99999 };
 
     return (
-        <div className="modal-seleccion-overlay" onClick={onClose}>
-            <div className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`} style={modalPositionStyle} onClick={(e) => e.stopPropagation()}>
-                <div className="modal-seleccion-body">
-                    <div className="modal-seleccion-list">
-                        {clientes && clientes.length > 0 ? (
-                            clientes.map((cliente) => (
-                                <div
-                                    key={cliente.id}
-                                    className="modal-seleccion-item"
-                                    onClick={() => handleSelectCliente(cliente)}
-                                >
-                                    <span>{cliente.nombre}</span>
-                                </div>
-                            ))
-                        ) : (
-                            <div className="modal-seleccion-empty">
-                                No hay clientes disponibles
+        <div
+            className={`modal-seleccion-content scale-up-center ${isShaking ? 'shake' : ''}`}
+            style={modalPositionStyle}
+        >
+            <div className="modal-seleccion-body">
+                <div className="modal-seleccion-list">
+                    {clientes && clientes.length > 0 ? (
+                        clientes.map((cliente) => (
+                            <div
+                                key={cliente.id}
+                                className="modal-seleccion-item"
+                                onClick={() => handleSelectCliente(cliente)}
+                            >
+                                <span>{cliente.nombre}</span>
                             </div>
-                        )}
-                    </div>
+                        ))
+                    ) : (
+                        <div className="modal-seleccion-empty">
+                            No hay clientes disponibles
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,4 +1,3 @@
-
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -13,7 +12,7 @@
 }
 
 .modal-content {
-    background-color: #FFCC00; 
+    background-color: #FFCC00;
     border-radius: 8px;
     width: 500px;
     height: 560px;
@@ -45,23 +44,23 @@
 }
 
 .modal-body {
-    flex: 1; 
+    flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     padding: 0 40px;
     text-align: center;
-    margin-top: -40px; 
+    margin-top: -40px;
 }
 
 
 .modal-body {
-    flex: 1; 
+    flex: 1;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     padding: 0 40px;
-    margin-top: -40px; 
+    margin-top: -40px;
 }
 
 .modal-body h2 {
@@ -94,14 +93,15 @@
 .modal-botones-flex {
     width: 100%;
     display: flex;
-    justify-content: flex-end; 
-    padding-right: 30px;       
+    justify-content: flex-end;
+    padding-right: 30px;
     gap: 12px;
     box-sizing: border-box;
 }
 
 
-.btn-cancel, .btn-confirm {
+.btn-cancel,
+.btn-confirm {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,8 +118,15 @@
     -webkit-user-select: none;
 }
 
-.btn-cancel { background-color: #FF060A; color: #000; }
-.btn-confirm { background-color: #009C00; color: #000; }
+.btn-cancel {
+    background-color: #FF060A;
+    color: #000;
+}
+
+.btn-confirm {
+    background-color: #009C00;
+    color: #000;
+}
 
 .btn-cancel:hover {
     background-color: #d90000;
@@ -148,15 +155,39 @@
 }
 
 @keyframes scale-up {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes shakeX {
-    0% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-6px); }
-    80% { transform: translateX(6px); }
-    100% { transform: translateX(0); }
+    0% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-8px);
+    }
+
+    40% {
+        transform: translateX(8px);
+    }
+
+    60% {
+        transform: translateX(-6px);
+    }
+
+    80% {
+        transform: translateX(6px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
