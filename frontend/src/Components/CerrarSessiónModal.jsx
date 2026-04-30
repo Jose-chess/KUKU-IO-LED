@@ -25,7 +25,7 @@ const CerrarSesionModal = ({ isOpen, onClose, onConfirm }) => {
                     <div className="modal-botones-flex">
                         <button className="btn-cancel" onClick={onClose}>
                             <img src={iconCerrarSesion} alt="" className="btn-icon" />
-                            Cancelar
+                            Retroceder
                         </button>
                         <button className="btn-confirm" onClick={onConfirm}>
                             <img src={iconCheck} alt="" className="btn-icon" />
