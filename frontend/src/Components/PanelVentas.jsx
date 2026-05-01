@@ -43,119 +43,66 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
 
 
     return (
-
         <div className="nueva-venta-overlay" onClick={handleOverlayClick}>
-
             <div className={`nueva-venta-modal scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
+                <div className="nueva-venta-content">
+                    <h2 className="nueva-venta-title">Nueva Venta</h2>
 
-                <h2 className="nueva-venta-title">Nueva Venta</h2>
-
-
-
-                <div className="nueva-venta-field">
-
-                    <label>Buscar artículo</label>
-
-                    <div className="nueva-venta-search-input-wrapper">
-
-                        <img src={iconBuscar} alt="Buscar" className="nueva-venta-search-icon" />
-
-                        <input type="text" placeholder="Buscar por nombre" />
-
+                    <div className="nueva-venta-field">
+                        <label>Buscar artículo</label>
+                        <div className="nueva-venta-search-input-wrapper">
+                            <img src={iconBuscar} alt="Buscar" className="nueva-venta-search-icon" />
+                            <input type="text" placeholder="Buscar por nombre del artículo" />
+                        </div>
                     </div>
 
+                    <div className="nueva-venta-table-wrapper">
+                        <table className="nueva-venta-table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Artículo</th>
+                                    <th>Precio unitario</th>
+                                    <th>Cantidad</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td className="table-row-empty-cell" colSpan={5}>
+                                        No hay artículos agregados.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-
-
-
-                <div className="nueva-venta-table-wrapper">
-
-                    <table className="nueva-venta-table">
-
-                        <thead>
-
-                            <tr>
-
-                                <th>Código</th>
-
-                                <th>Artículo</th>
-
-                                <th>Precio unitario</th>
-
-                                <th>Cantidad</th>
-
-                                <th>Acción</th>
-
-                            </tr>
-
-                        </thead>
-
-                        <tbody>
-
-                            <tr>
-
-                                <td className="table-row-empty-cell" colSpan={5}>
-
-                                    No hay artículos agregados.
-
-                                </td>
-
-                            </tr>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-
 
                 <div className="nueva-venta-footer">
-
-                    <div className="nueva-venta-meta">
-
-                        <span>Artículos totales:</span>
-
-                        <strong>0</strong>
-
+                    <div className="nueva-venta-meta-izquierda">
+                        <div className="nueva-venta-meta">
+                            <span>Artículos totales:</span>
+                            <strong>0</strong>
+                        </div>
+                        <div className="nueva-venta-meta">
+                            <span>Subtotal:</span>
+                            <strong className="subtotal-verde">$ 0</strong>
+                        </div>
                     </div>
 
-                    <div className="nueva-venta-meta">
-
-                        <span>Subtotal:</span>
-
-                        <strong className="subtotal-verde">$ 0</strong>
-
-                    </div>
-
-
-
-                    <div className="nueva-venta-actions">
-
+                    <div className="nueva-venta-botones-derecha">
                         <button className="btn-confirm-salir btn-confirm-red" type="button" onClick={onSalir}>
-
                             <img src={iconSalir} alt="" className="confirm-btn-icon" />
-
                             Salir
-
                         </button>
-
                         <button className="btn-confirm-aceptar btn-confirm-green" type="button" onClick={onFacturar}>
-
                             <img src={iconConfirmar} alt="" className="confirm-btn-icon" />
-
                             Facturar
-
                         </button>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     );
 
 };
