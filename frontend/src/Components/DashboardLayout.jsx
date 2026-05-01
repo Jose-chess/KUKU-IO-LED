@@ -24,6 +24,8 @@ import PanelCuentasCobrar from './PanelCuentasCobrar';
 
 import PanelUnidadesMedida from './PanelUnidadesMedida';
 
+import PanelUsuarios from './PanelUsuarios';
+import PanelCierreCaja from './PanelCierreCaja';
 import './DashboardLayout.css';
 
 
@@ -210,7 +212,13 @@ const DashboardLayout = () => {
 
         }
 
+        if (activeSection === 'Usuarios del sistema') {
+            return <PanelUsuarios />;
+        }
 
+        if (activeSection === 'Cierre de caja') {
+            return <PanelCierreCaja />;
+        }
 
         return null;
 

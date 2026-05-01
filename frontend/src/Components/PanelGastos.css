@@ -101,19 +101,17 @@
 }
 
 .kpi-label {
-    font-size: 13px;
+    font-size: 11px;
     color: #64748b;
+    margin-bottom: 4px;
     font-weight: 500;
-    margin: 0 0 4px;
-    font-family: inherit;
 }
 
 .kpi-value {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 20px;
     color: #0f172a;
     margin: 0;
-    font-family: inherit;
+    font-weight: 600;
 }
 
 .gastos-table-card {
@@ -224,6 +222,49 @@
     color: #94a3b8;
     font-size: 14px;
     font-weight: 600;
+}
+
+.gastos-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.gastos-search-icon {
+    position: absolute;
+    left: 14px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.gastos-search-input {
+    height: 40px;
+    padding: 8px 14px 8px 40px;
+    border: 1px solid #D3D6DB;
+    border-radius: 8px;
+    width: 300px;
+    max-width: 100%;
+    background: #F6F6F6;
+    color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.gastos-search-input:focus {
+    border-color: #D3D6DB;
+    background: #F6F6F6;
+    box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25);
+}
+
+.gastos-search-input::placeholder {
+    color: #94a3b8;
+    font-weight: 500;
 }
 
 .gastos-filters {

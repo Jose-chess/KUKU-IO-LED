@@ -210,10 +210,7 @@ const PanelUnidadesMedida = () => {
                 isOpen={isConfirmarEliminarOpen}
                 onClose={() => setIsConfirmarEliminarOpen(false)}
                 onConfirm={handleConfirmEliminar}
-                title="Eliminar Unidad"
-                mensaje="¿Estás seguro de que deseas eliminar esta unidad de medida?"
-                salirLabel="Retroceder"
-                confirmLabel="Confirmar"
+                mensaje="Estas seguro de que desea eliminar esta unidad de medida ?"
             />
 
             <ModalErrorUnidadMedida

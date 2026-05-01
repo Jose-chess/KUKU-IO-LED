@@ -77,16 +77,15 @@ const PanelRecibos = () => {
                 <div className="recibos-table-controls">
                     <h3>Lista de recibos</h3>
 
-                    <div className="search-box">
-                        <div className="search-input-wrapper" style={{ width: '410px' }}>
-                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Ingrese el número de recibo o nombre del cliente"
-                                value={busquedaRecibo}
-                                onChange={(event) => setBusquedaRecibo(event.target.value)}
-                            />
-                        </div>
+                    <div className="recibos-search-wrapper">
+                        <img src={iconBuscar} alt="Buscar" className="recibos-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Ingrese el número de recibo o nombre del cliente"
+                            value={busquedaRecibo}
+                            onChange={(event) => setBusquedaRecibo(event.target.value)}
+                            className="recibos-search-input"
+                        />
                     </div>
                 </div>
 

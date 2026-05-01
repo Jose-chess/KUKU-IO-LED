@@ -50,9 +50,9 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
 
                     <div className="nueva-venta-field">
                         <label>Buscar artículo</label>
-                        <div className="nueva-venta-search-input-wrapper">
+                        <div className="nueva-venta-search-wrapper">
                             <img src={iconBuscar} alt="Buscar" className="nueva-venta-search-icon" />
-                            <input type="text" placeholder="Buscar por nombre del artículo" />
+                            <input type="text" placeholder="Buscar por nombre del artículo" className="nueva-venta-search-input" />
                         </div>
                     </div>
 
@@ -315,26 +315,15 @@ const PanelVentas = () => {
 
                     <h3>Lista de ventas</h3>
 
-                    <div className="search-box">
-
-                        <div className="search-input-wrapper" style={{ width: '320px' }}>
-
-                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
-
-                            <input
-
-                                type="text"
-
-                                placeholder="Buscar venta por nombre del cliente"
-
-                                value={busquedaVenta}
-
-                                onChange={(event) => setBusquedaVenta(event.target.value)}
-
-                            />
-
-                        </div>
-
+                    <div className="ventas-search-wrapper">
+                        <img src={iconBuscar} alt="Buscar" className="ventas-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Buscar venta por nombre del cliente"
+                            value={busquedaVenta}
+                            onChange={(event) => setBusquedaVenta(event.target.value)}
+                            className="ventas-search-input"
+                        />
                     </div>
 
                 </div>

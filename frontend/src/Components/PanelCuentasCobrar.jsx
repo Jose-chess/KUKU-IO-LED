@@ -100,16 +100,15 @@ const PanelCuentasCobrar = () => {
                 <div className="cuentas-table-controls">
                     <h3>Lista de cuentas por cobrar</h3>
 
-                    <div className="search-box">
-                        <div className="search-input-wrapper" style={{ width: '400px' }}>
-                            <img src={iconBuscar} alt="" className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Buscar por número de factura o nombre del cliente"
-                                value={busqueda}
-                                onChange={(event) => setBusqueda(event.target.value)}
-                            />
-                        </div>
+                    <div className="cuentas-search-wrapper">
+                        <img src={iconBuscar} alt="" className="cuentas-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Buscar por número de factura o nombre del cliente"
+                            value={busqueda}
+                            onChange={(event) => setBusqueda(event.target.value)}
+                            className="cuentas-search-input"
+                        />
                     </div>
                 </div>
 

@@ -14,6 +14,7 @@ const PanelGastos = () => {
     const [modalGastoAbierto, setModalGastoAbierto] = useState(false);
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
+    const [busquedaGasto, setBusquedaGasto] = useState('');
     const [gastos] = useState([
         {
             id: 1,
@@ -76,10 +77,12 @@ const PanelGastos = () => {
         const mesGasto = meses[parseInt(m)];
         const anioGasto = a; // String comparison
         
-        const cumpleMes = mesSeleccionado === "Todos" || mesSeleccionado === mesGasto;
         const cumpleAnio = anioSeleccionado === "Todos" || anioSeleccionado === anioGasto.toString();
         
-        return cumpleMes && cumpleAnio;
+        const termino = busquedaGasto.toLowerCase();
+        const cumpleBusqueda = !busquedaGasto || g.descripcion.toLowerCase().includes(termino);
+        
+        return cumpleMes && cumpleAnio && cumpleBusqueda;
     });
 
     return (
@@ -114,6 +117,16 @@ const PanelGastos = () => {
             <div className="gastos-table-card">
                 <div className="gastos-table-controls">
                     <h3>Lista de gastos</h3>
+                    <div className="gastos-search-wrapper">
+                        <img src={iconSearch} alt="Buscar" className="gastos-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Buscar gasto por descripción"
+                            value={busquedaGasto}
+                            onChange={(e) => setBusquedaGasto(e.target.value)}
+                            className="gastos-search-input"
+                        />
+                    </div>
                     <div className="gastos-filters">
                         <div className="filter-group">
                             <label>Mes:</label>

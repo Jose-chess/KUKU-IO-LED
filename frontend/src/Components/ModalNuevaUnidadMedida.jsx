@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ModalNuevaUnidadMedida.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconGuardar from '../assets/circle-check.svg';
-import ModalConfirmarSalida from './ModalConfirmarSalida';
 import ModalConfirmar from './ModalConfirmar';
 import { useModalShake } from './useModalShake';
 
@@ -47,29 +46,7 @@ const ModalNuevaUnidadMedida = ({ isOpen, onClose, onSave }) => {
         onClose?.();
     };
 
-    if (showConfirmExit) {
-        return (
-            <ModalConfirmarSalida
-                isOpen={showConfirmExit}
-                onClose={() => setShowConfirmExit(false)}
-                onConfirm={handleClose}
-            />
-        );
-    }
 
-    if (showConfirmSave) {
-        return (
-            <ModalConfirmar
-                isOpen={showConfirmSave}
-                onClose={() => setShowConfirmSave(false)}
-                onConfirm={handleConfirmSave}
-                title="Confirmar"
-                mensaje="¿Estás seguro de que desea guardar esta unidad de medida?"
-                salirLabel="Retroceder"
-                confirmLabel="Confirmar"
-            />
-        );
-    }
 
     return (
         <div className="modal-unidad-overlay" onClick={handleOverlayClick}>
@@ -116,6 +93,20 @@ const ModalNuevaUnidadMedida = ({ isOpen, onClose, onSave }) => {
                     </button>
                 </div>
             </div>
+
+            <ModalConfirmar
+                isOpen={showConfirmExit}
+                onClose={() => setShowConfirmExit(false)}
+                onConfirm={handleClose}
+                mensaje="Estas seguro de que desea salir ?"
+            />
+
+            <ModalConfirmar
+                isOpen={showConfirmSave}
+                onClose={() => setShowConfirmSave(false)}
+                onConfirm={handleConfirmSave}
+                mensaje="Estas seguro de que desea guardar esta unidad de medida ?"
+            />
         </div>
     );
 };

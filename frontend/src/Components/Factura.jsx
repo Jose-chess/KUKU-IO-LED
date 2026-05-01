@@ -78,16 +78,15 @@ const Factura = () => {
                         <h3>Lista de historial de venta</h3>
                     </div>
 
-                    <div className="search-box">
-                        <div className="search-input-wrapper" style={{ width: '350px' }}>
-                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Buscar por número de registro o cliente"
-                                value={busquedaFactura}
-                                onChange={(e) => setBusquedaFactura(e.target.value)}
-                            />
-                        </div>
+                    <div className="factura-search-wrapper">
+                        <img src={iconBuscar} alt="Buscar" className="factura-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Buscar por número de registro o cliente"
+                            value={busquedaFactura}
+                            onChange={(e) => setBusquedaFactura(e.target.value)}
+                            className="factura-search-input"
+                        />
                     </div>
                 </div>
 

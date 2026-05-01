@@ -102,14 +102,14 @@
 
 .factura-kpi-card h2 {
     margin: 0;
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     color: #0f172a;
 }
 
 .factura-kpi-card p {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
     font-weight: 500;
     font-family: inherit;
@@ -159,19 +159,13 @@
     color: #64748b;
 }
 
-.factura-table-card .search-box {
-    flex-shrink: 0;
-}
-
-.factura-table-card .search-input-wrapper {
+.factura-search-wrapper {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    width: 340px;
-    max-width: 100%;
 }
 
-.factura-table-card .search-icon {
+.factura-search-icon {
     position: absolute;
     left: 14px;
     width: 16px;
@@ -180,13 +174,12 @@
     pointer-events: none;
 }
 
-.factura-table-card .search-box input {
+.factura-search-input {
     height: 40px;
     padding: 8px 14px 8px 40px;
     border: 1px solid #D3D6DB;
     border-radius: 8px;
-    width: 100%;
-    min-width: 0;
+    width: 350px;
     max-width: 100%;
     background: #F6F6F6;
     color: #1e293b;
@@ -198,13 +191,13 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.factura-table-card .search-box input:focus {
+.factura-search-input:focus {
     border-color: #D3D6DB;
     background: #F6F6F6;
     box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25);
 }
 
-.factura-table-card .search-box input::placeholder {
+.factura-search-input::placeholder {
     color: #94a3b8;
     font-weight: 500;
 }

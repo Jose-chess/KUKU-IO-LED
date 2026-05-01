@@ -97,8 +97,8 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                     ${modulo.nombre === 'Finanzas' ? 'finanzas-trigger' : ''} 
                                     ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} 
                                     ${activeSection === modulo.nombre || 
-                                      (modulo.nombre === 'Finanzas' && activeSection === 'Gastos') || 
-                                      (modulo.nombre === 'Configuración' && (activeSection === 'Informacion empresarial' || activeSection === 'Unidades de medida')) 
+                                      (modulo.nombre === 'Finanzas' && (activeSection === 'Gastos' || activeSection === 'Cierre de caja')) || 
+                                      (modulo.nombre === 'Configuración' && (activeSection === 'Informacion empresarial' || activeSection === 'Unidades de medida' || activeSection === 'Usuarios del sistema')) 
                                       ? 'active' : ''}`}
                                 onClick={() => {
                                     if (modulo.nombre === 'Finanzas') {
@@ -217,8 +217,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         </div>
                                         <div className="line-separator"></div>
                                         <div
-                                            className={`menu-option-item ${selectedFinanzasOption === 'Cierre de caja' ? 'selected-yellow' : ''}`}
-                                            onClick={() => {
+                                            className={`menu-option-item ${activeSection === 'Cierre de caja' ? 'selected-yellow' : ''}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setActiveSection('Cierre de caja');
                                                 setSelectedFinanzasOption('Cierre de caja');
                                                 setShowGraficos(false);
                                                 setShowFinanzas(false);
@@ -229,7 +231,8 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         <div className="line-separator"></div>
                                         <div
                                             className={`menu-option-item ${activeSection === 'Gastos' ? 'selected-yellow' : ''}`}
-                                            onClick={() => {
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 setActiveSection('Gastos');
                                                 setShowFinanzas(false);
                                             }}
@@ -266,10 +269,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
 
                                         <div className="line-separator"></div>
                                         <div
-                                            className={`menu-option-item ${selectedConfiguracionOption === 'Usuarios del sistema' ? 'selected-yellow' : ''}`}
+                                            className={`menu-option-item ${activeSection === 'Usuarios del sistema' ? 'selected-yellow' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setSelectedConfiguracionOption('Usuarios del sistema');
+                                                setActiveSection('Usuarios del sistema');
                                                 setShowConfiguracion(false);
                                             }}
                                         >

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './ModalEditarUnidadMedida.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconGuardar from '../assets/circle-check.svg';
-import ModalConfirmarSalida from './ModalConfirmarSalida';
 import ModalConfirmar from './ModalConfirmar';
 import { useModalShake } from './useModalShake';
 
@@ -57,29 +56,7 @@ const ModalEditarUnidadMedida = ({ isOpen, onClose, onSave, unidad }) => {
         onClose?.();
     };
 
-    if (showConfirmExit) {
-        return (
-            <ModalConfirmarSalida
-                isOpen={showConfirmExit}
-                onClose={() => setShowConfirmExit(false)}
-                onConfirm={handleClose}
-            />
-        );
-    }
 
-    if (showConfirmSave) {
-        return (
-            <ModalConfirmar
-                isOpen={showConfirmSave}
-                onClose={() => setShowConfirmSave(false)}
-                onConfirm={handleConfirmSave}
-                title="Confirmar Modificación"
-                mensaje="¿Estás seguro de que desea guardar esta modificación?"
-                salirLabel="Retroceder"
-                confirmLabel="Confirmar"
-            />
-        );
-    }
 
     return (
         <div className="modal-editar-unidad-overlay" onClick={handleOverlayClick}>
@@ -126,6 +103,20 @@ const ModalEditarUnidadMedida = ({ isOpen, onClose, onSave, unidad }) => {
                     </button>
                 </div>
             </div>
+
+            <ModalConfirmar
+                isOpen={showConfirmExit}
+                onClose={() => setShowConfirmExit(false)}
+                onConfirm={handleClose}
+                mensaje="Estas seguro de que desea salir ?"
+            />
+
+            <ModalConfirmar
+                isOpen={showConfirmSave}
+                onClose={() => setShowConfirmSave(false)}
+                onConfirm={handleConfirmSave}
+                mensaje="Estas seguro de que desea modificar esta unidad de medida ?"
+            />
         </div>
     );
 };

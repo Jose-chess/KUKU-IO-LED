@@ -196,6 +196,34 @@
 
 
 
+.kpi-label {
+
+    font-size: 11px;
+
+    color: #64748b;
+
+    margin: 0 0 4px 0;
+
+    font-weight: 500;
+
+}
+
+
+
+.kpi-value {
+
+    font-size: 20px;
+
+    color: #0f172a;
+
+    margin: 0;
+
+    font-weight: 600;
+
+}
+
+
+
 .ventas-table-card {
 
     width: 100%;
@@ -329,41 +357,29 @@
     background: #f6f6f6;
 
     color: #1e293b;
-
+    border: 1px solid #D3D6DB;
+    border-radius: 8px;
+    width: 320px;
+    max-width: 100%;
+    background: #F6F6F6;
+    color: #1e293b;
     font-size: 14px;
-
     font-weight: 600;
-
     outline: none;
-
     box-sizing: border-box;
-
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-
 }
 
-
-
-.search-box input:focus {
-
-    border-color: #d3d6db;
-
-    background: #f6f6f6;
-
+.ventas-search-input:focus {
+    border-color: #D3D6DB;
+    background: #F6F6F6;
     box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25);
-
 }
 
-
-
-.search-box input::placeholder {
-
+.ventas-search-input::placeholder {
     color: #94a3b8;
-
     font-weight: 500;
-
 }
 
 
@@ -1958,3 +1974,5 @@
 
 }
 
+
+.ventas-search-wrapper { position: relative; display: flex; align-items: center; } .ventas-search-icon { position: absolute; left: 14px; width: 16px; height: 16px; opacity: 0.6; pointer-events: none; } .ventas-search-input { height: 40px; padding: 8px 14px 8px 40px; border: 1px solid #D3D6DB; border-radius: 8px; width: 320px; max-width: 100%; background: #F6F6F6; color: #1e293b; font-size: 14px; font-weight: 600; outline: none; box-sizing: border-box; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; } .ventas-search-input:focus { border-color: #D3D6DB; background: #F6F6F6; box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25); } .ventas-search-input::placeholder { color: #94a3b8; font-weight: 500; } .nueva-venta-search-wrapper { position: relative; display: flex; align-items: center; } .nueva-venta-search-icon { position: absolute; left: 14px; width: 16px; height: 16px; opacity: 0.6; pointer-events: none; } .nueva-venta-search-input { height: 40px; padding: 8px 14px 8px 40px; border: 1px solid #D3D6DB; border-radius: 8px; width: 100%; background: #F6F6F6; color: #1e293b; font-size: 14px; font-weight: 600; outline: none; box-sizing: border-box; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06); transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease; } .nueva-venta-search-input:focus { border-color: #D3D6DB; background: #F6F6F6; box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25); } .nueva-venta-search-input::placeholder { color: #94a3b8; font-weight: 500; }

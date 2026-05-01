@@ -554,26 +554,15 @@ const Inventario = () => {
 
                         </div>
 
-                        <div className="search-box">
-
-                            <div className="search-input-wrapper" style={{ width: '330px' }}>
-
-                                <img src={iconSearch} alt="Buscar" className="search-icon" />
-
-                                <input
-
-                                    type="text"
-
-                                    placeholder="Buscar por nombre o código del artículo"
-
-                                    value={busqueda}
-
-                                    onChange={handleBusquedaChange}
-
-                                />
-
-                            </div>
-
+                        <div className="inventario-search-wrapper">
+                            <img src={iconSearch} alt="Buscar" className="inventario-search-icon" />
+                            <input
+                                type="text"
+                                placeholder="Buscar por nombre o código del artículo"
+                                value={busqueda}
+                                onChange={handleBusquedaChange}
+                                className="inventario-search-input"
+                            />
                         </div>
 
                     </div>
@@ -612,9 +601,8 @@ const Inventario = () => {
 
                             <tbody>
 
-                                {articulos.length > 0 ? (
-
-                                    articulos.map((item, index) => (
+                                {articulosFiltrados.length > 0 ? (
+                                    articulosFiltrados.map((item, index) => (
 
                                         <tr key={item.id || index}>
 
