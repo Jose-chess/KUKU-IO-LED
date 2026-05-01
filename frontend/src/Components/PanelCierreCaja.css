@@ -20,33 +20,6 @@
     margin-bottom: 20px;
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.btn-retroceder-header {
-    background: #ffffff;
-    border: 1px solid #E5E7EB;
-    border-radius: 8px;
-    padding: 8px 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 700;
-    color: #1e293b;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-retroceder-header:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-    transform: translateX(-2px);
-}
-
 .icon-retroceder {
     width: 16px;
     height: 16px;
@@ -309,7 +282,7 @@
 }
 
 .btn-cerrar {
-    background: #009C00;
+    background: #00A300;
     border: none;
     border-radius: 8px;
     padding: 0 20px;
@@ -324,13 +297,34 @@
     transition: opacity 0.2s;
 }
 
-.btn-cerrar img {
+.btn-retroceder-footer {
+    background: #FF0000;
+    border: none;
+    border-radius: 8px;
+    padding: 0 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #000000;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-cerrar img, .btn-retroceder-footer img {
     width: 16px;
     filter: brightness(0);
 }
 
-.btn-pdf:hover, .btn-cerrar:hover {
+.btn-pdf:hover, .btn-cerrar:hover, .btn-retroceder-footer:hover {
     opacity: 0.85;
+}
+
+.icon-retroceder {
+    width: 16px;
+    height: 16px;
 }
 
 @media (max-width: 1400px) {

@@ -25,15 +25,7 @@ const PanelCierreCaja = () => {
     return (
         <div className="cierre-caja-container">
             <div className="cierre-caja-header">
-                <div className="header-left">
-                    {selectedFecha !== '4/4/2026' && (
-                        <button className="btn-retroceder-header" onClick={() => setSelectedFecha('4/4/2026')}>
-                            <img src={iconRetroceder} alt="" className="icon-retroceder" />
-                            Retroceder
-                        </button>
-                    )}
-                    <h1 className="cierre-caja-title">Cierre de caja</h1>
-                </div>
+                <h1 className="cierre-caja-title">Cierre de caja</h1>
                 <div className="historial-wrapper">
                     <button className="btn-historial" onClick={() => setShowHistorial(!showHistorial)}>
                         Historial
@@ -135,10 +127,15 @@ const PanelCierreCaja = () => {
                 <button className="btn-pdf">
                     <img src={iconPdf} alt="PDF" />
                 </button>
-                {selectedFecha === '4/4/2026' && (
+                {selectedFecha === '4/4/2026' ? (
                     <button className="btn-cerrar" onClick={handleCerrarCaja}>
                         <img src={iconCheck} alt="" />
                         Cerrar caja
+                    </button>
+                ) : (
+                    <button className="btn-retroceder-footer" onClick={() => setSelectedFecha('4/4/2026')}>
+                        <img src={iconRetroceder} alt="" className="icon-retroceder" />
+                        Retroceder
                     </button>
                 )}
             </div>
