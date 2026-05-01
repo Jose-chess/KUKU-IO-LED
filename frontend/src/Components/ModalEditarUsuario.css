@@ -1,0 +1,237 @@
+.modal-usuario-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-usuario-container {
+    background: #ffffff;
+    width: 600px;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    font-family: inherit;
+    animation: modal-usuario-scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.modal-usuario-title {
+    margin: 0 0 25px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.modal-usuario-form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal-usuario-row {
+    display: flex;
+    gap: 15px;
+}
+
+.modal-usuario-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-usuario-input-group.full {
+    width: 100%;
+}
+
+.modal-usuario-input-group.half {
+    flex: 1;
+}
+
+.modal-usuario-input-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #475569;
+}
+
+.modal-usuario-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #E9E9E9;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000000;
+    box-sizing: border-box;
+    outline: none;
+    font-family: inherit;
+}
+
+/* Premium Dropdown Styles */
+.premium-dropdown {
+    position: relative;
+    width: 100%;
+    user-select: none;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px;
+    background: #E9E9E9;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    transition: background 0.2s ease;
+}
+
+.dropdown-trigger:hover {
+    background: #e2e2e2;
+}
+
+.dropdown-arrow {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+
+.dropdown-arrow.open {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 100;
+    overflow: hidden;
+    animation: dropdown-fade-in 0.2s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.dropdown-option {
+    padding: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    transition: all 0.2s ease;
+}
+
+.dropdown-option:hover {
+    background: #f1f5f9;
+    padding-left: 16px;
+}
+
+.dropdown-option.selected {
+    background: #ffcc00;
+    color: #000000;
+}
+
+@keyframes dropdown-fade-in {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-usuario-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #F1F5F9;
+    margin-top: 35px;
+    padding-top: 20px;
+}
+
+.btn-usuario-salir,
+.btn-usuario-guardar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-usuario-salir {
+    background: #ff0000;
+    color: #000000;
+}
+
+.btn-usuario-guardar {
+    background: #00b300;
+    color: #000000;
+}
+
+.btn-usuario-salir:hover {
+    background-color: #e60000;
+    transform: translateY(-1px);
+}
+
+.btn-usuario-guardar:hover {
+    background-color: #00a300;
+    transform: translateY(-1px);
+}
+
+.btn-usuario-salir:active,
+.btn-usuario-guardar:active {
+    transform: translateY(0);
+}
+
+.modal-usuario-btn-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.modal-usuario-container.shake {
+    animation: modal-usuario-shake 0.35s ease-in-out;
+}
+
+@keyframes modal-usuario-scale-up {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes modal-usuario-shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-10px); }
+    40% { transform: translateX(10px); }
+    60% { transform: translateX(-7px); }
+    80% { transform: translateX(7px); }
+}
+
+@media (max-width: 640px) {
+    .modal-usuario-container {
+        padding: 20px;
+        width: 95%;
+    }
+    .modal-usuario-row {
+        flex-direction: column;
+    }
+}

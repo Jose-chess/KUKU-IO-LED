@@ -105,7 +105,7 @@
 
 .kpi-label {
     margin: 0 0 8px;
-    font-size: 12px;
+    font-size: 11px;
     color: #64748B;
     font-weight: 500;
     font-family: inherit;
@@ -114,8 +114,8 @@
 
 .kpi-value {
     margin: 0;
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     color: #0f172a;
 }
 

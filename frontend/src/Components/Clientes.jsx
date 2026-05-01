@@ -131,16 +131,15 @@ const Clientes = () => {
                         <h3>Lista de clientes</h3>
                     </div>
 
-                    <div className="search-box">
-                        <div className="search-input-wrapper" style={{ width: '260px' }}>
-                            <img src={iconBuscar} alt="Buscar" className="search-icon" />
-                            <input
-                                type="text"
-                                placeholder="Buscar por nombre del cliente"
-                                value={busquedaCliente}
-                                onChange={(e) => setBusquedaCliente(e.target.value)}
-                            />
-                        </div>
+                    <div className="clientes-search-wrapper">
+                        <img src={iconBuscar} alt="Buscar" className="clientes-search-icon" />
+                        <input
+                            type="text"
+                            placeholder="Buscar por nombre del cliente"
+                            value={busquedaCliente}
+                            onChange={(e) => setBusquedaCliente(e.target.value)}
+                            className="clientes-search-input"
+                        />
                     </div>
                 </div>
 

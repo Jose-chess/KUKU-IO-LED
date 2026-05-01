@@ -108,14 +108,14 @@
 
 .clientes-kpi-card h2 {
     margin: 0;
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 600;
     color: #0f172a;
 }
 
 .clientes-kpi-card p {
     margin: 0;
-    font-size: 12px;
+    font-size: 11px;
     color: #64748b;
     font-weight: 500;
     font-family: inherit;
@@ -165,19 +165,13 @@
     color: #64748b;
 }
 
-.search-box {
-    flex-shrink: 0;
-}
-
-.search-input-wrapper {
+.clientes-search-wrapper {
     position: relative;
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    width: 340px;
-    max-width: 100%;
 }
 
-.search-icon {
+.clientes-search-icon {
     position: absolute;
     left: 14px;
     width: 16px;
@@ -186,13 +180,12 @@
     pointer-events: none;
 }
 
-.search-box input {
+.clientes-search-input {
     height: 40px;
     padding: 8px 14px 8px 40px;
     border: 1px solid #D3D6DB;
     border-radius: 8px;
-    width: 100%;
-    min-width: 0;
+    width: 260px;
     max-width: 100%;
     background: #F6F6F6;
     color: #1e293b;
@@ -204,13 +197,13 @@
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.search-box input:focus {
+.clientes-search-input:focus {
     border-color: #D3D6DB;
     background: #F6F6F6;
     box-shadow: 0 0 0 3px rgba(211, 214, 219, 0.25);
 }
 
-.search-box input::placeholder {
+.clientes-search-input::placeholder {
     color: #94a3b8;
     font-weight: 500;
 }
