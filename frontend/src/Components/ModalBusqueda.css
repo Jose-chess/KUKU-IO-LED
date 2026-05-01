@@ -29,8 +29,23 @@
 .table-wrapper-busqueda {
     border: 1px solid #E5E5E5;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: auto;
+    max-height: 400px;
     margin-bottom: 25px;
+}
+
+.table-wrapper-busqueda::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.table-wrapper-busqueda::-webkit-scrollbar-thumb {
+    background: #D4D4D4;
+    border-radius: 8px;
+}
+
+.table-wrapper-busqueda::-webkit-scrollbar-track {
+    background: #FAFAFA;
 }
 
 .tabla-resultado {
@@ -165,10 +180,6 @@
     .busqueda-card {
         padding: 22px;
         border-radius: 8px;
-    }
-
-    .table-wrapper-busqueda {
-        overflow: auto;
     }
 
     .busqueda-footer {

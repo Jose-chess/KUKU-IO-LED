@@ -22,6 +22,8 @@ import Factura from './Factura';
 
 import PanelCuentasCobrar from './PanelCuentasCobrar';
 
+import PanelUnidadesMedida from './PanelUnidadesMedida';
+
 import './DashboardLayout.css';
 
 
@@ -197,6 +199,14 @@ const DashboardLayout = () => {
         if (activeSection === 'Cuentas por cobrar') {
 
             return <PanelCuentasCobrar />;
+
+        }
+
+
+
+        if (activeSection === 'Unidades de medida') {
+
+            return <PanelUnidadesMedida />;
 
         }
 

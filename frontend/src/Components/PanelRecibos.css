@@ -125,6 +125,20 @@
     overflow: auto;
 }
 
+.recibos-table-wrapper::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.recibos-table-wrapper::-webkit-scrollbar-thumb {
+    background: #D4D4D4;
+    border-radius: 8px;
+}
+
+.recibos-table-wrapper::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
 .recibos-table {
     width: 100%;
     border-collapse: collapse;

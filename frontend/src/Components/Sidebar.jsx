@@ -98,7 +98,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                     ${modulo.nombre === 'Configuración' ? 'configuracion-trigger' : ''} 
                                     ${activeSection === modulo.nombre || 
                                       (modulo.nombre === 'Finanzas' && activeSection === 'Gastos') || 
-                                      (modulo.nombre === 'Configuración' && activeSection === 'Informacion empresarial') 
+                                      (modulo.nombre === 'Configuración' && (activeSection === 'Informacion empresarial' || activeSection === 'Unidades de medida')) 
                                       ? 'active' : ''}`}
                                 onClick={() => {
                                     if (modulo.nombre === 'Finanzas') {
@@ -254,10 +254,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         <div className="line-separator"></div>
 
                                         <div
-                                            className={`menu-option-item ${selectedConfiguracionOption === 'Unidades de medidas' ? 'selected-yellow' : ''}`}
+                                            className={`menu-option-item ${activeSection === 'Unidades de medida' ? 'selected-yellow' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setSelectedConfiguracionOption('Unidades de medidas');
+                                                setActiveSection('Unidades de medida');
                                                 setShowConfiguracion(false);
                                             }}
                                         >
