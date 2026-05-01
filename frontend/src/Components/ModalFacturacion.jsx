@@ -898,7 +898,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
                 onConfirm={onVolver}
 
-                mensaje="Estas seguro que desea salir?"
+                mensaje="¿Estas seguro que desea salir?"
 
                 salirLabel="Retroceder"
 
@@ -916,7 +916,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
                 onConfirm={handleConfirmarFinal}
 
-                mensaje="Estas seguro de que desea confirmarla venta?"
+                mensaje="¿Estas seguro de que desea confirmarla venta?"
 
                 salirLabel="Retroceder"
 

@@ -162,21 +162,23 @@
     text-overflow: ellipsis;
 }
 
-/* Distribucion proporcional de columnas (7 columnas) */
+/* Distribucion proporcional de columnas (8 columnas) */
 .cuentas-table th:nth-child(1),
 .cuentas-table td:nth-child(1) { width: 12%; }
 .cuentas-table th:nth-child(2),
-.cuentas-table td:nth-child(2) { width: 20%; }
+.cuentas-table td:nth-child(2) { width: 18%; }
 .cuentas-table th:nth-child(3),
-.cuentas-table td:nth-child(3) { width: 16%; }
+.cuentas-table td:nth-child(3) { width: 14%; }
 .cuentas-table th:nth-child(4),
-.cuentas-table td:nth-child(4) { width: 14%; }
+.cuentas-table td:nth-child(4) { width: 12%; }
 .cuentas-table th:nth-child(5),
-.cuentas-table td:nth-child(5) { width: 14%; }
+.cuentas-table td:nth-child(5) { width: 12%; }
 .cuentas-table th:nth-child(6),
-.cuentas-table td:nth-child(6) { width: 14%; }
+.cuentas-table td:nth-child(6) { width: 12%; }
 .cuentas-table th:nth-child(7),
-.cuentas-table td:nth-child(7) { width: 10%; text-align: center; }
+.cuentas-table td:nth-child(7) { width: 10%; }
+.cuentas-table th:nth-child(8),
+.cuentas-table td:nth-child(8) { width: 10%; text-align: center; }
 
 .cuentas-table tbody td {
     padding: 6px 10px;

@@ -44,7 +44,7 @@ const MainContent = () => {
                     <h3 className="details-subtitle">Ventas mensuales</h3>
                     <div className="mock-table">
                         <div className="table-header">
-                            <span>Número de Registro</span>
+                            <span>Código</span>
                             <span>Método</span>
                             <span className="text-right">Costo</span>
                         </div>

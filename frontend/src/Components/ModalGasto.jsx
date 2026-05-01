@@ -128,13 +128,12 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
 
                     <div className="modal-gasto-input-group">
                         <label className="modal-gasto-input-label">Descripcion:</label>
-                        <input
-                            type="text"
+                        <textarea
                             placeholder="Ingrese una breve descripción del gasto"
-                            className="modal-gasto-input"
+                            className="modal-gasto-input modal-gasto-textarea"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
-                            onKeyDown={handleKeyDown}
+                            rows={3}
                         />
                     </div>
 

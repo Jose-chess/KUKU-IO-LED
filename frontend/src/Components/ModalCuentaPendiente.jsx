@@ -92,7 +92,7 @@ const ModalCuentaPendiente = ({ isOpen, onClose, onPagar, cuentaData }) => {
                 isOpen={showConfirm}
                 onClose={() => setShowConfirm(false)}
                 onConfirm={handleConfirmarPago}
-                mensaje={`Estás seguro que desea registrar el pago?`}
+                mensaje={`¿Estás seguro que desea registrar el pago?`}
                 salirLabel="Retroceder"
                 confirmLabel="Confirmar pago"
             />
@@ -177,7 +177,6 @@ const ModalCuentaPendiente = ({ isOpen, onClose, onPagar, cuentaData }) => {
                                 type="text"
                                 value={formatMoney(deudaPendiente)}
                                 readOnly
-                                className="modal-cuenta-amount-input deuda-input"
                             />
                         </div>
                     </div>
@@ -191,7 +190,6 @@ const ModalCuentaPendiente = ({ isOpen, onClose, onPagar, cuentaData }) => {
                                 onChange={handleValorAPagarChange}
                                 onKeyDown={handleKeyDown}
                                 placeholder="Ingrese el valor a pagar"
-                                className="modal-cuenta-amount-input editable-input"
                                 autoFocus
                             />
                         </div>

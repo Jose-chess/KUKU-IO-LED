@@ -122,6 +122,7 @@ const PanelCuentasCobrar = () => {
                                 <th>Fecha de emisión</th>
                                 <th>Monto total</th>
                                 <th>Monto pagado</th>
+                                <th>Monto pendiente</th>
                                 <th>Estado</th>
                                 <th>Acción</th>
                             </tr>
@@ -135,6 +136,7 @@ const PanelCuentasCobrar = () => {
                                         <td>{cuenta.fechaEmision}</td>
                                         <td>{formatMoney(cuenta.montoTotal)}</td>
                                         <td>{formatMoney(cuenta.montoPagado)}</td>
+                                        <td>{formatMoney(cuenta.montoTotal - cuenta.montoPagado)}</td>
                                         <td>
                                             <span className={`estado-badge ${getEstadoClass(cuenta.estado)}`}>
                                                 {cuenta.estado}
@@ -156,7 +158,7 @@ const PanelCuentasCobrar = () => {
                                 ))
                             ) : (
                                 <tr>
-                                    <td className="table-row-empty-cell" colSpan={7}>
+                                    <td className="table-row-empty-cell" colSpan={8}>
                                         {busqueda ? 'No se encontraron facturas por cobrar que coincidan con la búsqueda.' : 'No hay facturas por cobrar para mostrar.'}
                                     </td>
                                 </tr>

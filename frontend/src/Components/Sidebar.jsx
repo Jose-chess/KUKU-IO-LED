@@ -21,8 +21,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
     const [showFinanzas, setShowFinanzas] = useState(false);
     const [showConfiguracion, setShowConfiguracion] = useState(false);
     const [showGraficos, setShowGraficos] = useState(false);
+    const [showReportes, setShowReportes] = useState(false);
     const [selectedFinanzasOption, setSelectedFinanzasOption] = useState('');
     const [selectedGraficoOption, setSelectedGraficoOption] = useState('');
+    const [selectedReporteOption, setSelectedReporteOption] = useState('');
     const [selectedConfiguracionOption, setSelectedConfiguracionOption] = useState('');
     const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -44,6 +46,7 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
             setShowFinanzas(false);
             setShowConfiguracion(false);
             setShowGraficos(false);
+            setShowReportes(false);
         };
 
         document.addEventListener('click', handleDocumentClick);
@@ -103,16 +106,19 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         setShowFinanzas(openingFinanzas);
                                         setShowConfiguracion(false);
                                         setShowGraficos(false);
+                                        setShowReportes(false);
                                     } else if (modulo.nombre === 'Configuración') {
                                         const openingConfiguracion = !showConfiguracion;
                                         setShowConfiguracion(openingConfiguracion);
                                         setShowFinanzas(false);
                                         setShowGraficos(false);
+                                        setShowReportes(false);
                                     } else {
                                         setActiveSection(modulo.nombre);
                                         setShowFinanzas(false);
                                         setShowConfiguracion(false);
                                         setShowGraficos(false);
+                                        setShowReportes(false);
                                     }
                                 }}
                                 style={{ position: 'relative' }}
@@ -128,12 +134,12 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
 
                                 {modulo.nombre === 'Finanzas' && showFinanzas && (
                                     <div className="floating-menu finance-floating-menu" onClick={(e) => e.stopPropagation()}>
-                                        <div 
+                                        <div
                                             className={`menu-option-item ${showGraficos ? 'selected-yellow' : ''}`}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setSelectedFinanzasOption('Graficos');
+                                            onClick={() => {
+                                                setSelectedFinanzasOption('Gráficos');
                                                 setShowGraficos(!showGraficos);
+                                                setShowReportes(false);
                                             }}
                                         >
                                             <span>Gráficos</span>
@@ -169,15 +175,45 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         </div>
 
                                         <div className="line-separator"></div>
-                                        <div
-                                            className={`menu-option-item ${selectedFinanzasOption === 'Reportes' ? 'selected-yellow' : ''}`}
-                                            onClick={() => {
+                                        <div 
+                                            className={`menu-option-item ${showReportes ? 'selected-yellow' : ''}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
                                                 setSelectedFinanzasOption('Reportes');
+                                                setShowReportes(!showReportes);
                                                 setShowGraficos(false);
-                                                setShowFinanzas(false);
                                             }}
                                         >
-                                            Reportes
+                                            <span>Reportes</span>
+                                            <img src={iconFlecha} alt="" className="arrow-right" />
+
+                                            {showReportes && (
+                                                <div className="sub-floating-menu" onClick={(e) => e.stopPropagation()}>
+                                                    <div
+                                                        className={`menu-option-item ${selectedReporteOption === 'Ganancias' ? 'selected-yellow' : ''}`}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedReporteOption('Ingresos');
+                                                            setShowReportes(false);
+                                                            setShowFinanzas(false);
+                                                        }}
+                                                    >
+                                                        Ingresos
+                                                    </div>
+                                                    <div className="line-separator"></div>
+                                                    <div
+                                                        className={`menu-option-item ${selectedReporteOption === 'Egresos' ? 'selected-yellow' : ''}`}
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setSelectedReporteOption('Egresos');
+                                                            setShowReportes(false);
+                                                            setShowFinanzas(false);
+                                                        }}
+                                                    >
+                                                        Egresos
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="line-separator"></div>
                                         <div

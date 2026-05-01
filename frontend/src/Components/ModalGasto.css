@@ -88,12 +88,20 @@
     font-weight: 600;
     color: #1e293b;
     outline: none;
-    user-select: text;
-    -webkit-user-select: text;
 }
 
 .modal-gasto-input:focus {
     border-color: #D3D6DB;
+}
+
+.modal-gasto-textarea {
+    width: 100%;
+    min-height: 80px;
+    max-height: 120px;
+    resize: none;
+    overflow-y: auto;
+    font-family: inherit;
+    line-height: 1.5;
 }
 
 .modal-gasto-monto-input {
