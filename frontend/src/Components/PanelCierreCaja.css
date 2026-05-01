@@ -20,6 +20,38 @@
     margin-bottom: 20px;
 }
 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-retroceder-header {
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-retroceder-header:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    transform: translateX(-2px);
+}
+
+.icon-retroceder {
+    width: 16px;
+    height: 16px;
+}
+
 .cierre-caja-title {
     font-size: 32px;
     font-weight: 800;

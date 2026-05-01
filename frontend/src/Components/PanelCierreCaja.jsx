@@ -3,6 +3,7 @@ import './PanelCierreCaja.css';
 import iconPdf from '../assets/file-type-pdf.svg';
 import iconCheck from '../assets/circle-check.svg';
 import iconChevron from '../assets/chevron-down.svg';
+import iconRetroceder from '../assets/arrow-back-up.svg';
 import ModalConfirmar from './ModalConfirmar';
 import ModalConfirmado from './ModalConfirmado';
 
@@ -24,7 +25,15 @@ const PanelCierreCaja = () => {
     return (
         <div className="cierre-caja-container">
             <div className="cierre-caja-header">
-                <h1 className="cierre-caja-title">Cierre de caja</h1>
+                <div className="header-left">
+                    {selectedFecha !== '4/4/2026' && (
+                        <button className="btn-retroceder-header" onClick={() => setSelectedFecha('4/4/2026')}>
+                            <img src={iconRetroceder} alt="" className="icon-retroceder" />
+                            Retroceder
+                        </button>
+                    )}
+                    <h1 className="cierre-caja-title">Cierre de caja</h1>
+                </div>
                 <div className="historial-wrapper">
                     <button className="btn-historial" onClick={() => setShowHistorial(!showHistorial)}>
                         Historial
