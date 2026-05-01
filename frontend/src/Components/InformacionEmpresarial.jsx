@@ -85,7 +85,7 @@ const InformacionEmpresarial = ({ datos = {}, onUpdateDatos }) => {
 
                 <div className="empresa-info-alert">
                     <span className="empresa-alert-icon" aria-hidden="true">i</span>
-                    Esta información aparecerá en todas las facturas y documentos generados por el sistema.
+                    Esta información aparecerá en todos los documentos generados por el sistema.
                 </div>
             </section>
 

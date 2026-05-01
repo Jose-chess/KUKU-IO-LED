@@ -56,43 +56,6 @@
     margin: 0 0 10px 0;
 }
 
-.exito-footer {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 50px;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding-top: 20px;
-}
-
-.btn-exito-salir {
-    background: #FF0000;
-    color: #000000;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.btn-exito-salir:hover {
-    background-color: #d90000;
-}
-
-.exito-btn-icon {
-    width: 16px;
-    height: 16px;
-}
-
-.btn-exito-salir:hover .exito-btn-icon {
-    transform: scale(1.05);
-}
-
 .scale-up-center {
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
 }

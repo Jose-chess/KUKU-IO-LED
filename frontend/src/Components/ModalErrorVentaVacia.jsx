@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ModalErrorCliente.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
-import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
-const ModalErrorVentaVacia = ({ isOpen, onClose }) => {
+const ModalErrorVentaVacia = ({ isOpen, onClose, duration = 3000 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                onClose?.();
+            }, duration);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, onClose, duration]);
 
     if (!isOpen) return null;
 
@@ -22,12 +30,6 @@ const ModalErrorVentaVacia = ({ isOpen, onClose }) => {
                     <p className="error-cliente-retry-text">Intente de nuevo!</p>
                 </div>
 
-                <div className="error-cliente-footer">
-                    <button className="btn-error-cliente-salir" onClick={onClose}>
-                        <img src={iconSalir} alt="" className="error-cliente-btn-icon" />
-                        Retroceder
-                    </button>
-                </div>
             </div>
         </div>
     );

@@ -1,444 +1,888 @@
 /* ModalFacturacion.css - ALINEACIÃ“N DE ICONOS Y SELECTORES */
 
+
+
 /* Overlay del modal FacturaciÃ³n: fondo oscuro principal */
+
 .facturacion-overlay {
+
     position: fixed;
+
     inset: 0;
+
     background: rgba(0, 0, 0, 0.4);
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     z-index: 90000;
+
 }
+
+
 
 .facturacion-modal {
+
     background: #ffffff;
+
     width: 847px;
+
     height: 900px;
+
     border-radius: 12px;
+
     padding: 35px 45px;
+
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
     font-family: inherit;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: space-between;
+
     box-sizing: border-box;
+
     color: #111827;
+
     overflow: hidden;
+
     animation: modalFadeInSystem 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
 }
+
+
 
 @keyframes modalFadeInSystem {
+
     from {
+
         opacity: 0;
+
         transform: translateY(20px) scale(0.98);
+
     }
+
+
 
     to {
+
         opacity: 1;
+
         transform: translateY(0) scale(1);
+
     }
+
 }
+
+
 
 .facturacion-title {
+
     font-family: inherit;
+
     font-size: 32px;
+
     font-weight: 700;
+
     color: #0f172a;
+
     margin: 0 0 20px 0;
+
     line-height: 1;
+
 }
+
+
 
 /* Secciones */
+
 .seccion-articulos {
+
     background: #ffffff;
+
     border: 1.2px solid #334155;
+
     /* Aumentada la visibilidad solicitada */
+
     border-radius: 12px;
+
     padding: 25px 30px;
+
 }
+
+
 
 .subtitulo-seccion {
+
     font-size: 11px;
+
     font-weight: 800;
+
     text-transform: uppercase;
+
     color: #374151;
+
     margin-bottom: 12px;
+
     letter-spacing: 0.05em;
+
 }
+
+
 
 .separador-linea {
+
     height: 1px;
+
     background: #F5F5F5;
+
     margin-bottom: 25px;
+
 }
+
+
 
 .grid-formulario {
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 30px;
+
     /* Reducido para mayor proximidad solicitado */
+
     max-width: 750px;
+
     /* Ancho mÃ¡ximo para centrar solicitado */
+
     margin: 0 auto;
+
     /* Centrado horizontal */
+
 }
+
+
 
 .columna-formulario {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 12px;
+
 }
+
+
 
 .item-campo {
+
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
 }
+
+
 
 .item-campo label {
+
     width: 140px;
+
     font-weight: 700;
+
     font-size: 11px;
+
     color: #6b7280;
+
     text-transform: uppercase;
+
 }
+
+
 
 /* SELECTORES Y DESPLEGABLES CON FLECHA */
+
 .item-campo input,
-.item-campo select,
-.desplegable-cliente {
-    flex: 1;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    height: 32px;
-    padding: 0 12px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #111827;
-    outline: none;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    position: relative;
-    transition: border-color 0.2s;
-}
 
 .item-campo select,
+
 .desplegable-cliente {
-    appearance: none;
-    -webkit-appearance: none;
-    cursor: pointer;
-    padding-right: 30px;
+
+    flex: 1;
+
+    background: #f9fafb;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 8px;
+
+    height: 32px;
+
+    padding: 0 12px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #111827;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+
+    transition: border-color 0.2s;
+
 }
+
+
+
+.item-campo select,
+
+.desplegable-cliente {
+
+    appearance: none;
+
+    -webkit-appearance: none;
+
+    cursor: pointer;
+
+    padding-right: 30px;
+
+}
+
+
 
 /* FLECHA SELECTS */
+
 .item-campo select {
+
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
     background-repeat: no-repeat;
+
     background-position: right 10px center;
+
     background-size: 14px;
+
 }
+
+
 
 .item-campo input:disabled {
+
     background: #f3f4f6;
+
     color: #111827;
+
     text-align: left;
+
     /* AlineaciÃ³n a la izquierda solicitada */
+
 }
+
+
 
 /* OCULTAR SPINNERS NATIVOS */
+
 input[type=number]::-webkit-inner-spin-button,
+
 input[type=number]::-webkit-outer-spin-button {
+
     -webkit-appearance: none;
+
     appearance: none;
+
     margin: 0;
+
 }
+
+
 
 input[type=number] {
+
     -moz-appearance: textfield;
+
     appearance: textfield;
+
 }
+
+
 
 .desplegable-cliente {
+
     justify-content: space-between;
+
 }
+
+
 
 .icono-flecha-inline {
+
     width: 14px;
+
     height: 14px;
+
     filter: brightness(0);
+
     position: absolute;
+
     right: 10px;
+
     pointer-events: none;
+
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
 }
+
+
 
 .icono-flecha-inline.open {
+
     transform: rotate(180deg);
+
 }
+
+
 
 /* Monto de Venta */
+
 .monto-venta-fila {
+
     font-size: 15px;
+
     font-weight: 700;
+
     display: flex;
+
     align-items: center;
+
     color: #111827;
+
 }
+
+
 
 .monto-vibrante-verde {
+
     color: #009C00;
+
     margin-left: 8px;
+
     font-size: 16px;
+
 }
+
+
 
 /* Resumen Box */
+
 .seccion-resumen-box {
+
     border: 1px solid #111827;
+
     /* Restaurado a su grosor original */
+
     border-radius: 12px;
+
     padding: 20px 30px;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 8px;
+
 }
+
+
 
 .fila-resumen {
+
     display: flex;
+
     align-items: center;
+
     font-size: 13px;
+
     font-weight: 700;
+
 }
+
+
 
 .fila-resumen span:first-child {
+
     width: 120px;
+
     font-size: 11px;
+
     color: #6b7280;
+
     text-transform: uppercase;
+
 }
+
+
 
 .valor-resumen-negro {
+
     color: #111827;
+
 }
+
+
 
 .valor-resumen-rojo {
+
     color: #FF060A;
+
 }
+
+
 
 .valor-resumen-verde {
+
     color: #009C00;
+
     font-size: 15px;
+
 }
+
+
 
 /* Pie de PÃ¡gina */
+
 .pie-modal {
+
     display: flex;
+
     justify-content: space-between;
+
     align-items: center;
+
     padding-top: 20px;
+
     border-top: 1px solid #F5F5F5;
+
     position: relative;
+
 }
+
+
 
 .pie-meta-izquierda,
-.pie-meta-centro {
-    font-size: 11px;
-    font-weight: 700;
-    color: #6b7280;
-    text-transform: uppercase;
-}
 
 .pie-meta-centro {
-    color: #111827;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #6b7280;
+
+    text-transform: uppercase;
+
 }
+
+
+
+.pie-meta-centro {
+
+    color: #111827;
+
+}
+
+
 
 .pie-botones-derecha {
+
     display: flex;
+
     gap: 12px;
+
 }
+
+
 
 .btn-pie-volver,
+
 .btn-pie-confirmar {
+
     height: 38px;
+
     padding: 0 24px;
+
     border-radius: 8px;
+
     border: none;
+
     font-weight: 700;
+
     font-size: 13px;
+
     display: flex;
+
     align-items: center;
+
     gap: 8px;
+
     cursor: pointer;
+
     color: #000000 !important;
+
 }
+
+
 
 .btn-pie-volver {
+
     background: #ff0000;
+
 }
+
+
 
 .btn-pie-confirmar {
+
     background: #00a300;
+
 }
+
+
 
 .btn-pie-volver:hover,
+
 .btn-pie-confirmar:hover {
+
     opacity: 0.9;
+
     transform: translateY(-1px);
+
 }
+
+
 
 .icono-pie {
+
     width: 16px;
+
     height: 16px;
+
     filter: brightness(0);
+
 }
+
+
 
 /* Animaciones */
+
 .shake {
+
     animation: systemShake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+
 }
 
+
+
 .is-hidden-by-confirm {
+
     display: none !important;
+
 }
+
+
 
 @keyframes systemShake {
 
+
+
     10%,
+
     90% {
+
         transform: translate3d(-1px, 0, 0);
+
     }
+
+
 
     20%,
+
     80% {
+
         transform: translate3d(2px, 0, 0);
+
     }
+
+
 
     30%,
+
     50%,
+
     70% {
+
         transform: translate3d(-4px, 0, 0);
+
     }
+
+
 
     40%,
+
     60% {
+
         transform: translate3d(4px, 0, 0);
+
     }
+
 }
+
+
 
 /* Estilos personalizados para react-datepicker en ModalFacturacion */
+
 .custom-datepicker-container .react-datepicker-wrapper {
+
     flex: 1;
+
     display: block;
+
 }
+
+
 
 .custom-datepicker-container .datepicker-input {
+
     width: 100%;
+
     height: 32px;
+
     padding: 0 12px;
+
     border: 1px solid #e5e7eb;
+
     border-radius: 8px;
+
     font-family: 'Inter', sans-serif;
+
     font-size: 13px;
+
     color: #111827;
+
     outline: none;
+
     background: #f9fafb;
+
     box-sizing: border-box;
+
     transition: border-color 0.2s;
+
 }
+
+
 
 .custom-datepicker-container .datepicker-input:focus {
+
     border-color: #1e293b;
+
     box-shadow: none;
+
 }
+
+
 
 .custom-datepicker-container .datepicker-input.error-border {
+
     border-color: #ff0000;
+
 }
+
+
 
 /* Cambiar el color azul por el amarillo del sistema (#FFCC00) */
+
 .react-datepicker__header {
+
     background-color: #FAFAFA !important;
+
     border-bottom: 1px solid #E5E5E5 !important;
+
 }
+
+
 
 .react-datepicker__current-month, 
+
 .react-datepicker-time__header, 
+
 .react-datepicker-year-header {
+
     color: #1e293b !important;
+
 }
+
+
 
 .react-datepicker__day-name {
+
     color: #64748B !important;
+
 }
+
+
 
 .react-datepicker__day--selected, 
+
 .react-datepicker__day--in-selecting-range, 
+
 .react-datepicker__day--in-range, 
+
 .react-datepicker__month-text--selected, 
+
 .react-datepicker__month-text--in-selecting-range, 
+
 .react-datepicker__month-text--in-range, 
+
 .react-datepicker__quarter-text--selected, 
+
 .react-datepicker__quarter-text--in-selecting-range, 
+
 .react-datepicker__quarter-text--in-range, 
+
 .react-datepicker__year-text--selected, 
+
 .react-datepicker__year-text--in-selecting-range, 
+
 .react-datepicker__year-text--in-range {
+
     background-color: #FFCC00 !important;
+
     color: #000000 !important;
+
     font-weight: bold;
+
 }
+
+
 
 .react-datepicker__day--selected:hover, 
+
 .react-datepicker__day--in-selecting-range:hover, 
+
 .react-datepicker__day--in-range:hover, 
+
 .react-datepicker__month-text--selected:hover, 
+
 .react-datepicker__month-text--in-selecting-range:hover, 
+
 .react-datepicker__month-text--in-range:hover, 
+
 .react-datepicker__quarter-text--selected:hover, 
+
 .react-datepicker__quarter-text--in-selecting-range:hover, 
+
 .react-datepicker__quarter-text--in-range:hover, 
+
 .react-datepicker__year-text--selected:hover, 
+
 .react-datepicker__year-text--in-selecting-range:hover, 
+
 .react-datepicker__year-text--in-range:hover {
+
     background-color: #e6b800 !important;
+
 }
+
+
 
 .react-datepicker__day--keyboard-selected, 
+
 .react-datepicker__month-text--keyboard-selected, 
+
 .react-datepicker__quarter-text--keyboard-selected, 
+
 .react-datepicker__year-text--keyboard-selected {
+
     background-color: rgba(255, 204, 0, 0.5) !important;
+
     color: #000000 !important;
+
 }
+
+
 
 .react-datepicker__day:hover, 
+
 .react-datepicker__month-text:hover, 
+
 .react-datepicker__quarter-text:hover, 
+
 .react-datepicker__year-text:hover {
+
     background-color: rgba(255, 204, 0, 0.2) !important;
+
 }
+
+
 
 .react-datepicker__today-button {
+
     background-color: #FAFAFA !important;
+
     border-top: 1px solid #E5E5E5 !important;
+
     color: #000000 !important;
+
     font-weight: bold !important;
+
 }
+
+
 
 .react-datepicker__navigation-icon::before {
+
     border-color: #64748B !important;
+
 }
+
+
 
 .react-datepicker__navigation:hover *::before {
+
     border-color: #FFCC00 !important;
+
 }
 
+
+
 /* Indicador del día de hoy */
+
 .react-datepicker__day--today {
+
     font-weight: bold;
+
     color: #000000 !important;
+
     border: 1px solid #FFCC00 !important;
+
     border-radius: 0.3rem;
+
 }
+

@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ModalErrorGasto.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
-import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
 
 const ModalErrorArticulo = ({
@@ -10,9 +9,18 @@ const ModalErrorArticulo = ({
     title = 'Error',
     message = 'No se pudo guardar este artículo en la base de datos',
     retryMessage = 'Intente de nuevo',
-    buttonLabel = 'Salir',
+    duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                onClose?.();
+            }, duration);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, onClose, duration]);
 
     if (!isOpen) {
         return null;
@@ -32,14 +40,6 @@ const ModalErrorArticulo = ({
                     </div>
                 </div>
 
-                <div className="error-gasto-footer-container">
-                    <div className="error-gasto-botones-flex">
-                        <button className="btn-error-salir" onClick={onClose}>
-                            <img src={iconSalir} alt="" className="error-gasto-btn-icon" />
-                            {buttonLabel}
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     );

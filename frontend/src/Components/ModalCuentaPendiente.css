@@ -1,0 +1,197 @@
+.modal-cuenta-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-cuenta-container {
+    background: #ffffff;
+    width: 850px;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+}
+
+.modal-cuenta-title {
+    margin: 0 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.modal-cuenta-subtitle {
+    margin: 0 0 6px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.modal-cuenta-divider-line {
+    height: 1px;
+    width: 100%;
+    background: #E5E5E5;
+}
+
+.modal-cuenta-grid-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-cuenta-grid-form-2col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.modal-cuenta-full-width {
+    grid-column: 1 / -1;
+    margin-top: 15px;
+}
+
+.modal-cuenta-input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.modal-cuenta-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #D3D6DB;
+    border-radius: 8px;
+    background-color: #F6F6F6;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1e293b;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.modal-cuenta-input-group input:focus {
+    border-color: #D3D6DB;
+}
+
+.modal-cuenta-input-readonly {
+    background-color: #F6F6F6 !important;
+    cursor: not-allowed;
+}
+
+.modal-cuenta-amount-input {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    padding: 15px 12px;
+}
+
+.modal-cuenta-amount-input.deuda-input {
+    color: #DC2626;
+    background-color: #FEF2F2;
+}
+
+.modal-cuenta-amount-input.editable-input {
+    background-color: #ffffff;
+    border: 2px solid #22C55E;
+    color: #166534;
+}
+
+.modal-cuenta-amount-input.editable-input:focus {
+    border-color: #16A34A;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.modal-cuenta-form-section {
+    margin-bottom: 30px;
+}
+
+.modal-cuenta-footer-line {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-salir-cuenta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #FF060A;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-salir-cuenta:hover {
+    background: #DC2626;
+    transform: translateY(-2px);
+}
+
+.btn-salir-cuenta:active {
+    transform: scale(0.96);
+}
+
+.btn-pagar-cuenta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: #009C00;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-pagar-cuenta:hover {
+    background: #009C00;
+    transform: translateY(-2px);
+}
+
+.btn-pagar-cuenta:active {
+    transform: scale(0.96);
+}
+
+.modal-cuenta-btn-icon {
+    width: 18px;
+    height: 18px;
+    display: block;
+    object-fit: contain;
+}
+
+.shake {
+    animation: modal-shake 0.36s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes modal-shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}

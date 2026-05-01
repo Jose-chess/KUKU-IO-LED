@@ -94,7 +94,7 @@ const PanelRecibos = () => {
                     <table className="recibos-table">
                         <thead>
                             <tr>
-                                <th>Número de Recibo</th>
+                                <th>Código</th>
                                 <th>Fecha del recibo</th>
                                 <th>Cliente</th>
                                 <th>Tipo de recibo</th>
