@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './ModalNuevoArticulo.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconGuardar from '../assets/circle-check.svg';
 import ModalConfirmarSalida from './ModalConfirmarSalida';
+import ModalSeleccionSimple from './ModalSeleccionSimple';
 import { useModalShake } from './useModalShake';
+import iconFlecha from '../assets/chevron-down.svg';
 
 const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
     const [showConfirmExit, setShowConfirmExit] = useState(false);
-    const { isShaking, handleOverlayClick } = useModalShake();
+    const [showModalUnidad, setShowModalUnidad] = useState(false);
+    const [unidadSeleccionada, setUnidadSeleccionada] = useState('');
+    const [modalPosition, setModalPosition] = useState(null);
+    const unidadRef = useRef(null);
+    const { isShaking, handleOverlayClick, triggerShake } = useModalShake();
+
+    // Handler personalizado para el overlay que cierra el submodal sin shake
+    const handleOverlayClickCustom = (e) => {
+        // Si el submodal de unidad está abierto, solo cerrarlo sin shake
+        if (showModalUnidad) {
+            setShowModalUnidad(false);
+            return;
+        }
+        // Si no, comportamiento normal (shake)
+        handleOverlayClick(e);
+    };
 
     if (!isOpen) return null;
 
@@ -44,7 +61,7 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
     }
 
     return (
-        <div className="modal-articulo-overlay" onClick={handleOverlayClick}>
+        <div className="modal-articulo-overlay" onClick={handleOverlayClickCustom}>
             <div className={`modal-articulo-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal-articulo-title">Añadir Artículo</h2>
 
@@ -70,8 +87,22 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
                         </div>
                         <div className="modal-articulo-input-group">
                             <label>Unidad:</label>
-                            <input type="text"
-                            placeholder='Ingrese la unidad del artículo' onKeyDown={handleKeyDown} />
+                            <div
+                                ref={unidadRef}
+                                className="desplegable-unidad"
+                                onClick={() => {
+                                    const rect = unidadRef.current.getBoundingClientRect();
+                                    setModalPosition({ top: rect.bottom + window.scrollY + 5, left: rect.left + window.scrollX, width: rect.width });
+                                    setShowModalUnidad(true);
+                                }}
+                            >
+                                <span>{unidadSeleccionada || "Seleccione la unidad"}</span>
+                                <img
+                                    src={iconFlecha}
+                                    alt=""
+                                    className={`icono-flecha-inline ${showModalUnidad ? 'open' : ''}`}
+                                />
+                            </div>
                         </div>
                         <div className="modal-articulo-input-group">
                             <label>Existencia mínima:</label>
@@ -107,6 +138,18 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
                     </button>
                 </div>
             </div>
+
+            <ModalSeleccionSimple
+                isOpen={showModalUnidad}
+                onClose={() => setShowModalUnidad(false)}
+                position={modalPosition}
+                options={['Unidad', 'Caja', 'Docena', 'Metro', 'Litro', 'Kg', 'Par', 'Set', 'Rollo', 'Bolsa', 'Pack', 'Galon']}
+                placeholder="Seleccione la unidad"
+                onSelect={(val) => {
+                    if (val) setUnidadSeleccionada(val);
+                }}
+                selectedValue={unidadSeleccionada}
+            />
         </div>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './ModalAviso.css';
-import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
+import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
 
 const ModalErrorFactura = ({
@@ -29,9 +29,7 @@ const ModalErrorFactura = ({
     return (
         <div className="aviso-overlay" onClick={handleOverlayClick}>
             <div className={`aviso-card-bg-yellow scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
-                <div className="aviso-logo-container">
-                    <img src={logoKuku} alt="KUKU-IO LED" className="aviso-logo-kuku" />
-                </div>
+                <LogoConProgreso duration={duration} />
 
                 <div className="aviso-content-error">
                     <h1 className="aviso-title-main">{title}</h1>

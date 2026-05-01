@@ -1,0 +1,46 @@
+.logo-progress-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.progress-ring-circle-bg {
+    stroke-dasharray: 596.9;
+    stroke-dashoffset: 0;
+}
+
+.progress-ring-circle {
+    stroke-dasharray: 596.9;
+    stroke-dashoffset: 596.9;
+    animation: fill-progress linear forwards;
+}
+
+@keyframes fill-progress {
+    0% {
+        stroke-dashoffset: 596.9;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+.logo-center {
+    position: relative;
+    z-index: 1;
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+}
