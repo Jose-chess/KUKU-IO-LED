@@ -218,18 +218,23 @@
 }
 
 .estado-badge.pendiente {
-    background: #FFF3CD;
-    color: #856404;
+    background: #FEF3C7;
+    color: #92400E;
 }
 
 .estado-badge.parcial {
-    background: #D1ECF1;
-    color: #0C5460;
+    background: #DCFCE7;
+    color: #166534;
 }
 
 .estado-badge.vencida {
-    background: #F8D7DA;
-    color: #721C24;
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+.estado-badge.pagada {
+    background: #DCFCE7;
+    color: #166534;
 }
 
 .btn-ver-cuenta {

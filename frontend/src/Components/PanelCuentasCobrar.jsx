@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import './PanelCuentasCobrar.css';
 import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
+import ModalCuentaPendiente from './ModalCuentaPendiente';
+import ModalErrorPago from './ModalErrorPago';
 
 const PanelCuentasCobrar = () => {
     const [busqueda, setBusqueda] = useState('');
+    const [showModalCuentaPendiente, setShowModalCuentaPendiente] = useState(false);
+    const [selectedCuenta, setSelectedCuenta] = useState(null);
+    const [showErrorPago, setShowErrorPago] = useState(false);
 
     // Datos de ejemplo para la tabla de cuentas por cobrar
     const cuentas = [
@@ -61,6 +66,7 @@ const PanelCuentasCobrar = () => {
             case 'Pendiente': return 'pendiente';
             case 'Parcial': return 'parcial';
             case 'Vencida': return 'vencida';
+            case 'Pagada': return 'pagada';
             default: return '';
         }
     };
@@ -68,7 +74,7 @@ const PanelCuentasCobrar = () => {
     return (
         <div className="cuentas-page">
             <div className="cuentas-header">
-                <h1 className="cuentas-title">Facturas por cobrar</h1>
+                <h1 className="cuentas-title">Cuentas por cobrar</h1>
             </div>
 
             <div className="kpi-grid cuentas-kpi-grid">
@@ -82,7 +88,7 @@ const PanelCuentasCobrar = () => {
                 </div>
                 <div className="kpi-card cuentas-kpi-card">
                     <p className="kpi-label">Cuentas vencidas</p>
-                    <h2 className="kpi-value" style={{ color: cuentasVencidas > 0 ? '#ff0000' : undefined }}>{cuentasVencidas}</h2>
+                    <h2 className="kpi-value">{cuentasVencidas}</h2>
                 </div>
                 <div className="kpi-card cuentas-kpi-card">
                     <p className="kpi-label">Cuentas totales</p>
@@ -92,7 +98,7 @@ const PanelCuentasCobrar = () => {
 
             <div className="cuentas-table-card">
                 <div className="cuentas-table-controls">
-                    <h3>Lista de facturas por cobrar</h3>
+                    <h3>Lista de cuentas por cobrar</h3>
 
                     <div className="search-box">
                         <div className="search-input-wrapper" style={{ width: '400px' }}>
@@ -111,7 +117,7 @@ const PanelCuentasCobrar = () => {
                     <table className="cuentas-table">
                         <thead>
                             <tr>
-                                <th>Número</th>
+                                <th>Código</th>
                                 <th>Cliente</th>
                                 <th>Fecha de emisión</th>
                                 <th>Monto total</th>
@@ -138,7 +144,10 @@ const PanelCuentasCobrar = () => {
                                             <button
                                                 className="btn-ver-cuenta"
                                                 type="button"
-                                                onClick={() => console.log('Ver cuenta:', cuenta)}
+                                                onClick={() => {
+                                                    setSelectedCuenta(cuenta);
+                                                    setShowModalCuentaPendiente(true);
+                                                }}
                                             >
                                                 <img src={iconOjo} alt="" className="btn-ver-cuenta-icon" />
                                             </button>
@@ -156,6 +165,55 @@ const PanelCuentasCobrar = () => {
                     </table>
                 </div>
             </div>
+
+            <ModalCuentaPendiente
+                isOpen={showModalCuentaPendiente}
+                onClose={() => {
+                    setShowModalCuentaPendiente(false);
+                    setSelectedCuenta(null);
+                }}
+                onPagar={async (pagoData) => {
+                    console.log('Procesando pago:', pagoData);
+                    
+                    // Simular error para probar el modal (quitar en producción)
+                    // setShowErrorPago(true);
+                    // return { success: false };
+                    
+                    // Actualizar la cuenta localmente
+                    const cuentaIndex = cuentas.findIndex(c => c.id === pagoData.cuentaId);
+                    if (cuentaIndex >= 0) {
+                        const cuenta = cuentas[cuentaIndex];
+                        const nuevoMontoPagado = cuenta.montoPagado + pagoData.montoPagado;
+                        
+                        // Determinar nuevo estado
+                        let nuevoEstado = cuenta.estado;
+                        if (nuevoMontoPagado >= cuenta.montoTotal) {
+                            nuevoEstado = 'Pagada';
+                        } else if (nuevoMontoPagado > 0) {
+                            nuevoEstado = 'Parcial';
+                        }
+                        
+                        // Actualizar el estado (en producción esto sería una llamada API)
+                        cuentas[cuentaIndex] = {
+                            ...cuenta,
+                            montoPagado: nuevoMontoPagado,
+                            estado: nuevoEstado
+                        };
+                        
+                        console.log('Cuenta actualizada:', cuentas[cuentaIndex]);
+                    }
+                    
+                    return { success: true };
+                }}
+                cuentaData={selectedCuenta}
+            />
+
+            <ModalErrorPago
+                isOpen={showErrorPago}
+                onClose={() => setShowErrorPago(false)}
+                mensaje="No se pudo registrar el pago en la base de datos"
+                submensaje="Intente de nuevo!"
+            />
         </div>
     );
 };

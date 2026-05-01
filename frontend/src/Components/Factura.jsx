@@ -19,14 +19,14 @@ const Factura = () => {
             itbis: 18,
             total: 16815,
             metodo: 'Transferencia',
-            estado: 'Pagada'
+            estado: 'Pago'
         }
     ]);
 
     const totalFacturas = facturas.length;
     const ingresoTotal = facturas.reduce((acc, curr) => acc + curr.total, 0);
     const facturasHoy = facturas.filter(f => f.fecha === '29/04/2026').length;
-    const balancePendiente = facturas.filter(f => f.estado !== 'Pagada').reduce((acc, curr) => acc + curr.total, 0);
+    const balancePendiente = facturas.filter(f => f.estado !== 'Pago').reduce((acc, curr) => acc + curr.total, 0);
     const ticketPromedio = totalFacturas > 0 ? ingresoTotal / totalFacturas : 0;
 
     const formatMoney = (value) => {
@@ -75,7 +75,7 @@ const Factura = () => {
             <div className="factura-table-card">
                 <div className="factura-table-controls">
                     <div>
-                        <h3>Lista de registros de venta</h3>
+                        <h3>Lista de historial de venta</h3>
                     </div>
 
                     <div className="search-box">
@@ -83,7 +83,7 @@ const Factura = () => {
                             <img src={iconBuscar} alt="Buscar" className="search-icon" />
                             <input
                                 type="text"
-                                placeholder="Buscar por número de registro o cliente..."
+                                placeholder="Buscar por número de registro o cliente"
                                 value={busquedaFactura}
                                 onChange={(e) => setBusquedaFactura(e.target.value)}
                             />
@@ -95,7 +95,7 @@ const Factura = () => {
                     <table className="factura-table">
                         <thead>
                             <tr>
-                                <th>Número de Registro</th>
+                                <th>Código</th>
                                 <th>Cliente</th>
                                 <th>Tipo</th>
                                 <th>Fecha</th>
@@ -178,8 +178,6 @@ const Factura = () => {
                     }}
                     onClose={() => setFacturaSeleccionada(null)}
                 />
-            )}
-
             )}
         </div>
     );

@@ -176,7 +176,7 @@ const PanelGastos = () => {
                     <table className="gastos-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Código</th>
                                 <th>Descripción</th>
                                 <th>Monto</th>
                                 <th>Fecha</th>

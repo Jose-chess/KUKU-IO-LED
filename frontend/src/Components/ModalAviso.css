@@ -103,52 +103,6 @@
     margin: 4px 0;
 }
 
-.aviso-footer-right {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
-}
-
-.aviso-footer {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 30px;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 20px;
-}
-
-.btn-aviso-red {
-    background: #FF0000;
-    color: #ffffff;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 15px;
-    font-weight: 800;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
-.btn-aviso-salir {
-    background: #FF0000;
-    color: #ffffff;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 15px;
-    font-weight: 800;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-}
-
 .icon-back {
     display: inline-flex;
     align-items: center;
@@ -257,24 +211,6 @@
 
 .inner-action-btn:hover .inner-action-icon {
     transform: scale(1.05);
-}
-
-.aviso-footer-right.no-top-border {
-    border-top: none;
-}
-
-.aviso-card-bg-white.table-view .btn-aviso-red {
-    color: #000000;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 14px;
-    font-weight: 700;
-    gap: 8px;
-    transition: background-color 0.2s ease;
-}
-
-.aviso-card-bg-white.table-view .btn-aviso-red:hover {
-    background: #d90000;
 }
 
 .aviso-card-bg-white.shake {
