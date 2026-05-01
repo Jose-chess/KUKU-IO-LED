@@ -8,6 +8,10 @@
     z-index: 1200;
     padding: 20px;
     box-sizing: border-box;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
 }
 
 .modal-cuenta-container {
@@ -17,6 +21,10 @@
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     font-family: inherit;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
 }
 
 .modal-cuenta-title {
@@ -77,6 +85,10 @@
     color: #1e293b;
     box-sizing: border-box;
     outline: none;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
 }
 
 .modal-cuenta-input-group input:focus {

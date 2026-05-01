@@ -589,7 +589,7 @@ const PanelVentas = () => {
 
                 }}
 
-                mensaje="Estás seguro que desea salir?"
+                mensaje="¿Estás seguro que desea salir?"
 
                 salirLabel="Retroceder"
 

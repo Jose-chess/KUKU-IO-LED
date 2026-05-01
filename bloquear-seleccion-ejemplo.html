@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloquear Selección de Texto</title>
+    <style>
+        /* ============================================
+           BLOQUEAR SELECCIÓN EN TODA LA PÁGINA
+           Compatible con Chrome, Firefox, Edge, Safari
+           ============================================ */
+        
+        /* Selector universal - aplica a TODOS los elementos */
+        *,
+        *::before,
+        *::after {
+            -webkit-user-select: none;  /* Safari, Chrome, Edge */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;      /* Internet Explorer/Edge antiguo */
+            user-select: none;        /* Estándar moderno */
+        }
+
+        /* También aplicar a html y body para asegurar cobertura total */
+        html {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* ============================================
+           EXCEPCIÓN: ELEMENTOS QUE SÍ PERMITEN SELECCIÓN
+           ============================================ */
+        
+        /* Campos de entrada de texto - necesario para poder escribir */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        input[type="search"],
+        textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* Elementos específicos con clase .permitir-seleccion */
+        .permitir-seleccion {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+
+        /* ============================================
+           ESTILOS PARA EL EJEMPLO VISUAL
+           ============================================ */
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #dc3545;
+        }
+
+        .card.seleccionable {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .label.bloqueado {
+            background: #dc3545;
+            color: white;
+        }
+
+        .label.permitido {
+            background: #28a745;
+            color: white;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .code-block .comment {
+            color: #75715e;
+        }
+
+        .code-block .property {
+            color: #66d9ef;
+        }
+
+        .code-block .value {
+            color: #ae81ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bloquear Selección de Texto</h1>
+        
+        <p>Intenta hacer clic y arrastrar para seleccionar texto en esta página. Verás que:</p>
+        
+        <div class="card">
+            <span class="label bloqueado">BLOQUEADO</span>
+            <p>Este texto NO se puede seleccionar. Al hacer clic y arrastrar, no aparecerá el resaltado azul.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+
+        <div class="card seleccionable">
+            <span class="label permitido">PERMITIDO</span>
+            <p class="permitir-seleccion">Este texto SÍ se puede seleccionar porque tiene la clase <code>.permitir-seleccion</code> aplicada. Intenta seleccionar este párrafo.</p>
+        </div>
+
+        <div class="card seleccionable">
+            <span class="label permitido">PERMITIDO</span>
+            <label>Input de texto:</label>
+            <input type="text" placeholder="Escribe aquí... Este texto se puede seleccionar">
+            
+            <label>Textarea:</label>
+            <textarea rows="3" placeholder="Este texto también se puede seleccionar..."></textarea>
+        </div>
+
+        <h2>Código CSS utilizado:</h2>
+        <div class="code-block">
+<span class="comment">/* Bloquear selección en todos los elementos */</span>
+*,
+*::before,
+*::after {
+    <span class="property">-webkit-user-select</span>: <span class="value">none</span>;  <span class="comment">/* Safari, Chrome, Edge */</span>
+    <span class="property">-moz-user-select</span>: <span class="value">none</span>;     <span class="comment">/* Firefox */</span>
+    <span class="property">-ms-user-select</span>: <span class="value">none</span>;      <span class="comment">/* IE/Edge antiguo */</span>
+    <span class="property">user-select</span>: <span class="value">none</span>;        <span class="comment">/* Estándar */</span>
+}
+
+<span class="comment">/* Excepción: inputs y textareas */</span>
+input, textarea {
+    <span class="property">-webkit-user-select</span>: <span class="value">text</span>;
+    <span class="property">-moz-user-select</span>: <span class="value">text</span>;
+    <span class="property">-ms-user-select</span>: <span class="value">text</span>;
+    <span class="property">user-select</span>: <span class="value">text</span>;
+}
+
+<span class="comment">/* Excepción: elementos específicos */</span>
+.permitir-seleccion {
+    <span class="property">-webkit-user-select</span>: <span class="value">text</span>;
+    <span class="property">-moz-user-select</span>: <span class="value">text</span>;
+    <span class="property">-ms-user-select</span>: <span class="value">text</span>;
+    <span class="property">user-select</span>: <span class="value">text</span>;
+}
+        </div>
+    </div>
+</body>
+</html>

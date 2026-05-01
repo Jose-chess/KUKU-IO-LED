@@ -134,7 +134,7 @@ const FacturaModal = ({ data, onClose }) => {
 
         onConfirm={handleConfirmPDF}
 
-        mensaje="Estas seguro de que desea convertir a PDF ?"
+        mensaje="¿Estas seguro de que desea convertir a PDF ?"
 
         salirLabel="Retroceder"
 
@@ -160,7 +160,7 @@ const FacturaModal = ({ data, onClose }) => {
 
         onConfirm={onClose}
 
-        mensaje="Estas seguro de que desea salir?"
+        mensaje="¿Estas seguro de que desea salir?"
 
         salirLabel="Retroceder"
 

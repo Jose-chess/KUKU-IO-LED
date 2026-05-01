@@ -18,7 +18,7 @@ const CerrarSesionModal = ({ isOpen, onClose, onConfirm }) => {
                 </div>
 
                 <div className="modal-body">
-                    <h2>Seguro que desea cerrar sesión?</h2>
+                    <h2>¿Seguro que desea cerrar sesión?</h2>
                 </div>
 
                 <div className="modal-footer-container">
