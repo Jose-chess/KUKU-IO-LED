@@ -146,7 +146,22 @@
 
 .gastos-table-wrapper {
     flex: 1;
+    min-height: 0;
     overflow: auto;
+}
+
+.gastos-table-wrapper::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.gastos-table-wrapper::-webkit-scrollbar-thumb {
+    background: #D4D4D4;
+    border-radius: 8px;
+}
+
+.gastos-table-wrapper::-webkit-scrollbar-track {
+    background: #FAFAFA;
 }
 
 .gastos-table {
