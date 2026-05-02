@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ModalError.css';
 import LogoConProgreso from './LogoConProgreso';
 import iconSalir from '../assets/arrow-back-up.svg';
@@ -13,6 +13,15 @@ const ModalErrorUsuario = ({
     duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                onClose?.();
+            }, duration);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, onClose, duration]);
 
     if (!isOpen) return null;
 

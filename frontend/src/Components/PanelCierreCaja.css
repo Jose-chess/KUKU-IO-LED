@@ -287,7 +287,7 @@
     padding-top: 16px;
 }
 
-.btn-pdf {
+.btn-pdf-cierre {
     background: #009C00;
     border: none;
     border-radius: 8px;
@@ -300,7 +300,7 @@
     transition: opacity 0.2s;
 }
 
-.btn-pdf img {
+.btn-pdf-cierre img {
     width: 18px;
     filter: brightness(0);
 }
@@ -342,7 +342,7 @@
     filter: brightness(0);
 }
 
-.btn-pdf:hover, .btn-cerrar:hover, .btn-retroceder-footer:hover {
+.btn-pdf-cierre:hover, .btn-cerrar:hover, .btn-retroceder-footer:hover {
     opacity: 0.85;
 }
 
