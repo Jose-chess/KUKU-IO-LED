@@ -78,9 +78,9 @@
 
     margin: 0;
 
-    font-size: 28px;
+    font-size: 22px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1e293b;
 
@@ -212,13 +212,13 @@
 
 .kpi-value {
 
-    font-size: 20px;
+    font-size: 22px;
 
     color: #0f172a;
 
     margin: 0;
 
-    font-weight: 600;
+    font-weight: 500;
 
 }
 
@@ -288,7 +288,7 @@
 
     font-size: 16px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #0f172a;
 
@@ -642,9 +642,9 @@
 
     margin: 0 0 20px;
 
-    font-size: 32px;
+    font-size: 20px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #0f172a;
 
@@ -670,7 +670,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     margin-bottom: 6px;
 
@@ -844,7 +844,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
 }
 
@@ -934,7 +934,7 @@
 
     font-size: 42px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1f2937;
 
@@ -974,7 +974,7 @@
 
     font-size: 33px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1f2937;
 
@@ -1026,7 +1026,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     white-space: nowrap;
 
@@ -1168,7 +1168,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #111827;
 
@@ -1238,7 +1238,7 @@
 
     font-size: 15px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #111827;
 
@@ -1312,7 +1312,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     margin-bottom: 4px;
 
@@ -1354,7 +1354,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1f2937;
 
@@ -1422,7 +1422,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
 }
 
@@ -1546,7 +1546,7 @@
 
     font-size: 42px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1f2937;
 
@@ -1580,7 +1580,7 @@
 
     font-size: 14px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     color: #1f2937;
 
@@ -1628,7 +1628,7 @@
 
     border-radius: 8px;
 
-    font-weight: 700;
+    font-weight: 500;
 
     font-size: 14px;
 
@@ -1878,7 +1878,7 @@
 
     .confirm-title {
 
-        font-size: 28px;
+        font-size: 22px;
 
     }
 

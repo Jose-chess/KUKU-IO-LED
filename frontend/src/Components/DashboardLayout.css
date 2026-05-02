@@ -30,8 +30,8 @@
 }
 
 .brand-name {
-    font-size: 16px;
-    font-weight: 750;
+    font-size: 18px;
+    font-weight: 700;
     color: #000000;
     white-space: nowrap;
     font-family: inherit; 
@@ -45,11 +45,11 @@
 }
 
 .sidebar-section-title {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     color: #000000;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     margin-bottom: 15px;
     padding-left: 10px;
     font-family: inherit;
@@ -96,8 +96,8 @@
 .sidebar-item-text {
     display: inline-block;
     font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .modulo-info {
@@ -165,7 +165,7 @@
 
 .user-name {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1E293B;
 }
 
@@ -187,7 +187,7 @@
     justify-content: flex-start;;
     gap: 8px;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease, transform 0.2s ease;
 }

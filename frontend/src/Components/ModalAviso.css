@@ -69,14 +69,14 @@
 
 .aviso-title-main {
     font-size: 50px;
-    font-weight: 800;
+    font-weight: 600;
     color: #1E293B;
     margin-bottom: 15px;
 }
 
 .aviso-titulo {
     font-size: 50px;
-    font-weight: 800;
+    font-weight: 600;
     color: #1E293B;
     margin-bottom: 10px;
 }
@@ -91,14 +91,14 @@
 
 .aviso-text-p {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1E293B;
     margin: 5px 0;
 }
 
 .aviso-p-bold {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1E293B;
     margin: 4px 0;
 }
@@ -153,8 +153,8 @@
 }
 
 .aviso-card-bg-white.table-view .aviso-title-main.black {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
     letter-spacing: -0.4px;
     line-height: 1.1;
     margin: 0;

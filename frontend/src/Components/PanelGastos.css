@@ -41,8 +41,8 @@
 
 .gastos-title {
     margin: 0;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #1e293b;
     font-family: inherit;
 }
@@ -108,10 +108,10 @@
 }
 
 .kpi-value {
-    font-size: 20px;
+    font-size: 22px;
     color: #0f172a;
     margin: 0;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .gastos-table-card {
@@ -138,7 +138,7 @@
     margin: 0;
     font-family: inherit;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: #0f172a;
 }
 
@@ -281,7 +281,7 @@
 
 .filter-group label {
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     color: #64748b;
     font-family: inherit;
 }
@@ -300,7 +300,7 @@
     background: #f6f6f6;
     color: #1e293b;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     display: flex;
     align-items: center;
     justify-content: space-between;

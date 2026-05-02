@@ -1,3 +1,17 @@
+:root {
+	--font-family-main: 'Konkhmer Sleokchher', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+	--font-size-base: 16px;
+	--scale-h1: 2.5;
+	--scale-h2: 2;
+	--scale-h3: 1.75;
+	--scale-h4: 1.5;
+	--scale-h5: 1.25;
+	--scale-h6: 1;
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+}
+
 html {
 	font-size: 87.5%;
 	-webkit-font-smoothing: antialiased;
@@ -21,7 +35,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #FAFAFA;
-	font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-base);
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -29,6 +44,25 @@ body {
 	-webkit-user-select: none !important;
 	-moz-user-select: none !important;
 	-ms-user-select: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	font-weight: var(--font-weight-semibold);
+	line-height: 1.2;
+}
+
+h1 { font-size: calc(var(--font-size-base) * var(--scale-h1)); }
+h2 { font-size: calc(var(--font-size-base) * var(--scale-h2)); }
+h3 { font-size: calc(var(--font-size-base) * var(--scale-h3)); }
+h4 { font-size: calc(var(--font-size-base) * var(--scale-h4)); }
+h5 { font-size: calc(var(--font-size-base) * var(--scale-h5)); }
+h6 { font-size: calc(var(--font-size-base) * var(--scale-h6)); }
+
+p {
+	margin-top: 0;
+	margin-bottom: 1rem;
+	line-height: 1.6;
 }
 
 #root {

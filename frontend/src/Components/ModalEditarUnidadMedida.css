@@ -22,15 +22,15 @@
 
 .modal-editar-unidad-title {
     margin: 0 0 20px;
-    font-size: 32px;
-    font-weight: 700;
+    font-size: 20px;
+    font-weight: 500;
     color: #0f172a;
 }
 
 .modal-editar-unidad-subtitle {
     margin: 0 0 6px;
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1e293b;
 }
 
@@ -50,7 +50,7 @@
 .modal-editar-unidad-input-group label {
     display: block;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     color: #475569;
     margin-bottom: 8px;
 }
@@ -90,7 +90,7 @@
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 14px;
     font-family: inherit;
     cursor: pointer;

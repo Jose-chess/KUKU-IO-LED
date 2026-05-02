@@ -71,7 +71,7 @@
 
 .recibo-empresa-name {
     font-size: 18px;
-    font-weight: 800;
+    font-weight: 600;
     margin: 0 0 4px 0;
     color: #111827;
 }
@@ -85,7 +85,7 @@
 
 .recibo-tipo-titulo {
     font-size: 14px;
-    font-weight: 800;
+    font-weight: 600;
     margin: 8px 0 2px 0;
     color: #000;
 }
@@ -102,13 +102,13 @@
 
 .recibo-numero {
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     margin: 0;
 }
 
 .recibo-fecha-destacada {
     font-size: 13px;
-    font-weight: 800;
+    font-weight: 600;
     color: #1a1a1a;
     margin: 2px 0 0 0;
 }
@@ -146,14 +146,14 @@
 
 .recibo-label {
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 500;
     color: #6b7280;
     text-transform: uppercase;
 }
 
 .recibo-value-name {
     font-size: 15px;
-    font-weight: 700;
+    font-weight: 500;
     color: #111827;
 }
 
@@ -186,7 +186,7 @@
 
 .recibo-seccion-title {
     font-size: 11px;
-    font-weight: 800;
+    font-weight: 600;
     text-transform: uppercase;
     color: #374151;
     margin-bottom: 10px;
@@ -227,7 +227,7 @@
     margin-top: 8px;
     padding-top: 8px;
     border-top: 1px dashed #e5e7eb;
-    font-weight: 700;
+    font-weight: 500;
     color: #FF060A;
 }
 
@@ -281,7 +281,7 @@
 
 .firma-label-recibo {
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 500;
 }
 
 
@@ -293,7 +293,7 @@
     padding: 8px 30px;
     border-radius: 8px;
     border: none;
-    font-weight: 700;
+    font-weight: 500;
     cursor: pointer;
     transition: 0.2s;
     font-size: 13px;

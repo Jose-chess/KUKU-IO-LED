@@ -46,7 +46,7 @@
 
 .modal-body h2 {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1e293b;
     margin: 0;
     text-align: left;
@@ -81,7 +81,7 @@
     padding: 0 25px;
     border-radius: 8px;
     border: none;
-    font-weight: 700;
+    font-weight: 500;
     cursor: pointer;
     font-size: 13px;
     font-family: inherit;

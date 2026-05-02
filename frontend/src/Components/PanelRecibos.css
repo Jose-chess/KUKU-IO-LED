@@ -50,8 +50,8 @@
 
 .recibos-title {
     margin: 0;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #1e293b;
 }
 
@@ -90,10 +90,10 @@
 }
 
 .kpi-value {
-    font-size: 20px;
+    font-size: 22px;
     color: #0f172a;
     margin: 0;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* Table Card */
@@ -129,7 +129,7 @@
     margin: 0;
     font-family: inherit;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: #0f172a;
 }
 

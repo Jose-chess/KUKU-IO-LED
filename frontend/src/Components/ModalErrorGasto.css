@@ -41,7 +41,7 @@
 
 .error-gasto-title {
     font-size: 42px;
-    font-weight: 800;
+    font-weight: 600;
     color: #000000;
     margin: 0 0 15px 0;
     line-height: 1.1;
@@ -59,7 +59,7 @@
 .error-gasto-text,
 .error-gasto-retry {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 500;
     color: #000000;
     margin: 5px 0;
     text-align: center;
