@@ -28,8 +28,8 @@
 }
 
 .confirm-title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #0f172a;
     margin: 0 0 16px 0;
     line-height: 1;
@@ -44,7 +44,7 @@
 
 .confirm-text {
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 500;
     color: #1e293b;
     margin: 0 0 15px 0;
 }
@@ -68,7 +68,7 @@
     border: none;
     padding: 10px 16px;
     border-radius: 8px;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     align-items: center;

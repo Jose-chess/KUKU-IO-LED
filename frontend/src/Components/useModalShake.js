@@ -25,12 +25,10 @@ export const useModalShake = () => {
         });
     }, []);
 
-    const handleOverlayClick = useCallback((callback) => {
-        if (callback && typeof callback === 'function') {
-            callback();
-        } else {
-            triggerShake();
-        }
+    const handleOverlayClick = useCallback((e) => {
+        // Según la directriz global: no permitir salir dando clic afuera,
+        // siempre aplicar el efecto de meneo (shake).
+        triggerShake();
     }, [triggerShake]);
 
     useEffect(() => {

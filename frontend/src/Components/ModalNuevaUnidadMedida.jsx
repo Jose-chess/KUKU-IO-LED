@@ -51,8 +51,6 @@ const ModalNuevaUnidadMedida = ({ isOpen, onClose, onSave }) => {
     return (
         <div className="modal-unidad-overlay" onClick={handleOverlayClick}>
             <div className={`modal-unidad-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
-                <h2 className="modal-unidad-title">Ingrese la unidad de medida</h2>
-
                 <div className="modal-unidad-form-section">
                     <h3 className="modal-unidad-subtitle">Información de la unidad de medida</h3>
                     <div className="modal-unidad-divider-line" />

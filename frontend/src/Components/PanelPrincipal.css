@@ -38,8 +38,8 @@
 }
 
 .main-title {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #1e293b;
     font-family: inherit;
     margin: 0;
@@ -104,17 +104,15 @@
 }
 
 .kpi-label {
-    margin: 0 0 8px;
     font-size: 11px;
-    color: #64748B;
+    color: #64748b;
+    margin: 0 0 4px 0;
     font-weight: 500;
-    font-family: inherit;
-    line-height: 1.2;
 }
 
 .kpi-value {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #0f172a;
 }
@@ -180,8 +178,8 @@
 }
 
 .chart-total {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #FFCC00;
     margin: 0;
 }
@@ -218,7 +216,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 500;
     color: #475569;
 }
 
@@ -276,9 +274,9 @@
     flex-direction: column;
 }
 
-.n-factura { font-weight: 800; font-size: 14px; }
+.n-factura { font-weight: 600; font-size: 14px; }
 .cliente-name, .fecha-venta { font-size: 11px; color: #64748B; }
-.monto-verde { color: #22C55E; font-weight: 800; }
+.monto-verde { color: #22C55E; font-weight: 600; }
 .text-right { text-align: right; }
 
 .table-row-empty {

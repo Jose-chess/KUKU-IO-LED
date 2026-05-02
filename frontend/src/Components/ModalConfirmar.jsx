@@ -54,7 +54,7 @@ const ModalConfirmar = ({
 
     return (
 
-        <div className="confirm-overlay" onClick={() => handleOverlayClick(handleClose)}>
+        <div className="confirm-overlay" onClick={(e) => { e.stopPropagation(); handleOverlayClick(); }}>
 
             <div className={`confirm-container confirm-modal scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
 

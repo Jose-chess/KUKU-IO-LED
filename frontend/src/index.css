@@ -1,5 +1,141 @@
+:root {
+	/* ── Fuente principal: Inter ── */
+	--font-family-main: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+	/* ── Escala de tamaños optimizada ── */
+	--font-size-xs:     12px;   /* etiquetas, badges, metadata */
+	--font-size-sm:     13px;   /* contenido de tabla */
+	--font-size-base:   14px;   /* texto de cuerpo general, inputs */
+	--font-size-md:     16px;   /* botones, subtítulos */
+	--font-size-lg:     18px;   /* títulos de sección */
+	--font-size-xl:     22px;   /* valores KPI, números destacados */
+	--font-size-2xl:    28px;   /* títulos de página */
+	--font-size-3xl:    32px;   /* títulos de modales grandes */
+
+	/* ── Pesos Inter (400, 500, 600, 700) ── */
+	--font-weight-regular:  400;  /* texto normal */
+	--font-weight-medium:   500;  /* labels, botones secundarios */
+	--font-weight-semibold: 600;  /* títulos, botones primarios, montos */
+	--font-weight-bold:     700;  /* títulos principales, KPIs */
+
+	/* ── Line heights ── */
+	--line-height-tight:  1.1;
+	--line-height-normal: 1.4;
+	--line-height-loose:  1.6;
+
+	/* ── Letter spacing ── */
+	--letter-spacing-tight:  -0.01em;
+	--letter-spacing-normal: 0em;
+	--letter-spacing-wide:   0.04em;   /* para UPPERCASE labels */
+}
+
+/* ── Headings con jerarquía Inter ── */
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	font-family: var(--font-family-main);
+	line-height: var(--line-height-tight);
+	letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 { 
+	font-size: var(--font-size-3xl); 
+	font-weight: var(--font-weight-bold);        /* 700 - Títulos principales */
+}
+h2 { 
+	font-size: var(--font-size-2xl); 
+	font-weight: var(--font-weight-semibold);   /* 600 - Títulos de página */
+}
+h3 { 
+	font-size: var(--font-size-xl); 
+	font-weight: var(--font-weight-semibold);   /* 600 - Subtítulos */
+}
+h4 { 
+	font-size: var(--font-size-lg); 
+	font-weight: var(--font-weight-semibold);   /* 600 - Cards */
+}
+h5 { 
+	font-size: var(--font-size-md); 
+	font-weight: var(--font-weight-medium);     /* 500 - Labels */
+}
+h6 { 
+	font-size: var(--font-size-base); 
+	font-weight: var(--font-weight-medium);     /* 500 - Metadata */
+}
+
+/* ── Cuerpo de texto ── */
+p, .body-text {
+	margin-top: 0;
+	margin-bottom: 0.75rem;
+	line-height: var(--line-height-loose);
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-regular);     /* 400 */
+}
+
+/* ── Tablas ── */
+.table-header th {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-semibold);   /* 600 */
+	text-transform: uppercase;
+	letter-spacing: var(--letter-spacing-wide);
+}
+
+.table-cell td {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-regular);    /* 400 */
+}
+
+.cell-amount {
+	font-weight: var(--font-weight-semibold);   /* 600 - montos */
+}
+
+/* ── Formularios ── */
+.form-label {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);     /* 500 */
+}
+
+.form-input, .form-select {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-regular);    /* 400 */
+}
+
+.form-input::placeholder {
+	font-weight: var(--font-weight-regular);
+	opacity: 0.6;
+}
+
+/* ── Botones ── */
+.btn-primary {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-semibold);   /* 600 */
+}
+
+.btn-secondary, .btn-text {
+	font-size: var(--font-size-base);
+	font-weight: var(--font-weight-medium);     /* 500 */
+}
+
+.btn-sm {
+	font-size: var(--font-size-sm);
+	font-weight: var(--font-weight-medium);     /* 500 */
+}
+
+/* ── Badges y etiquetas ── */
+.badge, .tag {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-medium);     /* 500 */
+	text-transform: uppercase;
+	letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ── Metadata ── */
+.metadata, .caption {
+	font-size: var(--font-size-xs);
+	font-weight: var(--font-weight-regular);    /* 400 */
+	opacity: 0.8;
+}
+
 html {
-	font-size: 87.5%;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	width: 100%;
@@ -21,7 +157,8 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #FAFAFA;
-	font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+	font-family: var(--font-family-main);
+	font-size: var(--font-size-base);
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
@@ -30,6 +167,7 @@ body {
 	-moz-user-select: none !important;
 	-ms-user-select: none !important;
 }
+
 
 #root {
 	width: 100%;

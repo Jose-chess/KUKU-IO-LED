@@ -34,8 +34,8 @@
 
 .empresa-title {
     margin: 0;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 500;
     color: #1e293b;
 }
 
@@ -128,7 +128,7 @@
 .empresa-label {
     display: block;
     margin-bottom: 6px;
-    font-weight: 700;
+    font-weight: 500;
     color: #475569;
     font-size: 14px;
 }
@@ -152,7 +152,7 @@
     border: 1px solid #7dd3fc;
     color: #0c4a6e;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 500;
     padding: 12px 14px;
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 500;
     flex-shrink: 0;
 }
 

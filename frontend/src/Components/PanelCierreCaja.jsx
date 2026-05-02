@@ -151,7 +151,7 @@ const PanelCierreCaja = () => {
             </div>
 
             <div className="cierre-caja-footer">
-                <button className="btn-pdf" onClick={() => setShowConfirmPDF(true)}>
+                <button className="btn-pdf-cierre" onClick={() => setShowConfirmPDF(true)}>
                     <img src={iconPdf} alt="PDF" />
                 </button>
                 {selectedFecha === '4/4/2026' ? (

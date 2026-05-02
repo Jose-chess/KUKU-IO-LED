@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ModalError.css';
 import logoKuku from '../assets/Captura_de_pantalla_2026-03-30_091031-removebg-preview (1).png';
 import iconSalir from '../assets/arrow-back-up.svg';
@@ -9,9 +9,19 @@ const ModalErrorEliminarUnidad = ({
     onClose,
     title = 'Error',
     message = 'No se pudo eliminar esta unidad de medida en la base de datos',
-    retryMessage = '¡Intente de nuevo!'
+    retryMessage = '¡Intente de nuevo!',
+    duration = 3000
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    useEffect(() => {
+        if (isOpen) {
+            const timer = setTimeout(() => {
+                onClose?.();
+            }, duration);
+            return () => clearTimeout(timer);
+        }
+    }, [isOpen, onClose, duration]);
 
     if (!isOpen) return null;
 
