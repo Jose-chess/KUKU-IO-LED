@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './ModalNuevaUnidadMedida.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconGuardar from '../assets/circle-check.svg';
+import logoKuku from '../assets/logo-KUKU.svg';
 import ModalConfirmar from './ModalConfirmar';
 import { useModalShake } from './useModalShake';
 
@@ -51,7 +52,9 @@ const ModalNuevaUnidadMedida = ({ isOpen, onClose, onSave }) => {
     return (
         <div className="modal-unidad-overlay" onClick={handleOverlayClick}>
             <div className={`modal-unidad-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
-                <h2 className="modal-unidad-title">Ingrese la unidad de medida</h2>
+                <div className="modal-unidad-header">
+                    <img src={logoKuku} alt="KUKU IO LED" className="modal-unidad-logo" />
+                </div>
 
                 <div className="modal-unidad-form-section">
                     <h3 className="modal-unidad-subtitle">Información de la unidad de medida</h3>
