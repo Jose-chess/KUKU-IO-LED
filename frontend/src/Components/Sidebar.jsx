@@ -190,10 +190,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             {showReportes && (
                                                 <div className="sub-floating-menu" onClick={(e) => e.stopPropagation()}>
                                                     <div
-                                                        className={`menu-option-item ${selectedReporteOption === 'Ganancias' ? 'selected-yellow' : ''}`}
+                                                        className={`menu-option-item ${activeSection === 'Reportes de ingreso' ? 'selected-yellow' : ''}`}
                                                         onClick={(e) => {
                                                             e.stopPropagation();
-                                                            setSelectedReporteOption('Ingresos');
+                                                            setActiveSection('Reportes de ingreso');
                                                             setShowReportes(false);
                                                             setShowFinanzas(false);
                                                         }}
@@ -238,17 +238,6 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                             }}
                                         >
                                             Gastos
-                                        </div>
-                                        <div className="line-separator"></div>
-                                        <div
-                                            className={`menu-option-item ${activeSection === 'Reportes de Ingreso' ? 'selected-yellow' : ''}`}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                setActiveSection('Reportes de Ingreso');
-                                                setShowFinanzas(false);
-                                            }}
-                                        >
-                                            Reportes de Ingreso
                                         </div>
                                     </div>
                                 )}
