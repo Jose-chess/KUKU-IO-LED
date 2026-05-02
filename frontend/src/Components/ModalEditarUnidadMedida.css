@@ -129,6 +129,12 @@
     animation: shakeX 0.28s ease;
 }
 
+.modal-editar-unidad-container.is-hidden-by-confirm {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: blur(2px);
+}
+
 @keyframes scale-up {
     from {
         opacity: 0;

@@ -21,7 +21,7 @@
 }
 
 .modal-unidad-form-section {
-    padding: 0;
+    padding: 0 0 30px;
     width: 100%;
 }
 
@@ -75,8 +75,8 @@
     justify-content: flex-end;
     gap: 12px;
     border-top: 1px solid #E5E5E5;
-    margin: 30px 30px 0;
-    padding: 20px 0 30px;
+    margin-top: 30px;
+    padding-top: 20px;
 }
 
 .btn-salir-unidad,
@@ -125,6 +125,12 @@
 
 .modal-unidad-container.shake {
     animation: shakeX 0.28s ease;
+}
+
+.modal-unidad-container.is-hidden-by-confirm {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: blur(2px);
 }
 
 @keyframes scale-up {

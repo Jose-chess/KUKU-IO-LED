@@ -1,0 +1,222 @@
+/* ModalHistorialReportes.css */
+
+.historial-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.historial-container {
+    background: #ffffff;
+    width: 800px;
+    max-width: 90vw;
+    max-height: 80vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: scale-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.historial-container.shake {
+    animation: shakeX 0.28s ease;
+}
+
+@keyframes shakeX {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
+}
+
+.historial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 30px;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.historial-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: #0f172a;
+    margin: 0;
+}
+
+.btn-cerrar-historial {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #FF0000;
+    border: none;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cerrar-historial:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.btn-cerrar-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.historial-divider {
+    height: 1px;
+    background: #E5E5E5;
+    margin: 0 30px;
+}
+
+.historial-content {
+    padding: 20px 30px;
+    flex: 1;
+    overflow: auto;
+}
+
+.historial-table-wrapper {
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 400px;
+}
+
+.historial-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--font-size-sm);
+}
+
+.historial-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.historial-table th {
+    background: #F8FAFC;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid #E5E7EB;
+}
+
+.historial-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #F1F5F9;
+    color: #374151;
+}
+
+.historial-table tr:hover td {
+    background: #F8FAFC;
+}
+
+.historial-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.tipo-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.periodo-cell {
+    font-weight: var(--font-weight-semibold);
+    color: #0f172a;
+}
+
+.ganancias-cell {
+    font-weight: var(--font-weight-semibold);
+    color: #059669;
+}
+
+.estado-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #DCFCE7;
+    border-radius: 4px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: #166534;
+}
+
+.historial-footer {
+    padding: 16px 30px;
+    background: #F8FAFC;
+    border-top: 1px solid #E5E7EB;
+}
+
+.historial-total {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: #64748b;
+    text-align: center;
+}
+
+.historial-total strong {
+    color: #0f172a;
+    font-weight: var(--font-weight-bold);
+}
+
+/* Scrollbar styling */
+.historial-table-wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.historial-table-wrapper::-webkit-scrollbar-thumb {
+    background: #D4D4D4;
+    border-radius: 4px;
+}
+
+.historial-table-wrapper::-webkit-scrollbar-track {
+    background: #FAFAFA;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .historial-container {
+        width: 100%;
+        max-height: 90vh;
+    }
+    
+    .historial-header {
+        padding: 16px 20px;
+    }
+    
+    .historial-content {
+        padding: 16px 20px;
+    }
+    
+    .historial-table th,
+    .historial-table td {
+        padding: 10px 12px;
+        font-size: var(--font-size-xs);
+    }
+}

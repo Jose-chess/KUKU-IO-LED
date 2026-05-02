@@ -239,6 +239,17 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                         >
                                             Gastos
                                         </div>
+                                        <div className="line-separator"></div>
+                                        <div
+                                            className={`menu-option-item ${activeSection === 'Reportes de Ingreso' ? 'selected-yellow' : ''}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                setActiveSection('Reportes de Ingreso');
+                                                setShowFinanzas(false);
+                                            }}
+                                        >
+                                            Reportes de Ingreso
+                                        </div>
                                     </div>
                                 )}
 
