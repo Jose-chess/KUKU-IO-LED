@@ -104,18 +104,16 @@
 }
 
 .kpi-label {
-    margin: 0 0 8px;
     font-size: 11px;
-    color: #64748B;
+    color: #64748b;
+    margin: 0 0 4px 0;
     font-weight: 500;
-    font-family: inherit;
-    line-height: 1.2;
 }
 
 .kpi-value {
     margin: 0;
-    font-size: 22px;
-    font-weight: 500;
+    font-size: 18px;
+    font-weight: 600;
     color: #0f172a;
 }
 
