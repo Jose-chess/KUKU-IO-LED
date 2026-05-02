@@ -318,8 +318,6 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
     const handleMainOverlayClick = (e) => {
 
-        // Si hay algún submodal abierto, simplemente cerrarlos todos y no hacer "meneo"
-
         if (showModalCliente || showModalCondicion || showModalTipo || showModalMetodo || showConfirmarRetroceder || showConfirmarFinalizar) {
 
             setShowModalCliente(false);
@@ -338,9 +336,9 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
         }
 
-        // Si no hay submodales, ejecutar el comportamiento normal de shake
+        
 
-        handleOverlayClick(e);
+        handleOverlayClick(onClose);
 
     };
 

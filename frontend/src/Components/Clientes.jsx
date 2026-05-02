@@ -50,7 +50,7 @@ const Clientes = () => {
     const ejecutarGuardarNuevoCliente = () => {
         setShowConfirmarNuevo(false);
         setIsModalNuevoClienteOpen(false);
-        setExitoSubtitle('Cliente guardado exitosamente!');
+        setExitoSubtitle('¡Cliente guardado exitosamente!');
         setShowExitoModal(true);
     };
 
@@ -61,7 +61,7 @@ const Clientes = () => {
     const ejecutarUpdate = () => {
         setShowConfirmarMod(false);
         setShowModificarModal(false);
-        setExitoSubtitle('Cliente modificado exitosamente!');
+        setExitoSubtitle('¡Cliente modificado exitosamente!');
         setShowExitoModal(true);
     };
 

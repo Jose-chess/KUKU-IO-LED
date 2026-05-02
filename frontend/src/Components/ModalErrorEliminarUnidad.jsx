@@ -9,7 +9,7 @@ const ModalErrorEliminarUnidad = ({
     onClose,
     title = 'Error',
     message = 'No se pudo eliminar esta unidad de medida en la base de datos',
-    retryMessage = 'Intente de nuevo!'
+    retryMessage = '¡Intente de nuevo!'
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
@@ -18,7 +18,7 @@ const ModalErrorEliminarUnidad = ({
     return (
         <div className="error-overlay" onClick={handleOverlayClick}>
             <div className={`error-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
-                <div className="error-logo-box">
+                <div className="error-logo-container">
                     <img src={logoKuku} alt="KUKU-IO LED" className="img-error-logo" />
                 </div>
                 
@@ -27,13 +27,6 @@ const ModalErrorEliminarUnidad = ({
                 <div className="error-message-box">
                     <p className="error-text-main">{message}</p>
                     <p className="error-text-sub">{retryMessage}</p>
-                </div>
-
-                <div className="error-footer-right">
-                    <button className="btn-error-salir" onClick={onClose}>
-                        <img src={iconSalir} alt="" className="error-btn-icon" />
-                        Salir
-                    </button>
                 </div>
             </div>
         </div>

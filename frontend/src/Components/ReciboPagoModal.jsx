@@ -80,7 +80,7 @@ const ReciboPagoModal = ({ data, onClose }) => {
 
         title="Confirmado"
 
-        subtitle="PDF de recibo de pago generado exitosamente!"
+        subtitle="¡PDF de recibo de pago generado exitosamente!"
 
       />
 
@@ -102,7 +102,7 @@ const ReciboPagoModal = ({ data, onClose }) => {
 
         mensaje="No se pudo generar el PDF"
 
-        submensaje="Intente de nuevo!"
+        submensaje="¡Intente de nuevo!"
 
       />
 
@@ -124,7 +124,7 @@ const ReciboPagoModal = ({ data, onClose }) => {
 
         onConfirm={handleConfirmPDF}
 
-        mensaje="¿Estas seguro de que desea convertir a PDF ?"
+        mensaje="¿Está seguro de que desea convertir a PDF?"
 
         salirLabel="Retroceder"
 

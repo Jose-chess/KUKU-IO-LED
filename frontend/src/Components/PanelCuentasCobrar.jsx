@@ -213,7 +213,7 @@ const PanelCuentasCobrar = () => {
                 isOpen={showErrorPago}
                 onClose={() => setShowErrorPago(false)}
                 mensaje="No se pudo registrar el pago en la base de datos"
-                submensaje="Intente de nuevo!"
+                submensaje="¡Intente de nuevo!"
             />
         </div>
     );

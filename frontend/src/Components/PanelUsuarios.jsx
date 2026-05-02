@@ -48,14 +48,14 @@ const PanelUsuarios = () => {
         const newId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
         setUsuarios([...usuarios, { id: newId, ...nuevoUsuario }]);
         setIsModalNuevoOpen(false);
-        setSuccessSubtitle('Usuario guardado exitosamente!');
+        setSuccessSubtitle('¡Usuario guardado exitosamente!');
         setShowSuccessModal(true);
     };
 
     const handleUpdateUsuario = (usuarioEditado) => {
         setUsuarios(usuarios.map(u => u.id === usuarioEditado.id ? usuarioEditado : u));
         setIsModalEditarOpen(false);
-        setSuccessSubtitle('Usuario actualizado exitosamente!');
+        setSuccessSubtitle('¡Usuario actualizado exitosamente!');
         setShowSuccessModal(true);
     };
 

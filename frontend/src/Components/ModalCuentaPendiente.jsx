@@ -92,7 +92,7 @@ const ModalCuentaPendiente = ({ isOpen, onClose, onPagar, cuentaData }) => {
                 isOpen={showConfirm}
                 onClose={() => setShowConfirm(false)}
                 onConfirm={handleConfirmarPago}
-                mensaje={`¿Estás seguro que desea registrar el pago?`}
+                mensaje="¿Está seguro de que desea registrar el pago?"
                 salirLabel="Retroceder"
                 confirmLabel="Confirmar pago"
             />
@@ -105,7 +105,7 @@ const ModalCuentaPendiente = ({ isOpen, onClose, onPagar, cuentaData }) => {
             <ModalExito
                 isOpen={showExito}
                 onClose={handleCloseExito}
-                subtitle="Pago registrado exitosamente!"
+                subtitle="¡Pago registrado exitosamente!"
             />
         );
     }

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import './ModalErrorPago.css';
+import './ModalError.css';
 import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
+import iconSalir from '../assets/arrow-back-up.svg';
 
 const ModalErrorPago = ({
     isOpen,
     onClose,
     title = 'Error',
     mensaje = 'No se pudo registrar el pago en la base de datos',
-    submensaje = 'Intente de nuevo!',
+    submensaje = '¡Intente de nuevo!',
     duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
@@ -27,15 +28,17 @@ const ModalErrorPago = ({
     }
 
     return (
-        <div className="error-pago-overlay" onClick={handleOverlayClick}>
-            <div className={`error-pago-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="error-overlay" onClick={handleOverlayClick}>
+            <div className={`error-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <LogoConProgreso duration={duration} />
 
-                <div className="error-pago-content">
-                    <h1 className="error-pago-title">{title}</h1>
-                    <p className="error-pago-mensaje">{mensaje}</p>
-                    <p className="error-pago-submensaje">{submensaje}</p>
+                <h1 className="error-header">{title}</h1>
+
+                <div className="error-message-box">
+                    <p className="error-text-main">{mensaje}</p>
+                    <p className="error-text-sub">{submensaje}</p>
                 </div>
+
             </div>
         </div>
     );

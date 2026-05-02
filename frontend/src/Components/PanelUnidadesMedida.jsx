@@ -69,7 +69,7 @@ const PanelUnidadesMedida = () => {
             setUnidades(unidades.filter(u => u.id !== unidadAEliminar.id));
             setIsConfirmarEliminarOpen(false);
             setUnidadAEliminar(null);
-            setSuccessSubtitle('Unidad de medida eliminada exitosamente!');
+            setSuccessSubtitle('¡Unidad de medida eliminada exitosamente!');
             setShowSuccessModal(true);
         }
     };
@@ -78,14 +78,14 @@ const PanelUnidadesMedida = () => {
         const newId = unidades.length > 0 ? Math.max(...unidades.map(u => u.id)) + 1 : 1;
         setUnidades([...unidades, { id: newId, ...nuevaUnidad }]);
         setIsModalNuevaUnidadOpen(false);
-        setSuccessSubtitle('Unidad de medida guardada exitosamente!');
+        setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
         setShowSuccessModal(true);
     };
 
     const handleUpdateUnidad = (unidadActualizada) => {
         setUnidades(unidades.map(u => u.id === unidadActualizada.id ? unidadActualizada : u));
         setIsModalEditarUnidadOpen(false);
-        setSuccessSubtitle('Unidad de medida modificada exitosamente!');
+        setSuccessSubtitle('¡Unidad de medida modificada exitosamente!');
         setShowSuccessModal(true);
     };
 
@@ -210,7 +210,7 @@ const PanelUnidadesMedida = () => {
                 isOpen={isConfirmarEliminarOpen}
                 onClose={() => setIsConfirmarEliminarOpen(false)}
                 onConfirm={handleConfirmEliminar}
-                mensaje="Estas seguro de que desea eliminar esta unidad de medida ?"
+                mensaje="¿Está seguro de que desea eliminar esta unidad de medida?"
             />
 
             <ModalErrorUnidadMedida

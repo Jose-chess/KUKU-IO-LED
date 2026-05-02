@@ -13,48 +13,55 @@
 
 .exito-modal-card {
     background: #FFCC00;
-    width: 500px;
-    border-radius: 8px;
-    padding: 40px;
-    text-align: center;
+    width: 550px;
+    max-width: calc(100vw - 32px);
+    border-radius: 12px;
+    padding: 35px 40px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: inherit;
-    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
 
 .exito-logo-container {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
 .exito-logo-img {
     width: 160px;
-    margin-bottom: 20px;
 }
 
 .exito-content {
-    text-align: center;
-    width: 100%;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 .exito-main-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0 0 10px 0;
+    font-size: 42px;
+    font-weight: 800;
+    color: #000000;
+    margin: 0 0 15px 0;
+    line-height: 1.1;
+    text-align: center;
 }
 
 .exito-subtitle {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
-    color: #1e293b;
-    margin: 0 0 10px 0;
+    color: #000000;
+    margin: 0;
+    text-align: center;
 }
+
+
 
 .scale-up-center {
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;

@@ -22,7 +22,7 @@ const ModalConfirmarModificacion = ({
 
     title = 'Confirmar',
 
-    mensaje = '¿Estás seguro de que desea modificar este cliente?',
+    mensaje = '¿Está seguro de que desea modificar este cliente?',
 
     salirLabel = 'Retroceder',
 

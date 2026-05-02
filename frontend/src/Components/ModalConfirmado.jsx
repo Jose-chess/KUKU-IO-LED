@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import './ModalConfirmado.css';
 import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
+import iconRetroceder from '../assets/arrow-back-up.svg';
 
 const ModalConfirmado = ({
     isOpen,
     onClose,
     title = 'Confirmado',
-    subtitle = 'Información empresarial guardada exitosamente!',
+    subtitle = '¡Información empresarial guardada exitosamente!',
     duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
@@ -26,7 +27,7 @@ const ModalConfirmado = ({
     }
 
     return (
-        <div className="confirmado-toast" role="status" aria-live="polite" onClick={handleOverlayClick}>
+        <div className="confirmado-toast" role="status" aria-live="polite" onClick={() => handleOverlayClick(onClose)}>
             <div className={`confirmado-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
                 <LogoConProgreso duration={duration} />
 
@@ -34,7 +35,6 @@ const ModalConfirmado = ({
                     <h2 className="confirmado-title">{title}</h2>
                     <p className="confirmado-text">{subtitle}</p>
                 </div>
-
             </div>
         </div>
     );

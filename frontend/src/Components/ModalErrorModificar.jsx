@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import './ModalErrorCliente.css';
+import './ModalError.css';
 import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
+import iconSalir from '../assets/arrow-back-up.svg';
 
 const ModalErrorModificar = ({
     isOpen,
     onClose,
     title = 'Error',
     message = 'No se pudo modificar esta información en la base de datos',
-    retryMessage = 'Intente de nuevo!',
+    retryMessage = '¡Intente de nuevo!',
     duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
@@ -27,14 +28,15 @@ const ModalErrorModificar = ({
     }
 
     return (
-        <div className="error-cliente-overlay" onClick={handleOverlayClick}>
-            <div className={`error-cliente-modal-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
+        <div className="error-overlay" onClick={handleOverlayClick}>
+            <div className={`error-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
                 <LogoConProgreso duration={duration} />
 
-                <div className="error-cliente-content">
-                    <h1 className="error-cliente-main-title">{title}</h1>
-                    {message ? <p className="error-cliente-sub-text">{message}</p> : null}
-                    {retryMessage ? <p className="error-cliente-retry-text">{retryMessage}</p> : null}
+                <h1 className="error-header">{title}</h1>
+
+                <div className="error-message-box">
+                    {message ? <p className="error-text-main">{message}</p> : null}
+                    {retryMessage ? <p className="error-text-sub">{retryMessage}</p> : null}
                 </div>
 
             </div>

@@ -578,7 +578,7 @@ const PanelVentas = () => {
 
                 }}
 
-                mensaje="¿Estás seguro que desea salir?"
+                mensaje="¿Está seguro de que desea salir?"
 
                 salirLabel="Retroceder"
 
@@ -604,7 +604,7 @@ const PanelVentas = () => {
 
                 }}
 
-                mensaje="¿Estás seguro de que deseas procesar este registro?"
+                mensaje="¿Está seguro de que desea procesar este registro?"
 
                 salirLabel="Retroceder"
 

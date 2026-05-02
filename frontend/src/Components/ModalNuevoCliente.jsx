@@ -44,7 +44,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave }) => {
     }
 
     return (
-        <div className="modal-cliente-overlay" onClick={handleOverlayClick}>
+        <div className="modal-cliente-overlay" onClick={() => handleOverlayClick(onClose)}>
             <div className={`modal-cliente-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <h2 className="modal-cliente-title">Añadir Cliente</h2>
 
