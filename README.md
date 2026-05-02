@@ -195,8 +195,6 @@ Ver [CONTRIBUTING.md](./CONTRIBUTING.md) para reglas de contribución.
 
 <div align="center">
 
-**🔴 Construido con pasión y código limpio ⚡**
-
 *KUKU_IO LED © 2026*
 
 </div>

@@ -147,6 +147,10 @@
     100% { transform: translateX(0); }
 }
 
+.scale-up-center {
+    animation: scale-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
 @media (max-width: 640px) {
     .modal-unidad-container {
         padding: 20px;
