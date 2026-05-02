@@ -338,7 +338,7 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
         
 
-        handleOverlayClick(onClose);
+        triggerShake();
 
     };
 

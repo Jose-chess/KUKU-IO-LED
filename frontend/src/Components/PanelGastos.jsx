@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './PanelGastos.css';
 import iconNew from '../assets/new-section.svg';
-import iconSearch from '../assets/search.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalGasto from './ModalGasto';
 import ModalObservacion from './ModalObservacion';
@@ -14,7 +13,6 @@ const PanelGastos = () => {
     const [modalGastoAbierto, setModalGastoAbierto] = useState(false);
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
-    const [busquedaGasto, setBusquedaGasto] = useState('');
     const [gastos] = useState([
         {
             id: 1,
@@ -79,10 +77,7 @@ const PanelGastos = () => {
         const cumpleMes = mesSeleccionado === "Todos" || mesSeleccionado === mesGasto;
         const cumpleAnio = anioSeleccionado === "Todos" || anioSeleccionado === anioGasto.toString();
         
-        const termino = busquedaGasto.toLowerCase();
-        const cumpleBusqueda = !busquedaGasto || g.descripcion.toLowerCase().includes(termino);
-        
-        return cumpleMes && cumpleAnio && cumpleBusqueda;
+        return cumpleMes && cumpleAnio;
     });
 
     return (
@@ -117,16 +112,6 @@ const PanelGastos = () => {
             <div className="gastos-table-card">
                 <div className="gastos-table-controls">
                     <h3>Lista de gastos</h3>
-                    <div className="gastos-search-wrapper">
-                        <img src={iconSearch} alt="Buscar" className="gastos-search-icon" />
-                        <input
-                            type="text"
-                            placeholder="Buscar gasto por descripción"
-                            value={busquedaGasto}
-                            onChange={(e) => setBusquedaGasto(e.target.value)}
-                            className="gastos-search-input"
-                        />
-                    </div>
                     <div className="gastos-filters">
                         <div className="filter-group">
                             <label>Mes:</label>
