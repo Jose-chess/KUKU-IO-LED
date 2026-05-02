@@ -129,6 +129,12 @@
     animation: shakeX 0.28s ease;
 }
 
+.modal-editar-unidad-container.is-hidden-by-confirm {
+    opacity: 0.3;
+    pointer-events: none;
+    filter: blur(2px);
+}
+
 @keyframes scale-up {
     from {
         opacity: 0;
@@ -171,4 +177,8 @@
     .btn-guardar-editar-unidad {
         width: 100%;
     }
+}
+
+.scale-up-center {
+    animation: scale-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }

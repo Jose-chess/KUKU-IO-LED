@@ -181,21 +181,7 @@ KUKU-IO-LED/
 
 ---
 
-## 🤝 Contribución
-
-Ver [CONTRIBUTING.md](./CONTRIBUTING.md) para reglas de contribución.
-
-**Resumen rápido:**
-- ✅ Commits tipo `feat:`, `fix:`, `refactor:` (Conventional Commits)
-- ✅ Tailwind CSS para estilos (no CSS puro)
-- ✅ Principios DDD en C#
-- ✅ PRs con screenshots visuales
-
----
-
 <div align="center">
-
-**🔴 Construido con pasión y código limpio ⚡**
 
 *KUKU_IO LED © 2026*
 

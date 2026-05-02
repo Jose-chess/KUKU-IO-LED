@@ -60,7 +60,7 @@ const ModalEditarUnidadMedida = ({ isOpen, onClose, onSave, unidad }) => {
 
     return (
         <div className="modal-editar-unidad-overlay" onClick={handleOverlayClick}>
-            <div className={`modal-editar-unidad-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+            <div className={`modal-editar-unidad-container scale-up-center ${isShaking ? 'shake' : ''} ${(showConfirmExit || showConfirmSave) ? 'is-hidden-by-confirm' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <div className="modal-editar-unidad-form-section">
                     <h3 className="modal-editar-unidad-subtitle">Información de la unidad de medida</h3>
                     <div className="modal-editar-unidad-divider-line" />
