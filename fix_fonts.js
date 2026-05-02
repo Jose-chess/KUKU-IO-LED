@@ -2,31 +2,23 @@ const fs = require('fs');
 const path = require('path');
 const dir = 'c:/KUKU-IO-LED/frontend/src/Components';
 
+// Definimos la jerarquía tipográfica proporcional por contexto:
+// Konkhmer es la fuente de display/brand — Inter como fallback para caracteres especiales
+const MAIN_FONT = "'Konkhmer Sleokchher', 'Inter', 'Segoe UI', system-ui, sans-serif";
+
 fs.readdirSync(dir).filter(f => f.endsWith('.css')).forEach(f => {
     let c = fs.readFileSync(path.join(dir, f), 'utf8');
     let o = c;
 
-    // Replace Konkhmer Sleokchher font references
-    c = c.replace(/font-family:\s*'Konkhmer Sleokchher'[^;]*;/g, "font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;");
-    c = c.replace(/font-family:\s*"Konkhmer Sleokchher"[^;]*;/g, "font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;");
-    
-    // Replace generic Segoe UI references (not inter ones)
-    c = c.replace(/font-family:\s*'Segoe UI', Roboto, Helvetica, Arial, sans-serif;/g, "font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;");
-    c = c.replace(/font-family:\s*'Segoe UI', sans-serif;/g, "font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;");
+    // Restaurar Konkhmer en todas las referencias de font-family que quedaron como solo Inter
+    c = c.replace(/font-family:\s*'Inter',\s*'Segoe UI',\s*system-ui,\s*sans-serif;/g, `font-family: ${MAIN_FONT};`);
+    c = c.replace(/font-family:\s*'Inter',\s*sans-serif;/g, `font-family: ${MAIN_FONT};`);
+    c = c.replace(/font-family:\s*'Inter'[^;]*;/g, `font-family: ${MAIN_FONT};`);
 
     if (c !== o) {
         fs.writeFileSync(path.join(dir, f), c, 'utf8');
-        console.log('Updated font-family in', f);
+        console.log('Restored Konkhmer in', f);
     }
 });
 
-// Also fix index.css
-let ic = fs.readFileSync('c:/KUKU-IO-LED/frontend/src/index.css', 'utf8');
-let io = ic;
-ic = ic.replace(/font-family:\s*'Konkhmer Sleokchher'[^;]*;/g, "font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;");
-if (ic !== io) {
-    fs.writeFileSync('c:/KUKU-IO-LED/frontend/src/index.css', ic, 'utf8');
-    console.log('Updated index.css');
-}
-
-console.log('Done');
+console.log('Done restoring Konkhmer font');

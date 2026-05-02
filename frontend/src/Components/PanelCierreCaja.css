@@ -10,7 +10,7 @@
     user-select: none;
     -webkit-user-select: none;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Konkhmer Sleokchher', 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 .cierre-caja-container > * {
