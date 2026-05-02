@@ -130,10 +130,7 @@
 
 /* Reporte Documento */
 .reporte-documento {
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 30px 40px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    padding: 20px 0;
     overflow: auto;
     flex: 1;
 }
@@ -199,6 +196,67 @@
 .reporte-total strong {
     color: #1e293b;
     font-weight: 600;
+}
+
+/* Sección Gráficos */
+.seccion-graficos {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #E5E7EB;
+}
+
+.grafico-titulo {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 20px 0;
+}
+
+/* Donut Chart */
+.donut-chart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.donut-chart {
+    width: 200px;
+    height: 200px;
+    flex-shrink: 0;
+}
+
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.legend-color {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    color: #4B5563;
+    font-weight: 500;
+    min-width: 140px;
+}
+
+.legend-value {
+    color: #1e293b;
+    font-weight: 600;
+    margin-left: auto;
 }
 
 /* Responsive */
