@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import './ModalExito.css';
 import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
+import iconSalir from '../assets/arrow-back-up.svg';
 
 const ModalExito = ({
     isOpen,
@@ -34,7 +35,6 @@ const ModalExito = ({
                     <h1 className="exito-main-title">{title}</h1>
                     {subtitle ? <p className="exito-subtitle">{subtitle}</p> : null}
                 </div>
-
             </div>
         </div>
     );

@@ -76,7 +76,7 @@ const PanelGastos = () => {
         const [d, m, a] = g.fecha.split('/');
         const mesGasto = meses[parseInt(m)];
         const anioGasto = a; // String comparison
-        
+        const cumpleMes = mesSeleccionado === "Todos" || mesSeleccionado === mesGasto;
         const cumpleAnio = anioSeleccionado === "Todos" || anioSeleccionado === anioGasto.toString();
         
         const termino = busquedaGasto.toLowerCase();

@@ -103,7 +103,7 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
             <ModalExito
                 isOpen={showExito}
                 onClose={handleCloseExito}
-                subtitle="Gasto registrado exitosamente!"
+                subtitle="¡Gasto registrado exitosamente!"
             />
         );
     }

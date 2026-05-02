@@ -12,39 +12,57 @@
 }
 
 .error-cliente-modal-card {
-    background: #ffffff;
-    width: 500px;
-    border-radius: 8px;
-    padding: 40px;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    background: #FFCC00;
+    width: 550px;
+    max-width: calc(100vw - 32px);
+    border-radius: 12px;
+    padding: 35px 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: inherit;
-    box-sizing: border-box;
-    border: 1px solid #d9dee7;
+    position: relative;
+    overflow: hidden;
+}
+
+.error-cliente-logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
 .error-cliente-logo-img {
-    width: 150px;
-    margin-bottom: 20px;
+    width: 160px;
 }
 
 .error-cliente-main-title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #0f172a;
+    font-size: 42px;
+    font-weight: 800;
+    color: #000000;
     margin: 0 0 15px 0;
+    line-height: 1.1;
+    text-align: center;
+}
+
+.error-cliente-message-box {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .error-cliente-sub-text,
 .error-cliente-retry-text {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
-    color: #1e293b;
+    color: #000000;
     margin: 5px 0;
+    text-align: center;
 }
+
+
 
 .scale-up-center {
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
@@ -67,27 +85,10 @@
 }
 
 @keyframes shakeX {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-8px);
-    }
-
-    40% {
-        transform: translateX(8px);
-    }
-
-    60% {
-        transform: translateX(-6px);
-    }
-
-    80% {
-        transform: translateX(6px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
 }

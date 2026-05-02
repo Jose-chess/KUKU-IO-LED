@@ -17,13 +17,11 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
 
     // Handler personalizado para el overlay que cierra el submodal sin shake
     const handleOverlayClickCustom = (e) => {
-        // Si el submodal de unidad está abierto, solo cerrarlo sin shake
         if (showModalUnidad) {
             setShowModalUnidad(false);
             return;
         }
-        // Si no, comportamiento normal (shake)
-        handleOverlayClick(e);
+        handleOverlayClick(onClose);
     };
 
     if (!isOpen) return null;

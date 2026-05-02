@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import './ModalAviso.css';
+import './ModalError.css';
 import LogoConProgreso from './LogoConProgreso';
 import { useModalShake } from './useModalShake';
+import iconSalir from '../assets/arrow-back-up.svg';
 
 const ModalErrorFactura = ({
     isOpen,
     onClose,
     title = 'Error',
     mensaje = 'No se pudo generar el PDF',
-    submensaje = 'Intente de nuevo!',
+    submensaje = '¡Intente de nuevo!',
     duration = 3000,
 }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
@@ -27,16 +28,15 @@ const ModalErrorFactura = ({
     }
 
     return (
-        <div className="aviso-overlay" onClick={handleOverlayClick}>
-            <div className={`aviso-card-bg-yellow scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
+        <div className="error-overlay" onClick={handleOverlayClick}>
+            <div className={`error-card scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                 <LogoConProgreso duration={duration} />
 
-                <div className="aviso-content-error">
-                    <h1 className="aviso-title-main">{title}</h1>
-                    <div className="aviso-text-block">
-                        <p className="aviso-text-p">{mensaje}</p>
-                        <p className="aviso-text-p">{submensaje}</p>
-                    </div>
+                <h1 className="error-header">{title}</h1>
+
+                <div className="error-message-box">
+                    <p className="error-text-main">{mensaje}</p>
+                    <p className="error-text-sub">{submensaje}</p>
                 </div>
 
             </div>

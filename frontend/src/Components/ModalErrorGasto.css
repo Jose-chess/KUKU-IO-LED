@@ -13,56 +13,59 @@
 
 .error-gasto-container {
     background: #FFCC00;
-    width: 500px;
-    height: 560px;
-    border-radius: 8px;
+    width: 550px;
+    max-width: calc(100vw - 32px);
+    border-radius: 12px;
+    padding: 35px 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    font-family: inherit;
-    user-select: none;
-    -webkit-user-select: none;
-    box-sizing: border-box;
+    position: relative;
     overflow: hidden;
 }
 
 .error-gasto-content {
-    text-align: center;
-    width: 80%;
-    flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 .error-gasto-logo {
-    width: 150px;
+    width: 160px;
     display: block;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 25px auto;
     pointer-events: none;
 }
 
 .error-gasto-title {
     font-size: 42px;
-    font-weight: 700;
+    font-weight: 800;
     color: #000000;
-    margin: 0;
+    margin: 0 0 15px 0;
+    line-height: 1.1;
+    text-align: center;
 }
 
 .error-gasto-message-box {
-    margin-top: 10px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
 .error-gasto-text,
 .error-gasto-retry {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
     color: #000000;
     margin: 5px 0;
+    text-align: center;
 }
+
+
 
 .scale-up-center {
     animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
@@ -85,27 +88,10 @@
 }
 
 @keyframes shakeX {
-    0% {
-        transform: translateX(0);
-    }
-
-    20% {
-        transform: translateX(-8px);
-    }
-
-    40% {
-        transform: translateX(8px);
-    }
-
-    60% {
-        transform: translateX(-6px);
-    }
-
-    80% {
-        transform: translateX(6px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+    100% { transform: translateX(0); }
 }

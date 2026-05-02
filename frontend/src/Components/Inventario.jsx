@@ -80,7 +80,7 @@ const Inventario = () => {
 
     const [showExitoModal, setShowExitoModal] = useState(false);
 
-    const [exitoSubtitle, setExitoSubtitle] = useState('Artículo guardado exitosamente!');
+    const [exitoSubtitle, setExitoSubtitle] = useState('¡Artículo guardado exitosamente!');
 
     const [showErrorModal, setShowErrorModal] = useState(false);
 
@@ -262,7 +262,7 @@ const Inventario = () => {
 
             // Por ahora simulamos éxito
 
-            setExitoSubtitle('Artículo modificado exitosamente!');
+            setExitoSubtitle('¡Artículo modificado exitosamente!');
 
             setShowExitoModal(true);
 
@@ -326,7 +326,7 @@ const Inventario = () => {
 
             // Por ahora simulamos éxito
 
-            setExitoSubtitle('Artículo eliminado exitosamente!');
+            setExitoSubtitle('¡Artículo eliminado exitosamente!');
 
             setShowExitoModal(true);
 
@@ -722,7 +722,7 @@ const Inventario = () => {
 
                 onConfirm={handleConfirmarEditar}
 
-                mensaje="¿Estas seguro de que desea modificar este artículo?"
+                mensaje="¿Está seguro de que desea modificar este artículo?"
 
             />
 
@@ -734,7 +734,7 @@ const Inventario = () => {
 
                 onConfirm={handleConfirmarEliminar}
 
-                mensaje="¿Estas seguro de que desea eliminar este artículo?"
+                mensaje="¿Está seguro de que desea eliminar este artículo?"
 
             />
 

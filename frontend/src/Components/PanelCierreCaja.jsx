@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './PanelCierreCaja.css';
 import iconPdf from '../assets/file-type-pdf.svg';
 import iconCheck from '../assets/circle-check.svg';
 import iconChevron from '../assets/chevron-down.svg';
+import iconRetroceder from '../assets/arrow-back-up.svg';
 import ModalConfirmar from './ModalConfirmar';
 import ModalConfirmado from './ModalConfirmado';
 
@@ -10,7 +11,26 @@ const PanelCierreCaja = () => {
     const [showHistorial, setShowHistorial] = useState(false);
     const [selectedFecha, setSelectedFecha] = useState('4/4/2026');
     const [showConfirmCerrar, setShowConfirmCerrar] = useState(false);
+    const [showConfirmPDF, setShowConfirmPDF] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowHistorial(false);
+            }
+        };
+
+        if (showHistorial) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showHistorial]);
 
     const handleCerrarCaja = () => {
         setShowConfirmCerrar(true);
@@ -18,6 +38,14 @@ const PanelCierreCaja = () => {
 
     const handleConfirmCerrar = () => {
         setShowConfirmCerrar(false);
+        setSuccessMessage('¡El cierre de caja se ha realizado exitosamente!');
+        setShowSuccess(true);
+    };
+
+    const handleConfirmPDF = () => {
+        setShowConfirmPDF(false);
+        // Aquí iría la lógica para generar el PDF
+        setSuccessMessage('¡PDF generado exitosamente!');
         setShowSuccess(true);
     };
 
@@ -25,7 +53,7 @@ const PanelCierreCaja = () => {
         <div className="cierre-caja-container">
             <div className="cierre-caja-header">
                 <h1 className="cierre-caja-title">Cierre de caja</h1>
-                <div className="historial-wrapper">
+                <div className="historial-wrapper" ref={dropdownRef}>
                     <button className="btn-historial" onClick={() => setShowHistorial(!showHistorial)}>
                         Historial
                         <img src={iconChevron} alt="" className={`icon-chevron ${showHistorial ? 'open' : ''}`} />
@@ -123,13 +151,18 @@ const PanelCierreCaja = () => {
             </div>
 
             <div className="cierre-caja-footer">
-                <button className="btn-pdf">
+                <button className="btn-pdf" onClick={() => setShowConfirmPDF(true)}>
                     <img src={iconPdf} alt="PDF" />
                 </button>
-                {selectedFecha === '4/4/2026' && (
+                {selectedFecha === '4/4/2026' ? (
                     <button className="btn-cerrar" onClick={handleCerrarCaja}>
                         <img src={iconCheck} alt="" />
                         Cerrar caja
+                    </button>
+                ) : (
+                    <button className="btn-retroceder-footer" onClick={() => setSelectedFecha('4/4/2026')}>
+                        <img src={iconRetroceder} alt="" className="icon-retroceder" />
+                        Retroceder
                     </button>
                 )}
             </div>
@@ -138,14 +171,21 @@ const PanelCierreCaja = () => {
                 isOpen={showConfirmCerrar}
                 onClose={() => setShowConfirmCerrar(false)}
                 onConfirm={handleConfirmCerrar}
-                mensaje="Estas seguro de que desea realizar el cierre de caja ?"
+                mensaje="¿Está seguro de que desea realizar el cierre de caja?"
+            />
+
+            <ModalConfirmar
+                isOpen={showConfirmPDF}
+                onClose={() => setShowConfirmPDF(false)}
+                onConfirm={handleConfirmPDF}
+                mensaje="¿Está seguro de que desea convertir a PDF?"
             />
 
             <ModalConfirmado
                 isOpen={showSuccess}
                 onClose={() => setShowSuccess(false)}
                 onConfirm={() => setShowSuccess(false)}
-                subtitle="El cierre de caja se ha realizado exitosamente!"
+                subtitle={successMessage}
             />
         </div>
     );

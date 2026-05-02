@@ -106,7 +106,7 @@ const InformacionEmpresarial = ({ datos = {}, onUpdateDatos }) => {
                 isOpen={showSuccessModal}
                 onClose={handleSuccessClose}
                 title="Confirmado"
-                subtitle="Información empresarial guardada exitosamente!"
+                subtitle="¡Información empresarial guardada exitosamente!"
                 buttonLabel="Salir"
             />
         </main>

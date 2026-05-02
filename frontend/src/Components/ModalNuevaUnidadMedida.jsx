@@ -98,14 +98,14 @@ const ModalNuevaUnidadMedida = ({ isOpen, onClose, onSave }) => {
                 isOpen={showConfirmExit}
                 onClose={() => setShowConfirmExit(false)}
                 onConfirm={handleClose}
-                mensaje="Estas seguro de que desea salir ?"
+                mensaje="¿Está seguro de que desea salir?"
             />
 
             <ModalConfirmar
                 isOpen={showConfirmSave}
                 onClose={() => setShowConfirmSave(false)}
                 onConfirm={handleConfirmSave}
-                mensaje="Estas seguro de que desea guardar esta unidad de medida ?"
+                mensaje="¿Está seguro de que desea guardar esta unidad de medida?"
             />
         </div>
     );

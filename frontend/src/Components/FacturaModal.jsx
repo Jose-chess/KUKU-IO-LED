@@ -90,7 +90,7 @@ const FacturaModal = ({ data, onClose }) => {
 
         title="Confirmado"
 
-        subtitle="PDF generado exitosamente!"
+        subtitle="¡PDF generado exitosamente!"
 
       />
 
@@ -112,7 +112,7 @@ const FacturaModal = ({ data, onClose }) => {
 
         mensaje="No se pudo generar el PDF"
 
-        submensaje="Intente de nuevo!"
+        submensaje="¡Intente de nuevo!"
 
       />
 
@@ -134,7 +134,7 @@ const FacturaModal = ({ data, onClose }) => {
 
         onConfirm={handleConfirmPDF}
 
-        mensaje="¿Estas seguro de que desea convertir a PDF ?"
+        mensaje="¿Está seguro de que desea convertir a PDF?"
 
         salirLabel="Retroceder"
 

@@ -24,7 +24,7 @@ const ModalConfirmar = ({
 
     title = 'Confirmar',
 
-    mensaje = '¿Estás seguro de que desea realizar este gasto?',
+    mensaje = '¿Está seguro de que desea realizar esta acción?',
 
     salirLabel = 'Retroceder',
 
@@ -54,7 +54,7 @@ const ModalConfirmar = ({
 
     return (
 
-        <div className="confirm-overlay" onClick={handleOverlayClick}>
+        <div className="confirm-overlay" onClick={() => handleOverlayClick(handleClose)}>
 
             <div className={`confirm-container confirm-modal scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
 

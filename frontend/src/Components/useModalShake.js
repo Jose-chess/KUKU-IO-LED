@@ -25,8 +25,12 @@ export const useModalShake = () => {
         });
     }, []);
 
-    const handleOverlayClick = useCallback(() => {
-        triggerShake();
+    const handleOverlayClick = useCallback((callback) => {
+        if (callback && typeof callback === 'function') {
+            callback();
+        } else {
+            triggerShake();
+        }
     }, [triggerShake]);
 
     useEffect(() => {

@@ -51,7 +51,7 @@ const ModalNuevoUsuario = ({ isOpen, onClose, onSave }) => {
     return (
         <>
             {!showConfirmSave && !showConfirmExit && (
-                <div className="modal-usuario-overlay" onClick={handleOverlayClick}>
+                <div className="modal-usuario-overlay" onClick={() => handleOverlayClick(handleClose)}>
                     <div className={`modal-usuario-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                         <h2 className="modal-usuario-title">Ingrese el nuevo usuario</h2>
 
@@ -162,14 +162,14 @@ const ModalNuevoUsuario = ({ isOpen, onClose, onSave }) => {
                 isOpen={showConfirmExit}
                 onClose={() => setShowConfirmExit(false)}
                 onConfirm={handleClose}
-                mensaje="Estas seguro de que desea salir ?"
+                mensaje="¿Está seguro de que desea salir?"
             />
 
             <ModalConfirmar
                 isOpen={showConfirmSave}
                 onClose={() => setShowConfirmSave(false)}
                 onConfirm={handleConfirmSave}
-                mensaje="Estas seguro de que desea agregar este usuario ?"
+                mensaje="¿Está seguro de que desea agregar este usuario?"
             />
         </>
     );

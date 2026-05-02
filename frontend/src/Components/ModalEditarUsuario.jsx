@@ -49,7 +49,7 @@ const ModalEditarUsuario = ({ isOpen, onClose, onUpdate, usuarioData }) => {
     return (
         <>
             {!showConfirmSave && !showConfirmExit && (
-                <div className="modal-usuario-overlay" onClick={handleOverlayClick}>
+                <div className="modal-usuario-overlay" onClick={() => handleOverlayClick(handleClose)}>
                     <div className={`modal-usuario-container ${isShaking ? 'shake' : ''}`} onClick={(e) => e.stopPropagation()}>
                         <h2 className="modal-usuario-title">Editar Usuario</h2>
 
@@ -161,14 +161,14 @@ const ModalEditarUsuario = ({ isOpen, onClose, onUpdate, usuarioData }) => {
                 isOpen={showConfirmExit}
                 onClose={() => setShowConfirmExit(false)}
                 onConfirm={handleClose}
-                mensaje="Estas seguro de que desea salir ?"
+                mensaje="¿Está seguro de que desea salir?"
             />
 
             <ModalConfirmar
                 isOpen={showConfirmSave}
                 onClose={() => setShowConfirmSave(false)}
                 onConfirm={handleConfirmSave}
-                mensaje="Estas seguro de que desea modificar este usuario ?"
+                mensaje="¿Está seguro de que desea modificar este usuario?"
             />
         </>
     );
