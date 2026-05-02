@@ -7,8 +7,11 @@ import './PanelUsuarios.css';
 import iconBuscar from '../assets/search.svg';
 import iconEditar from '../assets/edit.svg';
 import iconNuevo from '../assets/new-section.svg';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchUsuarios, createUsuario, updateUsuario } from '../api/usuariosApi';
 
 const PanelUsuarios = () => {
+    // Estados UI
     const [busqueda, setBusqueda] = useState('');
     const [isModalNuevoOpen, setIsModalNuevoOpen] = useState(false);
     const [isModalEditarOpen, setIsModalEditarOpen] = useState(false);
@@ -17,27 +20,30 @@ const PanelUsuarios = () => {
     const [showErrorModal, setShowErrorModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [successSubtitle, setSuccessSubtitle] = useState('');
+    
+    // Datos del backend (vacíos hasta integrar)
+    const [usuarios, setUsuarios] = useState([]);
+    const [kpis, setKpis] = useState({
+        totalUsuarios: 0,
+        usuariosActivos: 0,
+        administradores: 0
+    });
 
-    const [usuarios, setUsuarios] = useState(
-        Array.from({ length: 15 }, (_, index) => ({
-            id: index + 1,
-            usuario: 'Admin',
-            nombre: 'Carlos Castillo',
-            estado: 'Activo',
-            contrasena: 'KUKUIO123',
-            rol: 'Administrador'
-        }))
-    );
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const [usuariosData, kpisData] = await Promise.all([
+    //             fetchUsuarios(),
+    //             fetchKpisUsuarios()
+    //         ]);
+    //         setUsuarios(usuariosData);
+    //         setKpis(kpisData);
+    //     };
+    //     loadData();
+    // }, []);
 
-    const usuariosFiltrados = usuarios.filter(u =>
-        u.usuario.toLowerCase().includes(busqueda.toLowerCase()) ||
-        u.nombre.toLowerCase().includes(busqueda.toLowerCase())
-    );
-
-    const totalUsuarios = usuarios.length;
-    const usuariosActivos = usuarios.filter(u => u.estado === 'Activo').length;
-    const administradores = usuarios.filter(u => u.rol === 'Administrador').length;
-    const ultimoUsuario = usuarios.length > 0 ? usuarios[usuarios.length - 1].nombre : '-';
+    // TODO: El filtrado debe hacerse en el backend
+    const usuariosFiltrados = usuarios;
 
     const handleEditar = (usuario) => {
         setUsuarioAEditar(usuario);
@@ -45,8 +51,9 @@ const PanelUsuarios = () => {
     };
 
     const handleSaveUsuario = (nuevoUsuario) => {
-        const newId = usuarios.length > 0 ? Math.max(...usuarios.map(u => u.id)) + 1 : 1;
-        setUsuarios([...usuarios, { id: newId, ...nuevoUsuario }]);
+        // TODO: Llamar al backend para guardar
+        // const response = await createUsuario(nuevoUsuario);
+        // setUsuarios([...usuarios, response]);
         setIsModalNuevoOpen(false);
         setSuccessSubtitle('¡Usuario guardado exitosamente!');
         setShowSuccessModal(true);
@@ -72,19 +79,19 @@ const PanelUsuarios = () => {
             <div className="usuarios-kpi-grid">
                 <div className="usuarios-kpi-card">
                     <p className="kpi-label">Total de Usuarios</p>
-                    <h3 className="kpi-value">{totalUsuarios}</h3>
+                    <h3 className="kpi-value">{kpis.totalUsuarios}</h3>
                 </div>
                 <div className="usuarios-kpi-card">
                     <p className="kpi-label">Usuarios Activos</p>
-                    <h3 className="kpi-value">{usuariosActivos}</h3>
+                    <h3 className="kpi-value">{kpis.usuariosActivos}</h3>
                 </div>
                 <div className="usuarios-kpi-card">
                     <p className="kpi-label">Administradores</p>
-                    <h3 className="kpi-value">{administradores}</h3>
+                    <h3 className="kpi-value">{kpis.administradores}</h3>
                 </div>
                 <div className="usuarios-kpi-card">
                     <p className="kpi-label">Último Ingreso</p>
-                    <h3 className="kpi-value">{ultimoUsuario}</h3>
+                    <h3 className="kpi-value">-</h3>
                 </div>
             </div>
 

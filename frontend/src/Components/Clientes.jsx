@@ -9,8 +9,11 @@ import ModalConfirmarCliente from './ModalConfirmarCliente';
 import ModalConfirmarModificacion from './ModalConfirmarModificacion';
 import ModalExito from './ModalExito';
 import ModalObservacion from './ModalObservacion';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchClientes, createCliente, updateCliente } from '../api/clientesApi';
 
 const Clientes = () => {
+    // Estados UI
     const [isModalNuevoClienteOpen, setIsModalNuevoClienteOpen] = useState(false);
     const [showConfirmarNuevo, setShowConfirmarNuevo] = useState(false);
     const [showModificarModal, setShowModificarModal] = useState(false);
@@ -21,21 +24,33 @@ const Clientes = () => {
     const [observacionActual, setObservacionActual] = useState('');
     const [busquedaCliente, setBusquedaCliente] = useState('');
     const [selectedCliente, setSelectedCliente] = useState(null);
-    const [clientes] = useState([]);
+    
+    // Datos del backend (vacíos hasta integrar)
+    const [clientes, setClientes] = useState([]);
+    const [kpis, setKpis] = useState({
+        totalClientes: 0,
+        clientesNuevosMes: 0,
+        clientesFrecuentes: 0,
+        promedioCompra: 0
+    });
 
-    const clientesBusquedaDemo = [];
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const [clientesData, kpisData] = await Promise.all([
+    //             fetchClientes(busquedaCliente),
+    //             fetchKpisClientes()
+    //         ]);
+    //         setClientes(clientesData);
+    //         setKpis(kpisData);
+    //     };
+    //     loadData();
+    // }, [busquedaCliente]);
 
-    const totalClientes = clientes.length;
-    const clientesNuevosMes = clientes.length;
-    const clientesFrecuentes = clientes.length;
-    const promedioCompra = 0;
-
+    // TODO: Mover a utils/formatters.js
     const formatMoney = (value) => {
-        const numericValue = Number(String(value ?? '').replace(/[^\d.]/g, ''));
-        if (Number.isNaN(numericValue)) {
-            return '$ 0';
-        }
-        return `$ ${numericValue.toLocaleString('es-DO')}`;
+        if (!value || isNaN(value)) return '$ 0';
+        return `$ ${Number(value).toLocaleString('es-DO')}`;
     };
 
     const handleOpenModificar = (cliente) => {
@@ -109,19 +124,19 @@ const Clientes = () => {
             <div className="kpi-grid clientes-kpi-grid">
                 <div className="kpi-card clientes-kpi-card">
                     <p className="kpi-label">Total de clientes registrados</p>
-                    <h2 className="kpi-value">{totalClientes}</h2>
+                    <h3 className="kpi-value">{kpis.totalClientes}</h3>
                 </div>
                 <div className="kpi-card clientes-kpi-card">
                     <p className="kpi-label">Clientes nuevos este mes</p>
-                    <h2 className="kpi-value">{clientesNuevosMes}</h2>
+                    <h3 className="kpi-value">{kpis.clientesNuevosMes}</h3>
                 </div>
                 <div className="kpi-card clientes-kpi-card">
                     <p className="kpi-label">Clientes mas frecuentes</p>
-                    <h2 className="kpi-value">{clientesFrecuentes}</h2>
+                    <h2 className="kpi-value">{kpis.clientesFrecuentes}</h2>
                 </div>
                 <div className="kpi-card clientes-kpi-card">
                     <p className="kpi-label">Promedio de compra por cliente</p>
-                    <h2 className="kpi-value">${promedioCompra.toLocaleString()}</h2>
+                    <h2 className="kpi-value">{formatMoney(kpis.promedioCompra)}</h2>
                 </div>
             </div>
 

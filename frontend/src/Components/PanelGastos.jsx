@@ -4,8 +4,11 @@ import iconNew from '../assets/new-section.svg';
 import iconFlecha from '../assets/chevron-down.svg';
 import ModalGasto from './ModalGasto';
 import ModalObservacion from './ModalObservacion';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchGastos, createGasto } from '../api/gastosApi';
 
 const PanelGastos = () => {
+    // Estados UI
     const [mesSeleccionado, setMesSeleccionado] = useState('Todos');
     const [anioSeleccionado, setAnioSeleccionado] = useState('Todos');
     const [showMesDropdown, setShowMesDropdown] = useState(false);
@@ -13,26 +16,23 @@ const PanelGastos = () => {
     const [modalGastoAbierto, setModalGastoAbierto] = useState(false);
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
-    const [gastos] = useState([
-        {
-            id: 1,
-            descripcion: 'Pago de factura de electricidad - Oficina Principal Marzo 2024',
-            monto: 4500,
-            fecha: '29/04/2026'
-        },
-        {
-            id: 2,
-            descripcion: 'Compra de suministros de limpieza y papelería para recepción',
-            monto: 1250,
-            fecha: '28/04/2026'
-        },
-        {
-            id: 3,
-            descripcion: 'Mantenimiento preventivo de aire acondicionado (Sala de juntas)',
-            monto: 3000,
-            fecha: '27/04/2026'
-        }
-    ]); // Mock data
+    
+    // Datos del backend (vacíos hasta integrar)
+    const [gastos, setGastos] = useState([]);
+    const [totalGastos, setTotalGastos] = useState(0);
+
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const [gastosData, totalData] = await Promise.all([
+    //             fetchGastos(mesSeleccionado, anioSeleccionado),
+    //             fetchTotalGastos(mesSeleccionado, anioSeleccionado)
+    //         ]);
+    //         setGastos(gastosData);
+    //         setTotalGastos(totalData);
+    //     };
+    //     loadData();
+    // }, [mesSeleccionado, anioSeleccionado]);
 
     const handleOpenModal = () => {
         setModalGastoAbierto(true);
@@ -70,15 +70,8 @@ const PanelGastos = () => {
     const meses = ["Todos", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     const anios = ["Todos", 2024, 2025, 2026];
 
-    const gastosFiltrados = gastos.filter(g => {
-        const [d, m, a] = g.fecha.split('/');
-        const mesGasto = meses[parseInt(m)];
-        const anioGasto = a; // String comparison
-        const cumpleMes = mesSeleccionado === "Todos" || mesSeleccionado === mesGasto;
-        const cumpleAnio = anioSeleccionado === "Todos" || anioSeleccionado === anioGasto.toString();
-        
-        return cumpleMes && cumpleAnio;
-    });
+    // TODO: El filtrado debe hacerse en el backend
+    const gastosFiltrados = gastos;
 
     return (
         <div className="gastos-page">
@@ -101,7 +94,7 @@ const PanelGastos = () => {
                 </div>
                 <div className="kpi-card gastos-kpi-card">
                     <p className="kpi-label">Gastos del mes</p>
-                    <h2 className="kpi-value">$0</h2>
+                    <h2 className="kpi-value">${totalGastos.toLocaleString('es-DO')}</h2>
                 </div>
                 <div className="kpi-card gastos-kpi-card">
                     <p className="kpi-label">Total histórico</p>
