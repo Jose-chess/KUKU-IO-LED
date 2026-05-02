@@ -70,7 +70,7 @@
 }
 
 .recibo-empresa-name {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     margin: 0 0 4px 0;
     color: #111827;
@@ -257,7 +257,7 @@
 }
 
 .recibo-total-value-final {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     color: #111827;
 }

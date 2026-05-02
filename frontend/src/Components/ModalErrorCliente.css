@@ -37,7 +37,7 @@
 }
 
 .error-cliente-main-title {
-    font-size: 42px;
+    font-size: 32px;
     font-weight: 600;
     color: #000000;
     margin: 0 0 15px 0;
@@ -55,7 +55,7 @@
 
 .error-cliente-sub-text,
 .error-cliente-retry-text {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     color: #000000;
     margin: 5px 0;
