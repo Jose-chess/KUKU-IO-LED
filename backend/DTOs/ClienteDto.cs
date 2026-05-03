@@ -29,7 +29,9 @@ public class CrearClienteDto
     public string? Ciudad { get; set; }
     public string? Telefono { get; set; }
     public decimal LimiteCredito { get; set; }
+    public decimal BalanceActual { get; set; }
     public string? Observacion { get; set; }
+    public bool Activo { get; set; }
 }
 
 public class ActualizarClienteDto
@@ -42,6 +44,7 @@ public class ActualizarClienteDto
     public string? Ciudad { get; set; }
     public string? Telefono { get; set; }
     public decimal LimiteCredito { get; set; }
+    public decimal BalanceActual { get; set; }
     public string? Observacion { get; set; }
     public bool Activo { get; set; }
 }

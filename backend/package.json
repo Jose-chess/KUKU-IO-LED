@@ -15,4 +15,10 @@
     "express": "^5.2.1",
     "sqlite3": "^6.0.1"
   }
+
+
+
+  "scripts": {
+    "dev": "concurrently \"dotnet run --project backend\" \"npm run dev --prefix frontend\""
+  }
 }
