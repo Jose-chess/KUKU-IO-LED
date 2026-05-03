@@ -9,8 +9,8 @@ import ModalConfirmarCliente from './ModalConfirmarCliente';
 import ModalConfirmarModificacion from './ModalConfirmarModificacion';
 import ModalExito from './ModalExito';
 import ModalObservacion from './ModalObservacion';
-// TODO: Importar API calls cuando el backend esté listo
-// import { fetchClientes, createCliente, updateCliente } from '../api/clientesApi';
+import { createCliente, fetchClientes, fetchNextClienteCode, updateCliente } from '../api/clientesApi';
+import { useEffect } from 'react';
 
 const Clientes = () => {
     // Estados UI
@@ -24,8 +24,11 @@ const Clientes = () => {
     const [observacionActual, setObservacionActual] = useState('');
     const [busquedaCliente, setBusquedaCliente] = useState('');
     const [selectedCliente, setSelectedCliente] = useState(null);
+    const [nextClienteCode, setNextClienteCode] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [pendingNuevoCliente, setPendingNuevoCliente] = useState(null);
     
-    // Datos del backend (vacíos hasta integrar)
+    // Datos del backend
     const [clientes, setClientes] = useState([]);
     const [kpis, setKpis] = useState({
         totalClientes: 0,
@@ -34,18 +37,89 @@ const Clientes = () => {
         promedioCompra: 0
     });
 
-    // TODO: useEffect para cargar datos desde backend
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const [clientesData, kpisData] = await Promise.all([
-    //             fetchClientes(busquedaCliente),
-    //             fetchKpisClientes()
-    //         ]);
-    //         setClientes(clientesData);
-    //         setKpis(kpisData);
-    //     };
-    //     loadData();
-    // }, [busquedaCliente]);
+    // Obtener próximo código de cliente
+    const fetchNextCode = async () => {
+        try {
+            const data = await fetchNextClienteCode();
+            setNextClienteCode(data.codigo);
+        } catch (error) {
+            console.error('Error obteniendo código:', error);
+            setNextClienteCode('C-0001');
+        }
+    };
+
+    const handleOpenNuevoCliente = () => {
+        setIsModalNuevoClienteOpen(true);
+    };
+
+    // Precargar código y cargar clientes al montar componente
+    useEffect(() => {
+        fetchNextCode();
+        loadClientes();
+    }, []);
+
+    // Cargar clientes desde backend
+    const loadClientes = async () => {
+        setLoading(true);
+        try {
+            const clientesData = await fetchClientes(busquedaCliente);
+            setClientes(clientesData);
+            
+            // Debug: Ver qué está llegando del backend
+            console.log('Clientes recibidos:', clientesData);
+            if (clientesData.length > 0) {
+                console.log('Primer cliente:', clientesData[0]);
+                console.log('CreatedAt del primer cliente:', clientesData[0].createdAt);
+            }
+
+            // Calcular KPIs basados en datos reales
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            // Clientes nuevos este mes (con fecha de creación en el mes actual)
+            const clientesNuevosMes = clientesData.filter(c => {
+                // Manejar diferentes nombres de campo posibles
+                const fechaCreacion = c.createdAt || c.created_at || c.CreatedAt;
+                if (!fechaCreacion || fechaCreacion === '0001-01-01T00:00:00') {
+                    console.log('Cliente sin fecha de creación válida:', c.codigo);
+                    return false;
+                }
+                const created = new Date(fechaCreacion);
+                // Verificar que la fecha sea válida (no año 1)
+                if (created.getFullYear() < 2000) {
+                    console.log('Fecha inválida para cliente:', c.codigo, fechaCreacion);
+                    return false;
+                }
+                console.log('Cliente', c.codigo, 'creado:', created.toISOString().split('T')[0]);
+                return created.getMonth() === currentMonth && created.getFullYear() === currentYear;
+            }).length;
+            
+            // TODO: calcular clientes frecuentes desde el módulo de ventas - un cliente es frecuente cuando tiene más de una compra registrada
+            const clientesFrecuentes = 0;
+            
+            // Promedio de balance (como proxy de compra hasta tener datos de ventas)
+            const promedioCompra = clientesData.length > 0 
+                ? clientesData.reduce((sum, c) => sum + (c.balance_actual || 0), 0) / clientesData.length 
+                : 0;
+            
+            setKpis({
+                totalClientes: clientesData.length,
+                clientesNuevosMes: clientesNuevosMes,
+                clientesFrecuentes: clientesFrecuentes,
+                promedioCompra: promedioCompra
+            });
+        } catch (error) {
+            console.error('Error cargando clientes:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Recargar cuando cambia la búsqueda
+    useEffect(() => {
+        loadClientes();
+    }, [busquedaCliente]);
 
     // TODO: Mover a utils/formatters.js
     const formatMoney = (value) => {
@@ -62,22 +136,66 @@ const Clientes = () => {
         setShowConfirmarNuevo(true);
     };
 
-    const ejecutarGuardarNuevoCliente = () => {
-        setShowConfirmarNuevo(false);
-        setIsModalNuevoClienteOpen(false);
-        setExitoSubtitle('¡Cliente guardado exitosamente!');
-        setShowExitoModal(true);
+    const ejecutarGuardarNuevoCliente = async () => {
+        if (!pendingNuevoCliente) {
+            return;
+        }
+
+        try {
+            await createCliente(pendingNuevoCliente);
+
+            setShowConfirmarNuevo(false);
+            setIsModalNuevoClienteOpen(false);
+            setExitoSubtitle('¡Cliente guardado exitosamente!');
+            setShowExitoModal(true);
+            setSelectedCliente(null);
+            setPendingNuevoCliente(null);
+            await loadClientes();
+            await fetchNextCode();
+        } catch (error) {
+            console.error('Error al crear cliente:', error);
+            alert('Error al guardar cliente: ' + error.message);
+        }
     };
 
-    const handleGuardarModificacion = () => {
+    const [modificarClienteData, setModificarClienteData] = useState(null);
+
+    const handleGuardarModificacion = (formData) => {
+        setModificarClienteData(formData);
         setShowConfirmarMod(true);
     };
 
-    const ejecutarUpdate = () => {
-        setShowConfirmarMod(false);
-        setShowModificarModal(false);
-        setExitoSubtitle('¡Cliente modificado exitosamente!');
-        setShowExitoModal(true);
+    const ejecutarUpdate = async () => {
+        if (!modificarClienteData || !selectedCliente) return;
+
+        try {
+            const clientePayload = {
+                nombre: modificarClienteData.nombre,
+                apellido: modificarClienteData.apellido,
+                rncCedula: modificarClienteData.rncCedula,
+                direccion: modificarClienteData.direccion,
+                sector: modificarClienteData.sector,
+                ciudad: modificarClienteData.ciudad,
+                telefono: modificarClienteData.telefono,
+                limiteCredito: parseFloat(modificarClienteData.limiteCredito) || 0,
+                balanceActual: parseFloat(modificarClienteData.balanceActual) || 0,
+                observacion: modificarClienteData.observacion,
+                activo: true
+            };
+
+            await updateCliente(selectedCliente.id, clientePayload);
+
+            setShowConfirmarMod(false);
+            setShowModificarModal(false);
+            setExitoSubtitle('¡Cliente modificado exitosamente!');
+            setShowExitoModal(true);
+            setModificarClienteData(null);
+            // Recargar lista de clientes
+            loadClientes();
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al actualizar cliente: ' + error.message);
+        }
     };
 
     const handleCloseExito = () => {
@@ -114,7 +232,7 @@ const Clientes = () => {
                 <button
                     className="btn-nuevo-cliente"
                     type="button"
-                    onClick={() => setIsModalNuevoClienteOpen(true)}
+                    onClick={handleOpenNuevoCliente}
                 >
                     <img src={iconNuevoCliente} alt="" className="btn-nuevo-cliente-icon" />
                     Nuevo Cliente
@@ -153,6 +271,11 @@ const Clientes = () => {
                             placeholder="Buscar por nombre del cliente"
                             value={busquedaCliente}
                             onChange={(e) => setBusquedaCliente(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    setBusquedaCliente('');
+                                }
+                            }}
                             className="clientes-search-input"
                         />
                     </div>
@@ -165,6 +288,7 @@ const Clientes = () => {
                                 <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
+                                <th>RNC/Cédula</th>
                                 <th>Dirección</th>
                                 <th>Sector</th>
                                 <th>Ciudad</th>
@@ -176,9 +300,15 @@ const Clientes = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {clientesFiltrados.length === 0 ? (
+                            {loading ? (
                                 <tr>
-                                    <td className="table-row-empty-cell" colSpan={11}>
+                                    <td className="table-row-empty-cell" colSpan={12}>
+                                        Cargando clientes...
+                                    </td>
+                                </tr>
+                            ) : clientesFiltrados.length === 0 ? (
+                                <tr>
+                                    <td className="table-row-empty-cell" colSpan={12}>
                                         {busquedaCliente ? 'No se encontraron clientes que coincidan con la búsqueda.' : 'No hay clientes para mostrar.'}
                                     </td>
                                 </tr>
@@ -188,17 +318,23 @@ const Clientes = () => {
                                         <td>{cliente.codigo}</td>
                                         <td>{cliente.nombre}</td>
                                         <td>{cliente.apellido}</td>
+                                        <td>{cliente.rnc_cedula}</td>
                                         <td>{cliente.direccion}</td>
                                         <td>{cliente.sector}</td>
                                         <td>{cliente.ciudad}</td>
                                         <td>{cliente.telefono}</td>
-                                        <td>{formatMoney(cliente.limiteCredito)}</td>
-                                        <td>{formatMoney(cliente.balanceActual)}</td>
+                                        <td>{formatMoney(cliente.limite_credito)}</td>
+                                        <td>{formatMoney(cliente.balance_actual)}</td>
                                         <td
                                             className="cell-observacion"
                                             onClick={() => handleAbrirObs(cliente.observacion)}
+                                            title={cliente.observacion || 'Sin observaciones'}
                                         >
-                                            {cliente.observacion || 'Sin observaciones'}
+                                            {cliente.observacion 
+                                                ? (cliente.observacion.length > 17 
+                                                    ? cliente.observacion.substring(0, 17) + '...' 
+                                                    : cliente.observacion)
+                                                : 'Sin observaciones'}
                                         </td>
                                         <td className="accion-cell">
                                             <button
@@ -220,8 +356,15 @@ const Clientes = () => {
 
             <ModalNuevoCliente
                 isOpen={isModalNuevoClienteOpen && !showConfirmarNuevo}
-                onClose={() => setIsModalNuevoClienteOpen(false)}
-                onSave={handleGuardarNuevoCliente}
+                onClose={() => {
+                    setIsModalNuevoClienteOpen(false);
+                    setPendingNuevoCliente(null);
+                }}
+                onSave={(payload) => {
+                    setPendingNuevoCliente(payload);
+                    handleGuardarNuevoCliente();
+                }}
+                codigo={nextClienteCode}
             />
 
             <ModalConfirmarCliente
