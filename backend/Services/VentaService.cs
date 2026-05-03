@@ -1,61 +1,61 @@
+using backend.Data;
 using backend.DTOs;
 using backend.Models;
-using Supabase;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
 
 public class VentaService
 {
-    private readonly Supabase.Client _supabase;
+    private readonly AppDbContext _db;
 
-    public VentaService(Supabase.Client supabase)
+    public VentaService(AppDbContext db)
     {
-        _supabase = supabase;
+        _db = db;
     }
 
     public async Task<VentaDto> CrearVentaAsync(CrearVentaDto dto)
     {
+        await using var transaction = await _db.Database.BeginTransactionAsync();
+
         try
         {
-            // 1. Crear la cabecera de la venta
             var venta = new Venta
             {
                 ClienteId = dto.ClienteId,
+                Condicion = dto.Condicion,
+                MetodoPago = dto.MetodoPago,
+                TipoVenta = dto.TipoVenta,
                 FechaVenta = DateTime.UtcNow,
                 Total = dto.Detalles.Sum(d => d.Cantidad * d.PrecioUnitario)
             };
 
-            // Insertar venta en Supabase
-            var responseVenta = await _supabase.From<Venta>().Insert(venta);
-            var ventaCreada = responseVenta.Model;
+            _db.Ventas.Add(venta);
+            await _db.SaveChangesAsync();
 
-            if (ventaCreada == null)
-                throw new Exception("Error al crear la venta");
-
-            // 2. Crear los detalles de la venta
             var detalles = dto.Detalles.Select(item => new VentaDetalle
             {
-                VentaId = ventaCreada.Id,
+                VentaId = venta.Id,
                 ArticuloId = item.ArticuloId,
                 Cantidad = item.Cantidad,
                 PrecioUnitario = item.PrecioUnitario
             }).ToList();
 
-            // Insertar detalles en Supabase
-            await _supabase.From<VentaDetalle>().Insert(detalles);
+            _db.VentaDetalles.AddRange(detalles);
+            await _db.SaveChangesAsync();
 
-            // TODO: Actualizar inventario de artículos
-            // TODO: Crear cuenta por cobrar si es crédito
+            await transaction.CommitAsync();
 
             return new VentaDto
             {
-                Id = ventaCreada.Id,
-                CodigoVenta = $"VNT-{ventaCreada.Id}",
+                Id = venta.Id,
+                CodigoVenta = $"VNT-{venta.Id}",
                 Total = venta.Total
             };
         }
         catch (Exception ex)
         {
+            await transaction.RollbackAsync();
             throw new Exception($"Error al crear venta: {ex.Message}", ex);
         }
     }

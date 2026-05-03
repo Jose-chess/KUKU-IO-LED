@@ -7,7 +7,7 @@ namespace backend.Models;
 public class Cliente : BaseModel
 {
     [PrimaryKey("id", shouldInsert: false)]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Column("codigo")]
     public string Codigo { get; set; } = null!;

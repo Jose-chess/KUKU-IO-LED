@@ -26,7 +26,6 @@ import PanelUnidadesMedida from './PanelUnidadesMedida';
 
 import PanelUsuarios from './PanelUsuarios';
 import PanelCierreCaja from './PanelCierreCaja';
-import PanelReportesIngreso from './PanelReportesIngreso';
 import './DashboardLayout.css';
 
 

@@ -1,4 +1,3 @@
-// Data/AppDbContext.cs
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 

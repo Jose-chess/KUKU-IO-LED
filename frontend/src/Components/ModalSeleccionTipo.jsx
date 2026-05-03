@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ModalSeleccion.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchTiposVenta } from '../api/tiposVentaApi';
 
 const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => { }, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    // Datos del backend (vacíos hasta integrar)
+    const [tipos, setTipos] = useState([]);
+
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const data = await fetchTiposVenta();
+    //         setTipos(data);
+    //     };
+    //     loadData();
+    // }, []);
 
     if (!isOpen) {
         return null;
@@ -14,11 +28,6 @@ const ModalSeleccionTipo = ({ isOpen, onClose, onSelect = () => { }, position })
         onSelect?.(tipo);
         onClose?.();
     };
-
-    const tipos = [
-        { id: 'por_mayor', nombre: 'Venta al por mayor' },
-        { id: 'consumidor_final', nombre: 'Venta al consumidor final' }
-    ];
 
     const modalPositionStyle = position
         ? {

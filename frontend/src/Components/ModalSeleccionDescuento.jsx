@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ModalSeleccion.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import { useModalShake } from './useModalShake';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchDescuentos } from '../api/descuentosApi';
 
 const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect = () => { }, position }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
+
+    // Datos del backend (vacíos hasta integrar)
+    const [descuentos, setDescuentos] = useState([]);
+
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const data = await fetchDescuentos();
+    //         setDescuentos(data);
+    //     };
+    //     loadData();
+    // }, []);
 
     if (!isOpen) {
         return null;
@@ -14,11 +28,6 @@ const ModalSeleccionDescuento = ({ isOpen, onClose, onSelect = () => { }, positi
         onSelect?.(descuento);
         onClose?.();
     };
-
-    const descuentos = [
-        { id: '5_mas', cantidad: '5+', porcentaje: '20%' },
-        { id: '10_mas', cantidad: '10+', porcentaje: '30%' }
-    ];
 
     const modalPositionStyle = position
         ? {

@@ -3,46 +3,43 @@ import './Factura.css';
 import iconBuscar from '../assets/search.svg';
 import iconVer from '../assets/eye.svg';
 import FacturaModal from './FacturaModal';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchFacturas } from '../api/facturasApi';
 
 const Factura = () => {
     const [busquedaFactura, setBusquedaFactura] = useState('');
     const [facturaSeleccionada, setFacturaSeleccionada] = useState(null);
-    const [facturas] = useState([
-        {
-            id: 1,
-            numero: 'FAC-001',
-            cliente: 'Electrónica Gómez',
-            tipo: 'Al por mayor',
-            fecha: '29/04/2026',
-            subtotal: 15000,
-            descuento: 5,
-            itbis: 18,
-            total: 16815,
-            metodo: 'Transferencia',
-            estado: 'Pago'
-        }
-    ]);
+    
+    // Datos del backend (vacíos hasta integrar)
+    const [facturas, setFacturas] = useState([]);
+    const [kpis, setKpis] = useState({
+        totalFacturas: 0,
+        ingresoTotal: 0,
+        facturasHoy: 0,
+        ticketPromedio: 0,
+        balancePendiente: 0
+    });
 
-    const totalFacturas = facturas.length;
-    const ingresoTotal = facturas.reduce((acc, curr) => acc + curr.total, 0);
-    const facturasHoy = facturas.filter(f => f.fecha === '29/04/2026').length;
-    const balancePendiente = facturas.filter(f => f.estado !== 'Pago').reduce((acc, curr) => acc + curr.total, 0);
-    const ticketPromedio = totalFacturas > 0 ? ingresoTotal / totalFacturas : 0;
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const [facturasData, kpisData] = await Promise.all([
+    //             fetchFacturas(busquedaFactura),
+    //             fetchKpisFacturas()
+    //         ]);
+    //         setFacturas(facturasData);
+    //         setKpis(kpisData);
+    //     };
+    //     loadData();
+    // }, [busquedaFactura]);
 
     const formatMoney = (value) => {
-        const numericValue = Number(String(value ?? '').replace(/[^\d.]/g, ''));
-        if (Number.isNaN(numericValue)) {
-            return '$ 0';
-        }
-        return `$ ${numericValue.toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;
+        if (!value || isNaN(value)) return '$ 0';
+        return `$ ${Number(value).toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;
     };
 
-    // Filtrado automático inline
-    const facturasMostradas = facturas.filter(f => {
-        if (!busquedaFactura) return true;
-        const termino = busquedaFactura.toLowerCase();
-        return f.numero.toLowerCase().includes(termino) || f.cliente.toLowerCase().includes(termino);
-    });
+    // TODO: El filtrado debe hacerse en el backend
+    const facturasMostradas = facturas;
 
     return (
         <div className="factura-page">
@@ -56,19 +53,19 @@ const Factura = () => {
             <div className="kpi-grid factura-kpi-grid">
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Promedio de Venta</p>
-                    <h2 className="kpi-value">{formatMoney(ticketPromedio)}</h2>
+                    <h2 className="kpi-value">{formatMoney(kpis.ticketPromedio)}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Registros hoy</p>
-                    <h2 className="kpi-value">{facturasHoy}</h2>
+                    <h2 className="kpi-value">{kpis.facturasHoy}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Total Registros</p>
-                    <h2 className="kpi-value">{totalFacturas}</h2>
+                    <h2 className="kpi-value">{kpis.totalFacturas}</h2>
                 </div>
                 <div className="kpi-card factura-kpi-card">
                     <p className="kpi-label">Ingreso total</p>
-                    <h2 className="kpi-value">{formatMoney(ingresoTotal)}</h2>
+                    <h2 className="kpi-value">{formatMoney(kpis.ingresoTotal)}</h2>
                 </div>
             </div>
 

@@ -248,12 +248,13 @@
 }
 
 .factura-table td {
-    padding: 6px 10px;
+    padding: 4px 8px;
     border-bottom: 1px solid #E5E5E5;
     font-size: 12px;
     font-weight: 600;
     color: #1e293b;
-    vertical-align: top;
+    vertical-align: middle;
+    height: 36px;
 }
 
 .factura-table tbody tr:hover {

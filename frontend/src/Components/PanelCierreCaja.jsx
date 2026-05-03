@@ -9,7 +9,7 @@ import ModalConfirmado from './ModalConfirmado';
 
 const PanelCierreCaja = () => {
     const [showHistorial, setShowHistorial] = useState(false);
-    const [selectedFecha, setSelectedFecha] = useState('4/4/2026');
+    const [selectedFecha, setSelectedFecha] = useState('');
     const [showConfirmCerrar, setShowConfirmCerrar] = useState(false);
     const [showConfirmPDF, setShowConfirmPDF] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);

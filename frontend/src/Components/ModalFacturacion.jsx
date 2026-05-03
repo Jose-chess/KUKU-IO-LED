@@ -100,17 +100,8 @@ const ModalFacturacion = ({ isOpen, onVolver, onConfirmarVenta, venta }) => {
 
 
 
-    // Datos de ejemplo para clientes
-
-    const clientes = [
-
-        { id: 1, nombre: 'José Manuel Guerrero', rnc: '131-07517-2', telefono: '809-555-1234', direccion: 'Calle Principal #123' },
-
-        { id: 2, nombre: 'Electrónica Gómez', rnc: '131-12345-6', telefono: '809-555-5678', direccion: 'Av. Duarte #456' },
-
-        { id: 3, nombre: 'Carlos Castillo', rnc: '047-0012345-6', telefono: '829-555-9012', direccion: 'Calle 27 de Febrero #789' }
-
-    ];
+    // Datos del backend (vacíos hasta integrar)
+    const [clientes, setClientes] = useState([]);
 
 
 

@@ -4,6 +4,8 @@ import iconBuscar from '../assets/search.svg';
 import iconOjo from '../assets/eye.svg';
 import ModalCuentaPendiente from './ModalCuentaPendiente';
 import ModalErrorPago from './ModalErrorPago';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchCuentasCobrar } from '../api/cuentasCobrarApi';
 
 const PanelCuentasCobrar = () => {
     const [busqueda, setBusqueda] = useState('');
@@ -11,39 +13,8 @@ const PanelCuentasCobrar = () => {
     const [selectedCuenta, setSelectedCuenta] = useState(null);
     const [showErrorPago, setShowErrorPago] = useState(false);
 
-    // Datos de ejemplo para la tabla de cuentas por cobrar
-    const cuentas = [
-        {
-            id: 1,
-            numero: 'CXC-000001',
-            cliente: 'José Ramírez',
-            fechaEmision: '2026-04-10',
-            fechaVencimiento: '2026-05-10',
-            montoTotal: 25000,
-            montoPagado: 10000,
-            estado: 'Parcial'
-        },
-        {
-            id: 2,
-            numero: 'CXC-000002',
-            cliente: 'Carlos Castillo',
-            fechaEmision: '2026-04-15',
-            fechaVencimiento: '2026-05-15',
-            montoTotal: 18000,
-            montoPagado: 0,
-            estado: 'Pendiente'
-        },
-        {
-            id: 3,
-            numero: 'CXC-000003',
-            cliente: 'María López',
-            fechaEmision: '2026-03-20',
-            fechaVencimiento: '2026-04-20',
-            montoTotal: 32000,
-            montoPagado: 0,
-            estado: 'Vencida'
-        }
-    ];
+    // Datos del backend (vacíos hasta integrar)
+    const [cuentas, setCuentas] = useState([]);
 
     const formatMoney = (value) => {
         return `$ ${value.toLocaleString('es-DO', { minimumFractionDigits: 0 })}`;

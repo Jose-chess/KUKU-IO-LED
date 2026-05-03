@@ -1,86 +1,101 @@
-using backend.Models;
-using Supabase;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace backend.Services;
 
 public class ClienteService
 {
-    private readonly Supabase.Client _supabase;
+    private readonly IConfiguration _configuration;
+    private readonly ConnectivityService _connectivity;
 
-    public ClienteService(Supabase.Client supabase)
+    public ClienteService(IConfiguration configuration, ConnectivityService connectivity)
     {
-        _supabase = supabase;
+        _configuration = configuration;
+        _connectivity = connectivity;
     }
 
-    // GET ALL - Obtener todos los clientes
-    public async Task<IEnumerable<Cliente>> GetAllAsync()
+    private HttpClient CreateSupabaseClient()
     {
-        var response = await _supabase.From<Cliente>().Get();
-        return response.Models;
+        var supabaseUrl = _configuration["SupabaseConfig:Url"]?.TrimEnd('/');
+        var supabaseKey = _configuration["SupabaseConfig:Key"];
+
+        var client = new HttpClient { BaseAddress = new Uri($"{supabaseUrl}/") };
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", supabaseKey);
+        client.DefaultRequestHeaders.Add("apikey", supabaseKey);
+        client.DefaultRequestHeaders.Add("Prefer", "return=representation");
+        return client;
     }
 
-    // GET BY ID - Obtener un cliente por ID
-    public async Task<Cliente?> GetByIdAsync(int id)
+    public async Task<List<JsonElement>> GetAllAsync()
     {
-        var response = await _supabase.From<Cliente>().Where(x => x.Id == id).Get();
-        return response.Model;
+        using var http = CreateSupabaseClient();
+        var response = await http.GetAsync("rest/v1/clientes?select=*&order=id.asc");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        return JsonSerializer.Deserialize<List<JsonElement>>(json) ?? new List<JsonElement>();
     }
 
-    // CREATE - Crear nuevo cliente con código automático C-
-    public async Task<Cliente> CreateAsync(Cliente cliente)
+    public async Task<JsonElement?> GetByIdAsync(int id)
     {
-        // Obtener el último ID para generar el código
-        var response = await _supabase.From<Cliente>().Get();
-        var lastId = response.Models.Any() ? response.Models.Max(c => c.Id) : 0;
-        var nextId = lastId + 1;
-        
-        // Generar código con formato C-XXXX (ej: C-0001)
-        cliente.Codigo = $"C-{nextId:D4}";
-        
-        var responseInsert = await _supabase.From<Cliente>().Insert(cliente);
-        return responseInsert.Model!;
+        using var http = CreateSupabaseClient();
+        var response = await http.GetAsync($"rest/v1/clientes?id=eq.{id}&select=*");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<List<JsonElement>>(json);
+        return result?.Count > 0 ? result[0] : null;
     }
 
-    // UPDATE - Actualizar cliente existente
-    public async Task<Cliente?> UpdateAsync(int id, Cliente cliente)
+    public async Task<JsonElement?> CreateAsync(object payload)
     {
-        var response = await _supabase.From<Cliente>().Where(x => x.Id == id).Update(cliente);
-        return response.Model;
+        // Generar código antes de insertar
+        var nextCode = await GetNextCodeAsync();
+
+        // Agregar el código al payload
+        var json = JsonSerializer.Serialize(payload);
+        var dict = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json)!;
+        dict["codigo"] = JsonSerializer.SerializeToElement(nextCode);
+
+        using var http = CreateSupabaseClient();
+        var response = await http.PostAsJsonAsync("rest/v1/clientes", dict);
+        response.EnsureSuccessStatusCode();
+        var responseJson = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<List<JsonElement>>(responseJson);
+        return result?.Count > 0 ? result[0] : null;
     }
 
-    // DELETE - Eliminar cliente
+    public async Task<JsonElement?> UpdateAsync(int id, object payload)
+    {
+        using var http = CreateSupabaseClient();
+        var request = new HttpRequestMessage(HttpMethod.Patch, $"rest/v1/clientes?id=eq.{id}")
+        {
+            Content = JsonContent.Create(payload)
+        };
+        var response = await http.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<List<JsonElement>>(json);
+        return result?.Count > 0 ? result[0] : null;
+    }
+
     public async Task<bool> DeleteAsync(int id)
     {
-        var cliente = await GetByIdAsync(id);
-        if (cliente == null) return false;
-
-        await _supabase.From<Cliente>().Where(x => x.Id == id).Delete();
-        return true;
+        using var http = CreateSupabaseClient();
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"rest/v1/clientes?id=eq.{id}");
+        var response = await http.SendAsync(request);
+        return response.IsSuccessStatusCode;
     }
 
-    // GET NEXT CODE - Obtener próximo código disponible
     public async Task<string> GetNextCodeAsync()
     {
-        var response = await _supabase.From<Cliente>().Get();
-        var lastId = response.Models.Any() ? response.Models.Max(c => c.Id) : 0;
-        var nextId = lastId + 1;
-        return $"C-{nextId:D4}";
-    }
-
-    // EXISTE RNC/CEDULA - Verificar si el RNC/Cédula ya está registrado
-    public async Task<bool> ExisteRncCedulaAsync(string rncCedula, int? excludeId = null)
-    {
-        var query = _supabase.From<Cliente>().Where(x => x.RncCedula == rncCedula);
-        var response = await query.Get();
-        
-        if (!response.Models.Any()) return false;
-        
-        // Si se proporciona excludeId, ignorar ese cliente (para actualizaciones)
-        if (excludeId.HasValue)
-        {
-            return response.Models.Any(c => c.Id != excludeId.Value);
-        }
-        
-        return true;
+        using var http = CreateSupabaseClient();
+        var response = await http.GetAsync("rest/v1/clientes?select=id&order=id.desc&limit=1");
+        response.EnsureSuccessStatusCode();
+        var json = await response.Content.ReadAsStringAsync();
+        var result = JsonSerializer.Deserialize<List<JsonElement>>(json);
+        var lastId = 0;
+        if (result?.Count > 0 && result[0].TryGetProperty("id", out var idProp))
+            lastId = idProp.GetInt32();
+        return $"C-{(lastId + 1):D4}";
     }
 }

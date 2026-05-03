@@ -211,13 +211,14 @@
 .clientes-table-wrapper {
     flex: 1;
     min-height: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     max-height: 100%;
 }
 
 .clientes-table-wrapper::-webkit-scrollbar {
     width: 10px;
-    height: 10px;
+    height: 0;
 }
 
 .clientes-table-wrapper::-webkit-scrollbar-thumb {
@@ -269,13 +270,14 @@
 .cell-observacion {
     cursor: pointer;
     color: #1e293b;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
-    text-decoration: underline;
-    text-decoration-color: transparent;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .cell-observacion:hover {
-    color: #0f172a;
+    text-decoration: underline;
     text-decoration-color: #0f172a;
 }
 
