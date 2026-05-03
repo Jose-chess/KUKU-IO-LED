@@ -1,81 +1,54 @@
 import React, { useState } from 'react';
-
 import './Inventario.css';
-
 import iconNew from '../assets/new-section.svg';
-
 import iconSearch from '../assets/search.svg';
-
 import iconEdit from '../assets/edit.svg';
-
 import iconTrash from '../assets/trash.svg';
-
 import iconFlecha from '../assets/chevron-down.svg';
-
 import ModalExistenciaBaja from './ModalExistenciaBaja';
-
 import ModalNuevoArticulo from './ModalNuevoArticulo';
-
 import ModalEditarArticulo from './ModalEditarArticulo';
-
 import ConfirmadoArticulo from './ConfirmadoArticulo';
-
 import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
-
 import ModalExito from './ModalExito';
-
 import ModalErrorArticulo from './ModalErrorArticulo';
-
-import { useRef } from 'react';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchArticulos, deleteArticulo } from '../api/articulosApi';
 
 
 
 const Inventario = () => {
+    // Datos del backend (vacíos hasta integrar)
+    const [articulos, setArticulos] = useState([]);
+    const [kpis, setKpis] = useState({
+        totalArticulos: 0,
+        existenciaBaja: 0,
+        sinExistencia: 0,
+        valorInventario: 0
+    });
 
-    const [articulos] = useState([
-
-        {
-
-            id: 1,
-
-            codigo: 'ART001',
-
-            descripcion: 'Producto de prueba',
-
-            color: 'Rojo',
-
-            unidad: 'Unidad',
-
-            minima: 10,
-
-            actual: 5,
-
-            costo: 100,
-
-            precio: 150
-
-        }
-
-    ]);
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const [articulosData, kpisData] = await Promise.all([
+    //             fetchArticulos(),
+    //             fetchKpisInventario()
+    //         ]);
+    //         setArticulos(articulosData);
+    //         setKpis(kpisData);
+    //     };
+    //     loadData();
+    // }, []);
 
     const [busqueda, setBusqueda] = useState('');
-
     const [modalExistenciaBaja, setModalExistenciaBaja] = useState(false);
-
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0, width: 0 });
-
     const [modalNuevoArticulo, setModalNuevoArticulo] = useState(false);
-
     const [modalEditarArticulo, setModalEditarArticulo] = useState(false);
-
     const [selectedArticulo, setSelectedArticulo] = useState(null);
-
     const [showConfirmadoArticulo, setShowConfirmadoArticulo] = useState(false);
-
     const [showConfirmadoEditar, setShowConfirmadoEditar] = useState(false);
-
     const [showConfirmadoEliminar, setShowConfirmadoEliminar] = useState(false);
-
     const [articuloAEliminar, setArticuloAEliminar] = useState(null);
 
     const [showExitoModal, setShowExitoModal] = useState(false);
@@ -444,103 +417,24 @@ const Inventario = () => {
 
 
 
-    const articulosFiltrados = articulos.filter(a => {
-
-        if (!busqueda) return true;
-
-        const termino = busqueda.toLowerCase();
-
-        return a.descripcion.toLowerCase().includes(termino) || a.codigo.toLowerCase().includes(termino);
-
-    });
-
-
+    // TODO: El filtrado debe hacerse en el backend
+    const articulosFiltrados = articulos;
 
     return (
-
         <>
-
             <div className="inventario-page">
-
                 <div className="inventario-header">
-
                     <h1 className="inventario-title">Inventario</h1>
-
-                    <button className="btn-nuevo-articulo" type="button" onClick={handleOpenNuevoArticulo}>
-
-                        <img src={iconNew} alt="" className="btn-nuevo-articulo-icon" />
-
-                        Nuevo Artículo
-
-                    </button>
-
-                </div>
-
-
-
-                <div className="kpi-grid inventario-kpi-grid" style={{ position: 'relative' }}>
-
-                    <div className="kpi-card inventario-kpi-card">
-
-                        <p className="kpi-label">Total de artículos</p>
-
-                        <h2 className="kpi-value">{totalArticulos}</h2>
-
-                    </div>
-
-                    <div className="kpi-card inventario-kpi-card">
-
-                        <p className="kpi-label">Artículo más vendido</p>
-
-                        <h2 className="kpi-value">{articuloMasVendido}</h2>
-
-                    </div>
-
-                    <div className="kpi-card inventario-kpi-card">
-
-                        <p className="kpi-label">Artículo menos vendido</p>
-
-                        <h2 className="kpi-value">{articuloMenosVendido}</h2>
-
-                    </div>
-
-                    <div
-
-                        className="kpi-card inventario-kpi-card"
-
-                        ref={cardExistenciaRef}
-
-                        style={{ cursor: 'pointer' }}
-
-                        onClick={handleToggleModal}
-
+                    <button 
+                        className="btn-nuevo-articulo" 
+                        type="button" 
+                        onClick={handleOpenNuevoArticulo}
                     >
-
-                        <div className="existencia-baja-row">
-
-                            <div>
-
-                                <p className="kpi-label">Artículos con existencia baja</p>
-
-                                <h2 className="kpi-value">{articulosExistenciaBaja}</h2>
-
-                            </div>
-
-                            <img
-
-                                src={iconFlecha}
-
-                                alt="Flecha"
-
-                                className={`icon-flecha-existencia-baja ${modalExistenciaBaja ? 'flecha-volteada' : ''}`}
-
-                            />
-
-                        </div>
-
-                    </div>
-
+                        <img src={iconNew} alt="" className="btn-nuevo-articulo-icon" />
+                        Nuevo Artículo
+                    </button>
                 </div>
+            </div>
 
 
 

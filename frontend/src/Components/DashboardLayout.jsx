@@ -221,10 +221,6 @@ const DashboardLayout = () => {
             return <PanelCierreCaja />;
         }
 
-        if (activeSection === 'Reportes de Ingreso') {
-            return <PanelReportesIngreso />;
-        }
-
         return null;
 
     };

@@ -11,8 +11,11 @@ import ModalConfirmar from './ModalConfirmar';
 import ModalErrorUnidadMedida from './ModalErrorUnidadMedida';
 import ModalErrorModificarUnidad from './ModalErrorModificarUnidad';
 import ModalErrorEliminarUnidad from './ModalErrorEliminarUnidad';
+// TODO: Importar API calls cuando el backend esté listo
+// import { fetchUnidadesMedida, createUnidadMedida, updateUnidadMedida, deleteUnidadMedida } from '../api/unidadesMedidaApi';
 
 const PanelUnidadesMedida = () => {
+    // Estados UI
     const [busqueda, setBusqueda] = useState('');
     const [isModalNuevaUnidadOpen, setIsModalNuevaUnidadOpen] = useState(false);
     const [isModalEditarUnidadOpen, setIsModalEditarUnidadOpen] = useState(false);
@@ -25,28 +28,21 @@ const PanelUnidadesMedida = () => {
     const [showErrorEliminarModal, setShowErrorEliminarModal] = useState(false);
     const [successSubtitle, setSuccessSubtitle] = useState('');
     const [errorMessage, setErrorMessage] = useState('No se pudo guardar esta unidad de medida en la base de datos');
-    const [unidades, setUnidades] = useState([
-        { id: 1, codigo: 'UND', descripcion: 'Unidad' },
-        { id: 2, codigo: 'KG', descripcion: 'Kilogramo' },
-        { id: 3, codigo: 'GR', descripcion: 'Gramo' },
-        { id: 4, codigo: 'LT', descripcion: 'Litro' },
-        { id: 5, codigo: 'ML', descripcion: 'Mililitro' },
-        { id: 6, codigo: 'MT', descripcion: 'Metro' },
-        { id: 7, codigo: 'CM', descripcion: 'Centímetro' },
-        { id: 8, codigo: 'MM', descripcion: 'Milímetro' },
-        { id: 9, codigo: 'M2', descripcion: 'Metro cuadrado' },
-        { id: 10, codigo: 'M3', descripcion: 'Metro cúbico' },
-        { id: 11, codigo: 'PZ', descripcion: 'Pieza' },
-        { id: 12, codigo: 'CJ', descripcion: 'Caja' },
-        { id: 13, codigo: 'BL', descripcion: 'Bolsa' },
-        { id: 14, codigo: 'PQ', descripcion: 'Paquete' },
-        { id: 15, codigo: 'GL', descripcion: 'Galon' },
-    ]);
+    
+    // Datos del backend (vacíos hasta integrar)
+    const [unidades, setUnidades] = useState([]);
 
-    const unidadesFiltradas = unidades.filter(u =>
-        u.codigo.toLowerCase().includes(busqueda.toLowerCase()) ||
-        u.descripcion.toLowerCase().includes(busqueda.toLowerCase())
-    );
+    // TODO: useEffect para cargar datos desde backend
+    // useEffect(() => {
+    //     const loadData = async () => {
+    //         const data = await fetchUnidadesMedida();
+    //         setUnidades(data);
+    //     };
+    //     loadData();
+    // }, []);
+
+    // TODO: El filtrado debe hacerse en el backend
+    const unidadesFiltradas = unidades;
 
     const handleEditar = (id) => {
         const unidad = unidades.find(u => u.id === id);
@@ -75,8 +71,9 @@ const PanelUnidadesMedida = () => {
     };
 
     const handleSaveUnidad = (nuevaUnidad) => {
-        const newId = unidades.length > 0 ? Math.max(...unidades.map(u => u.id)) + 1 : 1;
-        setUnidades([...unidades, { id: newId, ...nuevaUnidad }]);
+        // TODO: Llamar al backend para guardar
+        // const response = await createUnidadMedida(nuevaUnidad);
+        // setUnidades([...unidades, response]);
         setIsModalNuevaUnidadOpen(false);
         setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
         setShowSuccessModal(true);
