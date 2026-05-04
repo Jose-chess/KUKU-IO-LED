@@ -3,7 +3,7 @@ import './ModalObservacion.css';
 import { useModalShake } from './useModalShake';
 import iconSalir from '../assets/arrow-back-up.svg';
 
-const ModalObservacion = ({ isOpen, onClose, contenido, titulo = 'Observacion:' }) => {
+const ModalObservacion = ({ isOpen, onClose, contenido, titulo = 'Observación:' }) => {
     const { isShaking, handleOverlayClick } = useModalShake();
 
     if (!isOpen) {
@@ -19,10 +19,11 @@ const ModalObservacion = ({ isOpen, onClose, contenido, titulo = 'Observacion:' 
                 <div className="obs-content">
                     <p className="obs-text">{contenido || 'Sin observaciones registradas.'}</p>
                 </div>
+                <div className="obs-divider-line"></div>
                 <div className="obs-footer">
                     <button className="obs-btn-salir" onClick={onClose} type="button">
                         <img src={iconSalir} alt="" className="obs-btn-icon" />
-                        Salir
+                        Retroceder
                     </button>
                 </div>
             </div>

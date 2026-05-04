@@ -1,11 +1,15 @@
 using backend.DTOs;
 using backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace backend.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
+[EnableRateLimiting("general")]
 public class ClientesController : ControllerBase
 {
     private readonly ClienteService _clienteService;
@@ -109,6 +113,7 @@ public class ClientesController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Policy = "SoloAdmin")]
     public async Task<IActionResult> Delete(int id)
     {
         try
@@ -125,6 +130,7 @@ public class ClientesController : ControllerBase
     }
 
     [HttpGet("next-code")]
+    [Authorize]
     public async Task<IActionResult> GetNextCode()
     {
         var nextCode = await _clienteService.GetNextCodeAsync();

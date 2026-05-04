@@ -1,14 +1,14 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200/api';
+import { apiFetch } from './apiConfig';
 
 export const fetchNextClienteCode = async () => {
-    const response = await fetch(`${API_URL}/clientes/next-code`);
+    const response = await apiFetch('/clientes/next-code');
     if (!response.ok) throw new Error('Error al obtener el próximo código');
     return response.json();
 };
 
 export const fetchClientes = async (busqueda = '') => {
     const params = busqueda ? `?busqueda=${encodeURIComponent(busqueda)}` : '';
-    const response = await fetch(`${API_URL}/clientes${params}`);
+    const response = await apiFetch(`/clientes${params}`);
     if (!response.ok) throw new Error('Error al obtener clientes');
     const data = await response.json();
     // Normalizar respuesta: algunos endpoints (o clients como Supabase) devuelven
@@ -18,15 +18,14 @@ export const fetchClientes = async (busqueda = '') => {
 };
 
 export const fetchKpisClientes = async () => {
-    const response = await fetch(`${API_URL}/clientes/kpis`);
+    const response = await apiFetch('/clientes/kpis');
     if (!response.ok) throw new Error('Error al obtener KPIs');
     return response.json();
 };
 
 export const createCliente = async (cliente) => {
-    const response = await fetch(`${API_URL}/clientes`, {
+    const response = await apiFetch('/clientes', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cliente),
     });
     if (!response.ok) {
@@ -39,9 +38,8 @@ export const createCliente = async (cliente) => {
 };
 
 export const updateCliente = async (id, cliente) => {
-    const response = await fetch(`${API_URL}/clientes/${id}`, {
+    const response = await apiFetch(`/clientes/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(cliente),
     });
     if (!response.ok) {
@@ -54,7 +52,7 @@ export const updateCliente = async (id, cliente) => {
 };
 
 export const deleteCliente = async (id) => {
-    const response = await fetch(`${API_URL}/clientes/${id}`, {
+    const response = await apiFetch(`/clientes/${id}`, {
         method: 'DELETE',
     });
     if (!response.ok) throw new Error('Error al eliminar cliente');

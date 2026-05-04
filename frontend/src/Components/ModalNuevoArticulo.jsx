@@ -64,7 +64,7 @@ const ModalNuevoArticulo = ({ isOpen, onClose, onSave }) => {
                 <h2 className="modal-articulo-title">Añadir Artículo</h2>
 
                 <div className="modal-articulo-form-section">
-                    <h3 className="modal-articulo-subtitle">Informacion del artículo</h3>
+                    <h3 className="modal-articulo-subtitle">Información del artículo</h3>
                     <div className="modal-articulo-divider-line" />
 
                     <div className="modal-articulo-grid-form">

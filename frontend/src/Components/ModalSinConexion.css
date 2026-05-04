@@ -1,0 +1,134 @@
+.sin-conexion-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.sin-conexion-modal-card {
+    width: 100%;
+    max-width: 500px;
+    background: #FFD700;
+    border-radius: 16px;
+    padding: 40px 32px 24px 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.sin-conexion-logo-container {
+    margin-bottom: 24px;
+}
+
+.sin-conexion-logo {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+}
+
+.sin-conexion-content {
+    width: 100%;
+}
+
+.sin-conexion-title {
+    font-family: inherit;
+    font-size: 42px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 24px 0;
+    letter-spacing: -0.5px;
+}
+
+.sin-conexion-message {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a1a1a;
+    line-height: 1.6;
+    margin: 0 0 32px 0;
+    max-width: 400px;
+}
+
+.sin-conexion-footer {
+    width: 100%;
+    margin-top: auto;
+}
+
+.sin-conexion-separator {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.sin-conexion-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.sin-conexion-salir-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: #EF4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sin-conexion-salir-button:hover {
+    background: #DC2626;
+    transform: translateY(-1px);
+}
+
+.sin-conexion-salir-button:active {
+    transform: translateY(0);
+}
+
+.sin-conexion-salir-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Animaciones */
+@keyframes scale-up-center {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-up-center {
+    animation: scale-up-center 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}

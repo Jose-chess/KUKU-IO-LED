@@ -103,6 +103,20 @@ export const useValidacion = () => {
                 case 'noNegativo':
                     isValid = validarNoNegativo(valor, nombre);
                     break;
+                case 'telefonoMinimo':
+                    const telefonoNumbers = valor ? valor.replace(/\D/g, '') : '';
+                    if (telefonoNumbers.length < 10) {
+                        mostrarError(nombre, 'telefonoMinimo');
+                        isValid = false;
+                    }
+                    break;
+                case 'rncFormato':
+                    const rncNumbers = valor ? valor.replace(/\D/g, '') : '';
+                    if (rncNumbers.length !== 9 && rncNumbers.length !== 11) {
+                        mostrarError(nombre, 'rncFormato');
+                        isValid = false;
+                    }
+                    break;
                 case 'custom':
                     if (customCheck && !customCheck(valor)) {
                         mostrarError(nombre, 'custom', validacion.mensaje || 'Error de validación');

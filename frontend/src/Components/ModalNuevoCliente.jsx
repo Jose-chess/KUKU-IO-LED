@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ModalNuevoCliente.css';
 import iconSalir from '../assets/arrow-back-up.svg';
 import iconGuardar from '../assets/circle-check.svg';
@@ -10,7 +10,7 @@ import { useValidacion } from '../hooks/useValidacion';
 // Funciones de utilidad
 const capitalizeFirstLetter = (str) => {
     if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 const formatPhone = (value) => {
@@ -39,12 +39,14 @@ const formatRncCedula = (value) => {
     return `${numbers.slice(0, 3)}-${numbers.slice(3, 10)}-${numbers.slice(10, 11)}`;
 };
 
-const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
-    const [showConfirmExit, setShowConfirmExit] = useState(false);
-    const { isShaking, handleOverlayClick } = useModalShake();
-    const { modalValidacion, cerrarError, validarFormulario, mostrarError } = useValidacion();
+const STORAGE_KEY = 'modalNuevoClienteFormData';
 
-    const [formData, setFormData] = useState({
+const getInitialFormData = () => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        return JSON.parse(saved);
+    }
+    return {
         nombre: '',
         apellido: '',
         rncCedula: '',
@@ -54,13 +56,28 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
         telefono: '',
         limiteCredito: '',
         observacion: ''
-    });
+    };
+};
 
+const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
+    const [showConfirmExit, setShowConfirmExit] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { isShaking, handleOverlayClick } = useModalShake();
+    const { modalValidacion, cerrarError, validarFormulario, mostrarError } = useValidacion();
+
+    const [formData, setFormData] = useState(getInitialFormData);
     const [errors, setErrors] = useState({});
+    const isFirstOpen = useRef(true);
 
-    // Resetear formulario cuando se abre
+    // Persistir datos en localStorage cuando cambie el formulario
     useEffect(() => {
-        const resetForm = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+    }, [formData]);
+
+    // Resetear formulario SOLO la primera vez que se abre el modal principal
+    useEffect(() => {
+        if (isOpen && isFirstOpen.current) {
+            localStorage.removeItem(STORAGE_KEY);
             setFormData({
                 nombre: '',
                 apellido: '',
@@ -73,7 +90,8 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
                 observacion: ''
             });
             setErrors({});
-        };
+            isFirstOpen.current = false;
+        }
     }, [isOpen]);
 
     const validateField = (name, value) => {
@@ -238,14 +256,63 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSave = () => {
-        // Validar con modales
+    const handleSave = async () => {
+        if (isSubmitting) return; // Prevenir doble envío
+        
+        // Validar nombre y apellido no ambos en blanco
+        if ((!formData.nombre || formData.nombre.trim() === '') && 
+            (!formData.apellido || formData.apellido.trim() === '')) {
+            mostrarError('Nombre y Apellido', 'obligatorio');
+            return;
+        }
+
+        // Validar teléfono: mínimo 10 dígitos
+        const telefonoNumbers = formData.telefono.replace(/\D/g, '');
+        if (telefonoNumbers.length < 10) {
+            mostrarError('Teléfono', 'telefonoMinimo');
+            return;
+        }
+
+        // Validar RNC/Cédula: formato dominicano válido
+        if (formData.rncCedula && formData.rncCedula.trim() !== '') {
+            const rncNumbers = formData.rncCedula.replace(/\D/g, '');
+            if (rncNumbers.length !== 9 && rncNumbers.length !== 11) {
+                mostrarError('RNC/Cédula', 'rncFormato');
+                return;
+            }
+        }
+
+        // Validar límite de crédito vs balance actual (balance actual es 0 para nuevos clientes)
+        const limiteCredito = parseCurrency(formData.limiteCredito);
+        if (limiteCredito < 0) {
+            mostrarError('Límite de Crédito', 'noNegativo');
+            return;
+        }
+
+        // Verificar duplicado de RNC/Cédula contra backend
+        if (formData.rncCedula && formData.rncCedula.trim() !== '') {
+            try {
+                const response = await fetch('/api/clientes');
+                const clientes = await response.json();
+                const duplicado = clientes.find(c => 
+                    c.rnc_cedula === formData.rncCedula.trim()
+                );
+                if (duplicado) {
+                    mostrarError('RNC/Cédula', 'unico');
+                    return;
+                }
+            } catch (error) {
+                console.error('Error verificando duplicado RNC/Cédula:', error);
+            }
+        }
+
+        // Validaciones con modales existentes
         const isValid = validarFormulario([
-            { valor: formData.nombre, nombre: 'Nombre', tipo: 'obligatorio' },
+            { valor: formData.nombre || formData.apellido, nombre: 'Nombre', tipo: 'obligatorio' },
             { valor: formData.nombre, nombre: 'Nombre', tipo: 'soloLetras' },
-            { valor: formData.apellido, nombre: 'Apellido', tipo: 'obligatorio' },
             { valor: formData.apellido, nombre: 'Apellido', tipo: 'soloLetras' },
             { valor: formData.telefono, nombre: 'Teléfono', tipo: 'obligatorio' },
+            { valor: formData.telefono, nombre: 'Teléfono', tipo: 'soloNumeros' },
             { valor: formData.limiteCredito, nombre: 'Límite de Crédito', tipo: 'obligatorio' },
             { valor: formData.limiteCredito, nombre: 'Límite de Crédito', tipo: 'noNegativo' }
         ]);
@@ -254,24 +321,49 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
             return;
         }
 
+        setIsSubmitting(true); // Iniciar envío
+
         const payload = {
-            nombre: formData.nombre.trim(),
+            nombre: formData.nombre.trim() || null,
             apellido: formData.apellido.trim() || null,
             rncCedula: formData.rncCedula.trim() || null,
             direccion: formData.direccion.trim() || null,
             sector: formData.sector.trim() || null,
             ciudad: formData.ciudad.trim() || null,
             telefono: formData.telefono.trim() || null,
-            limiteCredito: parseCurrency(formData.limiteCredito),
+            limiteCredito: limiteCredito,
             // balanceActual eliminado - se maneja en el backend
             observacion: formData.observacion.trim() || null
         };
 
-        onSave?.(payload);
+        try {
+            await onSave?.(payload);
+            // Guardado exitoso - limpiar localStorage y resetear flag
+            localStorage.removeItem(STORAGE_KEY);
+            isFirstOpen.current = true;
+        } finally {
+            setIsSubmitting(false); // Finalizar envío
+        }
+    };
+
+    const hasFormChanges = () => {
+        return Object.values(formData).some(value => 
+            value && value.toString().trim() !== ''
+        );
+    };
+
+    const handleExitClick = () => {
+        if (hasFormChanges()) {
+            setShowConfirmExit(true);
+        } else {
+            onClose?.();
+        }
     };
 
     const handleClose = () => {
         setShowConfirmExit(false);
+        localStorage.removeItem(STORAGE_KEY);
+        isFirstOpen.current = true;
         onClose?.();
     };
 
@@ -319,7 +411,7 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
                 <h2 className="modal-cliente-title">Añadir Cliente</h2>
 
                 <div className="modal-cliente-form-section">
-                    <h3 className="modal-cliente-subtitle">Informacion del cliente</h3>
+                    <h3 className="modal-cliente-subtitle">Información del cliente</h3>
                     <div className="modal-cliente-divider-line" />
 
                     <div className="modal-cliente-grid-form">
@@ -450,13 +542,13 @@ const ModalNuevoCliente = ({ isOpen, onClose, onSave, codigo }) => {
                 </div>
 
                 <div className="modal-cliente-footer-line">
-                    <button className="btn-salir-cliente" onClick={() => setShowConfirmExit(true)}>
+                    <button className="btn-salir-cliente" onClick={handleExitClick}>
                         <img src={iconSalir} alt="" className="modal-cliente-btn-icon" />
                         Retroceder
                     </button>
-                    <button className="btn-guardar-cliente" onClick={handleSave}>
+                    <button className="btn-guardar-cliente" onClick={handleSave} disabled={isSubmitting}>
                         <img src={iconGuardar} alt="" className="modal-cliente-btn-icon" />
-                        Guardar cliente
+                        {isSubmitting ? 'Guardando...' : 'Guardar cliente'}
                     </button>
                 </div>
             </div>

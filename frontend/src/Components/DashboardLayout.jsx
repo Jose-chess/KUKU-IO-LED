@@ -174,7 +174,7 @@ const DashboardLayout = () => {
 
 
 
-        if (activeSection === 'Informacion empresarial') {
+        if (activeSection === 'Información empresarial') {
 
             return <InformacionEmpresarial datos={companyInfo} onUpdateDatos={setCompanyInfo} />;
 

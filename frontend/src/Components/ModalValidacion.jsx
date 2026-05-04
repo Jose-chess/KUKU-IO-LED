@@ -66,6 +66,26 @@ const ModalValidacion = ({
                         Intente de nuevo!
                     </>
                 );
+            case 'telefonoMinimo':
+                return (
+                    <>
+                        En (<strong>{campoConAsterisco}</strong>) debe introducir mínimo 10 dígitos
+                        <br />
+                        Intente de nuevo!
+                    </>
+                );
+            case 'rncFormato':
+                return (
+                    <>
+                        En (<strong>{campoConAsterisco}</strong>) debe introducir un formato válido:
+                        <br />
+                        • RNC: 9 dígitos (ej: 123456789)
+                        <br />
+                        • Cédula: 11 dígitos (ej: 12345678901)
+                        <br />
+                        Intente de nuevo!
+                    </>
+                );
             default:
                 return mensaje || 'Error de validación';
         }

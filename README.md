@@ -74,6 +74,14 @@
 
 ## 🚀 Instrucciones de Instalación (Windows)
 
+### ⚠️ IMPORTANTE - Configuración de Credenciales
+
+**Antes de comenzar**, debes configurar las credenciales sensibles. Los archivos con credenciales reales están en `.gitignore` y no se suben a GitHub.
+
+1. **Backend**: Copia `backend/appsettings.example.json` a `backend/appsettings.json` y rellena tus credenciales de Supabase
+2. **Frontend**: Copia `frontend/.env.example` a `frontend/.env` y configura las variables necesarias
+3. **Variables de entorno** (alternativa): También puedes usar variables de entorno: `SUPABASE_URL`, `SUPABASE_KEY`, `JWT_SECRET`
+
 ### Prerrequisitos
 - Windows 10/11 (x64)
 - Node.js 18+ 
@@ -89,22 +97,25 @@
 git clone https://github.com/Jose-chess/KUKU-IO-LED.git
 cd KUKU-IO-LED
 
-# 2. Instalar dependencias frontend
+# 2. Configurar credenciales
+# Backend: copiar y editar appsettings.json
+copy backend\appsettings.example.json backend\appsettings.json
+# (Editar backend/appsettings.json con tus credenciales de Supabase)
+
+# Frontend: copiar y editar .env
+copy frontend\.env.example frontend\.env
+# (Editar frontend/.env si es necesario)
+
+# 3. Instalar dependencias frontend
 cd frontend
 npm install
 
-# 3. Configurar Supabase (PostgreSQL)
-cd ../backend/KUKU-IO-LED.API
-# Crear proyecto en Supabase y copiar connection string
-# Editar appsettings.json con:
-# - Supabase:ConnectionString
-# - DatabaseProvider: "PostgreSQL" (producción) o "SQLite" (desarrollo)
-
-# 4. Ejecutar migraciones (PostgreSQL)
-dotnet ef database update --context SupabaseDbContext
-
-# O para desarrollo local (SQLite)
-dotnet ef database update --context SqliteDbContext
+# 4. Ejecutar migraciones (si usas Entity Framework)
+cd ../backend
+# Para PostgreSQL:
+dotnet ef database update
+# O para SQLite (desarrollo local):
+# (Ya incluido en el proyecto)
 
 # 5. Iniciar backend
 dotnet run

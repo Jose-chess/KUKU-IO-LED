@@ -24,7 +24,7 @@
       "targets": "all"
     },
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; connect-src 'self' http://localhost:5200 https://*.supabase.co https://ndlgbkugcysicbcxybyy.supabase.co; img-src 'self' data: https:; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self';"
     },
     "windows": [
       {

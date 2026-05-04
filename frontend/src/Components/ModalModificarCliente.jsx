@@ -11,7 +11,7 @@ import { useValidacion } from '../hooks/useValidacion';
 // Funciones de utilidad
 const capitalizeFirstLetter = (str) => {
     if (!str) return str;
-    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 const formatPhone = (value) => {
@@ -49,10 +49,12 @@ const formatCurrencyDisplay = (value) => {
 
 const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdate, clienteData }) => {
     const [showConfirmExit, setShowConfirmExit] = React.useState(false);
+    const [isSubmitting, setIsSubmitting] = React.useState(false);
     const { isShaking, handleOverlayClick } = useModalShake();
     const { modalValidacion, cerrarError, validarFormulario, mostrarError } = useValidacion();
 
     const [formData, setFormData] = useState({
+        codigo: '',
         nombre: '',
         apellido: '',
         rncCedula: '',
@@ -70,6 +72,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
     useEffect(() => {
         if (clienteData) {
             setFormData({
+                codigo: clienteData.codigo || '',
                 nombre: clienteData.nombre || '',
                 apellido: clienteData.apellido || '',
                 rncCedula: clienteData.rncCedula || '',
@@ -77,7 +80,7 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                 sector: clienteData.sector || '',
                 ciudad: clienteData.ciudad || '',
                 telefono: clienteData.telefono || '',
-                limiteCredito: formatCurrencyDisplay(clienteData.limiteCredito),
+                limiteCredito: formatCurrencyDisplay(clienteData.limiteCredito || clienteData.limite_credito),
                 observacion: clienteData.observacion || ''
             });
             setErrors({});
@@ -274,16 +277,66 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
         }
     };
 
-    const handleUpdate = (event) => {
+    const handleUpdate = async (event) => {
         event.preventDefault();
+        
+        if (isSubmitting) return; // Prevenir doble envío
 
-        // Validar con modales
+        // Validar nombre y apellido no ambos en blanco
+        if ((!formData.nombre || formData.nombre.trim() === '') && 
+            (!formData.apellido || formData.apellido.trim() === '')) {
+            mostrarError('Nombre y Apellido', 'obligatorio');
+            return;
+        }
+
+        // Validar teléfono: mínimo 10 dígitos
+        const telefonoNumbers = formData.telefono.replace(/\D/g, '');
+        if (telefonoNumbers.length < 10) {
+            mostrarError('Teléfono', 'telefonoMinimo');
+            return;
+        }
+
+        // Validar RNC/Cédula: formato dominicano válido
+        if (formData.rncCedula && formData.rncCedula.trim() !== '') {
+            const rncNumbers = formData.rncCedula.replace(/\D/g, '');
+            if (rncNumbers.length !== 9 && rncNumbers.length !== 11) {
+                mostrarError('RNC/Cédula', 'rncFormato');
+                return;
+            }
+        }
+
+        // Validar límite de crédito vs balance actual
+        const limiteCredito = parseCurrency(formData.limiteCredito);
+        if (limiteCredito < 0) {
+            mostrarError('Límite de Crédito', 'noNegativo');
+            return;
+        }
+
+        // Verificar duplicado de RNC/Cédula contra backend (excluyendo el cliente actual)
+        if (formData.rncCedula && formData.rncCedula.trim() !== '') {
+            try {
+                const response = await fetch('/api/clientes');
+                const clientes = await response.json();
+                const duplicado = clientes.find(c => 
+                    c.rnc_cedula === formData.rncCedula.trim() && 
+                    c.codigo !== formData.codigo
+                );
+                if (duplicado) {
+                    mostrarError('RNC/Cédula', 'unico');
+                    return;
+                }
+            } catch (error) {
+                console.error('Error verificando duplicado RNC/Cédula:', error);
+            }
+        }
+
+        // Validaciones con modales existentes
         const isValid = validarFormulario([
-            { valor: formData.nombre, nombre: 'Nombre', tipo: 'obligatorio' },
+            { valor: formData.nombre || formData.apellido, nombre: 'Nombre', tipo: 'obligatorio' },
             { valor: formData.nombre, nombre: 'Nombre', tipo: 'soloLetras' },
-            { valor: formData.apellido, nombre: 'Apellido', tipo: 'obligatorio' },
             { valor: formData.apellido, nombre: 'Apellido', tipo: 'soloLetras' },
             { valor: formData.telefono, nombre: 'Teléfono', tipo: 'obligatorio' },
+            { valor: formData.telefono, nombre: 'Teléfono', tipo: 'soloNumeros' },
             { valor: formData.limiteCredito, nombre: 'Límite de Crédito', tipo: 'obligatorio' },
             { valor: formData.limiteCredito, nombre: 'Límite de Crédito', tipo: 'noNegativo' }
         ]);
@@ -292,20 +345,50 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
             return;
         }
 
+        setIsSubmitting(true); // Iniciar envío
+
         const payload = {
-            nombre: formData.nombre.trim(),
+            nombre: formData.nombre.trim() || null,
             apellido: formData.apellido.trim() || null,
             rncCedula: formData.rncCedula.trim() || null,
             direccion: formData.direccion.trim() || null,
             sector: formData.sector.trim() || null,
             ciudad: formData.ciudad.trim() || null,
             telefono: formData.telefono.trim() || null,
-            limiteCredito: parseCurrency(formData.limiteCredito),
+            limiteCredito: limiteCredito,
             // balanceActual eliminado - se maneja en el backend
             observacion: formData.observacion.trim() || null
         };
 
-        (onUpdate ?? onGuardarModificacion)?.(payload);
+        try {
+            await (onUpdate ?? onGuardarModificacion)?.(payload);
+        } finally {
+            setIsSubmitting(false); // Finalizar envío
+        }
+    };
+
+    const hasFormChanges = () => {
+        if (!clienteData) return false;
+        
+        return Object.keys(formData).some(key => {
+            const currentValue = formData[key];
+            const originalValue = clienteData[key];
+            
+            // Handle null/undefined comparisons
+            if (!currentValue && !originalValue) return false;
+            if (!currentValue || !originalValue) return true;
+            
+            // Compare trimmed string values
+            return currentValue.toString().trim() !== originalValue.toString().trim();
+        });
+    };
+
+    const handleExitClick = () => {
+        if (hasFormChanges()) {
+            setShowConfirmExit(true);
+        } else {
+            onClose?.();
+        }
     };
 
     const handleClose = () => {
@@ -458,13 +541,13 @@ const ModalModificarCliente = ({ isOpen, onClose, onGuardarModificacion, onUpdat
                     </div>
 
                     <div className="modal-cliente-footer-line">
-                        <button type="button" className="btn-salir-cliente" onClick={() => setShowConfirmExit(true)}>
+                        <button type="button" className="btn-salir-cliente" onClick={handleExitClick}>
                             <img src={iconSalir} alt="" className="modal-cliente-btn-icon" />
                             Retroceder
                         </button>
-                        <button type="submit" className="btn-guardar-modificacion">
+                        <button type="submit" className="btn-guardar-modificacion" disabled={isSubmitting}>
                             <img src={iconGuardar} alt="" className="modal-cliente-btn-icon" />
-                            Guardar Modificación
+                            {isSubmitting ? 'Guardando...' : 'Guardar Modificación'}
                         </button>
                     </div>
                 </form>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Clientes.css';
 import iconNuevoCliente from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
@@ -10,7 +10,6 @@ import ModalConfirmarModificacion from './ModalConfirmarModificacion';
 import ModalExito from './ModalExito';
 import ModalObservacion from './ModalObservacion';
 import { createCliente, fetchClientes, fetchNextClienteCode, updateCliente } from '../api/clientesApi';
-import { useEffect } from 'react';
 
 const Clientes = () => {
     // Estados UI
@@ -23,6 +22,7 @@ const Clientes = () => {
     const [showObservacionModal, setShowObservacionModal] = useState(false);
     const [observacionActual, setObservacionActual] = useState('');
     const [busquedaCliente, setBusquedaCliente] = useState('');
+    const searchInputRef = useRef(null);
     const [selectedCliente, setSelectedCliente] = useState(null);
     const [nextClienteCode, setNextClienteCode] = useState('');
     const [loading, setLoading] = useState(false);
@@ -148,10 +148,13 @@ const Clientes = () => {
             setIsModalNuevoClienteOpen(false);
             setExitoSubtitle('¡Cliente guardado exitosamente!');
             setShowExitoModal(true);
+            setBusquedaCliente('');
+            setTimeout(() => {
+                setShowExitoModal(false);
+                loadClientes();
+            }, 3000);
             setSelectedCliente(null);
             setPendingNuevoCliente(null);
-            await loadClientes();
-            await fetchNextCode();
         } catch (error) {
             console.error('Error al crear cliente:', error);
             alert('Error al guardar cliente: ' + error.message);
@@ -189,6 +192,7 @@ const Clientes = () => {
             setShowModificarModal(false);
             setExitoSubtitle('¡Cliente modificado exitosamente!');
             setShowExitoModal(true);
+            setBusquedaCliente('');
             setModificarClienteData(null);
             // Recargar lista de clientes
             loadClientes();
@@ -275,7 +279,12 @@ const Clientes = () => {
                                 if (e.key === 'Enter') {
                                     setBusquedaCliente('');
                                 }
+                                if (e.key === 'Escape') {
+                                    setBusquedaCliente('');
+                                    searchInputRef.current?.blur();
+                                }
                             }}
+                            ref={searchInputRef}
                             className="clientes-search-input"
                         />
                     </div>

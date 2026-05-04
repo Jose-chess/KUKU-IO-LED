@@ -68,6 +68,13 @@
     margin: 0;
 }
 
+.obs-divider-line {
+    height: 1px;
+    width: 100%;
+    background: #E5E5E5;
+    margin-bottom: 20px;
+}
+
 .obs-footer {
     display: flex;
     justify-content: flex-end;

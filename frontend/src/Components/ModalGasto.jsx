@@ -127,7 +127,7 @@ const ModalGasto = ({ isOpen, onClose, onGuardar }) => {
                     <div className="modal-gasto-divider-line"></div>
 
                     <div className="modal-gasto-input-group">
-                        <label className="modal-gasto-input-label">Descripcion:</label>
+                        <label className="modal-gasto-input-label">Descripción:</label>
                         <textarea
                             placeholder="Ingrese una breve descripción del gasto"
                             className="modal-gasto-input modal-gasto-textarea"

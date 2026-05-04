@@ -456,6 +456,14 @@
 
     vertical-align: top;
 
+    height: 40px;
+
+}
+
+.ventas-table tbody tr {
+
+    height: 40px;
+
 }
 
 
