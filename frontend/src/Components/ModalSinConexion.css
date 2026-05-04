@@ -25,6 +25,7 @@
     align-items: center;
     text-align: center;
     position: relative;
+    animation: scale-up-center 0.3s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .sin-conexion-logo-container {

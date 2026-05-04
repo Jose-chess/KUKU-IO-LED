@@ -233,10 +233,10 @@ const Sidebar = ({ user, activeSection, setActiveSection }) => {
                                 {modulo.nombre === 'Configuración' && showConfiguracion && (
                                     <div className="floating-menu" onClick={(e) => e.stopPropagation()}>
                                         <div
-                                            className={`menu-option-item ${activeSection === 'Informacion empresarial' ? 'selected-yellow' : ''}`}
+                                            className={`menu-option-item ${activeSection === 'Información empresarial' ? 'selected-yellow' : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                setActiveSection('Informacion empresarial');
+                                                setActiveSection('Información empresarial');
                                                 setShowConfiguracion(false);
                                             }}
                                         >

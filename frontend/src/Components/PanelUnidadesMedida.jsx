@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PanelUnidadesMedida.css';
 import iconBuscar from '../assets/search.svg';
 import iconEditar from '../assets/edit.svg';
@@ -9,13 +9,10 @@ import ModalEditarUnidadMedida from './ModalEditarUnidadMedida';
 import ModalConfirmado from './ModalConfirmado';
 import ModalConfirmar from './ModalConfirmar';
 import ModalErrorUnidadMedida from './ModalErrorUnidadMedida';
-import ModalErrorModificarUnidad from './ModalErrorModificarUnidad';
 import ModalErrorEliminarUnidad from './ModalErrorEliminarUnidad';
-// TODO: Importar API calls cuando el backend esté listo
-// import { fetchUnidadesMedida, createUnidadMedida, updateUnidadMedida, deleteUnidadMedida } from '../api/unidadesMedidaApi';
+import { fetchUnidadesMedida, createUnidadMedida, updateUnidadMedida, deleteUnidadMedida } from '../api/unidadesMedidaApi';
 
 const PanelUnidadesMedida = () => {
-    // Estados UI
     const [busqueda, setBusqueda] = useState('');
     const [isModalNuevaUnidadOpen, setIsModalNuevaUnidadOpen] = useState(false);
     const [isModalEditarUnidadOpen, setIsModalEditarUnidadOpen] = useState(false);
@@ -24,25 +21,38 @@ const PanelUnidadesMedida = () => {
     const [unidadAEliminar, setUnidadAEliminar] = useState(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
-    const [showErrorModificarModal, setShowErrorModificarModal] = useState(false);
     const [showErrorEliminarModal, setShowErrorEliminarModal] = useState(false);
     const [successSubtitle, setSuccessSubtitle] = useState('');
-    const [errorMessage, setErrorMessage] = useState('No se pudo guardar esta unidad de medida en la base de datos');
-    
-    // Datos del backend (vacíos hasta integrar)
+    const [loading, setLoading] = useState(false);
     const [unidades, setUnidades] = useState([]);
+    const [showConfirmarNueva, setShowConfirmarNueva] = useState(false);
+    const [pendingNuevaUnidad, setPendingNuevaUnidad] = useState(null);
+    const [showConfirmarSalirNueva, setShowConfirmarSalirNueva] = useState(false);
+    const [showConfirmarMod, setShowConfirmarMod] = useState(false);
+    const [pendingModUnidad, setPendingModUnidad] = useState(null);
 
-    // TODO: useEffect para cargar datos desde backend
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const data = await fetchUnidadesMedida();
-    //         setUnidades(data);
-    //     };
-    //     loadData();
-    // }, []);
+    const loadUnidades = async () => {
+        setLoading(true);
+        try {
+            const data = await fetchUnidadesMedida();
+            setUnidades(data);
+        } catch (error) {
+            console.error('Error cargando unidades:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    // TODO: El filtrado debe hacerse en el backend
-    const unidadesFiltradas = unidades;
+    useEffect(() => {
+        loadUnidades();
+    }, []);
+
+    const unidadesFiltradas = unidades.filter(u => {
+        if (!busqueda) return true;
+        const t = busqueda.toLowerCase();
+        return (u.codigo || '').toLowerCase().includes(t) ||
+               (u.descripcion || '').toLowerCase().includes(t);
+    });
 
     const handleEditar = (id) => {
         const unidad = unidades.find(u => u.id === id);
@@ -60,37 +70,69 @@ const PanelUnidadesMedida = () => {
         }
     };
 
-    const handleConfirmEliminar = () => {
-        if (unidadAEliminar) {
-            setUnidades(unidades.filter(u => u.id !== unidadAEliminar.id));
+    const handleConfirmEliminar = async () => {
+        if (!unidadAEliminar) return;
+        try {
+            await deleteUnidadMedida(unidadAEliminar.id);
             setIsConfirmarEliminarOpen(false);
             setUnidadAEliminar(null);
             setSuccessSubtitle('¡Unidad de medida eliminada exitosamente!');
             setShowSuccessModal(true);
+            loadUnidades();
+        } catch {
+            setIsConfirmarEliminarOpen(false);
+            setShowErrorEliminarModal(true);
         }
     };
 
-    const handleSaveUnidad = (nuevaUnidad) => {
-        // TODO: Llamar al backend para guardar
-        // const response = await createUnidadMedida(nuevaUnidad);
-        // setUnidades([...unidades, response]);
-        setIsModalNuevaUnidadOpen(false);
-        setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
-        setShowSuccessModal(true);
+    const handleSaveUnidad = ({ codigo, descripcion }) => {
+        setPendingNuevaUnidad({ codigo, descripcion });
+        setShowConfirmarNueva(true);
     };
 
-    const handleUpdateUnidad = (unidadActualizada) => {
-        setUnidades(unidades.map(u => u.id === unidadActualizada.id ? unidadActualizada : u));
-        setIsModalEditarUnidadOpen(false);
-        setSuccessSubtitle('¡Unidad de medida modificada exitosamente!');
-        setShowSuccessModal(true);
+    const ejecutarGuardarNuevaUnidad = async () => {
+        if (!pendingNuevaUnidad) return;
+        try {
+            await createUnidadMedida(pendingNuevaUnidad);
+            setShowConfirmarNueva(false);
+            setIsModalNuevaUnidadOpen(false);
+            setPendingNuevaUnidad(null);
+            setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
+            setShowSuccessModal(true);
+            loadUnidades();
+        } catch {
+            setShowConfirmarNueva(false);
+            setIsModalNuevaUnidadOpen(false);
+            setPendingNuevaUnidad(null);
+            setShowErrorModal(true);
+        }
     };
 
-    // Calcular KPIs
-    const totalUnidades = unidades.length;
-    const unidadesPeso = unidades.filter(u => ['KG', 'GR'].includes(u.codigo)).length;
-    const unidadesVolumen = unidades.filter(u => ['LT', 'ML', 'GL'].includes(u.codigo)).length;
-    const unidadesLongitud = unidades.filter(u => ['MT', 'CM', 'MM'].includes(u.codigo)).length;
+    const handleUpdateUnidad = ({ id, codigo, descripcion }) => {
+        setPendingModUnidad({ id, codigo, descripcion });
+        setShowConfirmarMod(true);
+    };
+
+    const ejecutarModificarUnidad = async () => {
+        if (!pendingModUnidad) return;
+        try {
+            await updateUnidadMedida(pendingModUnidad.id, { 
+                codigo: pendingModUnidad.codigo, 
+                descripcion: pendingModUnidad.descripcion 
+            });
+            setShowConfirmarMod(false);
+            setIsModalEditarUnidadOpen(false);
+            setPendingModUnidad(null);
+            setSuccessSubtitle('¡Unidad de medida modificada exitosamente!');
+            setShowSuccessModal(true);
+            loadUnidades();
+        } catch {
+            setShowConfirmarMod(false);
+            setIsModalEditarUnidadOpen(false);
+            setPendingModUnidad(null);
+            setShowErrorModal(true);
+        }
+    };
 
     return (
         <div className="unidades-page">
@@ -105,19 +147,19 @@ const PanelUnidadesMedida = () => {
             <div className="kpi-grid unidades-kpi-grid">
                 <div className="kpi-card unidades-kpi-card">
                     <p className="kpi-label">Total activas</p>
-                    <h2 className="kpi-value">{totalUnidades}</h2>
+                    <h2 className="kpi-value">{unidades.length}</h2>
                 </div>
                 <div className="kpi-card unidades-kpi-card">
-                    <p className="kpi-label">Más usada</p>
+                    <p className="kpi-label">Primera registrada</p>
                     <h2 className="kpi-value">{unidades[0]?.codigo || '-'}</h2>
                 </div>
                 <div className="kpi-card unidades-kpi-card">
-                    <p className="kpi-label">Menos usada</p>
+                    <p className="kpi-label">Última registrada</p>
                     <h2 className="kpi-value">{unidades[unidades.length - 1]?.codigo || '-'}</h2>
                 </div>
                 <div className="kpi-card unidades-kpi-card">
-                    <p className="kpi-label">Última agregada</p>
-                    <h2 className="kpi-value">{unidades[unidades.length - 1]?.codigo || '-'}</h2>
+                    <p className="kpi-label">Total en búsqueda</p>
+                    <h2 className="kpi-value">{unidadesFiltradas.length}</h2>
                 </div>
             </div>
 
@@ -128,7 +170,7 @@ const PanelUnidadesMedida = () => {
                         <img src={iconBuscar} alt="" className="unidades-search-icon" />
                         <input
                             type="text"
-                            placeholder="Buscar por código de la unidad"
+                            placeholder="Buscar por código o descripción"
                             value={busqueda}
                             onChange={(e) => setBusqueda(e.target.value)}
                             className="unidades-search-input"
@@ -146,25 +188,19 @@ const PanelUnidadesMedida = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {unidadesFiltradas.length > 0 ? (
+                            {loading ? (
+                                <tr><td className="table-row-empty-cell" colSpan={3}>Cargando...</td></tr>
+                            ) : unidadesFiltradas.length > 0 ? (
                                 unidadesFiltradas.map((unidad) => (
                                     <tr key={unidad.id}>
                                         <td>{unidad.codigo}</td>
                                         <td>{unidad.descripcion}</td>
                                         <td>
                                             <div className="unidades-acciones">
-                                                <button
-                                                    className="btn-unidad-editar"
-                                                    onClick={() => handleEditar(unidad.id)}
-                                                    title="Editar"
-                                                >
+                                                <button className="btn-unidad-editar" onClick={() => handleEditar(unidad.id)}>
                                                     <img src={iconEditar} alt="" className="btn-unidad-icon" />
                                                 </button>
-                                                <button
-                                                    className="btn-unidad-eliminar"
-                                                    onClick={() => handleEliminar(unidad.id)}
-                                                    title="Eliminar"
-                                                >
+                                                <button className="btn-unidad-eliminar" onClick={() => handleEliminar(unidad.id)}>
                                                     <img src={iconEliminar} alt="" className="btn-unidad-icon" />
                                                 </button>
                                             </div>
@@ -174,7 +210,7 @@ const PanelUnidadesMedida = () => {
                             ) : (
                                 <tr>
                                     <td className="table-row-empty-cell" colSpan={3}>
-                                        {busqueda ? 'No se encontraron unidades que coincidan con la búsqueda.' : 'No hay unidades de medida para mostrar.'}
+                                        {busqueda ? 'No se encontraron unidades.' : 'No hay unidades de medida para mostrar.'}
                                     </td>
                                 </tr>
                             )}
@@ -184,42 +220,57 @@ const PanelUnidadesMedida = () => {
             </div>
 
             <ModalNuevaUnidadMedida
-                isOpen={isModalNuevaUnidadOpen}
-                onClose={() => setIsModalNuevaUnidadOpen(false)}
+                isOpen={isModalNuevaUnidadOpen && !showConfirmarNueva && !showConfirmarSalirNueva}
+                onClose={() => setShowConfirmarSalirNueva(true)}
                 onSave={handleSaveUnidad}
+                initialData={pendingNuevaUnidad}
             />
-
+            <ModalConfirmar
+                isOpen={showConfirmarNueva}
+                onClose={() => setShowConfirmarNueva(false)}
+                onConfirm={ejecutarGuardarNuevaUnidad}
+                mensaje="¿Está seguro de que desea guardar esta unidad de medida?"
+            />
+            <ModalConfirmar
+                isOpen={showConfirmarSalirNueva}
+                onClose={() => setShowConfirmarSalirNueva(false)}
+                onConfirm={() => {
+                    setShowConfirmarSalirNueva(false);
+                    setIsModalNuevaUnidadOpen(false);
+                }}
+                mensaje="¿Está seguro de que desea salir?"
+            />
             <ModalEditarUnidadMedida
-                isOpen={isModalEditarUnidadOpen}
-                onClose={() => setIsModalEditarUnidadOpen(false)}
+                isOpen={isModalEditarUnidadOpen && !showConfirmarMod}
+                onClose={() => {
+                    setIsModalEditarUnidadOpen(false);
+                    setPendingModUnidad(null);
+                }}
                 onSave={handleUpdateUnidad}
                 unidad={unidadAEditar}
             />
-
+            <ModalConfirmar
+                isOpen={showConfirmarMod}
+                onClose={() => setShowConfirmarMod(false)}
+                onConfirm={ejecutarModificarUnidad}
+                mensaje="¿Está seguro de que desea modificar esta unidad de medida?"
+            />
             <ModalConfirmado
                 isOpen={showSuccessModal}
                 onClose={() => setShowSuccessModal(false)}
                 title="Confirmado"
                 subtitle={successSubtitle}
             />
-
             <ModalConfirmar
                 isOpen={isConfirmarEliminarOpen}
                 onClose={() => setIsConfirmarEliminarOpen(false)}
                 onConfirm={handleConfirmEliminar}
                 mensaje="¿Está seguro de que desea eliminar esta unidad de medida?"
             />
-
             <ModalErrorUnidadMedida
                 isOpen={showErrorModal}
                 onClose={() => setShowErrorModal(false)}
             />
-
-            <ModalErrorModificarUnidad
-                isOpen={showErrorModificarModal}
-                onClose={() => setShowErrorModificarModal(false)}
-            />
-
             <ModalErrorEliminarUnidad
                 isOpen={showErrorEliminarModal}
                 onClose={() => setShowErrorEliminarModal(false)}

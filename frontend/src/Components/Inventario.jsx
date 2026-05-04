@@ -380,6 +380,14 @@ const Inventario = () => {
                 retryMessage="Intente de nuevo"
                 buttonLabel="Salir"
             />
+            {modalExistenciaBaja && (
+                <ModalExistenciaBaja
+                    isOpen={modalExistenciaBaja}
+                    onClose={() => setModalExistenciaBaja(false)}
+                    articulos={articulosBajos}
+                    position={modalPosition}
+                />
+            )}
         </>
     );
 };

@@ -23,6 +23,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    animation: scale-up 0.2s cubic-bezier(0.39, 0.575, 0.565, 1.0) both;
 }
 
 .exito-logo-container {

@@ -108,6 +108,7 @@ builder.Services.AddScoped<ArticuloService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<VentaService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<UnidadesMedidaService>();
 
 // Background Service para mantener Supabase activo
 builder.Services.AddHostedService<SupabasePingService>();

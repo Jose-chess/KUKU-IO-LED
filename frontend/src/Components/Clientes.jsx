@@ -9,6 +9,7 @@ import ModalConfirmarCliente from './ModalConfirmarCliente';
 import ModalConfirmarModificacion from './ModalConfirmarModificacion';
 import ModalExito from './ModalExito';
 import ModalObservacion from './ModalObservacion';
+import ModalConfirmar from './ModalConfirmar';
 import { createCliente, fetchClientes, fetchNextClienteCode, updateCliente } from '../api/clientesApi';
 
 const Clientes = () => {
@@ -27,6 +28,7 @@ const Clientes = () => {
     const [nextClienteCode, setNextClienteCode] = useState('');
     const [loading, setLoading] = useState(false);
     const [pendingNuevoCliente, setPendingNuevoCliente] = useState(null);
+    const [showConfirmarSalirNuevo, setShowConfirmarSalirNuevo] = useState(false);
     
     // Datos del backend
     const [clientes, setClientes] = useState([]);
@@ -364,11 +366,8 @@ const Clientes = () => {
             </div>
 
             <ModalNuevoCliente
-                isOpen={isModalNuevoClienteOpen && !showConfirmarNuevo}
-                onClose={() => {
-                    setIsModalNuevoClienteOpen(false);
-                    setPendingNuevoCliente(null);
-                }}
+                isOpen={isModalNuevoClienteOpen && !showConfirmarNuevo && !showConfirmarSalirNuevo}
+                onClose={() => setShowConfirmarSalirNuevo(true)}
                 onSave={(payload) => {
                     setPendingNuevoCliente(payload);
                     handleGuardarNuevoCliente();
@@ -376,10 +375,20 @@ const Clientes = () => {
                 codigo={nextClienteCode}
             />
 
-            <ModalConfirmarCliente
+            <ModalConfirmar
                 isOpen={showConfirmarNuevo}
                 onClose={() => setShowConfirmarNuevo(false)}
                 onConfirm={ejecutarGuardarNuevoCliente}
+                mensaje="¿Está seguro de que desea guardar este cliente?"
+            />
+            <ModalConfirmar
+                isOpen={showConfirmarSalirNuevo}
+                onClose={() => setShowConfirmarSalirNuevo(false)}
+                onConfirm={() => {
+                    setShowConfirmarSalirNuevo(false);
+                    setIsModalNuevoClienteOpen(false);
+                }}
+                mensaje="¿Está seguro de que desea salir?"
             />
 
             <ModalModificarCliente
