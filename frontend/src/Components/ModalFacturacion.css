@@ -20,7 +20,7 @@
 
     z-index: 90000;
 
-}
+/*}*/
 
 
 
@@ -54,7 +54,7 @@
 
     animation: modalFadeInSystem 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 
-}
+/*}*/
 
 
 
@@ -78,7 +78,7 @@
 
     }
 
-}
+/*}*/
 
 
 
@@ -96,7 +96,7 @@
 
     line-height: 1;
 
-}
+/*}*/
 
 
 
@@ -114,7 +114,7 @@
 
     padding: 25px 30px;
 
-}
+/*}*/
 
 
 
@@ -132,7 +132,7 @@
 
     letter-spacing: 0.05em;
 
-}
+/*}*/
 
 
 
@@ -144,7 +144,7 @@
 
     margin-bottom: 25px;
 
-}
+/*}*/
 
 
 
@@ -166,7 +166,7 @@
 
     /* Centrado horizontal */
 
-}
+/*}*/
 
 
 
@@ -178,7 +178,7 @@
 
     gap: 12px;
 
-}
+/*}*/
 
 
 
@@ -190,7 +190,7 @@
 
     justify-content: space-between;
 
-}
+/*}*/
 
 
 
@@ -206,7 +206,7 @@
 
     text-transform: uppercase;
 
-}
+/*}*/
 
 
 
@@ -248,7 +248,7 @@
 
     transition: border-color 0.2s;
 
-}
+/*}*/
 
 
 
@@ -264,7 +264,7 @@
 
     padding-right: 30px;
 
-}
+/*}*/
 
 
 
@@ -280,7 +280,7 @@
 
     background-size: 14px;
 
-}
+/*}*/
 
 
 
@@ -294,7 +294,7 @@
 
     /* AlineaciÃ³n a la izquierda solicitada */
 
-}
+/*}*/
 
 
 
@@ -310,7 +310,7 @@ input[type=number]::-webkit-outer-spin-button {
 
     margin: 0;
 
-}
+/*}*/
 
 
 
@@ -320,7 +320,7 @@ input[type=number] {
 
     appearance: textfield;
 
-}
+/*}*/
 
 
 
@@ -328,7 +328,7 @@ input[type=number] {
 
     justify-content: space-between;
 
-}
+/*}*/
 
 
 
@@ -348,7 +348,7 @@ input[type=number] {
 
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
-}
+/*}*/
 
 
 
@@ -356,7 +356,7 @@ input[type=number] {
 
     transform: rotate(180deg);
 
-}
+/*}*/
 
 
 
@@ -374,7 +374,7 @@ input[type=number] {
 
     color: #111827;
 
-}
+/*}*/
 
 
 
@@ -386,7 +386,7 @@ input[type=number] {
 
     font-size: 16px;
 
-}
+/*}*/
 
 
 
@@ -408,7 +408,7 @@ input[type=number] {
 
     gap: 8px;
 
-}
+/*}*/
 
 
 
@@ -422,7 +422,7 @@ input[type=number] {
 
     font-weight: 500;
 
-}
+/*}*/
 
 
 
@@ -436,7 +436,7 @@ input[type=number] {
 
     text-transform: uppercase;
 
-}
+/*}*/
 
 
 
@@ -444,7 +444,7 @@ input[type=number] {
 
     color: #111827;
 
-}
+/*}*/
 
 
 
@@ -452,7 +452,7 @@ input[type=number] {
 
     color: #FF060A;
 
-}
+/*}*/
 
 
 
@@ -462,7 +462,7 @@ input[type=number] {
 
     font-size: 15px;
 
-}
+/*}*/
 
 
 
@@ -482,7 +482,7 @@ input[type=number] {
 
     position: relative;
 
-}
+/*}*/
 
 
 
@@ -498,7 +498,7 @@ input[type=number] {
 
     text-transform: uppercase;
 
-}
+/*}*/
 
 
 
@@ -506,7 +506,7 @@ input[type=number] {
 
     color: #111827;
 
-}
+/*}*/
 
 
 
@@ -516,7 +516,7 @@ input[type=number] {
 
     gap: 12px;
 
-}
+/*}*/
 
 
 
@@ -546,7 +546,7 @@ input[type=number] {
 
     color: #000000 !important;
 
-}
+/*}*/
 
 
 
@@ -554,7 +554,7 @@ input[type=number] {
 
     background: #ff0000;
 
-}
+/*}*/
 
 
 
@@ -562,7 +562,7 @@ input[type=number] {
 
     background: #00a300;
 
-}
+/*}*/
 
 
 
@@ -574,7 +574,7 @@ input[type=number] {
 
     transform: translateY(-1px);
 
-}
+/*}*/
 
 
 
@@ -586,7 +586,7 @@ input[type=number] {
 
     filter: brightness(0);
 
-}
+/*}*/
 
 
 
@@ -596,15 +596,16 @@ input[type=number] {
 
     animation: systemShake 0.4s cubic-bezier(.36, .07, .19, .97) both;
 
-}
+/*}*/
 
 
 
-.is-hidden-by-confirm {
+/* .is-hidden-by-confirm {
 
     display: none !important;
+*/
 
-}
+/*}*/
 
 
 
@@ -652,7 +653,7 @@ input[type=number] {
 
     }
 
-}
+/*}*/
 
 
 
@@ -664,7 +665,7 @@ input[type=number] {
 
     display: block;
 
-}
+/*}*/
 
 
 
@@ -694,7 +695,7 @@ input[type=number] {
 
     transition: border-color 0.2s;
 
-}
+/*}*/
 
 
 
@@ -704,7 +705,7 @@ input[type=number] {
 
     box-shadow: none;
 
-}
+/*}*/
 
 
 
@@ -712,7 +713,7 @@ input[type=number] {
 
     border-color: #ff0000;
 
-}
+/*}*/
 
 
 
@@ -724,7 +725,7 @@ input[type=number] {
 
     border-bottom: 1px solid #E5E5E5 !important;
 
-}
+/*}*/
 
 
 
@@ -736,7 +737,7 @@ input[type=number] {
 
     color: #1e293b !important;
 
-}
+/*}*/
 
 
 
@@ -744,7 +745,7 @@ input[type=number] {
 
     color: #64748B !important;
 
-}
+/*}*/
 
 
 
@@ -778,7 +779,7 @@ input[type=number] {
 
     font-weight: bold;
 
-}
+/*}*/
 
 
 
@@ -808,7 +809,7 @@ input[type=number] {
 
     background-color: #e6b800 !important;
 
-}
+/*}*/
 
 
 
@@ -824,7 +825,7 @@ input[type=number] {
 
     color: #000000 !important;
 
-}
+/*}*/
 
 
 
@@ -838,7 +839,7 @@ input[type=number] {
 
     background-color: rgba(255, 204, 0, 0.2) !important;
 
-}
+/*}*/
 
 
 
@@ -852,7 +853,7 @@ input[type=number] {
 
     font-weight: bold !important;
 
-}
+/*}*/
 
 
 
@@ -860,7 +861,7 @@ input[type=number] {
 
     border-color: #64748B !important;
 
-}
+/*}*/
 
 
 
@@ -868,7 +869,7 @@ input[type=number] {
 
     border-color: #FFCC00 !important;
 
-}
+/*}*/
 
 
 
@@ -884,5 +885,5 @@ input[type=number] {
 
     border-radius: 0.3rem;
 
-}
+/*}*/
 

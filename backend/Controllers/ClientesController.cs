@@ -38,27 +38,27 @@ public class ClientesController : ControllerBase
             return BadRequest(ModelState);
 
         if (string.IsNullOrWhiteSpace(dto.Nombre))
-            return BadRequest(new { error = "El nombre es obligatorio" });
+            return BadRequest(new { error = "El Nombre es obligatorio" });
 
         if (dto.Nombre.Any(char.IsDigit))
-            return BadRequest(new { error = "El nombre solo puede contener letras" });
+            return BadRequest(new { error = "El Nombre solo puede contener letras" });
 
         if (dto.LimiteCredito < 0)
             return BadRequest(new { error = "El límite de crédito no puede ser negativo" });
 
         try
         {
-            var payload = new
+            var payload = new backend.Models.Cliente
             {
-                nombre        = dto.Nombre.Trim(),
-                apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
-                rnc_cedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
-                direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
-                sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
-                ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
-                telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
-                limite_credito = dto.LimiteCredito,
-                observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
+                Nombre        = dto.Nombre.Trim(),
+                Apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
+                RncCedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
+                Direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
+                Sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
+                Ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
+                Telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
+                LimiteCredito = dto.LimiteCredito,
+                Observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
             };
 
             var resultado = await _clienteService.CreateAsync(payload);
@@ -77,24 +77,24 @@ public class ClientesController : ControllerBase
             return BadRequest(ModelState);
 
         if (string.IsNullOrWhiteSpace(dto.Nombre))
-            return BadRequest(new { error = "El nombre es obligatorio" });
+            return BadRequest(new { error = "El Nombre es obligatorio" });
 
         if (dto.LimiteCredito < 0)
             return BadRequest(new { error = "El límite de crédito no puede ser negativo" });
 
         try
         {
-            var payload = new
+            var payload = new backend.Models.Cliente
             {
-                nombre        = dto.Nombre.Trim(),
-                apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
-                rnc_cedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
-                direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
-                sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
-                ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
-                telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
-                limite_credito = dto.LimiteCredito,
-                observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
+                Nombre        = dto.Nombre.Trim(),
+                Apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
+                RncCedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
+                Direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
+                Sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
+                Ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
+                Telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
+                LimiteCredito = dto.LimiteCredito,
+                Observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
             };
 
             var resultado = await _clienteService.UpdateAsync(id, payload);

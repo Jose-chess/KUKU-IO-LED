@@ -1,7 +1,7 @@
 // src/api/articulosApi.js
 // Llamadas HTTP al backend para Artículos/Inventario
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5200/api';
 
 export const fetchArticulos = async () => {
     const response = await fetch(`${API_URL}/articulos`);

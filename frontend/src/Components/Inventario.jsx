@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Inventario.css';
 import iconNew from '../assets/new-section.svg';
 import iconSearch from '../assets/search.svg';
@@ -12,8 +12,7 @@ import ConfirmadoArticulo from './ConfirmadoArticulo';
 import ConfirmadoEliminarArticulo from './ConfirmadoEliminarArticulo';
 import ModalExito from './ModalExito';
 import ModalErrorArticulo from './ModalErrorArticulo';
-// TODO: Importar API calls cuando el backend esté listo
-// import { fetchArticulos, deleteArticulo } from '../api/articulosApi';
+import { fetchArticulos, fetchKpisInventario } from '../api/articulosApi';
 
 
 
@@ -27,18 +26,21 @@ const Inventario = () => {
         valorInventario: 0
     });
 
-    // TODO: useEffect para cargar datos desde backend
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const [articulosData, kpisData] = await Promise.all([
-    //             fetchArticulos(),
-    //             fetchKpisInventario()
-    //         ]);
-    //         setArticulos(articulosData);
-    //         setKpis(kpisData);
-    //     };
-    //     loadData();
-    // }, []);
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const [articulosData, kpisData] = await Promise.all([
+                    fetchArticulos(),
+                    fetchKpisInventario()
+                ]);
+                setArticulos(articulosData);
+                setKpis(kpisData);
+            } catch (error) {
+                console.error('Error al cargar datos de inventario:', error);
+            }
+        };
+        loadData();
+    }, []);
 
     const [busqueda, setBusqueda] = useState('');
     const [modalExistenciaBaja, setModalExistenciaBaja] = useState(false);
@@ -421,8 +423,7 @@ const Inventario = () => {
     const articulosFiltrados = articulos;
 
     return (
-        <>
-            <div className="inventario-page">
+        <div className="inventario-page">
                 <div className="inventario-header">
                     <h1 className="inventario-title">Inventario</h1>
                     <button 
@@ -434,7 +435,6 @@ const Inventario = () => {
                         Nuevo Artículo
                     </button>
                 </div>
-            </div>
 
 
 
@@ -558,114 +558,65 @@ const Inventario = () => {
 
                 </div>
 
-            </div>
-
             {modalExistenciaBaja && (
-
                 <ModalExistenciaBaja
-
                     isOpen={modalExistenciaBaja}
-
                     onClose={() => setModalExistenciaBaja(false)}
-
                     articulos={articulosBajos}
-
                     position={modalPosition}
-
                 />
-
             )}
 
             <ModalNuevoArticulo
-
                 isOpen={modalNuevoArticulo}
-
                 onClose={handleCloseNuevoArticulo}
-
                 onSave={handleSaveNuevoArticulo}
-
             />
 
             <ModalEditarArticulo
-
                 isOpen={modalEditarArticulo}
-
                 onClose={handleCloseEditarArticulo}
-
                 onSave={handleSaveEditarArticulo}
-
                 articuloData={selectedArticulo}
-
             />
 
             <ConfirmadoArticulo
-
                 isOpen={showConfirmadoArticulo}
-
                 onClose={handleCloseConfirmadoArticulo}
-
                 onConfirm={handleConfirmarArticulo}
-
             />
 
             <ConfirmadoArticulo
-
                 isOpen={showConfirmadoEditar}
-
                 onClose={handleCloseConfirmadoEditar}
-
                 onConfirm={handleConfirmarEditar}
-
                 mensaje="¿Está seguro de que desea modificar este artículo?"
-
             />
 
             <ConfirmadoEliminarArticulo
-
                 isOpen={showConfirmadoEliminar}
-
                 onClose={handleCloseConfirmadoEliminar}
-
                 onConfirm={handleConfirmarEliminar}
-
                 mensaje="¿Está seguro de que desea eliminar este artículo?"
-
             />
 
-
-
             <ModalExito
-
                 isOpen={showExitoModal}
-
                 onClose={handleCloseExito}
-
                 title="Confirmado"
-
                 subtitle={exitoSubtitle}
-
                 buttonLabel="Salir"
-
             />
 
             <ModalErrorArticulo
-
                 isOpen={showErrorModal}
-
                 onClose={handleCloseError}
-
                 title="Error"
-
                 message={errorMessage}
-
                 retryMessage="Intente de nuevo"
-
                 buttonLabel="Salir"
-
             />
-
-        </>
-
+        </div>
     );
 
 };
