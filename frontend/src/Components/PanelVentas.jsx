@@ -12,55 +12,8 @@ import { useModalShake } from './useModalShake';
 import ModalFacturacion from './ModalFacturacion';
 import ModalErrorVentaVacia from './ModalErrorVentaVacia';
 import ModalConfirmar from './ModalConfirmar';
+import ModalNuevaVenta from './ModalNuevaVenta';
 import { fetchVentas, createVenta, fetchKpisVentas } from '../api/ventasApi';
-
-
-
-const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
-
-    const { isShaking, handleOverlayClick } = useModalShake();
-
-
-
-    if (!isOpen) {
-
-        return null;
-
-    }
-
-
-
-    return (
-        <div className="nueva-venta-overlay" onClick={handleOverlayClick}>
-            <div className={`nueva-venta-modal scale-up-center ${isShaking ? 'shake' : ''}`} onClick={(event) => event.stopPropagation()}>
-                <div className="nueva-venta-content">
-                    <h2 className="nueva-venta-title">Nueva Venta</h2>
-
-                    <div className="nueva-venta-field">
-                        <label>Buscar artículo</label>
-                        <div className="nueva-venta-search-wrapper">
-                            <img src={iconBuscar} alt="Buscar" className="nueva-venta-search-icon" />
-                            <input type="text" placeholder="Buscar por nombre del artículo" className="nueva-venta-search-input" />
-                        </div>
-                    </div>
-
-                    <div className="nueva-venta-table-wrapper">
-                        <table className="nueva-venta-table">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Artículo</th>
-                                    <th>Precio unitario</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-};
 
 
 const PanelVentas = () => {
@@ -79,6 +32,9 @@ const PanelVentas = () => {
     const [ventaActual, setVentaActual] = useState(null);
     const [showExito, setShowExito] = useState(false);
     const [showErrorVentaVacia, setShowErrorVentaVacia] = useState(false);
+    const [showConfirmarSalirVenta, setShowConfirmarSalirVenta] = useState(false);
+    const [showConfirmarFacturarVenta, setShowConfirmarFacturarVenta] = useState(false);
+    const [ventaPendiente, setVentaPendiente] = useState(null);
 
     useEffect(() => {
         const loadData = async () => {
@@ -179,7 +135,26 @@ const PanelVentas = () => {
             </div>
 
 
-
+            <ModalNuevaVenta
+                isOpen={showModalNuevaVenta}
+                onSalir={() => setShowConfirmarSalirVenta(true)}
+                onFacturar={(venta) => { setVentaPendiente(venta); setShowConfirmarFacturarVenta(true); }}
+            />
+            <ModalConfirmar
+                isOpen={showConfirmarSalirVenta}
+                onClose={() => setShowConfirmarSalirVenta(false)}
+                onConfirm={() => { setShowConfirmarSalirVenta(false); setShowModalNuevaVenta(false); }}
+                mensaje="¿Está seguro de que desea salir?"
+                salirLabel="Retroceder"
+                confirmLabel="Confirmar"
+            />
+            <ModalConfirmar
+                isOpen={showConfirmarFacturarVenta}
+                onClose={() => setShowConfirmarFacturarVenta(false)}
+                onConfirm={() => { setShowConfirmarFacturarVenta(false); setVentaActual(ventaPendiente); setShowModalNuevaVenta(false); setShowFacturacion(true); }}
+                mensaje="¿Está seguro de que desea facturar esta venta?"
+                salirLabel="Retroceder"
+            />
             <ModalFacturacion
                 isOpen={showFacturacion}
                 venta={ventaActual}
