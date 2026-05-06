@@ -1,5 +1,6 @@
 using backend.Data;
 using backend.Services;
+using backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Supabase;
 
@@ -27,7 +28,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 // --- 2. SERVICIOS DE LA API ---
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+        options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -36,6 +41,7 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<ArticuloService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<VentaService>();
+builder.Services.AddScoped<UnidadMedidaService>();
 
 builder.Services.AddCors(options => {
     options.AddPolicy("frontend", policy => {

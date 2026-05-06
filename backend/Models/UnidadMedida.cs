@@ -1,15 +1,26 @@
-// Models/UnidadMedida.cs
+using Postgrest.Attributes;
+using Postgrest.Models;
+
 namespace backend.Models;
 
-public class UnidadMedida
+[Table("unidades_medida")]
+public class UnidadMedida : BaseModel
 {
+    [PrimaryKey("id", false)]
     public int Id { get; set; }
-    public string Codigo { get; set; } = null!;
-    public string Descripcion { get; set; } = null!;
-    public bool Activa { get; set; } = true;
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    // Navegación
-    public ICollection<Articulo> Articulos { get; set; } = new List<Articulo>();
+    [Column("codigo")]
+    public string Codigo { get; set; } = null!;
+
+    [Column("descripcion")]
+    public string Descripcion { get; set; } = null!;
+
+    [Column("activa")]
+    public bool Activa { get; set; } = true;
+
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
+
+    [Column("updated_at")]
+    public DateTime UpdatedAt { get; set; }
 }

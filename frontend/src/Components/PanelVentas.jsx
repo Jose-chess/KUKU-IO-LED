@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PanelVentas.css';
 import iconNuevaVenta from '../assets/new-section.svg';
 import iconBuscar from '../assets/search.svg';
@@ -12,8 +12,7 @@ import { useModalShake } from './useModalShake';
 import ModalFacturacion from './ModalFacturacion';
 import ModalErrorVentaVacia from './ModalErrorVentaVacia';
 import ModalConfirmar from './ModalConfirmar';
-// TODO: Importar API calls cuando el backend esté listo
-// import { fetchVentas, createVenta } from '../api/ventasApi';
+import { fetchVentas, createVenta, fetchKpisVentas } from '../api/ventasApi';
 
 
 
@@ -52,6 +51,17 @@ const ModalNuevaVenta = ({ isOpen, onSalir, onFacturar }) => {
                                     <th>Código</th>
                                     <th>Artículo</th>
                                     <th>Precio unitario</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 
 const PanelVentas = () => {
     // Estados UI
@@ -70,18 +80,21 @@ const PanelVentas = () => {
     const [showExito, setShowExito] = useState(false);
     const [showErrorVentaVacia, setShowErrorVentaVacia] = useState(false);
 
-    // TODO: useEffect para cargar datos desde backend
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const [ventasData, kpisData] = await Promise.all([
-    //             fetchVentas(busqueda),
-    //             fetchKpisVentas()
-    //         ]);
-    //         setVentas(ventasData);
-    //         setKpis(kpisData);
-    //     };
-    //     loadData();
-    // }, [busqueda]);
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const [ventasData, kpisData] = await Promise.all([
+                    fetchVentas(),
+                    fetchKpisVentas()
+                ]);
+                setVentas(ventasData);
+                setKpis(kpisData);
+            } catch (error) {
+                console.error('Error al cargar datos de ventas:', error);
+            }
+        };
+        loadData();
+    }, []);
 
     // Datos vacíos hasta que el backend esté listo
     const ventasFiltradas = ventas;
@@ -147,16 +160,16 @@ const PanelVentas = () => {
                                 </tr>
                             ) : (
                                 ventasFiltradas.map((venta, index) => (
-                                    <tr key={index}>
-                                        <td>{venta.id || `V-${index}`}</td>
-                                        <td>{venta.cliente}</td>
-                                        <td>{venta.condicion}</td>
-                                        <td>{venta.metodoPago}</td>
-                                        <td>{venta.tipoVenta}</td>
-                                        <td>{venta.descuento}%</td>
-                                        <td>{venta.articulos?.length || 0}</td>
+                                    <tr key={venta.id || index}>
+                                        <td>{`VNT-${venta.id}`}</td>
+                                        <td>{venta.clienteId || 'Cliente'}</td>
+                                        <td>{venta.condicion || 'Contado'}</td>
+                                        <td>{venta.metodoPago || '-'}</td>
+                                        <td>{venta.tipoVenta || 'ConsumidorFinal'}</td>
+                                        <td>0%</td>
+                                        <td>0</td>
                                         <td>{formatMoney(venta.total)}</td>
-                                        <td>{venta.fecha}</td>
+                                        <td>{new Date(venta.fechaVenta).toLocaleDateString()}</td>
                                     </tr>
                                 ))
                             )}
@@ -165,176 +178,33 @@ const PanelVentas = () => {
                 </div>
             </div>
 
-            />
-
-
-
-            <ModalSeleccionCliente
-
-                isOpen={showSeleccionCliente}
-
-                onClose={handleCloseSeleccionCliente}
-
-                clientes={[]}
-
-                onSelect={(cliente) => setSelectedCliente(cliente.nombre || '')}
-
-                position={modalPositionCliente}
-
-            />
-
-
-
-            <ModalSeleccionTipo
-
-                isOpen={showSeleccionTipo}
-
-                onClose={handleCloseSeleccionTipo}
-
-                onSelect={(tipo) => {
-
-                    setSelectedTipo(tipo.nombre || '');
-
-                    if (tipo.id === 'por_mayor') {
-
-                        const descuentoAuto = calcularDescuentoAutomatico(cantidadArticulos);
-
-                        setSelectedDescuento(descuentoAuto);
-
-                    }
-
-                }}
-
-                position={modalPositionTipo}
-
-            />
-
-
-
-            <ModalSeleccionDescuento
-
-                isOpen={showSeleccionDescuento}
-
-                onClose={handleCloseSeleccionDescuento}
-
-                onSelect={(descuento) => setSelectedDescuento(descuento.porcentaje || '0')}
-
-                position={modalPositionDescuento}
-
-            />
-
 
 
             <ModalFacturacion
-
-                key={showFacturacionModal}
-
-                isOpen={showFacturacionModal}
-
+                isOpen={showFacturacion}
                 venta={ventaActual}
-
                 onVolver={() => {
-
-                    setShowFacturacionModal(false);
-
-                    setShowNuevaVentaModal(true);
-
+                    setShowFacturacion(false);
+                    setShowModalNuevaVenta(true);
                 }}
-
                 onConfirmarVenta={(datosFinales) => {
-
                     setVentas([...ventas, datosFinales]);
-
-                    setShowFacturacionModal(false);
-
-                    setShowExitoModal(true);
-
+                    setShowFacturacion(false);
+                    setShowExito(true);
                 }}
-
             />
-
-
 
             <ModalExito
-
-                isOpen={showExitoModal}
-
-                onClose={() => setShowExitoModal(false)}
-
+                isOpen={showExito}
+                onClose={() => setShowExito(false)}
                 title="Confirmado"
-
                 subtitle="Venta facturada exitosamente!"
-
                 buttonLabel="Salir"
-
             />
-
-
 
             <ModalErrorVentaVacia 
-
                 isOpen={showErrorVentaVacia}
-
                 onClose={() => setShowErrorVentaVacia(false)}
-
-            />
-
-
-
-            <ModalConfirmar
-
-                isOpen={showConfirmSalir}
-
-                onClose={() => {
-
-                    setShowConfirmSalir(false);
-
-                    setShowNuevaVentaModal(true);
-
-                }}
-
-                onConfirm={() => {
-
-                    setShowConfirmSalir(false);
-
-                    setShowNuevaVentaModal(false);
-
-                    setShowFacturacionModal(false);
-
-                }}
-
-                mensaje="¿Está seguro de que desea salir?"
-
-                salirLabel="Retroceder"
-
-                confirmLabel="Confirmar"
-
-            />
-
-
-
-            <ModalConfirmar
-
-                isOpen={showConfirmarFacturar}
-
-                onClose={() => setShowConfirmarFacturar(false)}
-
-                onConfirm={() => {
-
-                    setShowConfirmarFacturar(false);
-
-                    setShowNuevaVentaModal(false);
-
-                    setShowFacturacionModal(true);
-
-                }}
-
-                mensaje="¿Está seguro de que desea procesar este registro?"
-
-                salirLabel="Retroceder"
-
-                confirmLabel="Confirmar"
-
             />
 
         </div>

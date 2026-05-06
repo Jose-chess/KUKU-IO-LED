@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PanelUnidadesMedida.css';
 import iconBuscar from '../assets/search.svg';
 import iconEditar from '../assets/edit.svg';
@@ -11,8 +11,7 @@ import ModalConfirmar from './ModalConfirmar';
 import ModalErrorUnidadMedida from './ModalErrorUnidadMedida';
 import ModalErrorModificarUnidad from './ModalErrorModificarUnidad';
 import ModalErrorEliminarUnidad from './ModalErrorEliminarUnidad';
-// TODO: Importar API calls cuando el backend esté listo
-// import { fetchUnidadesMedida, createUnidadMedida, updateUnidadMedida, deleteUnidadMedida } from '../api/unidadesMedidaApi';
+import { fetchUnidadesMedida, createUnidadMedida, updateUnidadMedida, deleteUnidadMedida } from '../api/unidadesMedidaApi';
 
 const PanelUnidadesMedida = () => {
     // Estados UI
@@ -32,14 +31,17 @@ const PanelUnidadesMedida = () => {
     // Datos del backend (vacíos hasta integrar)
     const [unidades, setUnidades] = useState([]);
 
-    // TODO: useEffect para cargar datos desde backend
-    // useEffect(() => {
-    //     const loadData = async () => {
-    //         const data = await fetchUnidadesMedida();
-    //         setUnidades(data);
-    //     };
-    //     loadData();
-    // }, []);
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchUnidadesMedida();
+                setUnidades(data);
+            } catch (error) {
+                console.error('Error al cargar unidades de medida:', error);
+            }
+        };
+        loadData();
+    }, []);
 
     // TODO: El filtrado debe hacerse en el backend
     const unidadesFiltradas = unidades;
@@ -60,30 +62,46 @@ const PanelUnidadesMedida = () => {
         }
     };
 
-    const handleConfirmEliminar = () => {
+    const handleConfirmEliminar = async () => {
         if (unidadAEliminar) {
-            setUnidades(unidades.filter(u => u.id !== unidadAEliminar.id));
-            setIsConfirmarEliminarOpen(false);
-            setUnidadAEliminar(null);
-            setSuccessSubtitle('¡Unidad de medida eliminada exitosamente!');
-            setShowSuccessModal(true);
+            try {
+                await deleteUnidadMedida(unidadAEliminar.id);
+                setUnidades(unidades.filter(u => u.id !== unidadAEliminar.id));
+                setIsConfirmarEliminarOpen(false);
+                setUnidadAEliminar(null);
+                setSuccessSubtitle('¡Unidad de medida eliminada exitosamente!');
+                setShowSuccessModal(true);
+            } catch (error) {
+                console.error('Error al eliminar unidad de medida:', error);
+                setShowErrorEliminarModal(true);
+            }
         }
     };
 
-    const handleSaveUnidad = (nuevaUnidad) => {
-        // TODO: Llamar al backend para guardar
-        // const response = await createUnidadMedida(nuevaUnidad);
-        // setUnidades([...unidades, response]);
-        setIsModalNuevaUnidadOpen(false);
-        setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
-        setShowSuccessModal(true);
+    const handleSaveUnidad = async (nuevaUnidad) => {
+        try {
+            const response = await createUnidadMedida(nuevaUnidad);
+            setUnidades([...unidades, response]);
+            setIsModalNuevaUnidadOpen(false);
+            setSuccessSubtitle('¡Unidad de medida guardada exitosamente!');
+            setShowSuccessModal(true);
+        } catch (error) {
+            console.error('Error al guardar unidad de medida:', error);
+            setShowErrorModal(true);
+        }
     };
 
-    const handleUpdateUnidad = (unidadActualizada) => {
-        setUnidades(unidades.map(u => u.id === unidadActualizada.id ? unidadActualizada : u));
-        setIsModalEditarUnidadOpen(false);
-        setSuccessSubtitle('¡Unidad de medida modificada exitosamente!');
-        setShowSuccessModal(true);
+    const handleUpdateUnidad = async (unidadActualizada) => {
+        try {
+            const response = await updateUnidadMedida(unidadActualizada.id, unidadActualizada);
+            setUnidades(unidades.map(u => u.id === unidadActualizada.id ? response : u));
+            setIsModalEditarUnidadOpen(false);
+            setSuccessSubtitle('¡Unidad de medida modificada exitosamente!');
+            setShowSuccessModal(true);
+        } catch (error) {
+            console.error('Error al actualizar unidad de medida:', error);
+            setShowErrorModificarModal(true);
+        }
     };
 
     // Calcular KPIs

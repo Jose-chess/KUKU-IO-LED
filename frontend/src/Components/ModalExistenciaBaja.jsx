@@ -32,7 +32,7 @@ const ModalExistenciaBaja = ({ isOpen, onClose, articulos, position }) => {
                                     <tr key={item.id || idx}>
                                         <td>{item.codigo}</td>
                                         <td>{item.descripcion}</td>
-                                        <td>{item.actual}</td>
+                                        <td>{item.existenciaActual}</td>
                                     </tr>
                                 ))
                             ) : (

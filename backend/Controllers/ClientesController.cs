@@ -1,3 +1,4 @@
+using backend.Models;
 using backend.DTOs;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -48,17 +49,17 @@ public class ClientesController : ControllerBase
 
         try
         {
-            var payload = new
+            var payload = new Cliente
             {
-                nombre        = dto.Nombre.Trim(),
-                apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
-                rnc_cedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
-                direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
-                sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
-                ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
-                telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
-                limite_credito = dto.LimiteCredito,
-                observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
+                Nombre        = dto.Nombre.Trim(),
+                Apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
+                RncCedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
+                Direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
+                Sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
+                Ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
+                Telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
+                LimiteCredito = dto.LimiteCredito,
+                Observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
             };
 
             var resultado = await _clienteService.CreateAsync(payload);
@@ -84,17 +85,17 @@ public class ClientesController : ControllerBase
 
         try
         {
-            var payload = new
+            var payload = new Cliente
             {
-                nombre        = dto.Nombre.Trim(),
-                apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
-                rnc_cedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
-                direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
-                sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
-                ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
-                telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
-                limite_credito = dto.LimiteCredito,
-                observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
+                Nombre        = dto.Nombre.Trim(),
+                Apellido      = string.IsNullOrWhiteSpace(dto.Apellido)    ? null : dto.Apellido.Trim(),
+                RncCedula    = string.IsNullOrWhiteSpace(dto.RncCedula)   ? null : dto.RncCedula.Trim(),
+                Direccion     = string.IsNullOrWhiteSpace(dto.Direccion)   ? null : dto.Direccion.Trim(),
+                Sector        = string.IsNullOrWhiteSpace(dto.Sector)      ? null : dto.Sector.Trim(),
+                Ciudad        = string.IsNullOrWhiteSpace(dto.Ciudad)      ? null : dto.Ciudad.Trim(),
+                Telefono      = string.IsNullOrWhiteSpace(dto.Telefono)    ? null : dto.Telefono.Trim(),
+                LimiteCredito = dto.LimiteCredito,
+                Observacion   = string.IsNullOrWhiteSpace(dto.Observacion) ? null : dto.Observacion.Trim()
             };
 
             var resultado = await _clienteService.UpdateAsync(id, payload);
